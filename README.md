@@ -124,7 +124,7 @@ Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
 
 ## 🔄 Changelog
 
-### v1.1.0 (2025-01-22) - "Achievement Revolution"
+### v1.1.0 (2025-07-22) - "Achievement Revolution"
 - ✅ Système d'achievements centralisé complet
 - ✅ 18+ nouveaux succès avec tracking avancé
 - ✅ Résolution des bugs de timers et messages
