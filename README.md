@@ -35,6 +35,37 @@ Un CV interactif moderne avec système de gamification avancé, développé en H
 - **Réactions aux changements de langue** avec système de combo
 - **Bulles de dialogue** positionnées dynamiquement
 
+## 🚀 Mise à Jour v1.2 - "HUD Revolution"
+
+### ✨ Nouvelles Fonctionnalités Majeures
+- **Système de positionnement HUD complet** avec contrôles de précision
+- **Interface de prévisualisation avancée** avec étiquettes contextuelles
+- **Contrôles granulaires** pour tous les éléments gaming
+- **Nouvelles positions par défaut optimisées** pour une meilleure UX
+- **Presets de layouts** : Compact, Spacieux, avec sauvegarde automatique
+
+### 🎯 Contrôles de Positionnement Intégrés
+- **🐱 Éric (Tamagotchi)** : Position verticale/horizontale + taille (60-120px)
+- **📊 Barre XP/HUD** : Position + échelle (70-130%)
+- **📱 Zone Notifications** : Position verticale/horizontale personnalisable
+- **🏆 Zone Achievements** : Positionnement précis avec étiquettes
+
+### 🔧 Améliorations Techniques v1.2
+- **Positions par défaut optimisées** :
+  - Éric : 3.5rem bas, 2rem droite, 88px
+  - HUD : 5rem bas, 2rem droite
+  - Notifications : 11rem bas, 2rem droite
+  - Achievements : 15.5rem bas, 1rem droite
+- **Prévisualisation intelligente** avec étiquettes contextuelles
+- **Sauvegarde automatique** de toutes les positions dans localStorage
+- **Interface unifiée** dans l'onglet Gaming de la personnalisation
+
+### 🎨 Système de Prévisualisation Avancé
+- **Étiquettes dynamiques** : "🐱 Éric (Chat)", "📊 Barre XP/HUD"
+- **Zones nommées** : "📱 Zone Notifications", "🏆 Zone Achievements"
+- **Mode prévisualisation** avec overlay semi-transparent
+- **Animation de pulsation** pour attirer l'attention sur les éléments
+
 ## 🚀 Mise à Jour v1.1 - "Achievement Revolution"
 
 ### ✨ Nouvelles Fonctionnalités
@@ -103,12 +134,39 @@ git clone https://github.com/Duperopope/SamirMedjaher.git
 2. **Mode Gaming** : Cliquer 3x sur la photo pour débloquer
 3. **Exploration** : Interagir avec tous les éléments pour débloquer des achievements
 4. **Personnalisation** : Utiliser les outils de thème et particules
+5. **🆕 Positionnement HUD** : Onglet Gaming > Prévisualiser > Ajuster les positions
+
+### 🎮 Guide d'Utilisation HUD (v1.2)
+
+#### Accès aux Contrôles
+1. Ouvrir le **panneau de personnalisation** (icône palette)
+2. Aller dans l'onglet **"Gaming"** 
+3. Cliquer sur **"Prévisualiser"** pour voir tous les éléments HUD
+4. Utiliser les **sliders** pour ajuster les positions en temps réel
+
+#### Contrôles Disponibles
+- **Position Éric** : Vertical (1-10rem) + Horizontal (1-10rem) + Taille (60-120px)
+- **Position HUD** : Vertical (5-20rem) + Horizontal (1-10rem) + Échelle (70-130%)
+- **Position Notifications** : Vertical (3-15rem) + Horizontal (1-10rem)
+- **Position Achievements** : Vertical (8-20rem) + Horizontal (0-8rem)
+
+#### Presets Rapides
+- **Reset** : Positions par défaut optimisées
+- **Layout Compact** : Interface resserrée pour petits écrans
+- **Layout Spacieux** : Interface élargie pour grands écrans
+
+#### Fonctionnalités Avancées
+- **Sauvegarde automatique** : Toutes les positions sont persistées
+- **Prévisualisation en temps réel** : Changements instantanés
+- **Étiquettes contextuelles** : Identification claire de chaque élément
+- **Mode overlay** : Prévisualisation non-intrusive avec z-index optimisé
 
 ## 📊 Statistiques de Développement
 
-- **Lignes de code** : ~2600+ lignes
-- **Fonctions JavaScript** : 50+ fonctions
+- **Lignes de code** : ~3200+ lignes
+- **Fonctions JavaScript** : 60+ fonctions
 - **Système d'achievements** : 18+ succès uniques
+- **Contrôles HUD** : 10 paramètres ajustables
 - **Langues supportées** : Français, Anglais
 - **Responsive breakpoints** : Mobile, Tablet, Desktop
 
@@ -123,6 +181,15 @@ git clone https://github.com/Duperopope/SamirMedjaher.git
 Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
 
 ## 🔄 Changelog
+
+### v1.2.0 (2025-07-23) - "HUD Revolution"
+- ✅ Système de positionnement HUD complet et précis
+- ✅ Contrôles granulaires pour tous les éléments gaming
+- ✅ Prévisualisation avancée avec étiquettes contextuelles
+- ✅ Nouvelles positions par défaut optimisées
+- ✅ Presets de layouts (Compact/Spacieux) avec sauvegarde automatique
+- ✅ Interface unifiée dans l'onglet Gaming
+- ✅ Support complet des positions horizontales et verticales
 
 ### v1.1.0 (2025-07-22) - "Achievement Revolution"
 - ✅ Système d'achievements centralisé complet
