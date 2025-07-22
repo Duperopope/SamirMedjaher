@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     
     <style>
-        :root{--primary:#06b6d4;--secondary:#10b981;--accent:#8b5cf6;--dark:#0f172a;--dark-light:#1e293b;--dark-medium:#334155;--text-primary:#e2e8f0;--text-secondary:#94a3b8;--text-muted:#64748b;--game-gold:#fbbf24;--game-xp:#10b981}*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}body{background:linear-gradient(135deg,var(--dark) 0%,var(--dark-light) 50%,var(--dark-medium) 100%);color:var(--text-primary);line-height:1.5;min-height:100vh;position:relative;overflow-x:hidden}#particleCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}.glass-subtle{background:rgba(30,41,59,0.1);backdrop-filter:blur(15px);border-radius:16px;border:1px solid rgba(148,163,184,0.08);box-shadow:0 8px 32px rgba(0,0,0,0.12);position:relative;z-index:1}.glass-card{background:rgba(15,23,42,0.15);backdrop-filter:blur(12px);border-radius:12px;border:1px solid rgba(148,163,184,0.06);transition:all 0.3s ease;position:relative;z-index:1}.glass-card:hover{background:rgba(15,23,42,0.2);border-color:rgba(6,182,212,0.15);transform:translateY(-2px)}.profile-img{width:140px;height:140px;border-radius:50%;border:2px solid var(--primary);box-shadow:0 0 20px rgba(6,182,212,0.15);object-fit:cover;transition:all 0.3s ease;cursor:pointer}.profile-img:hover{transform:scale(1.03);box-shadow:0 0 30px rgba(6,182,212,0.25)}.section-title{font-size:1.25rem;font-weight:600;color:var(--primary);margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem;padding-bottom:0.5rem;border-bottom:1px solid var(--dark-medium)}.contact-item{display:flex;align-items:center;gap:0.5rem;color:var(--text-secondary);padding:0.3rem;border-radius:6px;transition:all 0.3s ease;cursor:pointer}.contact-item:hover{color:var(--text-primary);background:rgba(6,182,212,0.1);transform:translateX(3px)}.contact-item i{color:var(--primary);width:16px;text-align:center;font-size:0.9rem}.skill-bubble{position:relative;background:linear-gradient(135deg,rgba(6,182,212,0.1),rgba(16,185,129,0.08));border:1px solid rgba(6,182,212,0.2);border-radius:20px;padding:0.5rem 0.8rem;text-align:center;cursor:pointer;transition:all 0.3s ease;font-size:0.8rem;margin:0.2rem;display:inline-block}.skill-bubble:hover{transform:translateY(-3px) scale(1.05);background:linear-gradient(135deg,rgba(6,182,212,0.2),rgba(16,185,129,0.15));border-color:rgba(6,182,212,0.4);box-shadow:0 8px 25px rgba(6,182,212,0.3)}.skill-tooltip{position:absolute;bottom:120%;left:50%;transform:translateX(-50%);background:rgba(15,23,42,0.95);backdrop-filter:blur(15px);border:1px solid rgba(6,182,212,0.3);border-radius:8px;padding:0.75rem;font-size:0.7rem;white-space:nowrap;opacity:0;pointer-events:none;transition:all 0.3s ease;z-index:10001;max-width:280px;white-space:normal}.skill-tooltip.show{opacity:1}.typewriter-cursor{display:inline-block;background:var(--primary);width:2px;height:1.2em;margin-left:2px;animation:blink 1s infinite}@keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}.experience-item{position:relative;padding-left:1rem;margin-bottom:1rem}.experience-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--primary),var(--secondary));border-radius:1px}.lang-switch{position:fixed;top:1.5rem;right:1.5rem;background:rgba(30,41,59,0.15);backdrop-filter:blur(15px);border-radius:20px;padding:0.3rem;display:flex;gap:0.3rem;border:1px solid rgba(148,163,184,0.1);z-index:1000}.lang-btn{background:transparent;border:none;color:var(--text-secondary);padding:0.4rem 0.8rem;border-radius:15px;cursor:pointer;font-weight:500;transition:all 0.3s ease;font-size:0.8rem}.lang-btn.active{background:rgba(6,182,212,0.2);color:var(--primary)}.color-picker-trigger{position:fixed;top:1.5rem;right:8rem;width:40px;height:40px;background:rgba(30,41,59,0.15);backdrop-filter:blur(15px);border:1px solid rgba(148,163,184,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:1000;transition:all 0.3s ease}.color-picker-trigger:hover{background:rgba(30,41,59,0.25);border-color:var(--primary);transform:scale(1.1)}.game-toggle{position:fixed;top:1.5rem;right:13rem;background:rgba(139,92,246,0.1);backdrop-filter:blur(15px);border:1px solid rgba(139,92,246,0.2);border-radius:20px;padding:0.3rem 0.8rem;color:var(--accent);cursor:pointer;font-size:0.8rem;transition:all 0.3s ease;z-index:1000;display:none;opacity:0;transform:scale(0.8)}.game-toggle.unlocked{display:block;animation:unlockAnimation 0.8s ease forwards}.game-toggle:hover{background:rgba(139,92,246,0.2);transform:scale(1.05)}@keyframes unlockAnimation{0%{opacity:0;transform:scale(0.8) translateY(-10px)}100%{opacity:1;transform:scale(1) translateY(0)}}.game-hud{position:fixed;top:1rem;left:1rem;z-index:1000;background:rgba(15,23,42,0.8);backdrop-filter:blur(15px);border-radius:12px;padding:0.75rem 1rem;border:1px solid rgba(148,163,184,0.1);display:none;align-items:center;gap:1rem;opacity:0.9;transition:all 0.3s ease}.game-hud.show{display:flex}.game-stat{display:flex;align-items:center;gap:0.3rem;font-size:0.8rem;color:var(--text-secondary)}.game-stat i{color:var(--game-gold)}.xp-bar{width:60px;height:4px;background:rgba(148,163,184,0.2);border-radius:2px;overflow:hidden}.xp-progress{height:100%;background:linear-gradient(90deg,var(--game-xp),var(--primary));border-radius:2px;transition:width 0.5s ease;width:0%}.achievement-toast{position:fixed;top:1rem;right:1rem;background:linear-gradient(135deg,var(--game-gold),#f59e0b);color:white;padding:1rem;border-radius:12px;box-shadow:0 10px 30px rgba(251,191,36,0.3);z-index:10002;transform:translateX(100%);transition:transform 0.5s cubic-bezier(0.4,0,0.2,1);max-width:300px}.achievement-toast.show{transform:translateX(0)}.tamagotchi{position:fixed;bottom:2rem;right:2rem;width:80px;height:80px;background:rgba(15,23,42,0.9);border-radius:50%;border:2px solid var(--primary);display:none;align-items:center;justify-content:center;font-size:2rem;cursor:pointer;z-index:1000;transition:all 0.3s ease}.tamagotchi.show{display:flex}.tamagotchi:hover{transform:scale(1.1)}.color-picker-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(15,23,42,0.9);backdrop-filter:blur(20px);z-index:10000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:all 0.4s ease}.color-picker-overlay.active{opacity:1;pointer-events:all}.color-picker-panel{background:rgba(30,41,59,0.2);backdrop-filter:blur(25px);border:1px solid rgba(148,163,184,0.2);border-radius:24px;padding:2rem;max-width:600px;width:90vw;max-height:80vh;overflow-y:auto;box-shadow:0 25px 50px rgba(0,0,0,0.3)}.tabs{display:flex;gap:1rem;margin-bottom:2rem;border-bottom:1px solid rgba(148,163,184,0.2)}.tab-btn{background:transparent;border:none;color:var(--text-secondary);padding:0.5rem 1rem;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.3s ease}.tab-btn.active{color:var(--primary);border-bottom-color:var(--primary)}.tab-content{display:none}.tab-content.active{display:block}.theme-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:1rem;margin:1rem 0}.theme-preview{width:100px;height:60px;border-radius:12px;border:2px solid transparent;cursor:pointer;transition:all 0.3s ease;position:relative;overflow:hidden}.theme-preview:hover{transform:scale(1.05);border-color:white}.theme-preview.active{border-color:var(--primary)}.language-item{display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,rgba(15,23,42,0.3),rgba(30,41,59,0.2));border-radius:15px;padding:1rem;border:1px solid rgba(6,182,212,0.15);margin-bottom:0.8rem}.cecrl-badge{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:0.2rem 0.6rem;border-radius:12px;font-size:0.75rem;font-weight:600}.download-btn{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:0.8rem 1.5rem;border-radius:8px;border:none;cursor:pointer;font-weight:600;transition:all 0.3s ease;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem}.download-btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(6,182,212,0.3)}.main-grid{display:grid;grid-template-columns:1fr 2fr;gap:2rem;max-width:1100px;margin:0 auto;padding:2rem;position:relative;z-index:1}.portfolio-section{width:100%;max-width:1400px;margin:2rem auto 0;padding:0 2rem;position:relative;z-index:1}.portfolio-grid{display:flex;gap:1rem;overflow-x:auto;padding:1rem 0;scroll-behavior:smooth}.portfolio-card{background:linear-gradient(145deg,rgba(30,41,59,0.08),rgba(15,23,42,0.12));border:1px solid rgba(6,182,212,0.15);border-radius:24px;overflow:hidden;position:relative;backdrop-filter:blur(20px);transition:all 0.6s ease;cursor:pointer;min-width:300px;max-width:350px;flex-shrink:0}.portfolio-card:hover{transform:translateY(-8px) scale(1.02);border-color:rgba(6,182,212,0.4);box-shadow:0 20px 40px rgba(0,0,0,0.2),0 0 60px rgba(6,182,212,0.15)}.video-thumbnail{width:100%;height:180px;background:var(--dark-medium);position:relative;overflow:hidden}.video-thumbnail img{width:100%;height:100%;object-fit:cover}.video-description{padding:1.5rem}.carousel-nav{position:absolute;top:50%;background:rgba(15,23,42,0.8);border:none;color:var(--primary);width:40px;height:40px;border-radius:50%;cursor:pointer;z-index:10;transform:translateY(-50%);transition:all 0.3s ease}.carousel-nav:hover{background:rgba(6,182,212,0.2)}.carousel-prev{left:10px}.carousel-next{right:10px}.theater-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(15,23,42,0.95);backdrop-filter:blur(20px);z-index:10000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:all 0.4s ease}.theater-overlay.active{opacity:1;pointer-events:all}.theater-content{display:grid;grid-template-columns:2fr 1fr;gap:2rem;max-width:90vw;max-height:80vh}.theater-video{width:100%;height:60vh;border-radius:15px;border:none}.video-explanation{background:rgba(15,23,42,0.8);backdrop-filter:blur(15px);border-radius:15px;padding:1.5rem;border:1px solid rgba(6,182,212,0.2);max-height:60vh;overflow-y:auto;font-family:'Fira Code',monospace;font-size:13px;line-height:1.5}.close-theater{position:absolute;top:2rem;right:2rem;background:rgba(220,38,38,0.8);border:none;border-radius:50%;width:50px;height:50px;color:white;font-size:24px;cursor:pointer;transition:all 0.3s ease}.close-theater:hover{background:rgba(220,38,38,1);transform:scale(1.1)}.scroll-indicator{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:rgba(6,182,212,0.1);backdrop-filter:blur(15px);border:1px solid rgba(6,182,212,0.2);border-radius:30px;padding:1rem 1.5rem;display:flex;align-items:center;gap:0.5rem;color:var(--primary);cursor:pointer;transition:all 0.3s ease;z-index:1000;animation:pulseGlow 3s infinite}.scroll-indicator:hover{transform:translateX(-50%) translateY(-5px);background:rgba(6,182,212,0.15)}.scroll-arrow{animation:bounceDown 2s infinite}@keyframes bounceDown{0%,20%,50%,80%,100%{transform:translateY(0)}40%{transform:translateY(-10px)}60%{transform:translateY(-5px)}}@keyframes pulseGlow{0%,100%{box-shadow:0 0 5px rgba(6,182,212,0.2)}50%{box-shadow:0 0 20px rgba(6,182,212,0.4)}}.particle-controls{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0}.control-group{display:flex;flex-direction:column;gap:0.5rem}.control-group label{font-size:0.8rem;color:var(--text-secondary)}.control-input{background:rgba(15,23,42,0.5);border:1px solid rgba(148,163,184,0.2);border-radius:6px;padding:0.5rem;color:var(--text-primary)}.preset-buttons{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:0.5rem;margin:1rem 0}.preset-btn{background:rgba(6,182,212,0.1);border:1px solid rgba(6,182,212,0.2);border-radius:8px;padding:0.5rem;color:var(--primary);cursor:pointer;transition:all 0.3s ease}.preset-btn:hover,.preset-btn.active{background:rgba(6,182,212,0.2);border-color:rgba(6,182,212,0.4)}@media (max-width:968px){.main-grid{grid-template-columns:1fr;padding:1rem}.lang-switch{top:1rem;right:1rem}.color-picker-trigger{top:1rem;right:6rem}.game-toggle{top:1rem;right:11rem}.theater-content{grid-template-columns:1fr;padding:1rem}.theater-video{height:40vh}}.fade-in{animation:fadeIn 0.6s ease}@keyframes fadeIn{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}.documentation-section{background:rgba(15,23,42,0.3);border-radius:12px;padding:1.5rem;margin:1rem 0}.faq-item{border-bottom:1px solid rgba(148,163,184,0.1);padding:1rem 0}.faq-question{cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:500}.faq-answer{margin-top:0.5rem;color:var(--text-secondary);display:none}.faq-item.open .faq-answer{display:block}.mini-game-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(15,23,42,0.95);backdrop-filter:blur(20px);z-index:10000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:all 0.5s ease}.mini-game-overlay.active{opacity:1;pointer-events:all}.mini-game{background:rgba(30,41,59,0.2);backdrop-filter:blur(25px);border-radius:24px;padding:2rem;max-width:600px;width:90vw;border:1px solid rgba(148,163,184,0.2)}.code-puzzle{background:rgba(15,23,42,0.8);border-radius:12px;padding:1.5rem;margin:1rem 0;font-family:'Fira Code',monospace;border:1px solid rgba(6,182,212,0.2)}.qcm-options{display:grid;gap:0.5rem;margin:1rem 0}.qcm-option{background:rgba(15,23,42,0.3);border:1px solid rgba(148,163,184,0.3);border-radius:8px;padding:0.75rem;color:var(--text-primary);cursor:pointer;transition:all 0.3s ease;text-align:left}.qcm-option:hover:not(:disabled){background:rgba(6,182,212,0.1);border-color:rgba(6,182,212,0.3)}.qcm-option:disabled{cursor:not-allowed;opacity:0.7}.game-button{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;border:none;padding:0.75rem 1.5rem;border-radius:8px;cursor:pointer;font-weight:600;transition:all 0.3s ease;margin:0.5rem}.game-button:hover{transform:translateY(-2px);box-shadow:0 5px 15px rgba(6,182,212,0.3)}.portrait-dialogue{position:fixed;background:rgba(15,23,42,0.98);border:2px solid var(--primary);border-radius:15px;padding:1rem;max-width:280px;min-height:60px;font-size:0.8rem;opacity:0;pointer-events:none;transition:all 0.3s ease;z-index:10005;box-shadow:0 15px 40px rgba(0,0,0,0.5);backdrop-filter:blur(15px);display:flex;align-items:center}.portrait-dialogue.show{opacity:1;pointer-events:all}.portrait-dialogue::after{content:'';position:absolute;border:10px solid transparent;z-index:-1}.portrait-dialogue.arrow-bottom::after{top:100%;left:var(--arrow-offset, 50%);transform:translateX(-50%);border-top-color:var(--primary)}.portrait-dialogue.arrow-top::after{bottom:100%;left:var(--arrow-offset, 50%);transform:translateX(-50%);border-bottom-color:var(--primary)}.portrait-dialogue.arrow-left::after{top:var(--arrow-offset, 50%);right:100%;transform:translateY(-50%);border-right-color:var(--primary)}.portrait-dialogue.arrow-right::after{top:var(--arrow-offset, 50%);left:100%;transform:translateY(-50%);border-left-color:var(--primary)}.game-notification{position:fixed;bottom:6rem;right:2rem;background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:1rem;border-radius:12px;max-width:280px;opacity:0;transform:translateX(100%);transition:all 0.5s ease;z-index:10001}.game-notification.show{opacity:1;transform:translateX(0)}.tech-tag{background:rgba(6,182,212,0.1);color:var(--primary);padding:0.2rem 0.6rem;border-radius:12px;font-size:0.7rem;border:1px solid rgba(6,182,212,0.2);margin:0.2rem}
+        :root{--primary:#06b6d4;--secondary:#10b981;--accent:#8b5cf6;--dark:#0f172a;--dark-light:#1e293b;--dark-medium:#334155;--text-primary:#e2e8f0;--text-secondary:#94a3b8;--text-muted:#64748b;--game-gold:#fbbf24;--game-xp:#10b981}*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}body{background:linear-gradient(135deg,var(--dark) 0%,var(--dark-light) 50%,var(--dark-medium) 100%);color:var(--text-primary);line-height:1.5;min-height:100vh;position:relative;overflow-x:hidden}#particleCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}.glass-subtle{background:rgba(30,41,59,0.1);backdrop-filter:blur(15px);border-radius:16px;border:1px solid rgba(148,163,184,0.08);box-shadow:0 8px 32px rgba(0,0,0,0.12);position:relative;z-index:1}.glass-card{background:rgba(15,23,42,0.15);backdrop-filter:blur(12px);border-radius:12px;border:1px solid rgba(148,163,184,0.06);transition:all 0.3s ease;position:relative;z-index:1}.glass-card:hover{background:rgba(15,23,42,0.2);border-color:rgba(6,182,212,0.15);transform:translateY(-2px)}.profile-img{width:140px;height:140px;border-radius:50%;border:2px solid var(--primary);box-shadow:0 0 20px rgba(6,182,212,0.15);object-fit:cover;transition:all 0.3s ease;cursor:pointer}.profile-img:hover{transform:scale(1.03);box-shadow:0 0 30px rgba(6,182,212,0.25)}.section-title{font-size:1.25rem;font-weight:600;color:var(--primary);margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem;padding-bottom:0.5rem;border-bottom:1px solid var(--dark-medium)}.contact-item{display:flex;align-items:center;gap:0.5rem;color:var(--text-secondary);padding:0.3rem;border-radius:6px;transition:all 0.3s ease;cursor:pointer}.contact-item:hover{color:var(--text-primary);background:rgba(6,182,212,0.1);transform:translateX(3px)}.contact-item i{color:var(--primary);width:16px;text-align:center;font-size:0.9rem}.skill-bubble{position:relative;background:linear-gradient(135deg,rgba(6,182,212,0.1),rgba(16,185,129,0.08));border:1px solid rgba(6,182,212,0.2);border-radius:20px;padding:0.5rem 0.8rem;text-align:center;cursor:pointer;transition:all 0.3s ease;font-size:0.8rem;margin:0.2rem;display:inline-block}.skill-bubble:hover{transform:translateY(-3px) scale(1.05);background:linear-gradient(135deg,rgba(6,182,212,0.2),rgba(16,185,129,0.15));border-color:rgba(6,182,212,0.4);box-shadow:0 8px 25px rgba(6,182,212,0.3)}.skill-tooltip{position:absolute;bottom:120%;left:50%;transform:translateX(-50%);background:rgba(15,23,42,0.95);backdrop-filter:blur(15px);border:1px solid rgba(6,182,212,0.3);border-radius:8px;padding:0.75rem;font-size:0.7rem;white-space:nowrap;opacity:0;pointer-events:none;transition:all 0.3s ease;z-index:10001;max-width:280px;white-space:normal}.skill-tooltip.show{opacity:1}.typewriter-cursor{display:inline-block;background:var(--primary);width:2px;height:1.2em;margin-left:2px;animation:blink 1s infinite}@keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}.experience-item{position:relative;padding-left:1rem;margin-bottom:1rem}.experience-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--primary),var(--secondary));border-radius:1px}.lang-switch{position:fixed;top:1.5rem;right:1.5rem;background:rgba(30,41,59,0.15);backdrop-filter:blur(15px);border-radius:20px;padding:0.3rem;display:flex;gap:0.3rem;border:1px solid rgba(148,163,184,0.1);z-index:1000}.lang-btn{background:transparent;border:none;color:var(--text-secondary);padding:0.4rem 0.8rem;border-radius:15px;cursor:pointer;font-weight:500;transition:all 0.3s ease;font-size:0.8rem}.lang-btn.active{background:rgba(6,182,212,0.2);color:var(--primary)}.color-picker-trigger{position:fixed;top:1.5rem;right:8rem;width:40px;height:40px;background:rgba(30,41,59,0.15);backdrop-filter:blur(15px);border:1px solid rgba(148,163,184,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:1000;transition:all 0.3s ease}.color-picker-trigger:hover{background:rgba(30,41,59,0.25);border-color:var(--primary);transform:scale(1.1)}.game-toggle{position:fixed;top:1.5rem;right:13rem;background:rgba(139,92,246,0.1);backdrop-filter:blur(15px);border:1px solid rgba(139,92,246,0.2);border-radius:20px;padding:0.3rem 0.8rem;color:var(--accent);cursor:pointer;font-size:0.8rem;transition:all 0.3s ease;z-index:1000;display:none;opacity:0;transform:scale(0.8)}.game-toggle.unlocked{display:block;animation:unlockAnimation 0.8s ease forwards}.game-toggle:hover{background:rgba(139,92,246,0.2);transform:scale(1.05)}@keyframes unlockAnimation{0%{opacity:0;transform:scale(0.8) translateY(-10px)}100%{opacity:1;transform:scale(1) translateY(0)}}.game-hud{position:fixed;top:1rem;left:1rem;z-index:1000;background:rgba(15,23,42,0.8);backdrop-filter:blur(15px);border-radius:12px;padding:0.75rem 1rem;border:1px solid rgba(148,163,184,0.1);display:none;align-items:center;gap:1rem;opacity:0.9;transition:all 0.3s ease}.game-hud.show{display:flex}.game-stat{display:flex;align-items:center;gap:0.3rem;font-size:0.8rem;color:var(--text-secondary)}.game-stat i{color:var(--game-gold)}.xp-bar{width:60px;height:4px;background:rgba(148,163,184,0.2);border-radius:2px;overflow:hidden}.xp-progress{height:100%;background:linear-gradient(90deg,var(--game-xp),var(--primary));border-radius:2px;transition:width 0.5s ease;width:0%}.achievement-toast{position:fixed;top:1rem;right:1rem;background:linear-gradient(135deg,var(--game-gold),#f59e0b);color:white;padding:1rem;border-radius:12px;box-shadow:0 10px 30px rgba(251,191,36,0.3);z-index:10002;transform:translateX(100%);transition:transform 0.5s cubic-bezier(0.4,0,0.2,1);max-width:300px}.achievement-toast.show{transform:translateX(0)}.tamagotchi{position:fixed;bottom:2rem;right:2rem;width:80px;height:80px;background:rgba(15,23,42,0.9);border-radius:50%;border:2px solid var(--primary);display:none;align-items:center;justify-content:center;font-size:2rem;cursor:pointer;z-index:1000;transition:all 0.3s ease}.tamagotchi.show{display:flex}.tamagotchi:hover{transform:scale(1.1)}.color-picker-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(15,23,42,0.9);backdrop-filter:blur(20px);z-index:10000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:all 0.4s ease}.color-picker-overlay.active{opacity:1;pointer-events:all}.color-picker-panel{background:rgba(30,41,59,0.2);backdrop-filter:blur(25px);border:1px solid rgba(148,163,184,0.2);border-radius:24px;padding:2rem;max-width:600px;width:90vw;max-height:80vh;overflow-y:auto;box-shadow:0 25px 50px rgba(0,0,0,0.3)}.tabs{display:flex;gap:1rem;margin-bottom:2rem;border-bottom:1px solid rgba(148,163,184,0.2)}.tab-btn{background:transparent;border:none;color:var(--text-secondary);padding:0.5rem 1rem;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.3s ease}.tab-btn.active{color:var(--primary);border-bottom-color:var(--primary)}.tab-content{display:none}.tab-content.active{display:block}.theme-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:1rem;margin:1rem 0}.theme-preview{width:100px;height:60px;border-radius:12px;border:2px solid transparent;cursor:pointer;transition:all 0.3s ease;position:relative;overflow:hidden}.theme-preview:hover{transform:scale(1.05);border-color:white}.theme-preview.active{border-color:var(--primary)}.language-item{display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,rgba(15,23,42,0.3),rgba(30,41,59,0.2));border-radius:15px;padding:1rem;border:1px solid rgba(6,182,212,0.15);margin-bottom:0.8rem}.cecrl-badge{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:0.2rem 0.6rem;border-radius:12px;font-size:0.75rem;font-weight:600}.download-btn{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:0.8rem 1.5rem;border-radius:8px;border:none;cursor:pointer;font-weight:600;transition:all 0.3s ease;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem}.download-btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(6,182,212,0.3)}.main-grid{display:grid;grid-template-columns:1fr 2fr;gap:2rem;max-width:1100px;margin:0 auto;padding:2rem;position:relative;z-index:1}.portfolio-section{width:100%;max-width:1400px;margin:2rem auto 0;padding:0 2rem;position:relative;z-index:1}.portfolio-grid{display:flex;gap:1rem;overflow-x:auto;padding:1rem 0;scroll-behavior:smooth}.portfolio-card{background:linear-gradient(145deg,rgba(30,41,59,0.08),rgba(15,23,42,0.12));border:1px solid rgba(6,182,212,0.15);border-radius:24px;overflow:hidden;position:relative;backdrop-filter:blur(20px);transition:all 0.6s ease;cursor:pointer;min-width:300px;max-width:350px;flex-shrink:0}.portfolio-card:hover{transform:translateY(-8px) scale(1.02);border-color:rgba(6,182,212,0.4);box-shadow:0 20px 40px rgba(0,0,0,0.2),0 0 60px rgba(6,182,212,0.15)}.video-thumbnail{width:100%;height:180px;background:var(--dark-medium);position:relative;overflow:hidden}.video-thumbnail img{width:100%;height:100%;object-fit:cover}.video-description{padding:1.5rem}.carousel-nav{position:absolute;top:50%;background:rgba(15,23,42,0.8);border:none;color:var(--primary);width:40px;height:40px;border-radius:50%;cursor:pointer;z-index:10;transform:translateY(-50%);transition:all 0.3s ease}.carousel-nav:hover{background:rgba(6,182,212,0.2)}.carousel-prev{left:10px}.carousel-next{right:10px}.theater-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(15,23,42,0.95);backdrop-filter:blur(20px);z-index:10000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:all 0.4s ease}.theater-overlay.active{opacity:1;pointer-events:all}.theater-content{display:grid;grid-template-columns:2fr 1fr;gap:2rem;max-width:90vw;max-height:80vh}.theater-video{width:100%;height:60vh;border-radius:15px;border:none}.video-explanation{background:rgba(15,23,42,0.8);backdrop-filter:blur(15px);border-radius:15px;padding:1.5rem;border:1px solid rgba(6,182,212,0.2);max-height:60vh;overflow-y:auto;font-family:'Fira Code',monospace;font-size:13px;line-height:1.5}.close-theater{position:absolute;top:2rem;right:2rem;background:rgba(220,38,38,0.8);border:none;border-radius:50%;width:50px;height:50px;color:white;font-size:24px;cursor:pointer;transition:all 0.3s ease}.close-theater:hover{background:rgba(220,38,38,1);transform:scale(1.1)}.scroll-indicator{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:rgba(6,182,212,0.1);backdrop-filter:blur(15px);border:1px solid rgba(6,182,212,0.2);border-radius:30px;padding:1rem 1.5rem;display:flex;align-items:center;gap:0.5rem;color:var(--primary);cursor:pointer;transition:all 0.3s ease;z-index:1000;animation:pulseGlow 3s infinite}.scroll-indicator:hover{transform:translateX(-50%) translateY(-5px);background:rgba(6,182,212,0.15)}.scroll-arrow{animation:bounceDown 2s infinite}@keyframes bounceDown{0%,20%,50%,80%,100%{transform:translateY(0)}40%{transform:translateY(-10px)}60%{transform:translateY(-5px)}}@keyframes pulseGlow{0%,100%{box-shadow:0 0 5px rgba(6,182,212,0.2)}50%{box-shadow:0 0 20px rgba(6,182,212,0.4)}}.particle-controls{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0}.control-group{display:flex;flex-direction:column;gap:0.5rem}.control-group label{font-size:0.8rem;color:var(--text-secondary)}.control-input{background:rgba(15,23,42,0.5);border:1px solid rgba(148,163,184,0.2);border-radius:6px;padding:0.5rem;color:var(--text-primary)}.preset-buttons{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:0.5rem;margin:1rem 0}.preset-btn{background:rgba(6,182,212,0.1);border:1px solid rgba(6,182,212,0.2);border-radius:8px;padding:0.5rem;color:var(--primary);cursor:pointer;transition:all 0.3s ease}.preset-btn:hover,.preset-btn.active{background:rgba(6,182,212,0.2);border-color:rgba(6,182,212,0.4)}@media (max-width:968px){.main-grid{grid-template-columns:1fr;padding:1rem}.lang-switch{top:1rem;right:1rem}.color-picker-trigger{top:1rem;right:6rem}.game-toggle{top:1rem;right:11rem}.theater-content{grid-template-columns:1fr;padding:1rem}.theater-video{height:40vh}}.fade-in{animation:fadeIn 0.6s ease}@keyframes fadeIn{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}.documentation-section{background:rgba(15,23,42,0.3);border-radius:12px;padding:1.5rem;margin:1rem 0}.faq-item{border-bottom:1px solid rgba(148,163,184,0.1);padding:1rem 0}.faq-question{cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:500}.faq-answer{margin-top:0.5rem;color:var(--text-secondary);display:none}.faq-item.open .faq-answer{display:block}.mini-game-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(15,23,42,0.95);backdrop-filter:blur(20px);z-index:10000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:all 0.5s ease}.mini-game-overlay.active{opacity:1;pointer-events:all}.mini-game{background:rgba(30,41,59,0.2);backdrop-filter:blur(25px);border-radius:24px;padding:2rem;max-width:600px;width:90vw;border:1px solid rgba(148,163,184,0.2)}.code-puzzle{background:rgba(15,23,42,0.8);border-radius:12px;padding:1.5rem;margin:1rem 0;font-family:'Fira Code',monospace;border:1px solid rgba(6,182,212,0.2)}.qcm-options{display:grid;gap:0.5rem;margin:1rem 0}.qcm-option{background:rgba(15,23,42,0.3);border:1px solid rgba(148,163,184,0.3);border-radius:8px;padding:0.75rem;color:var(--text-primary);cursor:pointer;transition:all 0.3s ease;text-align:left}.qcm-option:hover:not(:disabled){background:rgba(6,182,212,0.1);border-color:rgba(6,182,212,0.3)}.qcm-option:disabled{cursor:not-allowed;opacity:0.7}.game-button{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;border:none;padding:0.75rem 1.5rem;border-radius:8px;cursor:pointer;font-weight:600;transition:all 0.3s ease;margin:0.5rem}.game-button:hover{transform:translateY(-2px);box-shadow:0 5px 15px rgba(6,182,212,0.3)}.portrait-dialogue{position:absolute;top:-80px;left:50%;transform:translateX(-50%);background:rgba(15,23,42,0.95);border:2px solid var(--primary);border-radius:15px;padding:1rem;max-width:250px;font-size:0.8rem;opacity:0;pointer-events:none;transition:all 0.3s ease;z-index:10001}.portrait-dialogue.show{opacity:1;pointer-events:all}.portrait-dialogue::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:10px solid transparent;border-top-color:var(--primary)}.game-notification{position:fixed;bottom:6rem;right:2rem;background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:1rem;border-radius:12px;max-width:280px;opacity:0;transform:translateX(100%);transition:all 0.5s ease;z-index:10001}.game-notification.show{opacity:1;transform:translateX(0)}.tech-tag{background:rgba(6,182,212,0.1);color:var(--primary);padding:0.2rem 0.6rem;border-radius:12px;font-size:0.7rem;border:1px solid rgba(6,182,212,0.2);margin:0.2rem}
     </style>
 </head>
 <body>
@@ -202,30 +202,16 @@
             <!-- Gaming Tab -->
             <div id="gamingTab" class="tab-content">
                 <div class="documentation-section">
-                    <h4 class="text-lg font-semibold mb-4 text-white">🎮 Mode Gaming</h4>
-                    <div class="space-y-6">
-                        <!-- Stats Section -->
-                        <div class="bg-gray-800 bg-opacity-30 rounded-lg p-4">
-                            <h5 class="text-md font-medium mb-3 text-white">📊 Statistiques</h5>
-                            <div class="space-y-2">
-                                <p class="text-sm text-gray-300">Score Total: <span id="totalScore" class="text-primary font-bold">0</span></p>
-                                <p class="text-sm text-gray-300">Succès: <span id="totalAchievements" class="text-primary font-bold">0</span>/<span id="maxAchievements" class="text-secondary font-bold">0</span></p>
-                                <p class="text-sm text-gray-300">Niveau d'éric: <span id="tamaLevel" class="text-primary font-bold">1</span></p>
-                            </div>
+                    <h4 class="text-lg font-semibold mb-2 text-white">🎮 Mode Gaming</h4>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="text-sm text-gray-300">Score Total: <span id="totalScore" class="text-primary font-bold">0</span></p>
+                            <p class="text-sm text-gray-300">Achievements: <span id="totalAchievements" class="text-primary font-bold">0</span>/10</p>
+                            <p class="text-sm text-gray-300">Niveau d'éric: <span id="tamaLevel" class="text-primary font-bold">1</span></p>
                         </div>
-
-                        <!-- Achievements Section -->
-                        <div class="bg-gray-800 bg-opacity-30 rounded-lg p-4">
-                            <h5 class="text-md font-medium mb-3 text-white">🏆 Succès Débloqués</h5>
-                            <div id="achievementsList" class="space-y-2 max-h-40 overflow-y-auto">
-                                <p class="text-xs text-gray-400 italic">Aucun succès débloqué pour le moment</p>
-                            </div>
-                        </div>
-
-                        <!-- Actions Section -->
-                        <div class="space-y-2">
-                            <button class="game-button w-full" onclick="startMiniGame()">🧩 Mini-Jeu</button>
-                            <button class="game-button w-full bg-red-600 hover:bg-red-700" onclick="resetProfile()">🔄 Reset Profile</button>
+                        <div class="flex gap-2">
+                            <button class="game-button" onclick="startMiniGame()">🧩 Mini-Jeu</button>
+                            <button class="game-button" onclick="resetGameStats()">🔄 Reset Stats</button>
                         </div>
                     </div>
                 </div>
@@ -292,6 +278,9 @@
                          id="profileImage"
                          onclick="triggerPortraitDialogue()"
                          onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22 viewBox=%220 0 140 140%22%3E%3Ccircle cx=%2270%22 cy=%2270%22 r=%2270%22 fill=%22%23334155%22/%3E%3Ctext x=%2270%22 y=%2280%22 text-anchor=%22middle%22 fill=%22%236b21f8%22 font-size=%2248%22 font-family=%22Inter%22 font-weight=%22600%22%3ESM%3C/text%3E%3C/svg%3E'">
+                    <div class="portrait-dialogue" id="portraitDialogue">
+                        <span id="portraitText"></span>
+                    </div>
                 </div>
                 
                 <h1 class="text-2xl font-bold text-white mb-2" style="color: var(--primary);">
@@ -497,111 +486,17 @@
         <i class="fas fa-chevron-down scroll-arrow"></i>
     </div>
 
-    <!-- Portrait Dialogue -->
-    <div class="portrait-dialogue" id="portraitDialogue">
-        <span id="portraitText"></span>
-    </div>
-
     <script>
         // Global Variables
         let currentLang = localStorage.getItem('preferredLanguage') || 'fr';
         let particleSystem;
         let gamingMode = localStorage.getItem('gamingMode') === 'true';
-        
-        // Load game stats with proper Set conversion
-        let gameStats = (() => {
-            const saved = JSON.parse(localStorage.getItem('gameStats') || '{"score":0,"xp":0,"level":1,"achievements":[],"tamaLevel":1,"skillsExplored":[],"videosWatched":[]}');
-            return {
-                ...saved,
-                skillsExplored: new Set(saved.skillsExplored || []),
-                videosWatched: new Set(saved.videosWatched || [])
-            };
-        })();
-        
+        let gameStats = JSON.parse(localStorage.getItem('gameStats') || '{"score":0,"xp":0,"level":1,"achievements":[],"tamaLevel":1}');
         let currentTheme = JSON.parse(localStorage.getItem('cv-theme') || '{"name":"Classic","primary":"#06b6d4","secondary":"#10b981","accent":"#8b5cf6"}');
         let typewriterInstances = new Map();
         let carouselIndex = 0;
         let portraitClicks = parseInt(localStorage.getItem('portraitClicks') || '0');
         let gamingUnlocked = localStorage.getItem('gamingUnlocked') === 'true';
-        
-        // Language switching tracking
-        let languageSwitchCount = 0;
-        let lastSwitchTime = 0;
-        let rapidSwitchMode = false;
-        let rapidSwitchCounter = 0;
-        
-        // Initialize timer variable
-        window.portraitDialogueTimeout = null;
-        
-        // Portrait message cycling system
-        if (!window.portraitMessageCycle) {
-            window.portraitMessageCycle = {
-                fr: { available: [], seen: new Set() },
-                en: { available: [], seen: new Set() }
-            };
-        }
-
-        // Welcome message system
-        const welcomeMessages = {
-            fr: {
-                first: [
-                    "Bienvenue sur mon CV interactif ! 👋",
-                    "Salut ! Prêt pour une visite guidée ?",
-                    "Bonjour ! Explorez mon univers tech !",
-                    "Hey ! Bienvenue dans mon portfolio digital !"
-                ],
-                return: [
-                    "Ah ! Ravi de vous revoir ! 😊",
-                    "De retour ? J'espère que ça vous plaît !",
-                    "Content de vous retrouver ! 🎉",
-                    "Vous revoilà ! Merci de revenir !"
-                ]
-            },
-            en: {
-                first: [
-                    "Welcome to my interactive CV! 👋",
-                    "Hi! Ready for a guided tour?",
-                    "Hello! Explore my tech universe!",
-                    "Hey! Welcome to my digital portfolio!"
-                ],
-                return: [
-                    "Ah! Great to see you again! 😊",
-                    "Back again? I hope you like it!",
-                    "Happy to see you back! 🎉",
-                    "You're back! Thanks for returning!"
-                ]
-            }
-        };
-
-        // Language switch messages
-        const languageSwitchMessages = {
-            toFrench: [
-                "Ah ! Je peux parler français ! 🇫🇷",
-                "Parfait ! Passons au français ! 😊",
-                "Très bien ! En français maintenant !",
-                "Super ! Français activé ! ✨"
-            ],
-            toEnglish: [
-                "Great! I can speak English! 🇬🇧",
-                "Perfect! Let's switch to English! 😊",
-                "Wonderful! English mode activated!",
-                "Awesome! English it is! ✨"
-            ],
-            confusion: [
-                "Ahhh j'en perds mon latin ! Suis-je polyglotte ? 🤯",
-                "Ahhh I'm losing my Latin! Am I multilingual? 🤯"
-            ],
-            funny: [
-                "Vous trouvez ça funny ? Moi aussi ! 😄",
-                "Do you find it drôle? Me too! 😄"
-            ],
-            philosophical: [
-                "La vie est un livre, aurez-vous le temps d'écrire le vôtre ? 📖✨"
-            ],
-            wisdom: [
-                "La sagesse s'acquiert à force de faire des bêtises... ou l'inverse ? 🤔💫"
-            ]
-        };
         
         const tamaIcons = {
         normal:   'https://cdn-icons-png.flaticon.com/64/1998/1998661.png',
@@ -806,50 +701,8 @@
 
         // Portrait Messages
         const portraitMessages = {
-            fr: [
-                "Je transforme le café en code depuis 2023 !",
-                "Mes bugs sont des features non documentées 😏",
-                "Level design IRL : j'optimise tout, même ma routine café",
-                "Python et moi, c'est une histoire d'amour... compliquée",
-                "Je debug le hardware comme je debug le code : avec patience",
-                "Unreal Engine m'a appris que les rêves peuvent être procéduraux",
-                "Mon GitHub, c'est mon jardin secret... mais public",
-                "Entre Wales et Lyon, mon anglais a survécu aux accents 🏴󠁧󠁢󠁷󠁬󠁳󠁿",
-                "Je fais du Blender sans mixeur, ça vous épate ?",
-                "38 ans, reconversion assumée, passion intacte !",
-                "Mes algorithmes de pathfinding marchent mieux que mon GPS 🗺️",
-                "Je code en C++ mais je rêve en Blueprint",
-                "Stack Overflow est mon meilleur ami... et parfois mon pire ennemi",
-                "Je collecte les erreurs de compilation comme d'autres les timbres",
-                "Mon IDE préféré ? Celui qui ne crash pas le lundi matin ☕",
-                "Je pense que les gens normaux n'ont pas 47 onglets ouverts",
-                "Entre deux lignes de code, je modélise des mondes en 3D",
-                "Ma définition du multitâche : compiler en regardant YouTube",
-                "Je traduis 'ça marche sur ma machine' en anglais couramment",
-                "Les réunions sont mes boss fights les plus difficiles 🎮"
-            ],
-            en: [
-                "I've been turning coffee into code since 2023!",
-                "My bugs are undocumented features 😏",
-                "Level design IRL: I optimize everything, even my coffee routine",
-                "Python and I have a complicated love story",
-                "I debug hardware like I debug code: with patience",
-                "Unreal Engine taught me that dreams can be procedural",
-                "My GitHub is my secret garden... but public",
-                "Between Wales and Lyon, my English survived the accents 🏴󠁧󠁢󠁷󠁬󠁳󠁿",
-                "I do Blender without a blender, impressed?",
-                "38 years old, career change assumed, passion intact!",
-                "My pathfinding algorithms work better than my GPS 🗺️",
-                "I code in C++ but dream in Blueprint",
-                "Stack Overflow is my best friend... and sometimes my worst enemy",
-                "I collect compilation errors like others collect stamps",
-                "My favorite IDE? The one that doesn't crash on Monday morning ☕",
-                "I think normal people don't have 47 tabs open",
-                "Between two lines of code, I model 3D worlds",
-                "My definition of multitasking: compiling while watching YouTube",
-                "I fluently translate 'it works on my machine' into English",
-                "Meetings are my most difficult boss fights 🎮"
-            ]
+            fr: ["Je transforme le café en code depuis 2023 !", "Mes bugs sont des features non documentées 😏", "Level design IRL : j'optimise tout, même ma routine café", "Python et moi, c'est une histoire d'amour... compliquée", "Je debug le hardware comme je debug le code : avec patience", "Unreal Engine m'a appris que les rêves peuvent être procéduraux", "Mon GitHub, c'est mon jardin secret... mais public", "Entre Wales et Lyon, mon anglais a survécu aux accents 🏴󠁧󠁢󠁷󠁬󠁳󠁿", "Je fais du Blender sans mixeur, ça vous épate ?", "38 ans, reconversion assumée, passion intacte !"],
+            en: ["I've been turning coffee into code since 2023!", "My bugs are undocumented features 😏", "Level design IRL: I optimize everything, even my coffee routine", "Python and I have a complicated love story", "I debug hardware like I debug code: with patience", "Unreal Engine taught me that dreams can be procedural", "My GitHub is my secret garden... but public", "Between Wales and Lyon, my English survived the accents 🏴󠁧󠁢󠁷󠁬󠁳󠁿", "I do Blender without a blender, impressed?", "38 years old, career change assumed, passion intact!"]
         };
 
         // Quiz Puzzles
@@ -920,7 +773,6 @@
                 this.isTyping = false;
                 this.showCursor = options.showCursor !== false;
                 this.isStopped = false;
-                this.dialogue = options.dialogue; // Reference to the dialogue container
             }
 
             type() {
@@ -957,11 +809,6 @@
                     this.element.textContent += char;
                 }
 
-                // Adjust dialogue position as it grows (for portrait dialogue)
-                if (this.dialogue && this.dialogue.id === 'portraitDialogue') {
-                    this.adjustDialoguePosition();
-                }
-
                 this.currentIndex++;
                 let delay = this.speed;
                 
@@ -974,33 +821,6 @@
                 }
 
                 setTimeout(() => this.typeNextChar(), Math.max(20, delay));
-            }
-
-            adjustDialoguePosition() {
-                if (!this.dialogue || !this.dialogue.dataset.arrowClass) return;
-                
-                const rect = this.dialogue.getBoundingClientRect();
-                const initialTop = parseFloat(this.dialogue.dataset.initialTop);
-                const initialLeft = parseFloat(this.dialogue.dataset.initialLeft);
-                const arrowClass = this.dialogue.dataset.arrowClass;
-                
-                // Only adjust for vertical growth (when arrow is top or bottom)
-                if (arrowClass === 'arrow-bottom') {
-                    // Dialogue is above the image, adjust upward as it grows
-                    const currentHeight = rect.height;
-                    const estimatedInitialHeight = 60; // rough estimate for small bubble
-                    const heightDiff = currentHeight - estimatedInitialHeight;
-                    
-                    if (heightDiff > 0) {
-                        this.dialogue.style.top = (initialTop - heightDiff) + 'px';
-                    }
-                } else if (arrowClass === 'arrow-top') {
-                    // Dialogue is below the image, position stays the same (grows downward naturally)
-                    this.dialogue.style.top = initialTop + 'px';
-                }
-                
-                // Keep horizontal position consistent
-                this.dialogue.style.left = initialLeft + 'px';
             }
 
             stop() {
@@ -1232,9 +1052,6 @@
             if (gamingUnlocked) {
                 unlockGamingMode();
             }
-
-            // Show welcome message after everything is loaded
-            showWelcomeMessage();
         }
 
         function setupEventListeners() {
@@ -1296,11 +1113,6 @@
             if (!tooltip) return;
 
             const key = skillElement.textContent.trim();
-            
-            // Track skill exploration for achievements
-            if (gamingMode) {
-                trackSkillHover(key);
-            }
             
             // Stop any existing typewriter for this skill
             if (typewriterInstances.has(key)) {
@@ -1369,10 +1181,6 @@
         }
 
         function switchLanguage(lang) {
-            // Don't process if it's the same language
-            if (currentLang === lang) return;
-            
-            const previousLang = currentLang;
             currentLang = lang;
             localStorage.setItem('preferredLanguage', lang);
             
@@ -1383,9 +1191,6 @@
             
             document.documentElement.lang = lang;
             updateContent();
-            
-            // Handle language switch message
-            handleLanguageSwitch(lang);
         }
 
         function updateContent() {
@@ -1542,11 +1347,6 @@
             const videoData = portfolioVideos[index];
             if (!videoData) return;
             
-            // Track video watch for achievements
-            if (gamingMode) {
-                trackVideoWatch(videoData.id);
-            }
-            
             overlay.classList.add('active');
             video.src = `https://www.youtube.com/embed/${videoData.id}?autoplay=1&mute=1`;
             
@@ -1643,11 +1443,6 @@
             });
             
             localStorage.setItem('cv-theme', JSON.stringify(theme));
-            
-            // Theme change achievement
-            if (gamingMode) {
-                unlockAchievement('theme_changer');
-            }
         }
 
         function updateCustomColors() {
@@ -1715,11 +1510,6 @@
 
             document.getElementById('intensityValue').textContent = settings.intensity;
             particleSystem.updateSettings(settings);
-            
-            // Particle customization achievement
-            if (gamingMode) {
-                unlockAchievement('particle_artist');
-            }
         }
 
         function resetParticles() {
@@ -1748,7 +1538,7 @@
             const gameToggle = document.getElementById('gameToggle');
             gameToggle.classList.add('unlocked');
             
-            unlockAchievement('gaming_unlocked', true); // Force show even if gaming not enabled yet
+            showAchievement('Mode Gaming Débloqué!', 'Vous avez découvert le secret ! 🎮');
             
             // Auto-enable gaming mode
             gamingMode = true;
@@ -1798,43 +1588,18 @@
             gameStats.xp += xpGain;
             gameStats.score += xpGain * 10;
 
-            // Level up check
             if (gameStats.xp >= gameStats.level * 100) {
-                const newLevel = gameStats.level + 1;
-                gameStats.level = newLevel;
+                gameStats.level++;
                 gameStats.xp = 0;
-                showAchievement('Level Up!', `Niveau ${newLevel} atteint!`);
-                
-                // Level-based achievements
-                if (newLevel === 2) {
-                    unlockAchievement('level_up_first');
-                } else if (newLevel === 5) {
-                    unlockAchievement('high_level');
-                }
-            }
-
-            // Score-based achievements
-            if (gameStats.score >= 1000 && !hasAchievement('score_hunter')) {
-                unlockAchievement('score_hunter');
+                showAchievement('Level Up!', `Niveau ${gameStats.level} atteint!`);
             }
 
             updateGameDisplay();
             saveGameStats();
 
-            // Action-specific achievements
-            if (action === 'contact-email') {
-                unlockAchievement('first_contact');
-            } else if (action === 'contact-github') {
-                unlockAchievement('github_explorer');
-            } else if (action === 'download-pdf') {
-                unlockAchievement('pdf_downloader');
-            } else if (action === 'video-theater') {
-                unlockAchievement('video_watcher');
-                checkPortfolioCompletionist();
-            } else if (action === 'customization') {
-                unlockAchievement('theme_changer');
-            } else if (action === 'skill-hover') {
-                checkSkillExplorer();
+            if (action === 'contact-email' && !gameStats.achievements.includes('first_contact')) {
+                gameStats.achievements.push('first_contact');
+                showAchievement('Premier Contact', 'Vous avez cliqué sur mon email!');
             }
 
             showGameNotification(`+${xpGain} XP`);
@@ -1850,265 +1615,8 @@
             document.getElementById('totalAchievements').textContent = gameStats.achievements.length;
             document.getElementById('tamaLevel').textContent = gameStats.tamaLevel;
             
-            // Calculate and display max achievements
-            const maxAchievements = calculateMaxAchievements();
-            document.getElementById('maxAchievements').textContent = maxAchievements;
-            
-            // Update achievements list
-            updateAchievementsList();
-            
             const xpPercent = (gameStats.xp / (gameStats.level * 100)) * 100;
             document.getElementById('xpProgress').style.width = xpPercent + '%';
-        }
-
-        // Centralized Achievement System
-        const ACHIEVEMENTS = {
-            // Core Gaming
-            gaming_unlocked: {
-                id: 'gaming_unlocked',
-                title: 'Mode Gaming Débloqué!',
-                description: 'Vous avez découvert le secret ! 🎮',
-                icon: '🎮'
-            },
-            
-            // Contact & Social
-            first_contact: {
-                id: 'first_contact',
-                title: 'Premier Contact',
-                description: 'Vous avez cliqué sur mon email ! 📧',
-                icon: '📧'
-            },
-            github_explorer: {
-                id: 'github_explorer',
-                title: 'Explorateur GitHub',
-                description: 'Vous avez visité mon GitHub ! 🐙',
-                icon: '🐙'
-            },
-            pdf_downloader: {
-                id: 'pdf_downloader',
-                title: 'Collectionneur CV',
-                description: 'Vous avez téléchargé mon CV ! 📄',
-                icon: '📄'
-            },
-            
-            // Portrait & Reading
-            portrait_all_read: {
-                id: 'portrait_all_read',
-                title: 'Lecteur Assidu',
-                description: 'Vous avez lu toutes les phrases du portrait ! 📖',
-                icon: '📖'
-            },
-            portrait_addict: {
-                id: 'portrait_addict',
-                title: 'Accro aux Dialogues',
-                description: 'Vous avez cliqué 10 fois sur le portrait ! 💬',
-                icon: '💬'
-            },
-            
-            // Language Switching
-            jen_perds_mon_latin: {
-                id: 'jen_perds_mon_latin',
-                title: 'J\'en perds mon latin !',
-                description: 'Vous changez de langue trop vite ! 🤯',
-                icon: '🤯'
-            },
-            faceclicker: {
-                id: 'faceclicker',
-                title: 'Faceclicker',
-                description: 'Vous aimez jouer avec les langues ! 😄',
-                icon: '😄'
-            },
-            philosophe: {
-                id: 'philosophe',
-                title: 'Philosophe',
-                description: 'La réflexion profonde vous habite ! 📖',
-                icon: '📖'
-            },
-            sagesse: {
-                id: 'sagesse',
-                title: 'Sagesse',
-                description: 'L\'expérience forge la sagesse ! 🤔💫',
-                icon: '🤔💫'
-            },
-            
-            // Skills & Learning
-            skill_explorer: {
-                id: 'skill_explorer',
-                title: 'Explorateur de Skills',
-                description: 'Vous avez exploré 10 compétences ! 🔍',
-                icon: '🔍'
-            },
-            skill_master: {
-                id: 'skill_master',
-                title: 'Maître des Compétences',
-                description: 'Vous avez exploré toutes les compétences ! 🏆',
-                icon: '🏆'
-            },
-            
-            // Portfolio & Videos
-            video_watcher: {
-                id: 'video_watcher',
-                title: 'Cinéphile Tech',
-                description: 'Vous avez regardé une vidéo portfolio ! 🎬',
-                icon: '🎬'
-            },
-            portfolio_completionist: {
-                id: 'portfolio_completionist',
-                title: 'Complétionniste',
-                description: 'Vous avez regardé toutes les vidéos ! 🎯',
-                icon: '🎯'
-            },
-            
-            // Customization
-            theme_changer: {
-                id: 'theme_changer',
-                title: 'Décorateur',
-                description: 'Vous avez changé le thème ! 🎨',
-                icon: '🎨'
-            },
-            particle_artist: {
-                id: 'particle_artist',
-                title: 'Artiste Particule',
-                description: 'Vous avez personnalisé les particules ! ✨',
-                icon: '✨'
-            },
-            
-            // Gaming & Progression
-            level_up_first: {
-                id: 'level_up_first',
-                title: 'Premier Level Up!',
-                description: 'Vous avez atteint le niveau 2 ! ⬆️',
-                icon: '⬆️'
-            },
-            high_level: {
-                id: 'high_level',
-                title: 'Haut Niveau',
-                description: 'Vous avez atteint le niveau 5 ! 🚀',
-                icon: '�'
-            },
-            score_hunter: {
-                id: 'score_hunter',
-                title: 'Chasseur de Score',
-                description: 'Vous avez atteint 1000 points ! 💯',
-                icon: '💯'
-            },
-            
-            // Tamagotchi
-            tama_feeder: {
-                id: 'tama_feeder',
-                title: 'Ami d\'Éric',
-                description: 'Vous avez nourri Éric ! 🐱',
-                icon: '🐱'
-            },
-            tama_master: {
-                id: 'tama_master',
-                title: 'Maître Tamagotchi',
-                description: 'Éric a atteint le niveau maximum ! 👑',
-                icon: '👑'
-            }
-        };
-
-        // Centralized Achievement Functions
-        function unlockAchievement(achievementId, forceShow = false) {
-            if (!gamingMode && !forceShow) return false;
-            
-            const achievement = ACHIEVEMENTS[achievementId];
-            if (!achievement) {
-                console.warn('Achievement not found:', achievementId);
-                return false;
-            }
-            
-            if (gameStats.achievements.includes(achievementId)) {
-                return false; // Already unlocked
-            }
-            
-            console.log('Unlocking achievement:', achievementId);
-            gameStats.achievements.push(achievementId);
-            showAchievement(achievement.title, achievement.description);
-            saveGameStats();
-            return true;
-        }
-
-        function hasAchievement(achievementId) {
-            return gameStats.achievements.includes(achievementId);
-        }
-
-        // Achievement checker functions
-        function checkSkillExplorer() {
-            if (!gameStats.skillsExplored) {
-                gameStats.skillsExplored = new Set();
-            }
-            
-            if (gameStats.skillsExplored.size >= 10) {
-                unlockAchievement('skill_explorer');
-            }
-            
-            // Count total skills
-            const totalSkills = Object.values(skillsData).reduce((total, category) => {
-                return total + Object.keys(category).length;
-            }, 0);
-            
-            if (gameStats.skillsExplored.size >= totalSkills) {
-                unlockAchievement('skill_master');
-            }
-        }
-
-        function checkPortfolioCompletionist() {
-            if (!gameStats.videosWatched) {
-                gameStats.videosWatched = new Set();
-            }
-            
-            if (gameStats.videosWatched.size >= portfolioVideos.length) {
-                unlockAchievement('portfolio_completionist');
-            }
-        }
-
-        function trackSkillHover(skillName) {
-            if (!gameStats.skillsExplored) {
-                gameStats.skillsExplored = new Set();
-            }
-            
-            gameStats.skillsExplored.add(skillName);
-            saveGameStats();
-        }
-
-        function trackVideoWatch(videoId) {
-            if (!gameStats.videosWatched) {
-                gameStats.videosWatched = new Set();
-            }
-            
-            gameStats.videosWatched.add(videoId);
-            saveGameStats();
-        }
-
-        function calculateMaxAchievements() {
-            return Object.keys(ACHIEVEMENTS).length;
-        }
-
-        function getAchievementDisplayName(achievementKey) {
-            const achievement = ACHIEVEMENTS[achievementKey];
-            if (achievement) {
-                return `${achievement.icon} ${achievement.title}`;
-            }
-            return `🏆 ${achievementKey}`;
-        }
-
-        function updateAchievementsList() {
-            const achievementsList = document.getElementById('achievementsList');
-            
-            if (gameStats.achievements.length === 0) {
-                achievementsList.innerHTML = '<p class="text-xs text-gray-400 italic">Aucun succès débloqué pour le moment</p>';
-                return;
-            }
-            
-            const achievementsHtml = gameStats.achievements.map(achievement => {
-                const displayName = getAchievementDisplayName(achievement);
-                return `<div class="flex items-center gap-2 p-2 bg-gray-700 bg-opacity-50 rounded text-xs">
-                    <span class="text-yellow-400">${displayName}</span>
-                </div>`;
-            }).join('');
-            
-            achievementsList.innerHTML = achievementsHtml;
         }
 
         function showAchievement(title, description) {
@@ -2118,9 +1626,6 @@
             
             toast.classList.add('show');
             setTimeout(() => toast.classList.remove('show'), 5000);
-            
-            // Update achievements display
-            updateGameDisplay();
         }
 
         function showGameNotification(text) {
@@ -2136,13 +1641,6 @@
             
             gameStats.tamaLevel = Math.min(gameStats.tamaLevel + 1, 10);
             showGameNotification(`Eric nourri ! Niveau ${gameStats.tamaLevel}`);
-            
-            // Tamagotchi achievements
-            unlockAchievement('tama_feeder');
-            if (gameStats.tamaLevel >= 10) {
-                unlockAchievement('tama_master');
-            }
-            
             updateGameDisplay();
             updateTamaIcon();
             saveGameStats();
@@ -2150,16 +1648,11 @@
 
         function triggerPortraitDialogue() {
             const dialogue = document.getElementById('portraitDialogue');
-            const profileImg = document.getElementById('profileImage');
-            const randomMessage = getNextPortraitMessage(currentLang);
+            const messages = portraitMessages[currentLang];
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
             
             portraitClicks++;
             localStorage.setItem('portraitClicks', portraitClicks.toString());
-            
-            // Portrait click achievements
-            if (portraitClicks === 10) {
-                unlockAchievement('portrait_addict');
-            }
             
             // Stop previous portrait typewriter
             if (typewriterInstances.has('portrait')) {
@@ -2167,409 +1660,35 @@
                 typewriterInstances.delete('portrait');
             }
             
-            // Gestion du timer pour la bulle portrait
-            if (window.portraitDialogueTimeout) {
-                clearTimeout(window.portraitDialogueTimeout);
-            }
-
             document.getElementById('portraitText').textContent = '';
-            dialogue.className = 'portrait-dialogue';
             dialogue.classList.add('show');
-
-            // Calculate intelligent positioning
-            positionPortraitDialogue(dialogue, profileImg);
-
-            const typewriter = new TypewriterEffect(document.getElementById('portraitText'), randomMessage, {
-                speed: 30,
-                dialogue: dialogue // Pass dialogue reference for position adjustment
-            });
+            
+            const typewriter = new TypewriterEffect(document.getElementById('portraitText'), randomMessage, {speed: 30});
             typewriterInstances.set('portrait', typewriter);
             typewriter.type();
-
+            
             // Unlock gaming mode after 3 clicks
             if (portraitClicks >= 3 && !gamingUnlocked) {
                 setTimeout(() => {
                     unlockGamingMode();
                 }, 2000);
             }
-
-            // Fade starts at 8s, remove at 10s
-            window.portraitDialogueTimeout = setTimeout(() => {
-                dialogue.classList.add('fade');
-            }, 8000);
-            setTimeout(() => {
-                dialogue.classList.remove('show');
-                dialogue.classList.remove('fade');
-                window.portraitDialogueTimeout = null;
-            }, 10000);
+            
+            setTimeout(() => dialogue.classList.remove('show'), 4000);
 
             if (gamingMode) {
                 triggerAction('portrait-click');
             }
         }
 
-        function positionPortraitDialogue(dialogue, profileImg) {
-            const imgRect = profileImg.getBoundingClientRect();
-            const viewportWidth = window.innerWidth;
-            const viewportHeight = window.innerHeight;
-            const dialogueWidth = 280; // max-width from CSS
-            const dialogueHeight = 100; // estimated height for calculation
-            const margin = 15; // margin from viewport edges
-            const offset = 15; // distance from image
-            
-            let top, left, arrowClass, arrowPosition;
-            
-            // Calculate image center for arrow positioning
-            const imgCenterX = imgRect.left + (imgRect.width / 2);
-            const imgCenterY = imgRect.top + (imgRect.height / 2);
-            
-            // Preferred position: above the image, centered
-            const centerLeft = imgRect.left + (imgRect.width / 2) - (dialogueWidth / 2);
-            const aboveTop = imgRect.top - dialogueHeight - offset;
-            
-            // Check if we can position above
-            if (aboveTop >= margin && 
-                centerLeft >= margin && 
-                centerLeft + dialogueWidth <= viewportWidth - margin) {
-                // Position above, centered on image
-                top = aboveTop;
-                left = centerLeft;
-                arrowClass = 'arrow-bottom';
-                arrowPosition = imgCenterX - left; // Arrow position relative to dialogue left edge
-            } else if (imgRect.bottom + dialogueHeight + offset <= viewportHeight - margin) {
-                // Position below, centered on image
-                top = imgRect.bottom + offset;
-                left = Math.max(margin, Math.min(centerLeft, viewportWidth - dialogueWidth - margin));
-                arrowClass = 'arrow-top';
-                arrowPosition = imgCenterX - left; // Arrow position relative to dialogue left edge
-            } else if (imgRect.left - dialogueWidth - offset >= margin) {
-                // Position to the left
-                top = Math.max(margin, imgRect.top + (imgRect.height / 2) - (dialogueHeight / 2));
-                left = imgRect.left - dialogueWidth - offset;
-                arrowClass = 'arrow-right';
-                arrowPosition = imgCenterY - top; // Arrow position relative to dialogue top edge
-            } else if (imgRect.right + dialogueWidth + offset <= viewportWidth - margin) {
-                // Position to the right
-                top = Math.max(margin, imgRect.top + (imgRect.height / 2) - (dialogueHeight / 2));
-                left = imgRect.right + offset;
-                arrowClass = 'arrow-left';
-                arrowPosition = imgCenterY - top; // Arrow position relative to dialogue top edge
-            } else {
-                // Emergency fallback: above image but adjust horizontally to fit
-                top = Math.max(margin, imgRect.top - dialogueHeight - offset);
-                if (centerLeft < margin) {
-                    left = margin;
-                } else if (centerLeft + dialogueWidth > viewportWidth - margin) {
-                    left = viewportWidth - dialogueWidth - margin;
-                } else {
-                    left = centerLeft;
-                }
-                arrowClass = 'arrow-bottom';
-                arrowPosition = imgCenterX - left; // Arrow position relative to dialogue left edge
-            }
-            
-            // Store initial positioning for dynamic growth
-            dialogue.dataset.initialTop = Math.max(margin, top);
-            dialogue.dataset.initialLeft = Math.max(margin, left);
-            dialogue.dataset.arrowClass = arrowClass;
-            dialogue.dataset.arrowPosition = arrowPosition;
-            
-            // Apply initial positioning
-            dialogue.style.top = dialogue.dataset.initialTop + 'px';
-            dialogue.style.left = dialogue.dataset.initialLeft + 'px';
-            
-            // Set arrow position using CSS custom property
-            dialogue.style.setProperty('--arrow-offset', arrowPosition + 'px');
-            
-            dialogue.classList.add(arrowClass);
-        }
-
-        function resetProfile() {
-            // Reset game stats
-            gameStats = {
-                score: 0, 
-                xp: 0, 
-                level: 1, 
-                achievements: [], 
-                tamaLevel: 1,
-                skillsExplored: new Set(),
-                videosWatched: new Set()
-            };
-            
-            // Reset portrait clicks counter
-            portraitClicks = 0;
-            
-            // Reset language switch counters
-            rapidSwitchCounter = 0;
-            rapidSwitchMode = false;
-            lastSwitchTime = 0;
-            
-            // Reset portrait message cycling
-            window.portraitMessageCycle = {
-                fr: { available: [], seen: new Set() },
-                en: { available: [], seen: new Set() }
-            };
-            
-            // Reset visit tracking
-            localStorage.removeItem('cv-visited');
-            
-            // Clear all gaming-related localStorage
+        function resetGameStats() {
+            gameStats = {score: 0, xp: 0, level: 1, achievements: [], tamaLevel: 1};
             localStorage.removeItem('gameStats');
-            localStorage.removeItem('portraitClicks');
-            localStorage.removeItem('gamingUnlocked');
-            localStorage.removeItem('gamingMode');
-            
-            // Reset gaming mode state
-            gamingUnlocked = false;
-            gamingMode = false;
-            
-            // Update displays
             updateGameDisplay();
-            updateGamingMode();
-            
-            // Show confirmation
-            showGameNotification('Profil réinitialisé !');
-            
-            // Update game toggle button
-            const gameToggle = document.getElementById('gameToggle');
-            gameToggle.classList.remove('unlocked');
-            gameToggle.innerHTML = '🔒 Locked';
-            gameToggle.style.background = 'rgba(148, 163, 184, 0.1)';
         }
 
         function saveGameStats() {
-            const saveData = {
-                ...gameStats,
-                skillsExplored: Array.from(gameStats.skillsExplored || []),
-                videosWatched: Array.from(gameStats.videosWatched || [])
-            };
-            localStorage.setItem('gameStats', JSON.stringify(saveData));
-        }
-
-        // Portrait message cycling functions
-        function shuffleArray(array) {
-            const shuffled = [...array];
-            for (let i = shuffled.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-            }
-            return shuffled;
-        }
-
-        function getNextPortraitMessage(lang) {
-            const cycle = window.portraitMessageCycle[lang];
-            const allMessages = portraitMessages[lang];
-            
-            // If no available messages, refill with shuffled array
-            if (cycle.available.length === 0) {
-                cycle.available = shuffleArray([...allMessages]);
-                
-                // Check if we've seen all messages for achievement
-                if (cycle.seen.size === allMessages.length && gamingMode) {
-                    unlockAchievement('portrait_all_read');
-                }
-            }
-            
-            // Get next message and mark as seen
-            const message = cycle.available.pop();
-            cycle.seen.add(message);
-            
-            return message;
-        }
-
-        function showWelcomeMessage() {
-            // Check if it's the first visit
-            const hasVisited = localStorage.getItem('cv-visited');
-            const isFirstVisit = !hasVisited;
-            
-            // Mark as visited
-            localStorage.setItem('cv-visited', 'true');
-            
-            // Get appropriate welcome message
-            const messageType = isFirstVisit ? 'first' : 'return';
-            const messages = welcomeMessages[currentLang][messageType];
-            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-            
-            // Show welcome dialogue after a short delay
-            setTimeout(() => {
-                const dialogue = document.getElementById('portraitDialogue');
-                const profileImg = document.getElementById('profileImage');
-                
-                // Stop any existing portrait typewriter
-                if (typewriterInstances.has('portrait')) {
-                    typewriterInstances.get('portrait').stop();
-                    typewriterInstances.delete('portrait');
-                }
-                
-                // Clear any existing timeout
-                if (window.portraitDialogueTimeout) {
-                    clearTimeout(window.portraitDialogueTimeout);
-                }
-
-                document.getElementById('portraitText').textContent = '';
-                dialogue.className = 'portrait-dialogue welcome-message';
-                dialogue.classList.add('show');
-
-                // Calculate intelligent positioning
-                positionPortraitDialogue(dialogue, profileImg);
-
-                const typewriter = new TypewriterEffect(document.getElementById('portraitText'), randomMessage, {
-                    speed: 40,
-                    dialogue: dialogue
-                });
-                typewriterInstances.set('portrait', typewriter);
-                typewriter.type();
-
-                // Welcome messages stay longer (12s before fade, 15s total)
-                window.portraitDialogueTimeout = setTimeout(() => {
-                    dialogue.classList.add('fade');
-                }, 12000);
-                setTimeout(() => {
-                    dialogue.classList.remove('show');
-                    dialogue.classList.remove('fade');
-                    dialogue.classList.remove('welcome-message');
-                    window.portraitDialogueTimeout = null;
-                }, 15000);
-            }, 1500); // 1.5s delay after page load
-        }
-
-        function handleLanguageSwitch(newLang) {
-            const currentTime = Date.now();
-            const timeDiff = currentTime - lastSwitchTime;
-            
-            console.log('handleLanguageSwitch called:', newLang, 'timeDiff:', timeDiff, 'rapidSwitchCounter:', rapidSwitchCounter);
-            
-            // Detect rapid switching (less than 3 seconds between switches)
-            if (timeDiff < 3000 && lastSwitchTime > 0) {
-                rapidSwitchMode = true;
-                rapidSwitchCounter++;
-                console.log('Rapid switch detected, counter now:', rapidSwitchCounter);
-            } else if (timeDiff > 10000) {
-                // Reset if more than 10 seconds elapsed
-                rapidSwitchMode = false;
-                rapidSwitchCounter = 0;
-                console.log('Reset rapid switch counter');
-            }
-            
-            lastSwitchTime = currentTime;
-            
-            let message = "";
-            let achievementTitle = "";
-            let achievementDesc = "";
-            let achievementKey = "";
-            let shouldShowMessage = true;
-            
-            if (rapidSwitchMode) {
-                console.log('In rapid switch mode, counter:', rapidSwitchCounter);
-                if (rapidSwitchCounter === 3) {
-                    // Third rapid switch - confusion message REPLACES normal message
-                    const confusionMsg = languageSwitchMessages.confusion[Math.floor(Math.random() * languageSwitchMessages.confusion.length)];
-                    message = confusionMsg;
-                    achievementTitle = "J'en perds mon latin !";
-                    achievementDesc = "Vous changez de langue trop vite ! 🤯";
-                    achievementKey = "jen_perds_mon_latin";
-                } else if (rapidSwitchCounter === 5) {
-                    // Fifth rapid switch - funny message REPLACES normal message
-                    const funnyMsg = languageSwitchMessages.funny[Math.floor(Math.random() * languageSwitchMessages.funny.length)];
-                    message = funnyMsg;
-                    achievementTitle = "Faceclicker";
-                    achievementDesc = "Vous aimez jouer avec les langues ! 😄";
-                    achievementKey = "faceclicker";
-                } else if (rapidSwitchCounter === 10) {
-                    // Tenth rapid switch - philosophical message REPLACES normal message
-                    message = languageSwitchMessages.philosophical[0];
-                    achievementTitle = "Philosophe";
-                    achievementDesc = "La réflexion profonde vous habite ! 📖";
-                    achievementKey = "philosophe";
-                } else if (rapidSwitchCounter === 15) {
-                    // Fifteenth rapid switch - wisdom message REPLACES normal message
-                    message = languageSwitchMessages.wisdom[0];
-                    achievementTitle = "Sagesse";
-                    achievementDesc = "L'expérience forge la sagesse ! 🤔💫";
-                    achievementKey = "sagesse";
-                    // Reset counter after wisdom message
-                    rapidSwitchCounter = 0;
-                    rapidSwitchMode = false;
-                } else {
-                    // Regular rapid switch - show normal language message
-                    if (newLang === 'fr') {
-                        const messages = languageSwitchMessages.toFrench;
-                        message = messages[Math.floor(Math.random() * messages.length)];
-                    } else {
-                        const messages = languageSwitchMessages.toEnglish;
-                        message = messages[Math.floor(Math.random() * messages.length)];
-                    }
-                }
-            } else {
-                console.log('In normal switch mode');
-                // Normal language switch message
-                if (newLang === 'fr') {
-                    const messages = languageSwitchMessages.toFrench;
-                    message = messages[Math.floor(Math.random() * messages.length)];
-                } else {
-                    const messages = languageSwitchMessages.toEnglish;
-                    message = messages[Math.floor(Math.random() * messages.length)];
-                }
-            }
-            
-            console.log('Final values - message:', message, 'achievementKey:', achievementKey, 'achievementTitle:', achievementTitle);
-            
-            // Show message first
-            if (shouldShowMessage && message) {
-                setTimeout(() => {
-                    showLanguageMessage(message);
-                }, 500);
-            }
-            
-            // Handle achievement after showing message
-            if (achievementKey && achievementTitle && gamingMode) {
-                console.log('Checking achievement:', achievementKey, 'gamingMode:', gamingMode);
-                console.log('Current achievements:', gameStats.achievements);
-                unlockAchievement(achievementKey);
-            }
-        }
-
-        function showLanguageMessage(message) {
-            const dialogue = document.getElementById('portraitDialogue');
-            const profileImg = document.getElementById('profileImage');
-            
-            console.log('showLanguageMessage called with message:', message);
-            
-            // Stop any existing portrait typewriter
-            if (typewriterInstances.has('portrait')) {
-                typewriterInstances.get('portrait').stop();
-                typewriterInstances.delete('portrait');
-            }
-            
-            // Clear any existing timeout (same as normal portrait dialogues)
-            if (window.portraitDialogueTimeout) {
-                clearTimeout(window.portraitDialogueTimeout);
-            }
-
-            document.getElementById('portraitText').textContent = '';
-            dialogue.className = 'portrait-dialogue language-switch';
-            dialogue.classList.add('show');
-
-            // Calculate intelligent positioning
-            positionPortraitDialogue(dialogue, profileImg);
-
-            const typewriter = new TypewriterEffect(document.getElementById('portraitText'), message, {
-                speed: 35,
-                dialogue: dialogue
-            });
-            typewriterInstances.set('portrait', typewriter);
-            typewriter.type();
-
-            // Use same timing as normal portrait messages (8s before fade, 10s total)
-            window.portraitDialogueTimeout = setTimeout(() => {
-                dialogue.classList.add('fade');
-            }, 8000);
-            setTimeout(() => {
-                dialogue.classList.remove('show');
-                dialogue.classList.remove('fade');
-                dialogue.classList.remove('language-switch');
-                window.portraitDialogueTimeout = null;
-            }, 10000);
+            localStorage.setItem('gameStats', JSON.stringify(gameStats));
         }
 
         // Mini Game Functions
