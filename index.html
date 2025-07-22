@@ -1,0 +1,1790 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CV professionnel de Samir Medjaher - Technicien IT & Développeur Junior avec portfolio interactif gamifié">
+    <title>Samir Medjaher - CV Professionnel Gaming</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root{--primary:#06b6d4;--secondary:#10b981;--accent:#8b5cf6;--dark:#0f172a;--dark-light:#1e293b;--dark-medium:#334155;--text-primary:#e2e8f0;--text-secondary:#94a3b8;--text-muted:#64748b;--game-gold:#fbbf24;--game-xp:#10b981}*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}body{background:linear-gradient(135deg,var(--dark) 0%,var(--dark-light) 50%,var(--dark-medium) 100%);color:var(--text-primary);line-height:1.5;min-height:100vh;position:relative;overflow-x:hidden}#particleCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}.glass-subtle{background:rgba(30,41,59,0.1);backdrop-filter:blur(15px);border-radius:16px;border:1px solid rgba(148,163,184,0.08);box-shadow:0 8px 32px rgba(0,0,0,0.12);position:relative;z-index:1}.glass-card{background:rgba(15,23,42,0.15);backdrop-filter:blur(12px);border-radius:12px;border:1px solid rgba(148,163,184,0.06);transition:all 0.3s ease;position:relative;z-index:1}.glass-card:hover{background:rgba(15,23,42,0.2);border-color:rgba(6,182,212,0.15);transform:translateY(-2px)}.profile-img{width:140px;height:140px;border-radius:50%;border:2px solid var(--primary);box-shadow:0 0 20px rgba(6,182,212,0.15);object-fit:cover;transition:all 0.3s ease;cursor:pointer}.profile-img:hover{transform:scale(1.03);box-shadow:0 0 30px rgba(6,182,212,0.25)}.section-title{font-size:1.25rem;font-weight:600;color:var(--primary);margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem;padding-bottom:0.5rem;border-bottom:1px solid var(--dark-medium)}.contact-item{display:flex;align-items:center;gap:0.5rem;color:var(--text-secondary);padding:0.3rem;border-radius:6px;transition:all 0.3s ease;cursor:pointer}.contact-item:hover{color:var(--text-primary);background:rgba(6,182,212,0.1);transform:translateX(3px)}.contact-item i{color:var(--primary);width:16px;text-align:center;font-size:0.9rem}.skill-bubble{position:relative;background:linear-gradient(135deg,rgba(6,182,212,0.1),rgba(16,185,129,0.08));border:1px solid rgba(6,182,212,0.2);border-radius:20px;padding:0.5rem 0.8rem;text-align:center;cursor:pointer;transition:all 0.3s ease;font-size:0.8rem;margin:0.2rem;display:inline-block}.skill-bubble:hover{transform:translateY(-3px) scale(1.05);background:linear-gradient(135deg,rgba(6,182,212,0.2),rgba(16,185,129,0.15));border-color:rgba(6,182,212,0.4);box-shadow:0 8px 25px rgba(6,182,212,0.3)}.skill-tooltip{position:absolute;bottom:120%;left:50%;transform:translateX(-50%);background:rgba(15,23,42,0.95);backdrop-filter:blur(15px);border:1px solid rgba(6,182,212,0.3);border-radius:8px;padding:0.75rem;font-size:0.7rem;white-space:nowrap;opacity:0;pointer-events:none;transition:all 0.3s ease;z-index:10001;max-width:280px;white-space:normal}.skill-tooltip.show{opacity:1}.typewriter-cursor{display:inline-block;background:var(--primary);width:2px;height:1.2em;margin-left:2px;animation:blink 1s infinite}@keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}.experience-item{position:relative;padding-left:1rem;margin-bottom:1rem}.experience-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--primary),var(--secondary));border-radius:1px}.lang-switch{position:fixed;top:1.5rem;right:1.5rem;background:rgba(30,41,59,0.15);backdrop-filter:blur(15px);border-radius:20px;padding:0.3rem;display:flex;gap:0.3rem;border:1px solid rgba(148,163,184,0.1);z-index:1000}.lang-btn{background:transparent;border:none;color:var(--text-secondary);padding:0.4rem 0.8rem;border-radius:15px;cursor:pointer;font-weight:500;transition:all 0.3s ease;font-size:0.8rem}.lang-btn.active{background:rgba(6,182,212,0.2);color:var(--primary)}.color-picker-trigger{position:fixed;top:1.5rem;right:8rem;width:40px;height:40px;background:rgba(30,41,59,0.15);backdrop-filter:blur(15px);border:1px solid rgba(148,163,184,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:1000;transition:all 0.3s ease}.color-picker-trigger:hover{background:rgba(30,41,59,0.25);border-color:var(--primary);transform:scale(1.1)}.game-toggle{position:fixed;top:1.5rem;right:13rem;background:rgba(139,92,246,0.1);backdrop-filter:blur(15px);border:1px solid rgba(139,92,246,0.2);border-radius:20px;padding:0.3rem 0.8rem;color:var(--accent);cursor:pointer;font-size:0.8rem;transition:all 0.3s ease;z-index:1000;display:none;opacity:0;transform:scale(0.8)}.game-toggle.unlocked{display:block;animation:unlockAnimation 0.8s ease forwards}.game-toggle:hover{background:rgba(139,92,246,0.2);transform:scale(1.05)}@keyframes unlockAnimation{0%{opacity:0;transform:scale(0.8) translateY(-10px)}100%{opacity:1;transform:scale(1) translateY(0)}}.game-hud{position:fixed;top:1rem;left:1rem;z-index:1000;background:rgba(15,23,42,0.8);backdrop-filter:blur(15px);border-radius:12px;padding:0.75rem 1rem;border:1px solid rgba(148,163,184,0.1);display:none;align-items:center;gap:1rem;opacity:0.9;transition:all 0.3s ease}.game-hud.show{display:flex}.game-stat{display:flex;align-items:center;gap:0.3rem;font-size:0.8rem;color:var(--text-secondary)}.game-stat i{color:var(--game-gold)}.xp-bar{width:60px;height:4px;background:rgba(148,163,184,0.2);border-radius:2px;overflow:hidden}.xp-progress{height:100%;background:linear-gradient(90deg,var(--game-xp),var(--primary));border-radius:2px;transition:width 0.5s ease;width:0%}.achievement-toast{position:fixed;top:1rem;right:1rem;background:linear-gradient(135deg,var(--game-gold),#f59e0b);color:white;padding:1rem;border-radius:12px;box-shadow:0 10px 30px rgba(251,191,36,0.3);z-index:10002;transform:translateX(100%);transition:transform 0.5s cubic-bezier(0.4,0,0.2,1);max-width:300px}.achievement-toast.show{transform:translateX(0)}.tamagotchi{position:fixed;bottom:2rem;right:2rem;width:80px;height:80px;background:rgba(15,23,42,0.9);border-radius:50%;border:2px solid var(--primary);display:none;align-items:center;justify-content:center;font-size:2rem;cursor:pointer;z-index:1000;transition:all 0.3s ease}.tamagotchi.show{display:flex}.tamagotchi:hover{transform:scale(1.1)}.color-picker-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(15,23,42,0.9);backdrop-filter:blur(20px);z-index:10000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:all 0.4s ease}.color-picker-overlay.active{opacity:1;pointer-events:all}.color-picker-panel{background:rgba(30,41,59,0.2);backdrop-filter:blur(25px);border:1px solid rgba(148,163,184,0.2);border-radius:24px;padding:2rem;max-width:600px;width:90vw;max-height:80vh;overflow-y:auto;box-shadow:0 25px 50px rgba(0,0,0,0.3)}.tabs{display:flex;gap:1rem;margin-bottom:2rem;border-bottom:1px solid rgba(148,163,184,0.2)}.tab-btn{background:transparent;border:none;color:var(--text-secondary);padding:0.5rem 1rem;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.3s ease}.tab-btn.active{color:var(--primary);border-bottom-color:var(--primary)}.tab-content{display:none}.tab-content.active{display:block}.theme-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:1rem;margin:1rem 0}.theme-preview{width:100px;height:60px;border-radius:12px;border:2px solid transparent;cursor:pointer;transition:all 0.3s ease;position:relative;overflow:hidden}.theme-preview:hover{transform:scale(1.05);border-color:white}.theme-preview.active{border-color:var(--primary)}.language-item{display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,rgba(15,23,42,0.3),rgba(30,41,59,0.2));border-radius:15px;padding:1rem;border:1px solid rgba(6,182,212,0.15);margin-bottom:0.8rem}.cecrl-badge{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:0.2rem 0.6rem;border-radius:12px;font-size:0.75rem;font-weight:600}.download-btn{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:0.8rem 1.5rem;border-radius:8px;border:none;cursor:pointer;font-weight:600;transition:all 0.3s ease;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem}.download-btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(6,182,212,0.3)}.main-grid{display:grid;grid-template-columns:1fr 2fr;gap:2rem;max-width:1100px;margin:0 auto;padding:2rem;position:relative;z-index:1}.portfolio-section{width:100%;max-width:1400px;margin:2rem auto 0;padding:0 2rem;position:relative;z-index:1}.portfolio-grid{display:flex;gap:1rem;overflow-x:auto;padding:1rem 0;scroll-behavior:smooth}.portfolio-card{background:linear-gradient(145deg,rgba(30,41,59,0.08),rgba(15,23,42,0.12));border:1px solid rgba(6,182,212,0.15);border-radius:24px;overflow:hidden;position:relative;backdrop-filter:blur(20px);transition:all 0.6s ease;cursor:pointer;min-width:300px;max-width:350px;flex-shrink:0}.portfolio-card:hover{transform:translateY(-8px) scale(1.02);border-color:rgba(6,182,212,0.4);box-shadow:0 20px 40px rgba(0,0,0,0.2),0 0 60px rgba(6,182,212,0.15)}.video-thumbnail{width:100%;height:180px;background:var(--dark-medium);position:relative;overflow:hidden}.video-thumbnail img{width:100%;height:100%;object-fit:cover}.video-description{padding:1.5rem}.carousel-nav{position:absolute;top:50%;background:rgba(15,23,42,0.8);border:none;color:var(--primary);width:40px;height:40px;border-radius:50%;cursor:pointer;z-index:10;transform:translateY(-50%);transition:all 0.3s ease}.carousel-nav:hover{background:rgba(6,182,212,0.2)}.carousel-prev{left:10px}.carousel-next{right:10px}.theater-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(15,23,42,0.95);backdrop-filter:blur(20px);z-index:10000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:all 0.4s ease}.theater-overlay.active{opacity:1;pointer-events:all}.theater-content{display:grid;grid-template-columns:2fr 1fr;gap:2rem;max-width:90vw;max-height:80vh}.theater-video{width:100%;height:60vh;border-radius:15px;border:none}.video-explanation{background:rgba(15,23,42,0.8);backdrop-filter:blur(15px);border-radius:15px;padding:1.5rem;border:1px solid rgba(6,182,212,0.2);max-height:60vh;overflow-y:auto;font-family:'Fira Code',monospace;font-size:13px;line-height:1.5}.close-theater{position:absolute;top:2rem;right:2rem;background:rgba(220,38,38,0.8);border:none;border-radius:50%;width:50px;height:50px;color:white;font-size:24px;cursor:pointer;transition:all 0.3s ease}.close-theater:hover{background:rgba(220,38,38,1);transform:scale(1.1)}.scroll-indicator{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:rgba(6,182,212,0.1);backdrop-filter:blur(15px);border:1px solid rgba(6,182,212,0.2);border-radius:30px;padding:1rem 1.5rem;display:flex;align-items:center;gap:0.5rem;color:var(--primary);cursor:pointer;transition:all 0.3s ease;z-index:1000;animation:pulseGlow 3s infinite}.scroll-indicator:hover{transform:translateX(-50%) translateY(-5px);background:rgba(6,182,212,0.15)}.scroll-arrow{animation:bounceDown 2s infinite}@keyframes bounceDown{0%,20%,50%,80%,100%{transform:translateY(0)}40%{transform:translateY(-10px)}60%{transform:translateY(-5px)}}@keyframes pulseGlow{0%,100%{box-shadow:0 0 5px rgba(6,182,212,0.2)}50%{box-shadow:0 0 20px rgba(6,182,212,0.4)}}.particle-controls{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0}.control-group{display:flex;flex-direction:column;gap:0.5rem}.control-group label{font-size:0.8rem;color:var(--text-secondary)}.control-input{background:rgba(15,23,42,0.5);border:1px solid rgba(148,163,184,0.2);border-radius:6px;padding:0.5rem;color:var(--text-primary)}.preset-buttons{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:0.5rem;margin:1rem 0}.preset-btn{background:rgba(6,182,212,0.1);border:1px solid rgba(6,182,212,0.2);border-radius:8px;padding:0.5rem;color:var(--primary);cursor:pointer;transition:all 0.3s ease}.preset-btn:hover,.preset-btn.active{background:rgba(6,182,212,0.2);border-color:rgba(6,182,212,0.4)}@media (max-width:968px){.main-grid{grid-template-columns:1fr;padding:1rem}.lang-switch{top:1rem;right:1rem}.color-picker-trigger{top:1rem;right:6rem}.game-toggle{top:1rem;right:11rem}.theater-content{grid-template-columns:1fr;padding:1rem}.theater-video{height:40vh}}.fade-in{animation:fadeIn 0.6s ease}@keyframes fadeIn{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}.documentation-section{background:rgba(15,23,42,0.3);border-radius:12px;padding:1.5rem;margin:1rem 0}.faq-item{border-bottom:1px solid rgba(148,163,184,0.1);padding:1rem 0}.faq-question{cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:500}.faq-answer{margin-top:0.5rem;color:var(--text-secondary);display:none}.faq-item.open .faq-answer{display:block}.mini-game-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(15,23,42,0.95);backdrop-filter:blur(20px);z-index:10000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:all 0.5s ease}.mini-game-overlay.active{opacity:1;pointer-events:all}.mini-game{background:rgba(30,41,59,0.2);backdrop-filter:blur(25px);border-radius:24px;padding:2rem;max-width:600px;width:90vw;border:1px solid rgba(148,163,184,0.2)}.code-puzzle{background:rgba(15,23,42,0.8);border-radius:12px;padding:1.5rem;margin:1rem 0;font-family:'Fira Code',monospace;border:1px solid rgba(6,182,212,0.2)}.qcm-options{display:grid;gap:0.5rem;margin:1rem 0}.qcm-option{background:rgba(15,23,42,0.3);border:1px solid rgba(148,163,184,0.3);border-radius:8px;padding:0.75rem;color:var(--text-primary);cursor:pointer;transition:all 0.3s ease;text-align:left}.qcm-option:hover:not(:disabled){background:rgba(6,182,212,0.1);border-color:rgba(6,182,212,0.3)}.qcm-option:disabled{cursor:not-allowed;opacity:0.7}.game-button{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;border:none;padding:0.75rem 1.5rem;border-radius:8px;cursor:pointer;font-weight:600;transition:all 0.3s ease;margin:0.5rem}.game-button:hover{transform:translateY(-2px);box-shadow:0 5px 15px rgba(6,182,212,0.3)}.portrait-dialogue{position:absolute;top:-80px;left:50%;transform:translateX(-50%);background:rgba(15,23,42,0.95);border:2px solid var(--primary);border-radius:15px;padding:1rem;max-width:250px;font-size:0.8rem;opacity:0;pointer-events:none;transition:all 0.3s ease;z-index:10001}.portrait-dialogue.show{opacity:1;pointer-events:all}.portrait-dialogue::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:10px solid transparent;border-top-color:var(--primary)}.game-notification{position:fixed;bottom:6rem;right:2rem;background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:1rem;border-radius:12px;max-width:280px;opacity:0;transform:translateX(100%);transition:all 0.5s ease;z-index:10001}.game-notification.show{opacity:1;transform:translateX(0)}.tech-tag{background:rgba(6,182,212,0.1);color:var(--primary);padding:0.2rem 0.6rem;border-radius:12px;font-size:0.7rem;border:1px solid rgba(6,182,212,0.2);margin:0.2rem}
+    </style>
+</head>
+<body>
+    <canvas id="particleCanvas"></canvas>
+    
+    <!-- Language Switch -->
+    <div class="lang-switch">
+        <button class="lang-btn active" onclick="switchLanguage('fr')" data-lang-key="fr">FR</button>
+        <button class="lang-btn" onclick="switchLanguage('en')" data-lang-key="en">EN</button>
+    </div>
+
+    <!-- Game Toggle (Hidden by default) -->
+    <div class="game-toggle" id="gameToggle" onclick="toggleGaming()" title="Mode Gaming">
+        🎮 Gaming
+    </div>
+
+    <!-- Color Picker Trigger -->
+    <div class="color-picker-trigger" onclick="openColorPicker()" title="Personnaliser">
+        <i class="fas fa-palette"></i>
+    </div>
+
+    <!-- Gaming HUD -->
+    <div class="game-hud" id="gameHUD">
+        <div class="game-stat">
+            <i class="fas fa-trophy"></i>
+            <span id="scoreDisplay">0</span>
+        </div>
+        <div class="game-stat">
+            <i class="fas fa-star"></i>
+            <span id="xpDisplay">0</span> XP
+        </div>
+        <div class="game-stat">
+            <i class="fas fa-medal"></i>
+            <span id="levelDisplay">1</span>
+        </div>
+        <div class="xp-bar">
+            <div class="xp-progress" id="xpProgress"></div>
+        </div>
+    </div>
+
+    <!-- Achievement Toast -->
+    <div class="achievement-toast" id="achievementToast">
+        <div class="achievement-icon">🏆</div>
+        <h4 id="achievementTitle">Achievement Unlocked!</h4>
+        <p id="achievementDesc">Description</p>
+    </div>
+
+    <!-- Game Notification -->
+    <div class="game-notification" id="gameNotification">
+        <div id="notificationText"></div>
+    </div>
+
+    <!-- Tamagotchi -->
+    <div class="tamagotchi" id="tamagotchi" onclick="feedTamagotchi()">
+    <img
+    id="tamagotchiIcon"
+    src="https://drive.google.com/uc?export=view&id=1J7Wgb9A6TOLLjGM5410RGXrE5CCftY23"
+    style="width:100%;height:100%;object-fit:cover;border-radius:50%;cursor:pointer;
+            filter: invert(1) contrast(2) brightness(1.2);"
+    alt="Éric le chat"
+    />
+    </div>
+
+
+
+    <!-- Color Picker Overlay -->
+    <div class="color-picker-overlay" id="colorPickerOverlay" onclick="closeColorPicker(event)">
+        <div class="color-picker-panel" onclick="event.stopPropagation()">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-white">🎨 Personnalisation</h3>
+                <button onclick="closeColorPicker()" class="text-gray-400 hover:text-white">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('colors')">
+                    <i class="fas fa-palette mr-2"></i>Couleurs
+                </button>
+                <button class="tab-btn" onclick="switchTab('particles')">
+                    <i class="fas fa-sparkles mr-2"></i>Particules
+                </button>
+                <button class="tab-btn" onclick="switchTab('gaming')">
+                    <i class="fas fa-gamepad mr-2"></i>Gaming
+                </button>
+                <button class="tab-btn" onclick="switchTab('documentation')">
+                    <i class="fas fa-book mr-2"></i>Guide
+                </button>
+            </div>
+
+            <!-- Colors Tab -->
+            <div id="colorsTab" class="tab-content active">
+                <div class="documentation-section">
+                    <h4 class="text-lg font-semibold mb-2 text-white">Thèmes Prédéfinis</h4>
+                    <div class="theme-grid" id="themeGrid"></div>
+                </div>
+
+                <div class="documentation-section">
+                    <h4 class="text-lg font-semibold mb-2 text-white">Couleurs Personnalisées</h4>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="control-group">
+                            <label>Couleur Principale</label>
+                            <input type="color" id="primaryColor" class="control-input" value="#06b6d4" onchange="updateCustomColors()">
+                        </div>
+                        <div class="control-group">
+                            <label>Couleur Secondaire</label>
+                            <input type="color" id="secondaryColor" class="control-input" value="#10b981" onchange="updateCustomColors()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Particles Tab -->
+            <div id="particlesTab" class="tab-content">
+                <div class="documentation-section">
+                    <h4 class="text-lg font-semibold mb-2 text-white">Presets Particules</h4>
+                    <div class="preset-buttons">
+                        <button class="preset-btn" onclick="applyParticlePreset('minimal')">Minimal</button>
+                        <button class="preset-btn active" onclick="applyParticlePreset('classic')">Classic</button>
+                        <button class="preset-btn" onclick="applyParticlePreset('dynamic')">Dynamic</button>
+                        <button class="preset-btn" onclick="applyParticlePreset('cosmic')">Cosmic</button>
+                    </div>
+                </div>
+
+                <div class="particle-controls">
+                    <div class="control-group">
+                        <label>Type</label>
+                        <select id="particleType" class="control-input" onchange="updateParticles()">
+                            <option value="circle">Cercles</option>
+                            <option value="star">Étoiles</option>
+                            <option value="triangle">Triangles</option>
+                            <option value="line">Lignes</option>
+                            <option value="pixel">Pixels</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label>Mouvement</label>
+                        <select id="particleMovement" class="control-input" onchange="updateParticles()">
+                            <option value="float">Flottant</option>
+                            <option value="spiral">Spirale</option>
+                            <option value="wave">Vagues</option>
+                            <option value="magnetic">Magnétique</option>
+                            <option value="orbital">Orbital</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label>Intensité: <span id="intensityValue">50</span></label>
+                        <input type="range" id="particleIntensity" class="control-input" min="20" max="200" value="50" onchange="updateParticles()">
+                    </div>
+                    <div class="control-group">
+                        <label>Vitesse</label>
+                        <select id="particleSpeed" class="control-input" onchange="updateParticles()">
+                            <option value="slow">Lente</option>
+                            <option value="normal" selected>Normale</option>
+                            <option value="fast">Rapide</option>
+                            <option value="ultra">Ultra-rapide</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label>Taille</label>
+                        <select id="particleSize" class="control-input" onchange="updateParticles()">
+                            <option value="micro">Micro</option>
+                            <option value="small" selected>Petite</option>
+                            <option value="medium">Moyenne</option>
+                            <option value="large">Grande</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label>Opacité</label>
+                        <select id="particleOpacity" class="control-input" onchange="updateParticles()">
+                            <option value="subtle" selected>Subtile</option>
+                            <option value="visible">Visible</option>
+                            <option value="intense">Intense</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="flex gap-2 mt-4">
+                    <button class="download-btn" onclick="resetParticles()">
+                        <i class="fas fa-undo mr-2"></i>Reset
+                    </button>
+                    <button class="download-btn" onclick="saveParticleSettings()">
+                        <i class="fas fa-save mr-2"></i>Sauvegarder
+                    </button>
+                </div>
+            </div>
+
+            <!-- Gaming Tab -->
+            <div id="gamingTab" class="tab-content">
+                <div class="documentation-section">
+                    <h4 class="text-lg font-semibold mb-2 text-white">🎮 Mode Gaming</h4>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="text-sm text-gray-300">Score Total: <span id="totalScore" class="text-primary font-bold">0</span></p>
+                            <p class="text-sm text-gray-300">Achievements: <span id="totalAchievements" class="text-primary font-bold">0</span>/10</p>
+                            <p class="text-sm text-gray-300">Niveau d'éric: <span id="tamaLevel" class="text-primary font-bold">1</span></p>
+                        </div>
+                        <div class="flex gap-2">
+                            <button class="game-button" onclick="startMiniGame()">🧩 Mini-Jeu</button>
+                            <button class="game-button" onclick="resetGameStats()">🔄 Reset Stats</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Documentation Tab -->
+            <div id="documentationTab" class="tab-content">
+                <div class="documentation-section">
+                    <h4 class="text-lg font-semibold mb-2 text-white">🚀 Guide d'Utilisation</h4>
+                    <div class="text-sm text-gray-300 space-y-2">
+                        <p><strong>Navigation :</strong></p>
+                        <ul class="list-disc list-inside space-y-1 ml-4">
+                            <li>Switch FR/EN en haut à droite</li>
+                            <li>Mode Gaming avec le bouton 🎮 (cliquez 3x sur portrait)</li>
+                            <li>Portfolio vidéo : clic pour théâtre</li>
+                            <li>Particules interactives personnalisables</li>
+                        </ul>
+                        
+                        <p><strong>Gaming :</strong></p>
+                        <ul class="list-disc list-inside space-y-1 ml-4">
+                            <li>Cliquez sur ma photo pour dialogues rigolos</li>
+                            <li>Explorez les compétences pour gagner XP</li>
+                            <li>Tamagotchi évolue selon vos actions</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mini Game Overlay -->
+    <div class="mini-game-overlay" id="miniGameOverlay" onclick="closeMiniGame(event)">
+        <div class="mini-game" onclick="event.stopPropagation()">
+            <h2 style="text-align: center; color: var(--primary); margin-bottom: 1rem;">
+                🧩 <span data-lang="quizTitle">Tech Quest - Code Challenge</span>
+            </h2>
+            <button class="close-theater" onclick="closeMiniGame()" style="position: absolute; top: 1rem; right: 1rem;">×</button>
+            
+            <div id="miniGameContent">
+                <div class="code-puzzle">
+                    <h3 id="quizQuestion">Question...</h3>
+                </div>
+                
+                <div class="qcm-options" id="qcmOptions"></div>
+                
+                <div style="text-align: center; margin-top: 1rem;">
+                    <button class="game-button" onclick="generateNewPuzzle()" data-lang="newQuestion">Nouvelle Question</button>
+                </div>
+                
+                <div id="puzzleResult" style="margin-top: 1rem; text-align: center;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-grid">
+        <!-- Left Column -->
+        <div class="space-y-6">
+            <!-- Profile Header -->
+            <div class="glass-subtle p-6 text-center fade-in" data-action="profile-view">
+                <div style="position: relative;">
+                    <img src="https://page.gensparksite.com/v1/base64_upload/8459e20749ce811147057016f8c7cf5c" 
+                         alt="Samir Medjaher" 
+                         class="profile-img mx-auto mb-4"
+                         id="profileImage"
+                         onclick="triggerPortraitDialogue()"
+                         onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22 viewBox=%220 0 140 140%22%3E%3Ccircle cx=%2270%22 cy=%2270%22 r=%2270%22 fill=%22%23334155%22/%3E%3Ctext x=%2270%22 y=%2280%22 text-anchor=%22middle%22 fill=%22%236b21f8%22 font-size=%2248%22 font-family=%22Inter%22 font-weight=%22600%22%3ESM%3C/text%3E%3C/svg%3E'">
+                    <div class="portrait-dialogue" id="portraitDialogue">
+                        <span id="portraitText"></span>
+                    </div>
+                </div>
+                
+                <h1 class="text-2xl font-bold text-white mb-2" style="color: var(--primary);">
+                    Samir Medjaher
+                </h1>
+                <h2 class="text-lg text-gray-300 mb-4 font-medium" data-lang="jobTitle">
+                    Technicien IT & Développeur Junior
+                </h2>
+                <p class="text-sm text-gray-400" data-lang="age">
+                    38 ans • Recherche stabilité et évolution
+                </p>
+            </div>
+
+            <!-- Contact -->
+            <div class="glass-card p-4 fade-in">
+                <h3 class="section-title">
+                    <i class="fas fa-address-card"></i>
+                    <span data-lang="contactTitle">Contact</span>
+                </h3>
+                <div class="space-y-2">
+                    <div class="contact-item" onclick="openMail()" data-action="contact-email">
+                        <i class="fas fa-envelope"></i>
+                        <span>s.medjaher@gmail.com</span>
+                    </div>
+                    <div class="contact-item" onclick="callPhone()">
+                        <i class="fas fa-phone"></i>
+                        <span>+33.7.80.75.75.76</span>
+                    </div>
+                    <div class="contact-item" onclick="openMaps()">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>69140 Rillieux-la-Pape, France</span>
+                    </div>
+                    <div class="contact-item" onclick="openGitHub()" data-action="contact-github">
+                        <i class="fab fa-github"></i>
+                        <span>github.com/Duperopope</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Skills -->
+            <div class="glass-card p-4 fade-in">
+                <h3 class="section-title">
+                    <i class="fas fa-cogs"></i>
+                    <span data-lang="skillsTitle">Compétences Techniques</span>
+                </h3>
+                
+                <div class="space-y-4">
+                    <div>
+                        <h4 class="text-sm font-medium text-gray-300 mb-2" data-lang="programmingTitle">Développement</h4>
+                        <div class="flex flex-wrap" id="developmentSkills"></div>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-medium text-gray-300 mb-2" data-lang="gamedevTitle"></h4>
+                        <div class="flex flex-wrap" id="gamedevSkills"></div>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-medium text-gray-300 mb-2" data-lang="systemsTitle">Systèmes & Réseau</h4>
+                        <div class="flex flex-wrap" id="systemsSkills"></div>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-medium text-gray-300 mb-2" data-lang="toolsTitle"></h4>
+                        <div class="flex flex-wrap" id="toolsSkills"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hobbies -->
+            <div class="glass-card p-4 fade-in">
+                <h3 class="section-title">
+                    <i class="fas fa-heart"></i>
+                    <span data-lang="hobbiesTitle">Centres d'Intérêt</span>
+                </h3>
+                <div class="space-y-3">
+                    <div class="flex items-start gap-3 p-3 bg-gray-800 bg-opacity-20 rounded-lg">
+                        <i class="fas fa-guitar text-blue-400 mt-1"></i>
+                        <div>
+                            <h4 class="text-white font-medium text-sm mb-1" data-lang="hobby1Title"></h4>
+                            <p class="text-gray-300 text-xs leading-relaxed" data-lang="hobby1Desc"></p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 p-3 bg-gray-800 bg-opacity-20 rounded-lg">
+                        <i class="fas fa-microphone text-green-400 mt-1"></i>
+                        <div>
+                            <h4 class="text-white font-medium text-sm mb-1">Chant</h4>
+                            <h4 class="text-white font-medium text-sm mb-1" data-lang="hobby2Title"></h4>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 p-3 bg-gray-800 bg-opacity-20 rounded-lg">
+                        <i class="fas fa-book text-purple-400 mt-1"></i>
+                        <div>
+                            <h4 class="text-white font-medium text-sm mb-1" data-lang="hobby3Title"></h4>
+                            <p class="text-gray-300 text-xs leading-relaxed" data-lang="hobby3Desc"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Languages -->
+            <div class="glass-card p-4 fade-in">
+                <h3 class="section-title">
+                    <i class="fas fa-language"></i>
+                    <span data-lang="languagesTitle">Langues</span>
+                </h3>
+                <div class="space-y-3" id="languagesContent"></div>
+            </div>
+
+            <!-- Download -->
+            <div class="text-center fade-in">
+                <a id="downloadLink" href="#" class="download-btn" target="_blank" rel="noopener" onclick="triggerAction('download-pdf')">
+                    <i class="fas fa-download"></i>
+                    <span data-lang="downloadPdf">Télécharger PDF</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="space-y-6">
+            <!-- Objective -->
+            <div class="glass-card p-6 fade-in">
+                <h3 class="section-title">
+                    <i class="fas fa-target"></i>
+                    <span data-lang="objectiveTitle">Objectif Professionnel</span>
+                </h3>
+                <p class="text-gray-300 text-sm leading-relaxed" data-lang="objectiveText">
+                    Reconversion assumée vers les technologies de l'information. À 38 ans, je recherche un environnement stable où développer mes compétences techniques acquises en autodidacte et contribuer efficacement à des projets concrets. Mon expérience de vie variée et mon ouverture internationale sont des atouts que je souhaite mettre au service d'une équipe dynamique.
+                </p>
+            </div>
+
+            <!-- Experience -->
+            <div class="glass-card p-5 fade-in">
+                <h3 class="section-title">
+                    <i class="fas fa-briefcase"></i>
+                    <span data-lang="experienceTitle">Expérience Professionnelle</span>
+                </h3>
+                <div class="space-y-4" id="experienceContent"></div>
+            </div>
+
+            <!-- Formation -->
+            <div class="glass-card p-5 fade-in">
+                <h3 class="section-title">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span data-lang="educationTitle">Formation</span>
+                </h3>
+                <div class="space-y-4" id="educationContent"></div>
+            </div>
+
+            <!-- Projects -->
+            <div class="glass-card p-5 fade-in">
+                <h3 class="section-title">
+                    <i class="fas fa-code-branch"></i>
+                    <span data-lang="projectsTitle">Projets Personnels</span>
+                </h3>
+                <div class="space-y-3" id="projectsContent"></div>
+            </div>
+
+            <!-- International -->
+            <div class="glass-card p-5 fade-in">
+                <h3 class="section-title">
+                    <i class="fas fa-globe"></i>
+                    <span data-lang="internationalTitle">Expérience Internationale</span>
+                </h3>
+                <div class="space-y-3" id="internationalContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Portfolio Section -->
+    <div class="portfolio-section">
+        <div class="text-center mb-8">
+            <h2 class="text-3xl font-bold text-white mb-4" data-lang="portfolioTitle" style="color: var(--primary);">
+                Portfolio Vidéo
+            </h2>
+            <p class="text-gray-300" data-lang="portfolioSubtitle">
+                Mes réalisations techniques en Game Development
+            </p>
+        </div>
+
+        <div style="position: relative;">
+            <button class="carousel-nav carousel-prev" onclick="slideCarousel(-1)">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="carousel-nav carousel-next" onclick="slideCarousel(1)">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            <div class="portfolio-grid" id="portfolioGrid"></div>
+        </div>
+    </div>
+
+    <!-- Theater Overlay -->
+    <div id="theaterOverlay" class="theater-overlay" onclick="closeTheater(event)">
+        <button class="close-theater" onclick="closeTheater()">×</button>
+        <div class="theater-content" onclick="event.stopPropagation()">
+            <div>
+                <iframe id="theaterVideo" class="theater-video" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+            <div class="video-explanation" id="videoExplanation"></div>
+        </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator" id="scrollIndicator" onclick="scrollToPortfolio()">
+        <span data-lang="scrollText">Voir le portfolio</span>
+        <i class="fas fa-chevron-down scroll-arrow"></i>
+    </div>
+
+    <script>
+        // Global Variables
+        let currentLang = localStorage.getItem('preferredLanguage') || 'fr';
+        let particleSystem;
+        let gamingMode = localStorage.getItem('gamingMode') === 'true';
+        let gameStats = JSON.parse(localStorage.getItem('gameStats') || '{"score":0,"xp":0,"level":1,"achievements":[],"tamaLevel":1}');
+        let currentTheme = JSON.parse(localStorage.getItem('cv-theme') || '{"name":"Classic","primary":"#06b6d4","secondary":"#10b981","accent":"#8b5cf6"}');
+        let typewriterInstances = new Map();
+        let carouselIndex = 0;
+        let portraitClicks = parseInt(localStorage.getItem('portraitClicks') || '0');
+        let gamingUnlocked = localStorage.getItem('gamingUnlocked') === 'true';
+        
+        const tamaIcons = {
+        normal:   'https://cdn-icons-png.flaticon.com/64/1998/1998661.png',
+        hungry:   'https://cdn-icons-png.flaticon.com/64/1046/1046784.png',
+        fed:      'https://cdn-icons-png.flaticon.com/64/2620/2620074.png',
+        happy:    'https://drive.google.com/thumbnail?id=1J7Wgb9A6TOLLjGM5410RGXrE5CCftY23&sz=128',
+        unhappy:  'https://cdn-icons-png.flaticon.com/64/1998/1998664.png',
+        sleeping: 'https://cdn-icons-png.flaticon.com/64/832/832229.png',
+        boxed:    'https://cdn-icons-png.flaticon.com/64/616/616408.png',
+        ko:       'https://cdn-icons-png.flaticon.com/64/609/609803.png'
+        };
+
+
+        function updateTamaIcon() {
+        const iconEl = document.getElementById('tamagotchiIcon');
+        if (!gamingMode) return;
+        // Exemples de conditions ; adapte selon tes stats réelles
+        if (gameStats.tamaLevel === 1 && !gameStats.interacted) {
+            iconEl.src = tamaIcons.boxed;
+        }
+        else if (gameStats.hunger < 30) {
+            iconEl.src = tamaIcons.hungry;
+        }
+        else if (gameStats.mood < 30) {
+            iconEl.src = tamaIcons.unhappy;
+        }
+        else if (gameStats.isSleeping) {
+            iconEl.src = tamaIcons.sleeping;
+        }
+        else if (gameStats.tamaLevel >= 10) {
+            iconEl.src = tamaIcons.happy;
+        }
+        else {
+            iconEl.src = tamaIcons.normal;
+        }
+        }
+
+
+
+        // Translations
+        const translations = {
+            fr: {
+                jobTitle: "Technicien IT & Développeur Junior",
+                age: "38 ans • Recherche stabilité et évolution",
+                contactTitle: "Contact",
+                skillsTitle: "Compétences Techniques",
+                programmingTitle: "Développement",
+                systemsTitle: "Systèmes & Réseau",
+                toolsTitle: "Outils",
+                gamedevTitle: "Game Dev",
+                languagesTitle: "Langues",
+                hobbiesTitle: "Centres d'Intérêt",
+                downloadPdf: "Télécharger PDF",
+                objectiveTitle: "Objectif Professionnel",
+                objectiveText: "Reconversion assumée vers les technologies de l'information. À 38 ans, je recherche un environnement stable où développer mes compétences techniques acquises en autodidacte et contribuer efficacement à des projets concrets. Mon expérience de vie variée et mon ouverture internationale sont des atouts que je souhaite mettre au service d'une équipe dynamique.",
+                experienceTitle: "Expérience Professionnelle",
+                educationTitle: "Formation",
+                projectsTitle: "Projets Personnels",
+                internationalTitle: "Expérience Internationale",
+                portfolioTitle: "Portfolio Vidéo",
+                portfolioSubtitle: "Mes réalisations techniques en Game Development",
+                scrollText: "Voir le portfolio",
+                quizTitle: "Tech Quest - Défi Code",
+                newQuestion: "Nouvelle Question",
+                hobby1Title: "Guitare",
+                hobby1Desc:  "Passion musicale, créativité artistique",
+                hobby2Title: "Chant",
+                hobby2Desc:  "Expression artistique, performance",
+                hobby3Title: "Philosophie",
+                hobby3Desc:  "Réflexion, analyse critique",
+                experiences: [
+                    {title: "Travailleur Indépendant / Freelance", company: "2024 - Présent • Missions Tech", description: "Développement projets personnels, veille technologique, prototypage Unreal Engine et systèmes automatisés."},
+                    {title: "Technicien Supervision Réseau", company: "2024 • Rhône Telecom", description: "Supervision infrastructures réseau SFR, coordination équipes terrain, résolution incidents niveau 1-2."},
+                    {title: "Consultant Wi-Fi & Support Réseau", company: "2023 • Collège au Carré, Villeurbanne", description: "Diagnostic réseau Wi-Fi, configuration matériel, documentation technique, formation utilisateurs."},
+                    {title: "Co-gérant Commercial", company: "2021-2022 • Entreprise de vente", description: "Gestion commerciale marchés/salons, sourcing international, coordination logistique, relation client."}
+                ],
+                education: [
+                    {title: "Bachelor Cybersécurité", period: "2023 • CSB School, Lyon", description: "Formation spécialisée en sécurité des systèmes et réseaux, développement sécurisé."},
+                    {title: "Formation Autodidacte", period: "2023-2025 • Développement Personnel", description: "Python, JavaScript, Unity, Unreal Engine, Linux - Projets GitHub, veille technologique active."},
+                    {title: "DCG - Comptabilité Gestion", period: "2012 • Académie de Lyon", description: "Diplôme de Comptabilité et Gestion - Base solide gestion administrative."}
+                ],
+                projects: [
+                    {title: "Expérimentation Game Dev", description: "Prototypes Unity/Unreal, exploration PCG, animation systems, level design.", icon: "fas fa-gamepad"},
+                    {title: "Scripts d'Automatisation", description: "Outils Python personnels, gestion fichiers, APIs, workflow optimization.", icon: "fas fa-robot"},
+                    {title: "Assemblage Hardware", description: "Montage PC custom, dépannage, optimisation performance, support technique.", icon: "fas fa-microchip"}
+                ],
+                international: [
+                    {title: "Pays de Galles", period: "2019-2022", description: "Immersion culturelle complète, perfectionnement anglais, adaptabilité internationale."},
+                    {title: "Kyoto, Japon", period: "2015", description: "Découverte culture technologique japonaise, ouverture internationale."}
+                ]
+            },
+            en: {
+                jobTitle: "IT Technician & Junior Developer",
+                age: "38 years old • Seeking stability and growth",
+                contactTitle: "Contact",
+                skillsTitle: "Technical Skills",
+                programmingTitle: "Development",
+                systemsTitle: "Systems & Network",
+                gamedevTitle: "Game Dev",
+                toolsTitle: "Tools",
+                languagesTitle: "Languages",
+                hobbiesTitle: "Hobbies",
+                downloadPdf: "Download PDF",
+                objectiveTitle: "Professional Objective",
+                objectiveText: "Career transition into information technology. At 38, I'm seeking a stable environment to develop my self-taught technical skills and contribute effectively to concrete projects. My varied life experience and international openness are assets I want to put at the service of a dynamic team.",
+                experienceTitle: "Professional Experience",
+                educationTitle: "Education",
+                projectsTitle: "Personal Projects",
+                internationalTitle: "International Experience",
+                portfolioTitle: "Video Portfolio",
+                portfolioSubtitle: "My technical achievements in Game Development",
+                scrollText: "View portfolio",
+                quizTitle: "Tech Quest - Code Challenge",
+                newQuestion: "New Question",
+                hobby1Title: "Guitar",
+                hobby1Desc:  "Musical passion, artistic creativity",
+                hobby2Title: "Singing",
+                hobby2Desc:  "Artistic expression, performance",
+                hobby3Title: "Philosophy",
+                hobby3Desc:  "Reflection, critical analysis",
+                experiences: [
+                    {title: "Freelance / Independent Worker", company: "2024 - Present • Tech Missions", description: "Personal project development, technology watch, Unreal Engine prototyping and automated systems."},
+                    {title: "Network Supervision Technician", company: "2024 • Rhône Telecom", description: "SFR network infrastructure supervision, field team coordination, level 1-2 incident resolution."},
+                    {title: "Wi-Fi Consultant & Network Support", company: "2023 • Collège au Carré, Villeurbanne", description: "Wi-Fi network diagnosis, hardware configuration, technical documentation, user training."},
+                    {title: "Commercial Co-Manager", company: "2021-2022 • Sales Company", description: "Commercial management markets/trade shows, international sourcing, logistics coordination, customer relations."}
+                ],
+                education: [
+                    {title: "Cybersecurity Bachelor", period: "2023 • CSB School, Lyon", description: "Specialized training in system and network security, secure development."},
+                    {title: "Self-Taught Training", period: "2023-2025 • Personal Development", description: "Python, JavaScript, Unity, Unreal Engine, Linux - GitHub projects, active tech watch."},
+                    {title: "DCG - Accounting Management", period: "2012 • Academy of Lyon", description: "Accounting and Management Diploma - Solid administrative management foundation."}
+                ],
+                projects: [
+                    {title: "Game Dev Experimentation", description: "Unity/Unreal prototypes, PCG exploration, animation systems, level design.", icon: "fas fa-gamepad"},
+                    {title: "Automation Scripts", description: "Personal Python tools, file management, APIs, workflow optimization.", icon: "fas fa-robot"},
+                    {title: "Hardware Assembly", description: "Custom PC building, troubleshooting, performance optimization, technical support.", icon: "fas fa-microchip"}
+                ],
+                international: [
+                    {title: "Wales", period: "2019-2022", description: "Complete cultural immersion, English improvement, international adaptability."},
+                    {title: "Kyoto, Japan", period: "2015", description: "Discovery of Japanese technological culture, international openness."}
+                ]
+            }
+        };
+
+        // Skills Data
+        const skillsData = {
+            development: {
+                'Python': {fr: "Langage polyvalent pour automatisation, APIs et analyse de données. Idéal pour optimiser les processus métier.", en: "Versatile language for automation, APIs and data analysis. Ideal for optimizing business processes."},
+                'JavaScript': {fr: "Développement web moderne et interactif. Crée des interfaces utilisateur engageantes et fonctionnelles.", en: "Modern and interactive web development. Creates engaging and functional user interfaces."},
+                'C#': {fr: "Développement d'applications robustes et jeux vidéo. Garantit performance et maintenabilité du code.", en: "Development of robust applications and video games. Ensures performance and code maintainability."},
+                'HTML/CSS': {fr: "Création de sites web responsive et modernes. Assure une expérience utilisateur optimale sur tous supports.", en: "Creation of responsive and modern websites. Ensures optimal user experience on all devices."},
+                'React.js': {fr: "Framework JavaScript pour interfaces dynamiques. Accélère le développement d'applications web complexes.", en: "JavaScript framework for dynamic interfaces. Accelerates complex web application development."},
+                'Node.js': {fr: "Développement backend JavaScript haute performance. Permet une architecture full-stack cohérente.", en: "High-performance JavaScript backend development. Enables coherent full-stack architecture."},
+                'Git/GitHub': {fr: "Gestion de versions collaborative professionnelle. Garantit traçabilité et travail d'équipe efficace.", en: "Professional collaborative version control. Ensures traceability and efficient teamwork."},
+                'VS Code': {fr: "Environnement de développement optimisé. Maximise la productivité avec extensions spécialisées.", en: "Optimized development environment. Maximizes productivity with specialized extensions."},
+                'APIs REST': {fr: "Intégration de services web modernes. Connecte applications pour échange de données automatisé.", en: "Modern web service integration. Connects applications for automated data exchange."}
+            },
+            gamedev: {
+                'Unity': {fr: "Moteur de jeu professionnel 3D/2D. Développement rapide de prototypes et applications interactives.", en: "Professional 3D/2D game engine. Rapid development of prototypes and interactive applications."},
+                'Unreal Engine': {fr: "Technologie cutting-edge pour expériences immersives. Niveau AAA pour visualisation et simulation.", en: "Cutting-edge technology for immersive experiences. AAA level for visualization and simulation."},
+                'Blender': {fr: "Création de contenu 3D professionnel. Modélisation, animation et rendu pour projets visuels.", en: "Professional 3D content creation. Modeling, animation and rendering for visual projects."},
+                'PCG': {fr: "Génération automatique de contenu procédural. Réduit drastiquement les coûts de production.", en: "Automatic procedural content generation. Drastically reduces production costs."},
+                'Level Design': {fr: "Conception d'expériences utilisateur engageantes. Optimise parcours et satisfaction utilisateur.", en: "Design of engaging user experiences. Optimizes user journey and satisfaction."},
+                'Blueprint': {fr: "Programmation visuelle sans code traditionnel. Prototypage rapide et itération design efficace.", en: "Visual programming without traditional code. Rapid prototyping and efficient design iteration."},
+                'Motion Matching': {fr: "Animation procédurale ultra-réaliste. Révolutionne l'interaction homme-machine naturelle.", en: "Ultra-realistic procedural animation. Revolutionizes natural human-machine interaction."}
+            },
+            systems: {
+                'Linux': {fr: "Administration système professionelle. Gestion serveurs, automatisation et sécurité optimisée.", en: "Professional system administration. Server management, automation and optimized security."},
+                'Windows': {fr: "Support technique avancé et optimisation. Résolution problèmes complexes environnement professionnel.", en: "Advanced technical support and optimization. Complex problem solving in professional environment."},
+                'Hardware Assembly': {fr: "Montage et diagnostic matériel expert. Optimisation performance et réduction coûts infrastructure.", en: "Expert hardware assembly and diagnostics. Performance optimization and infrastructure cost reduction."},
+                'Networking': {fr: "Configuration réseaux entreprise VLAN/WAN. Garantit connectivité fiable et sécurisée.", en: "Enterprise VLAN/WAN network configuration. Ensures reliable and secure connectivity."},
+                'Troubleshooting': {fr: "Diagnostic méthodique et résolution rapide. Minimise downtime et maximise productivité équipes.", en: "Methodical diagnosis and rapid resolution. Minimizes downtime and maximizes team productivity."},
+                'VM Management': {fr: "Virtualisation et isolation environnements. Optimise ressources et sécurise déploiements.", en: "Virtualization and environment isolation. Optimizes resources and secures deployments."},
+                'Docker': {fr: "Conteneurisation pour déploiement consistent. Garantit portabilité et scalabilité applications.", en: "Containerization for consistent deployment. Ensures application portability and scalability."}
+            },
+            tools: {
+                'Cursor IDE': {fr: "Environnement de développement IA intégré. Augmente productivité avec assistance intelligente.", en: "Integrated AI development environment. Increases productivity with intelligent assistance."},
+                'Modern Workflow': {fr: "Outils d'automatisation cutting-edge. Optimise processus et accélère time-to-market.", en: "Cutting-edge automation tools. Optimizes processes and accelerates time-to-market."},
+                'Automation': {fr: "Scripts personnalisés gain de temps. Élimine tâches répétitives et erreurs humaines.", en: "Time-saving custom scripts. Eliminates repetitive tasks and human errors."},
+                'Performance Optimization': {fr: "Analyse et amélioration vitesse applications. Garantit expérience utilisateur fluide.", en: "Application speed analysis and improvement. Ensures smooth user experience."},
+                'Documentation': {fr: "Rédaction technique claire et maintenue. Facilite collaboration et transfert de connaissances.", en: "Clear and maintained technical writing. Facilitates collaboration and knowledge transfer."}
+            }
+        };
+
+        // Portfolio Videos
+        const portfolioVideos = [
+            {id: 'DulgCFivmik', title: {fr: '🎮 FPS Unreal Engine', en: '🎮 FPS Unreal Engine'}, description: {fr: 'Proof of concept style Call of Duty', en: 'Call of Duty style proof of concept'}, explanation: {fr: 'Prototype FPS - Système de gameplay complet avec level design tactique, mécaniques de tir avancées et interface utilisateur intégrée. Technologies: Unreal Engine 5, Blueprint, C++', en: 'FPS Prototype - Complete gameplay system with tactical level design, advanced shooting mechanics and integrated user interface. Technologies: Unreal Engine 5, Blueprint, C++'}},
+            {id: 'YJgE9vukbUM', title: {fr: '🏗️ Blockout Level Design', en: '🏗️ Blockout Level Design'}, description: {fr: 'Demo blockout avec tests personnage', en: 'Blockout demo with character testing'}, explanation: {fr: 'Level Design - Processus de blockout complet, tests de gameplay et mécaniques de saut, optimisation du player movement avec validation concepts.', en: 'Level Design - Complete blockout process, gameplay testing and jump mechanics, player movement optimization with concept validation.'}},
+            {id: 'mncmCi8ENxE', title: {fr: '🌍 Planète Procédurale PCG', en: '🌍 Procedural Planet PCG'}, description: {fr: 'Génération planète taille réelle UE5', en: 'Real-size planet generation UE5'}, explanation: {fr: 'Planète Procédurale PCG - Génération automatique planète explorable taille réelle. Algorithmes procéduraux avancés, optimisation LOD et streaming de contenu massif.', en: 'Procedural Planet PCG - Automatic generation of explorable real-size planet. Advanced procedural algorithms, LOD optimization and massive content streaming.'}},
+            {id: 'o3Xi7jtjKeY', title: {fr: '🤖 Motion Matching IA', en: '🤖 AI Motion Matching'}, description: {fr: 'Animation fluide et moderne', en: 'Fluid and modern animation'}, explanation: {fr: 'Motion Matching IA - Système animation révolutionnaire avec transition automatique entre poses, IA pour sélection optimale et réactivité temps réel aux inputs.', en: 'AI Motion Matching - Revolutionary animation system with automatic transition between poses, AI for optimal selection and real-time input responsiveness.'}},
+            {id: 'vDkBvCrSWCA', title: {fr: '🎮 Plateformer 3D', en: '🎮 3D Platformer'}, description: {fr: 'Jeu plateforme avec animation blending', en: 'Platform game with animation blending'}, explanation: {fr: 'Plateformer 3D - Jeu de plateforme avec animation blending fluide, character controller premium et mécaniques de gameplay polies. Focus sur game feel et accessibilité.', en: '3D Platformer - Platform game with fluid animation blending, premium character controller and polished gameplay mechanics. Focus on game feel and accessibility.'}}
+        ];
+
+        // Color Themes
+        const colorThemes = {
+            classic: {name: 'Classic', primary: '#06b6d4', secondary: '#10b981', accent: '#8b5cf6', preview: 'linear-gradient(135deg, #06b6d4, #10b981)'},
+            warm: {name: 'Warm', primary: '#f59e0b', secondary: '#ef4444', accent: '#f97316', preview: 'linear-gradient(135deg, #f59e0b, #ef4444)'},
+            nature: {name: 'Nature', primary: '#10b981', secondary: '#059669', accent: '#047857', preview: 'linear-gradient(135deg, #10b981, #059669)'},
+            purple: {name: 'Purple', primary: '#8b5cf6', secondary: '#a855f7', accent: '#7c3aed', preview: 'linear-gradient(135deg, #8b5cf6, #a855f7)'},
+            monochrome: {name: 'Monochrome', primary: '#64748b', secondary: '#475569', accent: '#334155', preview: 'linear-gradient(135deg, #64748b, #475569)'},
+            ocean: {name: 'Ocean', primary: '#0ea5e9', secondary: '#06b6d4', accent: '#0284c7', preview: 'linear-gradient(135deg, #0ea5e9, #06b6d4)'}
+        };
+
+        // Portrait Messages
+        const portraitMessages = {
+            fr: ["Je transforme le café en code depuis 2023 !", "Mes bugs sont des features non documentées 😏", "Level design IRL : j'optimise tout, même ma routine café", "Python et moi, c'est une histoire d'amour... compliquée", "Je debug le hardware comme je debug le code : avec patience", "Unreal Engine m'a appris que les rêves peuvent être procéduraux", "Mon GitHub, c'est mon jardin secret... mais public", "Entre Wales et Lyon, mon anglais a survécu aux accents 🏴󠁧󠁢󠁷󠁬󠁳󠁿", "Je fais du Blender sans mixeur, ça vous épate ?", "38 ans, reconversion assumée, passion intacte !"],
+            en: ["I've been turning coffee into code since 2023!", "My bugs are undocumented features 😏", "Level design IRL: I optimize everything, even my coffee routine", "Python and I have a complicated love story", "I debug hardware like I debug code: with patience", "Unreal Engine taught me that dreams can be procedural", "My GitHub is my secret garden... but public", "Between Wales and Lyon, my English survived the accents 🏴󠁧󠁢󠁷󠁬󠁳󠁿", "I do Blender without a blender, impressed?", "38 years old, career change assumed, passion intact!"]
+        };
+
+        // Quiz Puzzles
+        const puzzles = {
+            fr: [
+                {
+                    question: "Que va afficher ce code ?\n\nconsole.log(typeof null);",
+                    options: ["null", "object", "undefined", "error"],
+                    correct: 1,
+                    explanation: "En JavaScript, typeof null retourne 'object' - c'est un bug historique du langage !"
+                },
+                {
+                    question: "Quelle est la différence entre == et === ?",
+                    options: ["Aucune différence", "=== compare type et valeur", "== est plus rapide", "=== accepte null"],
+                    correct: 1,
+                    explanation: "=== compare à la fois le type et la valeur, tandis que == fait une conversion de type automatique."
+                },
+                {
+                    question: "Que fait ce code ?\n\nlet arr = [1,2,3];\narr.length = 0;",
+                    options: ["Erreur", "Vide le tableau", "Supprime length", "Rien"],
+                    correct: 1,
+                    explanation: "Assigner 0 à la propriété length vide complètement le tableau en JavaScript."
+                },
+                {
+                    question: "Quel est le résultat ?\n\n'5' + 3 - 1",
+                    options: ["7", "52", "53 - 1", "NaN"],
+                    correct: 1,
+                    explanation: "'5' + 3 donne '53' (concaténation), puis '53' - 1 donne 52 (conversion en nombre)."
+                }
+            ],
+            en: [
+                {
+                    question: "What will this code output?\n\nconsole.log(typeof null);",
+                    options: ["null", "object", "undefined", "error"],
+                    correct: 1,
+                    explanation: "In JavaScript, typeof null returns 'object' - this is a historical bug in the language!"
+                },
+                {
+                    question: "What's the difference between == and === ?",
+                    options: ["No difference", "=== compares type and value", "== is faster", "=== accepts null"],
+                    correct: 1,
+                    explanation: "=== compares both type and value, while == performs automatic type conversion."
+                },
+                {
+                    question: "What does this code do?\n\nlet arr = [1,2,3];\narr.length = 0;",
+                    options: ["Error", "Empties the array", "Removes length", "Nothing"],
+                    correct: 1,
+                    explanation: "Setting length to 0 completely empties the array in JavaScript."
+                },
+                {
+                    question: "What's the result?\n\n'5' + 3 - 1",
+                    options: ["7", "52", "53 - 1", "NaN"],
+                    correct: 1,
+                    explanation: "'5' + 3 gives '53' (concatenation), then '53' - 1 gives 52 (number conversion)."
+                }
+            ]
+        };
+
+        let currentPuzzle = 0;
+
+        // Typewriter Class
+        class TypewriterEffect {
+            constructor(element, text, options = {}) {
+                this.element = element;
+                this.text = text;
+                this.speed = options.speed || 50;
+                this.currentIndex = 0;
+                this.isTyping = false;
+                this.showCursor = options.showCursor !== false;
+                this.isStopped = false;
+            }
+
+            type() {
+                if (this.isTyping || this.isStopped) return;
+                this.isTyping = true;
+                this.element.innerHTML = '';
+                this.currentIndex = 0;
+                
+                if (this.showCursor) {
+                    this.element.innerHTML = '<span class="typewriter-cursor">|</span>';
+                }
+                
+                this.typeNextChar();
+            }
+
+            typeNextChar() {
+                if (this.currentIndex >= this.text.length || this.isStopped) {
+                    this.isTyping = false;
+                    if (this.showCursor && !this.isStopped) {
+                        setTimeout(() => {
+                            const cursor = this.element.querySelector('.typewriter-cursor');
+                            if (cursor) cursor.style.opacity = '0';
+                        }, 1000);
+                    }
+                    return;
+                }
+
+                const char = this.text[this.currentIndex];
+                const cursor = this.element.querySelector('.typewriter-cursor');
+                
+                if (cursor) {
+                    cursor.insertAdjacentText('beforebegin', char);
+                } else {
+                    this.element.textContent += char;
+                }
+
+                this.currentIndex++;
+                let delay = this.speed;
+                
+                if ('.,!?;:'.includes(char)) {
+                    delay = this.speed * 3;
+                } else if (char === ' ') {
+                    delay = this.speed * 1.5;
+                } else {
+                    delay = this.speed + (Math.random() * 30 - 15);
+                }
+
+                setTimeout(() => this.typeNextChar(), Math.max(20, delay));
+            }
+
+            stop() {
+                this.isStopped = true;
+                this.isTyping = false;
+                this.currentIndex = 0;
+            }
+        }
+
+        // Particle System
+        class AdvancedParticleSystem {
+            constructor(canvas) {
+                this.canvas = canvas;
+                this.ctx = canvas.getContext('2d');
+                this.particles = [];
+                this.settings = JSON.parse(localStorage.getItem('particle-settings') || '{"type":"circle","movement":"float","intensity":50,"speed":"normal","size":"small","opacity":"subtle"}');
+                this.setupCanvas();
+                this.createParticles();
+                this.animate();
+            }
+
+            setupCanvas() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+            }
+
+            getSpeedMultiplier() {
+                const speeds = {slow: 0.3, normal: 0.6, fast: 1.2, ultra: 2.0};
+                return speeds[this.settings.speed] || 0.6;
+            }
+
+            getSizeRange() {
+                const sizes = {micro: [0.5, 1.5], small: [1, 3], medium: [2, 5], large: [3, 8]};
+                return sizes[this.settings.size] || [1, 3];
+            }
+
+            getOpacityRange() {
+                const opacities = {subtle: [0.05, 0.15], visible: [0.1, 0.3], intense: [0.2, 0.5]};
+                return opacities[this.settings.opacity] || [0.05, 0.15];
+            }
+
+            createParticle() {
+                const [minSize, maxSize] = this.getSizeRange();
+                const [minOpacity, maxOpacity] = this.getOpacityRange();
+                const speedMult = this.getSpeedMultiplier();
+
+                return {
+                    x: Math.random() * this.canvas.width,
+                    y: Math.random() * this.canvas.height,
+                    vx: (Math.random() - 0.5) * speedMult,
+                    vy: (Math.random() - 0.5) * speedMult,
+                    size: Math.random() * (maxSize - minSize) + minSize,
+                    opacity: Math.random() * (maxOpacity - minOpacity) + minOpacity,
+                    angle: Math.random() * Math.PI * 2,
+                    angleSpeed: (Math.random() - 0.5) * 0.02,
+                    color: this.getRandomColor(),
+                    life: Math.random() * 1000,
+                    maxLife: 1000
+                };
+            }
+
+            getRandomColor() {
+                const colors = [
+                    `rgba(${this.hexToRgb(currentTheme.primary)}, ${this.getOpacityRange()[1]})`,
+                    `rgba(${this.hexToRgb(currentTheme.secondary)}, ${this.getOpacityRange()[0] * 1.5})`,
+                    `rgba(${this.hexToRgb(currentTheme.accent)}, ${this.getOpacityRange()[0]})`
+                ];
+                return colors[Math.floor(Math.random() * colors.length)];
+            }
+
+            hexToRgb(hex) {
+                const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+                return result ?
+                    `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` :
+                    '6, 182, 212';
+            }
+
+            createParticles() {
+                this.particles = [];
+                for (let i = 0; i < this.settings.intensity; i++) {
+                    this.particles.push(this.createParticle());
+                }
+            }
+
+            updateParticle(particle) {
+                const speedMult = this.getSpeedMultiplier();
+
+                switch (this.settings.movement) {
+                    case 'float':
+                        particle.x += particle.vx;
+                        particle.y += particle.vy;
+                        break;
+                    case 'spiral':
+                        particle.angle += particle.angleSpeed * speedMult;
+                        particle.x += Math.cos(particle.angle) * 2 * speedMult;
+                        particle.y += Math.sin(particle.angle) * 2 * speedMult;
+                        break;
+                    case 'wave':
+                        particle.x += particle.vx;
+                        particle.y += particle.vy + Math.sin(particle.x * 0.01) * 0.5 * speedMult;
+                        break;
+                    case 'magnetic':
+                        const centerX = this.canvas.width / 2;
+                        const centerY = this.canvas.height / 2;
+                        const dx = centerX - particle.x;
+                        const dy = centerY - particle.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        particle.x += (dx / dist) * 0.1 * speedMult;
+                        particle.y += (dy / dist) * 0.1 * speedMult;
+                        break;
+                    case 'orbital':
+                        const orbitalCenterX = this.canvas.width / 2;
+                        const orbitalCenterY = this.canvas.height / 2;
+                        particle.angle += 0.01 * speedMult;
+                        const radius = 200 + Math.sin(particle.life * 0.01) * 50;
+                        particle.x = orbitalCenterX + Math.cos(particle.angle) * radius;
+                        particle.y = orbitalCenterY + Math.sin(particle.angle) * radius;
+                        break;
+                }
+
+                if (particle.x < 0) particle.x = this.canvas.width;
+                if (particle.x > this.canvas.width) particle.x = 0;
+                if (particle.y < 0) particle.y = this.canvas.height;
+                if (particle.y > this.canvas.height) particle.y = 0;
+
+                particle.life++;
+                if (particle.life > particle.maxLife) {
+                    Object.assign(particle, this.createParticle());
+                }
+            }
+
+            drawParticle(particle) {
+                this.ctx.save();
+                this.ctx.globalAlpha = particle.opacity;
+                this.ctx.fillStyle = particle.color;
+
+                switch (this.settings.type) {
+                    case 'circle':
+                        this.ctx.beginPath();
+                        this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+                        this.ctx.fill();
+                        break;
+                    case 'star':
+                        this.drawStar(particle.x, particle.y, particle.size);
+                        break;
+                    case 'triangle':
+                        this.drawTriangle(particle.x, particle.y, particle.size);
+                        break;
+                    case 'line':
+                        this.ctx.beginPath();
+                        this.ctx.moveTo(particle.x, particle.y);
+                        this.ctx.lineTo(particle.x + particle.size * 3, particle.y);
+                        this.ctx.strokeStyle = particle.color;
+                        this.ctx.lineWidth = particle.size;
+                        this.ctx.stroke();
+                        break;
+                    case 'pixel':
+                        this.ctx.fillRect(particle.x, particle.y, particle.size, particle.size);
+                        break;
+                }
+                this.ctx.restore();
+            }
+
+            drawStar(x, y, size) {
+                this.ctx.beginPath();
+                for (let i = 0; i < 5; i++) {
+                    const angle = (i * 4 * Math.PI) / 5;
+                    const x1 = x + Math.cos(angle) * size;
+                    const y1 = y + Math.sin(angle) * size;
+                    if (i === 0) this.ctx.moveTo(x1, y1);
+                    else this.ctx.lineTo(x1, y1);
+                }
+                this.ctx.closePath();
+                this.ctx.fill();
+            }
+
+            drawTriangle(x, y, size) {
+                this.ctx.beginPath();
+                this.ctx.moveTo(x, y - size);
+                this.ctx.lineTo(x - size, y + size);
+                this.ctx.lineTo(x + size, y + size);
+                this.ctx.closePath();
+                this.ctx.fill();
+            }
+
+            animate() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                this.particles.forEach(particle => {
+                    this.updateParticle(particle);
+                    this.drawParticle(particle);
+                });
+                requestAnimationFrame(() => this.animate());
+            }
+
+            updateSettings(newSettings) {
+                Object.assign(this.settings, newSettings);
+                this.createParticles();
+                localStorage.setItem('particle-settings', JSON.stringify(this.settings));
+            }
+
+            resize() {
+                this.setupCanvas();
+            }
+
+            toggle() {
+                if (this.particles.length === 0) {
+                    this.createParticles();
+                } else {
+                    this.particles = [];
+                }
+            }
+        }
+
+        // Initialize Functions
+        function initializeCV() {
+            applyTheme(currentTheme);
+            const canvas = document.getElementById('particleCanvas');
+            particleSystem = new AdvancedParticleSystem(canvas);
+            document.querySelector(`[data-lang-key="${currentLang}"]`).classList.add('active');
+            updateContent();
+            initializeColorThemes();
+            setupEventListeners();
+            setupScrollIndicator();
+            updateGamingMode();
+            updateGameDisplay();
+            updateTamaIcon();
+            
+            // Initialize gaming unlock state
+            if (gamingUnlocked) {
+                unlockGamingMode();
+            }
+        }
+
+        function setupEventListeners() {
+            window.addEventListener('resize', () => {
+                if (particleSystem) particleSystem.resize();
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeColorPicker();
+                    closeTheater();
+                    closeMiniGame();
+                }
+                if (e.key.toLowerCase() === 'c' && !document.getElementById('colorPickerOverlay').classList.contains('active')) {
+                    openColorPicker();
+                }
+                if (e.key.toLowerCase() === 'p') {
+                    if (particleSystem) particleSystem.toggle();
+                }
+            });
+
+            // Skill tooltips with debounce
+            let tooltipTimeout;
+            document.addEventListener('mouseenter', (e) => {
+                if (e.target && e.target.classList && e.target.classList.contains('skill-bubble')) {
+                    clearTimeout(tooltipTimeout);
+                    clearTimeout(e.target.hideTimeout);
+                    showSkillTooltip(e.target);
+                }
+            }, true);
+
+            document.addEventListener('mouseleave', (e) => {
+                if (e.target && e.target.classList && e.target.classList.contains('skill-bubble')) {
+                    e.target.hideTimeout = setTimeout(() => {
+                        hideSkillTooltip(e.target);
+                    }, 150);
+                }
+            }, true);
+        }
+
+        function setupScrollIndicator() {
+            window.addEventListener('scroll', () => {
+                const portfolioSection = document.querySelector('.portfolio-section');
+                const rect = portfolioSection.getBoundingClientRect();
+                const indicator = document.getElementById('scrollIndicator');
+                
+                if (rect.top <= window.innerHeight * 0.8) {
+                    indicator.style.opacity = '0';
+                    indicator.style.pointerEvents = 'none';
+                } else {
+                    indicator.style.opacity = '1';
+                    indicator.style.pointerEvents = 'auto';
+                }
+            });
+        }
+
+        function showSkillTooltip(skillElement) {
+            const tooltip = skillElement.querySelector('.skill-tooltip');
+            if (!tooltip) return;
+
+            const key = skillElement.textContent.trim();
+            
+            // Stop any existing typewriter for this skill
+            if (typewriterInstances.has(key)) {
+                typewriterInstances.get(key).stop();
+                typewriterInstances.delete(key);
+            }
+
+            // Clear and reset tooltip
+           // tooltip.textContent = '';
+            
+            // Position tooltip
+            const rect = skillElement.getBoundingClientRect();
+            if (rect.left + 280 > window.innerWidth) {
+                tooltip.style.left = 'auto';
+                tooltip.style.right = '0';
+                tooltip.style.transform = 'translateX(0)';
+            } else if (rect.left - 140 < 0) {
+                tooltip.style.left = '0';
+                tooltip.style.right = 'auto';
+                tooltip.style.transform = 'translateX(0)';
+            } else {
+                tooltip.style.left = '50%';
+                tooltip.style.right = 'auto';
+                tooltip.style.transform = 'translateX(-50%)';
+            }
+
+            tooltip.classList.add('show');
+
+            // Get skill data and start typewriter
+            const skillData = getSkillData(key);
+            if (skillData) {
+                setTimeout(() => {
+                    const typewriter = new TypewriterEffect(tooltip, skillData[currentLang], {
+                        speed: 25,
+                        showCursor: false
+                    });
+                    typewriterInstances.set(key, typewriter);
+                    typewriter.type();
+                }, 0);
+            }
+
+            if (gamingMode) {
+                triggerAction('skill-hover');
+            }
+        }
+
+        function hideSkillTooltip(skillElement) {
+            const tooltip = skillElement.querySelector('.skill-tooltip');
+            if (!tooltip) return;
+
+            const key = skillElement.textContent.trim();
+            if (typewriterInstances.has(key)) {
+                typewriterInstances.get(key).stop();
+                typewriterInstances.delete(key);
+            }
+
+            tooltip.classList.remove('show');
+            tooltip.textContent = '';
+        }
+
+        function getSkillData(skillName) {
+            for (const [category, skills] of Object.entries(skillsData)) {
+                if (skills[skillName]) return skills[skillName];
+            }
+            return null;
+        }
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('preferredLanguage', lang);
+            
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-lang-key="${lang}"]`).classList.add('active');
+            
+            document.documentElement.lang = lang;
+            updateContent();
+        }
+
+        function updateContent() {
+            const t = translations[currentLang];
+            
+            document.querySelectorAll('[data-lang]').forEach(el => {
+                const key = el.getAttribute('data-lang');
+                if (t[key]) {
+                    el.textContent = t[key];
+                }
+            });
+            
+            const downloadLink = document.getElementById('downloadLink');
+            if (currentLang === 'fr') {
+                downloadLink.href = 'https://drive.google.com/uc?export=download&id=1m2gYO3lF9H9zKT0QXNhMc-ugcgWkHnD0';
+            } else {
+                downloadLink.href = 'https://drive.google.com/uc?export=download&id=1yTQXDdlkjcYsX4RUXXIh9Wzwld-OXJaE';
+            }
+            
+            updateExperience();
+            updateEducation();
+            updateProjects();
+            updateInternational();
+            updateSkills();
+            updateLanguages();
+            updatePortfolio();
+        }
+
+        function updateExperience() {
+            const container = document.getElementById('experienceContent');
+            const experiences = translations[currentLang].experiences;
+            
+            container.innerHTML = experiences.map(exp => `
+                <div class="experience-item">
+                    <h4 class="text-white font-medium text-sm mb-1">${exp.title}</h4>
+                    <p class="text-blue-400 text-xs mb-2 font-medium">${exp.company}</p>
+                    <p class="text-gray-300 text-xs leading-relaxed">${exp.description}</p>
+                </div>
+            `).join('');
+        }
+
+        function updateEducation() {
+            const container = document.getElementById('educationContent');
+            const education = translations[currentLang].education;
+            
+            container.innerHTML = education.map(edu => `
+                <div class="experience-item">
+                    <h4 class="text-white font-medium text-sm mb-1">${edu.title}</h4>
+                    <p class="text-green-400 text-xs mb-2 font-medium">${edu.period}</p>
+                    <p class="text-gray-300 text-xs leading-relaxed">${edu.description}</p>
+                </div>
+            `).join('');
+        }
+
+        function updateProjects() {
+            const container = document.getElementById('projectsContent');
+            const projects = translations[currentLang].projects;
+            
+            container.innerHTML = projects.map(project => `
+                <div class="flex items-start gap-3 p-3 bg-gray-800 bg-opacity-20 rounded-lg">
+                    <i class="${project.icon} text-blue-400 mt-1"></i>
+                    <div>
+                        <h4 class="text-white font-medium text-sm mb-1">${project.title}</h4>
+                        <p class="text-gray-300 text-xs leading-relaxed">${project.description}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateInternational() {
+            const container = document.getElementById('internationalContent');
+            const international = translations[currentLang].international;
+            
+            container.innerHTML = international.map(exp => `
+                <div class="experience-item">
+                    <h4 class="text-white font-medium text-sm mb-1">${exp.title}</h4>
+                    <p class="text-blue-400 text-xs mb-2 font-medium">${exp.period}</p>
+                    <p class="text-gray-300 text-xs leading-relaxed">${exp.description}</p>
+                </div>
+            `).join('');
+        }
+
+        function updateSkills() {
+            const categories = ['development', 'gamedev', 'systems', 'tools'];
+            
+            categories.forEach(category => {
+                const container = document.getElementById(`${category}Skills`);
+                if (container) {
+                    const skills = Object.keys(skillsData[category]);
+                    container.innerHTML = skills.map(skill => {
+                        const tooltip = skillsData[category][skill][currentLang];
+                        return `
+                            <span class="skill-bubble">
+                                ${skill}
+                                <div class="skill-tooltip">${tooltip}</div>
+                            </span>
+                        `;
+                    }).join('');
+                }
+            });
+        }
+
+        function updateLanguages() {
+            const container = document.getElementById('languagesContent');
+            
+            const languages = [
+                {name: currentLang === 'fr' ? 'Français' : 'French', level: currentLang === 'fr' ? 'C2 (Natif)' : 'C2 (Native)', progress: 100},
+                {name: currentLang === 'fr' ? 'Anglais' : 'English', level: currentLang === 'fr' ? 'C1 (Courant)' : 'C1 (Fluent)', progress: 85}
+            ];
+
+            container.innerHTML = languages.map(lang => `
+                <div class="language-item">
+                    <div class="flex items-center gap-3">
+                        <span class="text-white font-medium">${lang.name}</span>
+                        <span class="cecrl-badge">${lang.level}</span>
+                    </div>
+                    <div class="level-progress">
+                        <div class="level-fill" style="width: ${lang.progress}%"></div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updatePortfolio() {
+            const container = document.getElementById('portfolioGrid');
+            
+            container.innerHTML = portfolioVideos.map((video, index) => `
+                <div class="portfolio-card" onclick="showTheaterOverlay(${index})" data-index="${index}">
+                    <div class="video-thumbnail">
+                        <img src="https://img.youtube.com/vi/${video.id}/hqdefault.jpg" 
+                            alt="${video.title[currentLang]}" 
+                            style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="video-description">
+                        <h4 class="text-xl font-bold text-white mb-2">${video.title[currentLang]}</h4>
+                        <p class="text-gray-300 text-sm">${video.description[currentLang]}</p>
+                        <div class="flex flex-wrap gap-2 mt-3">
+                            <span class="tech-tag">Unreal Engine</span>
+                            <span class="tech-tag">Blueprint</span>
+                            <span class="tech-tag">Level Design</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+
+        // Theater Functions
+        function showTheaterOverlay(index) {
+            const overlay = document.getElementById('theaterOverlay');
+            const video = document.getElementById('theaterVideo');
+            const explanation = document.getElementById('videoExplanation');
+            
+            const videoData = portfolioVideos[index];
+            if (!videoData) return;
+            
+            overlay.classList.add('active');
+            video.src = `https://www.youtube.com/embed/${videoData.id}?autoplay=1&mute=1`;
+            
+            setTimeout(() => {
+                const typewriter = new TypewriterEffect(explanation, videoData.explanation[currentLang], {speed: 40, variableSpeed: true});
+                typewriter.type();
+            }, 800);
+
+            if (gamingMode) {
+                triggerAction('video-theater');
+            }
+        }
+
+        function closeTheater(event) {
+            if (event && event.target !== event.currentTarget && !event.target.classList.contains('close-theater')) return;
+            
+            const overlay = document.getElementById('theaterOverlay');
+            const video = document.getElementById('theaterVideo');
+            
+            overlay.classList.remove('active');
+            video.src = '';
+        }
+
+        function slideCarousel(direction) {
+            const grid = document.getElementById('portfolioGrid');
+            const cardWidth = 350 + 16; // card width + gap
+            const maxScroll = grid.scrollWidth - grid.clientWidth;
+            const currentScroll = grid.scrollLeft;
+            
+            let newScroll = currentScroll + (direction * cardWidth);
+            
+            if (newScroll < 0) newScroll = 0;
+            if (newScroll > maxScroll) newScroll = maxScroll;
+            
+            grid.scrollTo({left: newScroll, behavior: 'smooth'});
+        }
+
+        // Color Picker Functions
+        function openColorPicker() {
+            document.getElementById('colorPickerOverlay').classList.add('active');
+            if (gamingMode) {
+                triggerAction('customization');
+            }
+        }
+
+        function closeColorPicker(event) {
+            if (event && event.target !== event.currentTarget && !event.target.classList.contains('close-theater')) return;
+            document.getElementById('colorPickerOverlay').classList.remove('active');
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(`${tabName}Tab`).classList.add('active');
+        }
+
+        function initializeColorThemes() {
+            const container = document.getElementById('themeGrid');
+            
+            container.innerHTML = Object.entries(colorThemes).map(([key, theme]) => `
+                <div class="theme-preview ${key === currentTheme.name.toLowerCase() ? 'active' : ''}" 
+                     style="background: ${theme.preview}" 
+                     onclick="applyTheme(colorThemes.${key})"
+                     title="${theme.name}">
+                </div>
+            `).join('');
+        }
+
+        function applyTheme(theme) {
+            currentTheme = theme;
+            const root = document.documentElement;
+            
+            const primaryRgb = hexToRgb(theme.primary);
+            const secondaryRgb = hexToRgb(theme.secondary);
+            
+            root.style.setProperty('--primary', theme.primary);
+            root.style.setProperty('--secondary', theme.secondary);
+            root.style.setProperty('--accent', theme.accent);
+            root.style.setProperty('--primary-rgb', primaryRgb);
+            root.style.setProperty('--secondary-rgb', secondaryRgb);
+            
+            if (particleSystem) {
+                particleSystem.createParticles();
+            }
+            
+            document.querySelectorAll('.theme-preview').forEach(preview => {
+                preview.classList.remove('active');
+            });
+            
+            localStorage.setItem('cv-theme', JSON.stringify(theme));
+        }
+
+        function updateCustomColors() {
+            const primary = document.getElementById('primaryColor').value;
+            const secondary = document.getElementById('secondaryColor').value;
+            
+            const customTheme = {
+                name: 'Custom',
+                primary: primary,
+                secondary: secondary,
+                accent: primary
+            };
+            
+            applyTheme(customTheme);
+        }
+
+        function hexToRgb(hex) {
+            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ?
+                `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` :
+                '6, 182, 212';
+        }
+
+        // Particle Functions
+        function applyParticlePreset(presetName) {
+            const presets = {
+                minimal: {type: 'circle', movement: 'float', intensity: 20, speed: 'slow', size: 'micro', opacity: 'subtle'},
+                classic: {type: 'circle', movement: 'float', intensity: 50, speed: 'normal', size: 'small', opacity: 'subtle'},
+                dynamic: {type: 'star', movement: 'spiral', intensity: 100, speed: 'fast', size: 'medium', opacity: 'visible'},
+                cosmic: {type: 'triangle', movement: 'orbital', intensity: 150, speed: 'ultra', size: 'large', opacity: 'intense'}
+            };
+
+            const preset = presets[presetName];
+            if (preset && particleSystem) {
+                Object.entries(preset).forEach(([key, value]) => {
+                    const element = document.getElementById(`particle${key.charAt(0).toUpperCase() + key.slice(1)}`);
+                    if (element) {
+                        element.value = value;
+                        if (key === 'intensity') {
+                            document.getElementById('intensityValue').textContent = value;
+                        }
+                    }
+                });
+
+                document.querySelectorAll('.preset-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                document.querySelector(`[onclick="applyParticlePreset('${presetName}')"]`).classList.add('active');
+
+                particleSystem.updateSettings(preset);
+            }
+        }
+
+        function updateParticles() {
+            if (!particleSystem) return;
+
+            const settings = {
+                type: document.getElementById('particleType').value,
+                movement: document.getElementById('particleMovement').value,
+                intensity: parseInt(document.getElementById('particleIntensity').value),
+                speed: document.getElementById('particleSpeed').value,
+                size: document.getElementById('particleSize').value,
+                opacity: document.getElementById('particleOpacity').value
+            };
+
+            document.getElementById('intensityValue').textContent = settings.intensity;
+            particleSystem.updateSettings(settings);
+        }
+
+        function resetParticles() {
+            applyParticlePreset('classic');
+        }
+
+        function saveParticleSettings() {
+            const settings = particleSystem.settings;
+            localStorage.setItem('particle-settings', JSON.stringify(settings));
+            
+            const btn = event.target;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check mr-2"></i>Sauvegardé';
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+            }, 2000);
+        }
+
+        // Gaming Functions
+        function unlockGamingMode() {
+            if (gamingUnlocked) return;
+            
+            gamingUnlocked = true;
+            localStorage.setItem('gamingUnlocked', 'true');
+            
+            const gameToggle = document.getElementById('gameToggle');
+            gameToggle.classList.add('unlocked');
+            
+            showAchievement('Mode Gaming Débloqué!', 'Vous avez découvert le secret ! 🎮');
+            
+            // Auto-enable gaming mode
+            gamingMode = true;
+            localStorage.setItem('gamingMode', 'true');
+            updateGamingMode();
+        }
+
+        function toggleGaming() {
+            if (!gamingUnlocked) return;
+            
+            gamingMode = !gamingMode;
+            localStorage.setItem('gamingMode', gamingMode);
+            updateGamingMode();
+        }
+
+        function updateGamingMode() {
+            const hud = document.getElementById('gameHUD');
+            const tama = document.getElementById('tamagotchi');
+            const toggle = document.getElementById('gameToggle');
+
+            if (gamingMode && gamingUnlocked) {
+                hud.classList.add('show');
+                tama.classList.add('show');
+                toggle.innerHTML = '🎮 Gaming';
+                toggle.style.background = 'rgba(139, 92, 246, 0.2)';
+            } else if (gamingUnlocked) {
+                hud.classList.remove('show');
+                tama.classList.remove('show');
+                toggle.innerHTML = '💼 Serious';
+                toggle.style.background = 'rgba(148, 163, 184, 0.1)';
+            }
+        }
+
+        function triggerAction(action) {
+            if (!gamingMode) return;
+
+            const xpGain = {
+                'skill-hover': 2,
+                'contact-email': 10,
+                'contact-github': 15,
+                'download-pdf': 25,
+                'video-theater': 8,
+                'customization': 5,
+                'portrait-click': 3
+            }[action] || 1;
+
+            gameStats.xp += xpGain;
+            gameStats.score += xpGain * 10;
+
+            if (gameStats.xp >= gameStats.level * 100) {
+                gameStats.level++;
+                gameStats.xp = 0;
+                showAchievement('Level Up!', `Niveau ${gameStats.level} atteint!`);
+            }
+
+            updateGameDisplay();
+            saveGameStats();
+
+            if (action === 'contact-email' && !gameStats.achievements.includes('first_contact')) {
+                gameStats.achievements.push('first_contact');
+                showAchievement('Premier Contact', 'Vous avez cliqué sur mon email!');
+            }
+
+            showGameNotification(`+${xpGain} XP`);
+        }
+
+        function updateGameDisplay() {
+            if (!gamingMode) return;
+            
+            document.getElementById('scoreDisplay').textContent = gameStats.score.toLocaleString();
+            document.getElementById('xpDisplay').textContent = gameStats.xp;
+            document.getElementById('levelDisplay').textContent = gameStats.level;
+            document.getElementById('totalScore').textContent = gameStats.score.toLocaleString();
+            document.getElementById('totalAchievements').textContent = gameStats.achievements.length;
+            document.getElementById('tamaLevel').textContent = gameStats.tamaLevel;
+            
+            const xpPercent = (gameStats.xp / (gameStats.level * 100)) * 100;
+            document.getElementById('xpProgress').style.width = xpPercent + '%';
+        }
+
+        function showAchievement(title, description) {
+            const toast = document.getElementById('achievementToast');
+            document.getElementById('achievementTitle').textContent = title;
+            document.getElementById('achievementDesc').textContent = description;
+            
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 5000);
+        }
+
+        function showGameNotification(text) {
+            const notification = document.getElementById('gameNotification');
+            document.getElementById('notificationText').textContent = text;
+            
+            notification.classList.add('show');
+            setTimeout(() => notification.classList.remove('show'), 3000);
+        }
+
+        function feedTamagotchi() {
+            if (!gamingMode) return;
+            
+            gameStats.tamaLevel = Math.min(gameStats.tamaLevel + 1, 10);
+            showGameNotification(`Eric nourri ! Niveau ${gameStats.tamaLevel}`);
+            updateGameDisplay();
+            updateTamaIcon();
+            saveGameStats();
+        }
+
+        function triggerPortraitDialogue() {
+            const dialogue = document.getElementById('portraitDialogue');
+            const messages = portraitMessages[currentLang];
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            
+            portraitClicks++;
+            localStorage.setItem('portraitClicks', portraitClicks.toString());
+            
+            // Stop previous portrait typewriter
+            if (typewriterInstances.has('portrait')) {
+                typewriterInstances.get('portrait').stop();
+                typewriterInstances.delete('portrait');
+            }
+            
+            document.getElementById('portraitText').textContent = '';
+            dialogue.classList.add('show');
+            
+            const typewriter = new TypewriterEffect(document.getElementById('portraitText'), randomMessage, {speed: 30});
+            typewriterInstances.set('portrait', typewriter);
+            typewriter.type();
+            
+            // Unlock gaming mode after 3 clicks
+            if (portraitClicks >= 3 && !gamingUnlocked) {
+                setTimeout(() => {
+                    unlockGamingMode();
+                }, 2000);
+            }
+            
+            setTimeout(() => dialogue.classList.remove('show'), 4000);
+
+            if (gamingMode) {
+                triggerAction('portrait-click');
+            }
+        }
+
+        function resetGameStats() {
+            gameStats = {score: 0, xp: 0, level: 1, achievements: [], tamaLevel: 1};
+            localStorage.removeItem('gameStats');
+            updateGameDisplay();
+        }
+
+        function saveGameStats() {
+            localStorage.setItem('gameStats', JSON.stringify(gameStats));
+        }
+
+        // Mini Game Functions
+        function startMiniGame() {
+            document.getElementById('miniGameOverlay').classList.add('active');
+            generateNewPuzzle();
+        }
+
+        function closeMiniGame(event) {
+            if (event && event.target !== event.currentTarget && !event.target.classList.contains('close-theater')) return;
+            document.getElementById('miniGameOverlay').classList.remove('active');
+        }
+
+        function generateNewPuzzle() {
+            const currentPuzzles = puzzles[currentLang];
+            currentPuzzle = Math.floor(Math.random() * currentPuzzles.length);
+            const puzzle = currentPuzzles[currentPuzzle];
+            
+            document.getElementById('quizQuestion').textContent = puzzle.question;
+            document.getElementById('puzzleResult').innerHTML = '';
+            
+            const optionsHtml = puzzle.options.map((option, index) => 
+                `<button class="qcm-option" onclick="selectAnswer(${index})" data-index="${index}">
+                    ${String.fromCharCode(65 + index)}. ${option}
+                </button>`
+            ).join('');
+            
+            document.getElementById('qcmOptions').innerHTML = optionsHtml;
+        }
+
+        function selectAnswer(selectedIndex) {
+            const currentPuzzles = puzzles[currentLang];
+            const puzzle = currentPuzzles[currentPuzzle];
+            const resultDiv = document.getElementById('puzzleResult');
+            
+            if (selectedIndex === puzzle.correct) {
+                resultDiv.innerHTML = `<div style="color: #10b981; font-weight: bold;">✓ Correct!</div><p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">${puzzle.explanation}</p>`;
+                
+                if (gamingMode) {
+                    gameStats.xp += 50;
+                    gameStats.score += 500;
+                    updateGameDisplay();
+                    showGameNotification('+50 XP Puzzle résolu!');
+                }
+            } else {
+                resultDiv.innerHTML = `<div style="color: #ef4444; font-weight: bold;">✗ Incorrect</div><p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">${currentLang === 'fr' ? 'La bonne réponse était' : 'The correct answer was'}: ${String.fromCharCode(65 + puzzle.correct)}. ${puzzle.options[puzzle.correct]}</p>`;
+            }
+            
+            // Highlight correct/incorrect answers
+            document.querySelectorAll('.qcm-option').forEach((btn, index) => {
+                if (index === puzzle.correct) {
+                    btn.style.background = 'rgba(16, 185, 129, 0.2)';
+                    btn.style.borderColor = '#10b981';
+                } else if (index === selectedIndex && selectedIndex !== puzzle.correct) {
+                    btn.style.background = 'rgba(239, 68, 68, 0.2)';
+                    btn.style.borderColor = '#ef4444';
+                }
+                btn.disabled = true;
+            });
+        }
+
+        // Contact Functions
+        function openMail() {
+            window.open('mailto:s.medjaher@gmail.com');
+            if (gamingMode) triggerAction('contact-email');
+        }
+
+        function callPhone() {
+            window.open('tel:+33780757576');
+        }
+
+        function openMaps() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    const {latitude, longitude} = position.coords;
+                    const mapsUrl = `https://www.google.com/maps/dir/${latitude},${longitude}/69140+Rillieux-la-Pape,+France`;
+                    window.open(mapsUrl, '_blank');
+                }, () => {
+                    window.open('https://www.google.com/maps/search/69140+Rillieux-la-Pape,+France', '_blank');
+                });
+            } else {
+                window.open('https://www.google.com/maps/search/69140+Rillieux-la-Pape,+France', '_blank');
+            }
+        }
+
+        function openGitHub() {
+            window.open('https://github.com/Duperopope', '_blank');
+            if (gamingMode) triggerAction('contact-github');
+        }
+
+        function scrollToPortfolio() {
+            document.querySelector('.portfolio-section').scrollIntoView({behavior: 'smooth'});
+        }
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', initializeCV);
+    </script>
+</body>
+</html>
