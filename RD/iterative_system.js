@@ -9,7 +9,7 @@ const { LearningSystem } = require('./learning_system');
 // Configuration
 const CONFIG = {
     rdPath: 'g:/Code/CV/RD',
-    mainProject: 'g:/Code/CV/cv.html',
+    mainProject: 'g:/Code/CV/index.html', // Main project file (index.html is current, cv.html is old backup)
     iterations: {
         maxIterations: 10,
         currentIteration: 0,
