@@ -1,0 +1,44 @@
+name: Active Development
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  iterative-development:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run iterative development script
+      run: node development-script.js
+
+    - name: Log errors
+      run: |
+        if [ -f error.log ]; then
+          cat error.log
+        else
+          echo "No errors logged."
+        fi
+
+    - name: Commit changes
+      run: |
+        git config user.name "GitHub Actions"
+        git config user.email "actions@github.com"
+        git add .
+        git commit -m "Automated iterative development updates" || echo "No changes to commit."
+        git push origin main
