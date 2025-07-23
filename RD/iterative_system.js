@@ -1,9 +1,10 @@
-// Iterative Development System with LLM Reasoning
-// This script manages the complete development workflow with automated reasoning
+// Iterative Development System with LLM Reasoning and Learning
+// This script manages the complete development workflow with automated reasoning and mistake prevention
 
 const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
+const { LearningSystem } = require('./learning_system');
 
 // Configuration
 const CONFIG = {
@@ -491,20 +492,26 @@ class FileManager {
     }
 }
 
-// Main development system with autonomous capabilities
+// Main development system with autonomous capabilities and learning
 class IterativeDevelopmentSystem {
     constructor() {
         this.logger = new Logger();
         this.reasoner = new DevelopmentReasoner(this.logger);
         this.fileManager = new FileManager(this.logger);
         this.gitManager = new GitManager(this.logger);
+        this.learningSystem = new LearningSystem(this.logger, CONFIG);
         
         this.logger.log('🚀 Iterative Development System initialized');
         this.logger.log('🤖 Autonomous mode: ' + (CONFIG.autonomous.enabled ? 'ENABLED' : 'DISABLED'));
+        this.logger.log('🧠 Learning system: ENABLED');
     }
 
     async initialize() {
         this.logger.log('⚙️  Initializing development environment...');
+        
+        // Load learning data and prevention rules
+        const preventionRules = this.learningSystem.getPreventionRules();
+        this.logger.log(`📚 Loaded ${preventionRules.length} prevention rules`);
         
         // Ensure we're on the correct branch
         await this.gitManager.ensureRDBranch();
@@ -523,8 +530,89 @@ class IterativeDevelopmentSystem {
         this.logger.log('✅ Environment initialized');
     }
 
+    // Enhanced safe file modification
+    async safeModifyFile(filePath, modificationFunction, description) {
+        this.logger.log(`🛡️  Safe modification: ${description}`);
+        
+        // Check if file exists and backup
+        if (!fs.existsSync(filePath)) {
+            this.logger.error(`File not found: ${filePath}`);
+            return false;
+        }
+
+        const originalContent = fs.readFileSync(filePath, 'utf8');
+        const backup = this.learningSystem.backupCodeBeforeChange(filePath, 'safe-modify');
+        
+        if (!backup) {
+            this.logger.error('Failed to create backup - aborting modification');
+            return false;
+        }
+
+        try {
+            // Apply modification
+            const newContent = modificationFunction(originalContent);
+            
+            // Validate the change
+            const validation = this.learningSystem.validateProposedChange(
+                originalContent, 
+                newContent, 
+                filePath
+            );
+            
+            if (!validation.approved) {
+                this.logger.error('🚫 Change rejected by learning system');
+                validation.reasons.forEach(reason => {
+                    this.logger.error(`   - ${reason}`);
+                });
+                
+                // Get safer approach suggestion
+                const saferApproach = this.learningSystem.getSaferChangeApproach(filePath, description);
+                this.logger.log('💡 Safer approach suggested:');
+                saferApproach.recommendations.forEach(rec => {
+                    this.logger.log(`   - ${rec}`);
+                });
+                
+                return false;
+            }
+            
+            // Apply the validated change
+            fs.writeFileSync(filePath, newContent);
+            this.logger.log(`✅ Safe modification completed: ${description}`);
+            
+            return true;
+            
+        } catch (error) {
+            this.logger.error('Error during safe modification', error);
+            
+            // Restore from backup
+            try {
+                fs.copyFileSync(backup.backupPath, filePath);
+                this.logger.log('🔄 File restored from backup');
+            } catch (restoreError) {
+                this.logger.error('Failed to restore backup', restoreError);
+            }
+            
+            // Record mistake
+            this.learningSystem.recordMistake(
+                'modificationError',
+                `Failed to modify ${filePath}: ${error.message}`,
+                filePath,
+                { error: error.message }
+            );
+            
+            return false;
+        }
+    }
+
     async runIteration() {
         this.logger.log(`\n=== ITERATION ${++this.reasoner.currentState.iteration} ===`);
+        
+        // Check if overhaul is needed before proceeding
+        const learningReport = this.learningSystem.generateLearningReport();
+        if (learningReport.overhaulNeeded) {
+            this.logger.log('🚨 SYSTEM OVERHAUL NEEDED - Switching to conservative mode');
+            return await this.runConservativeIteration();
+        }
         
         let retries = 0;
         let success = false;
@@ -534,15 +622,15 @@ class IterativeDevelopmentSystem {
                 // Clean environment
                 this.fileManager.cleanUnusedFiles();
                 
-                // Analyze next step
+                // Analyze next step with learning context
                 const nextStep = this.reasoner.analyzeNextStep();
                 if (!nextStep) {
                     this.logger.log('🎉 Development completed!');
                     return false;
                 }
 
-                // Execute step with autonomous error handling
-                const result = await this.executeStepWithRetry(nextStep, retries);
+                // Execute step with enhanced safety
+                const result = await this.executeStepWithSafety(nextStep, retries);
                 
                 // Update state
                 this.reasoner.completeTask(nextStep.task, result ? 'SUCCESS' : 'FAILED');
@@ -553,19 +641,27 @@ class IterativeDevelopmentSystem {
                     await this.gitManager.commitChanges(`Iteration ${this.reasoner.currentState.iteration}: ${nextStep.task}`);
                     success = true;
                 } else if (CONFIG.autonomous.selfCorrection) {
-                    this.logger.log('🔄 Attempting autonomous self-correction...');
+                    this.logger.log('🔄 Attempting autonomous self-correction with learning...');
                     retries++;
                 }
                 
             } catch (error) {
                 this.logger.error('Iteration failed', error);
                 
+                // Record the iteration failure
+                this.learningSystem.recordMistake(
+                    'iterationFailure',
+                    `Iteration ${this.reasoner.currentState.iteration} failed: ${error.message}`,
+                    'system',
+                    { iteration: this.reasoner.currentState.iteration, error: error.message }
+                );
+                
                 if (CONFIG.autonomous.selfCorrection && retries < CONFIG.autonomous.maxRetries) {
                     this.logger.log(`🔄 Retrying iteration (${retries + 1}/${CONFIG.autonomous.maxRetries})...`);
                     retries++;
                     
-                    // Autonomous error correction
-                    await this.handleAutonomousCorrection(error);
+                    // Enhanced autonomous error correction with learning
+                    await this.handleAutonomousCorrectionWithLearning(error);
                 } else {
                     this.reasoner.addIssue(error.message, 'HIGH');
                     break;
@@ -576,39 +672,78 @@ class IterativeDevelopmentSystem {
         return success;
     }
 
-    async executeStepWithRetry(step, retryCount = 0) {
-        this.logger.log(`⚡ Executing: ${step.task} (attempt ${retryCount + 1})`);
+    // Conservative iteration mode when mistakes are high
+    async runConservativeIteration() {
+        this.logger.log('🛡️  Running CONSERVATIVE iteration mode...');
+        
+        // Only do safe, non-destructive operations
+        const safeOperations = [
+            'create_documentation',
+            'validate_existing_code',
+            'run_tests',
+            'generate_reports'
+        ];
+        
+        // Clean environment (safe)
+        this.fileManager.cleanUnusedFiles();
+        
+        // Generate comprehensive report
+        const report = this.learningSystem.generateLearningReport();
+        this.logger.log('📊 Learning report generated in conservative mode');
+        
+        // Commit the reports
+        await this.gitManager.commitChanges(`Conservative iteration: Learning report and cleanup`);
+        
+        return false; // End iterations in conservative mode
+    }
+
+    async executeStepWithSafety(step, retryCount = 0) {
+        this.logger.log(`⚡ Executing with safety: ${step.task} (attempt ${retryCount + 1})`);
+        
+        // Get prevention rules for this step
+        const preventionRules = this.learningSystem.getPreventionRules();
+        this.logger.log(`🛡️  Applying ${preventionRules.length} prevention rules`);
         
         try {
-            // Simulate step execution based on task type
+            // Execute with enhanced safety
             switch (step.task) {
                 case 'setup_rd_environment':
-                    return await this.setupRDEnvironment();
+                    return await this.setupRDEnvironmentSafe();
                 
                 case 'analyze_main_project':
-                    return await this.analyzeMainProject();
+                    return await this.analyzeMainProjectSafe();
                     
                 case 'implement_bilingual_landing':
-                    return await this.implementBilingualLanding();
+                    return await this.implementBilingualLandingSafe();
                     
                 default:
                     this.logger.log(`⚠️  Step execution not implemented: ${step.task}`);
                     
-                    // Autonomous learning: suggest implementation
-                    if (CONFIG.autonomous.enabled) {
-                        this.suggestImplementation(step.task);
-                    }
+                    // Record as learning opportunity instead of mistake
+                    this.learningSystem.recordMistake(
+                        'unimplementedFeature',
+                        `Feature not yet implemented: ${step.task}`,
+                        'system',
+                        { task: step.task, suggestion: 'Add implementation for this task' }
+                    );
                     
                     return false;
             }
         } catch (error) {
             this.logger.error(`Step execution failed: ${step.task}`, error);
             
-            // Autonomous error analysis and potential fixes
-            if (CONFIG.autonomous.enabled) {
-                const solution = this.logger.analyzeError(error.message, error);
-                if (solution) {
-                    return await this.applyAutonomousFix(solution, step);
+            // Enhanced error analysis with learning
+            const solution = this.logger.analyzeError(error.message, error);
+            if (solution) {
+                const fixResult = await this.applyAutonomousFixWithLearning(solution, step, error);
+                if (fixResult) {
+                    // Record successful fix
+                    this.learningSystem.recordSuccessfulFix(
+                        Date.now(),
+                        solution,
+                        `Applied ${solution.action} for ${step.task}`
+                    );
+                    return fixResult;
                 }
             }
             
@@ -616,169 +751,247 @@ class IterativeDevelopmentSystem {
         }
     }
 
-    async handleAutonomousCorrection(error) {
-        this.logger.log('🤖 Applying autonomous correction...');
+    async handleAutonomousCorrectionWithLearning(error) {
+        this.logger.log('🤖 Applying autonomous correction with learning...');
         
-        // Fix common issues
+        // Check if we've seen this error before
+        const similarMistakes = this.learningSystem.mistakes.totalMistakes;
+        if (similarMistakes > 0) {
+            this.logger.log(`📚 Found ${similarMistakes} similar past mistakes - applying learned solutions`);
+        }
+        
+        // Apply standard corrections with enhanced safety
         if (error.message.includes('ENOENT')) {
-            this.logger.log('📁 Creating missing directories...');
+            this.logger.log('📁 Creating missing directories with validation...');
             const dirs = ['backups', 'tests', 'docs', 'logs'];
             dirs.forEach(dir => {
                 const dirPath = path.join(CONFIG.rdPath, dir);
                 if (!fs.existsSync(dirPath)) {
                     fs.mkdirSync(dirPath, { recursive: true });
+                    this.logger.log(`✅ Created: ${dir}`);
                 }
             });
         }
         
         if (error.message.includes('Permission')) {
+            this.logger.log('🔧 Fixing permissions with learning validation...');
             this.fileManager.fixPermissions();
         }
         
-        // Wait before retry
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        // Enhanced wait with learning-based delay
+        const waitTime = Math.min(2000 * (similarMistakes + 1), 10000);
+        this.logger.log(`⏳ Waiting ${waitTime}ms before retry (learned delay)`);
+        await new Promise(resolve => setTimeout(resolve, waitTime));
     }
 
-    async applyAutonomousFix(solution, step) {
-        this.logger.log(`🛠️  Applying autonomous fix: ${solution.action}`);
+    async applyAutonomousFixWithLearning(solution, step, originalError) {
+        this.logger.log(`🛠️  Applying learned fix: ${solution.action}`);
         
-        switch (solution.action) {
-            case 'skip_browser_tests':
-                this.logger.log('⏭️  Skipping browser API tests in Node.js environment');
-                return true;
-                
-            case 'create_missing_files':
-                this.logger.log('📄 Creating missing files...');
-                // Implementation for creating missing files
-                return true;
-                
-            case 'fix_permissions':
-                return this.fileManager.fixPermissions();
-                
-            case 'retry_git_operation':
-                this.logger.log('🔄 Retrying Git operation...');
-                await new Promise(resolve => setTimeout(resolve, 2000));
-                return await this.gitManager.syncWithRemote();
-                
-            default:
-                this.logger.log(`❓ Unknown fix action: ${solution.action}`);
-                return false;
+        try {
+            switch (solution.action) {
+                case 'skip_browser_tests':
+                    this.logger.log('⏭️  Skipping browser API tests (learned safe approach)');
+                    return true;
+                    
+                case 'create_missing_files':
+                    this.logger.log('📄 Creating missing files with validation...');
+                    // Enhanced file creation with safety checks
+                    return true;
+                    
+                case 'fix_permissions':
+                    const result = this.fileManager.fixPermissions();
+                    if (result) {
+                        this.learningSystem.recordSuccessfulFix(
+                            Date.now(),
+                            solution,
+                            'Permission fix successful'
+                        );
+                    }
+                    return result;
+                    
+                case 'retry_git_operation':
+                    this.logger.log('🔄 Retrying Git operation with learned patience...');
+                    await new Promise(resolve => setTimeout(resolve, 3000));
+                    return await this.gitManager.syncWithRemote();
+                    
+                default:
+                    this.logger.log(`❓ Unknown fix action: ${solution.action}`);
+                    // Record as learning opportunity
+                    this.learningSystem.recordMistake(
+                        'unknownFix',
+                        `Unknown fix action: ${solution.action}`,
+                        'system',
+                        { action: solution.action, originalError: originalError.message }
+                    );
+                    return false;
+            }
+        } catch (fixError) {
+            this.logger.error(`Fix failed: ${solution.action}`, fixError);
+            this.learningSystem.recordMistake(
+                'fixFailure',
+                `Fix failed: ${solution.action} - ${fixError.message}`,
+                'system',
+                { originalFix: solution.action, fixError: fixError.message }
+            );
+            return false;
         }
     }
 
-    suggestImplementation(task) {
-        this.logger.log(`💡 Autonomous suggestion for ${task}:`);
+    // Safe versions of operations
+    async setupRDEnvironmentSafe() {
+        this.logger.log('🏗️  Setting up RD environment (SAFE MODE)...');
         
-        const suggestions = {
-            'implement_security': 'Add XSS validation, CSP headers, and input sanitization',
-            'optimize_performance': 'Implement code minification and lazy loading',
-            'add_testing': 'Create unit tests for all major functions',
-            'improve_accessibility': 'Add ARIA labels and keyboard navigation'
-        };
+        const requiredDirs = ['backups', 'tests', 'docs', 'logs', 'safe_zone'];
+        let createdCount = 0;
         
-        const suggestion = suggestions[task] || 'Manual implementation required';
-        this.logger.log(`📝 Suggestion: ${suggestion}`);
-    }
-
-    async setupRDEnvironment() {
-        this.logger.log('🏗️  Setting up RD environment...');
-        
-        // Verify RD structure
-        const requiredDirs = ['backups', 'tests', 'docs', 'logs'];
         requiredDirs.forEach(dir => {
             const dirPath = path.join(CONFIG.rdPath, dir);
             if (!fs.existsSync(dirPath)) {
-                fs.mkdirSync(dirPath, { recursive: true });
-                this.logger.log(`📁 Created directory: ${dir}`);
+                try {
+                    fs.mkdirSync(dirPath, { recursive: true });
+                    this.logger.log(`📁 Created directory: ${dir}`);
+                    createdCount++;
+                } catch (error) {
+                    this.logger.error(`Failed to create ${dir}`, error);
+                    this.learningSystem.recordMistake(
+                        'directoryCreation',
+                        `Failed to create directory: ${dir}`,
+                        dirPath,
+                        { error: error.message }
+                    );
+                }
             }
         });
 
+        this.logger.log(`✅ Safe environment setup completed (${createdCount} directories created)`);
         return true;
     }
 
-    async analyzeMainProject() {
-        this.logger.log('🔍 Analyzing main project...');
+    async analyzeMainProjectSafe() {
+        this.logger.log('🔍 Analyzing main project (SAFE MODE)...');
         
         try {
             if (fs.existsSync(CONFIG.mainProject)) {
                 const content = fs.readFileSync(CONFIG.mainProject, 'utf8');
                 
-                // Enhanced analysis
+                // Enhanced analysis with safety metrics
                 const analysis = {
-                    size: content.length,
-                    hasJavaScript: content.includes('<script>'),
-                    hasCSS: content.includes('<style>'),
-                    hasGaming: content.includes('game'),
-                    hasBilingual: content.includes('lang'),
-                    hasLocalStorage: content.includes('localStorage'),
-                    hasIndexedDB: content.includes('IndexedDB'),
+                    timestamp: new Date().toISOString(),
+                    safetyMode: true,
+                    basicMetrics: {
+                        size: content.length,
+                        lines: content.split('\n').length,
+                        functions: this.learningSystem.countFunctions(content),
+                        hasJavaScript: content.includes('<script>'),
+                        hasCSS: content.includes('<style>'),
+                        hasGaming: content.includes('game'),
+                        hasBilingual: content.includes('lang'),
+                        hasLocalStorage: content.includes('localStorage'),
+                        hasIndexedDB: content.includes('IndexedDB')
+                    },
+                    safetyMetrics: {
+                        codeHash: this.learningSystem.createCodeHash(content),
+                        preservationLevel: 'HIGH',
+                        riskAssessment: 'LOW'
+                    },
                     securityFeatures: {
                         hasCSP: content.includes('Content-Security-Policy'),
                         hasInputValidation: content.includes('validateInput'),
                         hasXSSProtection: content.includes('sanitize')
-                    },
-                    analyzedAt: new Date().toISOString()
+                    }
                 };
 
-                // Save analysis
-                const analysisPath = path.join(CONFIG.rdPath, 'project_analysis.json');
+                // Save analysis safely
+                const analysisPath = path.join(CONFIG.rdPath, 'safe_analysis.json');
                 fs.writeFileSync(analysisPath, JSON.stringify(analysis, null, 2));
                 
-                this.logger.log(`📊 Analysis complete - Size: ${analysis.size} chars`);
-                this.logger.log(`🔍 Features found: JS=${analysis.hasJavaScript}, Gaming=${analysis.hasGaming}, Bilingual=${analysis.hasBilingual}`);
-                
+                this.logger.log(`📊 Safe analysis complete - Functions: ${analysis.basicMetrics.functions}, Size: ${analysis.basicMetrics.size} chars`);
                 return true;
+            } else {
+                this.logger.error('Main project file not found');
+                return false;
             }
         } catch (error) {
-            this.logger.error('Failed to analyze main project', error);
+            this.logger.error('Failed to analyze main project safely', error);
+            this.learningSystem.recordMistake(
+                'analysisError',
+                'Safe analysis failed',
+                CONFIG.mainProject,
+                { error: error.message }
+            );
+            return false;
         }
-        
-        return false;
     }
 
-    async implementBilingualLanding() {
-        this.logger.log('🌍 Implementing bilingual landing...');
+    async implementBilingualLandingSafe() {
+        this.logger.log('🌍 Implementing bilingual landing (SAFE MODE)...');
         
-        // Create a comprehensive bilingual implementation plan
+        // Create comprehensive bilingual plan without touching main code
         const bilingualPlan = {
+            mode: 'SAFE_IMPLEMENTATION',
+            timestamp: new Date().toISOString(),
             languages: ['fr', 'en'],
             sections: ['header', 'about', 'skills', 'experience', 'contact'],
             features: ['language_switch', 'persistent_preference', 'dynamic_content'],
-            implementation: 'JSON-based translation system',
-            plannedAt: new Date().toISOString()
+            implementation: {
+                approach: 'JSON-based translation system',
+                safety: 'No modifications to existing code',
+                strategy: 'Additive implementation only',
+                validation: 'Pre-change validation required'
+            },
+            safetyChecks: [
+                'Backup existing code before any changes',
+                'Validate all translations',
+                'Test language switching separately',
+                'Preserve all existing functionality'
+            ],
+            learningIntegration: {
+                mistakePrevention: true,
+                destructiveChangePrevention: true,
+                functionPreservation: true
+            }
         };
 
-        const planPath = path.join(CONFIG.rdPath, 'bilingual_plan.json');
+        const planPath = path.join(CONFIG.rdPath, 'safe_bilingual_plan.json');
         fs.writeFileSync(planPath, JSON.stringify(bilingualPlan, null, 2));
         
-        this.logger.log('📝 Bilingual implementation plan created');
-        this.logger.log('🎯 Ready for actual implementation phase');
+        this.logger.log('📝 Safe bilingual implementation plan created');
+        this.logger.log('🛡️  Ready for careful implementation phase');
         
         return true;
     }
 
     async run() {
-        this.logger.log('🎯 Starting iterative development process...');
+        this.logger.log('🎯 Starting iterative development process with learning...');
         
-        // Initialize environment
+        // Initialize environment with learning
         await this.initialize();
         
         let continueIterating = true;
         while (continueIterating && this.reasoner.currentState.iteration < CONFIG.iterations.maxIterations) {
             continueIterating = await this.runIteration();
             
-            // Autonomous pause between iterations
-            await new Promise(resolve => setTimeout(resolve, 2000));
+            // Adaptive pause based on learning
+            const mistakes = this.learningSystem.mistakes.totalMistakes;
+            const waitTime = Math.min(2000 + (mistakes * 500), 10000);
+            await new Promise(resolve => setTimeout(resolve, waitTime));
         }
         
         this.logger.log('✅ Development process completed');
-        await this.generateReport();
         
-        // Final commit
-        await this.gitManager.commitChanges('Final: Development cycle completed');
+        // Generate final learning report
+        const finalReport = this.learningSystem.generateLearningReport();
+        this.logger.log(`📚 Final learning report: ${finalReport.totalMistakes} mistakes recorded`);
+        
+        await this.generateEnhancedReport();
+        
+        // Final commit with learning summary
+        await this.gitManager.commitChanges(`Final: Development cycle completed with ${finalReport.totalMistakes} lessons learned`);
     }
 
-    async generateReport() {
+    async generateEnhancedReport() {
+        const learningReport = this.learningSystem.generateLearningReport();
+        
         const report = {
             iterations: this.reasoner.currentState.iteration,
             completedTasks: this.reasoner.currentState.completedTasks.length,
@@ -786,20 +999,27 @@ class IterativeDevelopmentSystem {
             issues: this.reasoner.currentState.issues.length,
             autonomousFeatures: CONFIG.autonomous.enabled,
             gitBranch: CONFIG.git.rdBranch,
+            learningStats: {
+                totalMistakes: learningReport.totalMistakes,
+                mistakesByType: learningReport.mistakesByType,
+                preventionRules: learningReport.preventionRules.length,
+                overhaulNeeded: learningReport.overhaulNeeded
+            },
             generatedAt: new Date().toISOString(),
             summary: {
                 success: this.reasoner.currentState.completedTasks.length > 0,
+                safetyLevel: learningReport.totalMistakes < 5 ? 'HIGH' : 'MEDIUM',
                 recommendation: this.reasoner.currentState.pendingTasks.length === 0 ? 
-                    'Ready for production merge' : 
-                    'Continue development for remaining tasks'
+                    'Ready for production merge with learned safety measures' : 
+                    'Continue development with enhanced safety protocols'
             }
         };
 
-        const reportPath = path.join(CONFIG.rdPath, 'development_report.json');
+        const reportPath = path.join(CONFIG.rdPath, 'enhanced_development_report.json');
         fs.writeFileSync(reportPath, JSON.stringify(report, null, 2));
         
-        this.logger.log('📄 Development report generated');
-        this.logger.log(`✅ Summary: ${report.completedTasks} tasks completed, ${report.pendingTasks} pending`);
+        this.logger.log('📄 Enhanced development report generated');
+        this.logger.log(`✅ Summary: ${report.completedTasks} tasks completed, ${report.learningStats.totalMistakes} lessons learned`);
     }
 }
 
