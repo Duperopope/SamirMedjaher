@@ -1,0 +1,20 @@
+{
+  "languages": [
+    "fr",
+    "en"
+  ],
+  "sections": [
+    "header",
+    "about",
+    "skills",
+    "experience",
+    "contact"
+  ],
+  "features": [
+    "language_switch",
+    "persistent_preference",
+    "dynamic_content"
+  ],
+  "implementation": "JSON-based translation system",
+  "plannedAt": "2025-07-23T02:24:16.892Z"
+}
