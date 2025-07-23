@@ -33,6 +33,7 @@
 | **automated_surveillance.js** | **Surveillance continue 24/7** | **✅ NOUVEAU** | **Checks auto 5min + 30min + maintenance** |
 | **start_surveillance.bat** | **Script démarrage surveillance** | **✅ NOUVEAU** | **Lancement surveillance Windows facile** |
 | **🚨 TERMINAL CORRUPTION** | **CMD pollué - mots = commandes** | **❌ CRITIQUE** | **Bloque commits - redémarrer terminal URGENT** |
+| **changelog_auto_updater.js** | **Mise à jour automatique changelog** | **✅ NOUVEAU** | **Synchronise README avec commits v1.3** |
 
 ### ❌ **FICHIERS POLLUTION IDENTIFIÉS :**
 | Fichier | Problème | Action requise |
