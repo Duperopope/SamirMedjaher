@@ -231,6 +231,11 @@ class ProjectMapper {
     }
 
     determineCurrentPhase() {
+        // Load project map if not already loaded
+        if (!this.projectMap) {
+            this.loadProjectMap();
+        }
+        
         // Analyze current state to determine development phase
         if (!this.projectMap) return 'INITIAL';
         
