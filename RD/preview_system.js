@@ -4,11 +4,11 @@ const path = require('path');
 
 class PreviewSystem {
     constructor() {
-        this.projectRoot = 'g:/Code/CV';
+        this.projectRoot = 'g:/Code/CV/RD/main_project_copy';
         this.rdPath = path.join(this.projectRoot, 'RD');
-        this.mainIndex = path.join(this.projectRoot, 'index.html');
-        this.copyIndex = path.join(this.rdPath, 'main_project_copy', 'index.html');
-        this.backupIndex = path.join(this.rdPath, 'backups', `index_backup_${Date.now()}.html`);
+        this.mainIndex = path.join(this.rdPath, 'main_project_copy', 'indexRD.html');
+        this.copyIndex = path.join(this.rdPath, 'main_project_copy', 'indexRD.html');
+        this.backupIndex = path.join(this.rdPath, 'backups', `indexRD_backup_${Date.now()}.html`);
     }
 
     // Apply changes from RD copy to main project

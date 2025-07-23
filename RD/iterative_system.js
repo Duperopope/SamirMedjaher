@@ -11,7 +11,7 @@ const { PreviewSystem } = require('./preview_system'); // Real-time testing inte
 // Configuration
 const CONFIG = {
     rdPath: 'g:/Code/CV/RD',
-    mainProject: 'g:/Code/CV/index.html', // Main project file (index.html is current, cv.html is old backup)
+    mainProject: 'g:/Code/CV/RD/main_project_copy/indexRD.html', // Main project file (indexRD.html is current, cv.html is old backup)
     iterations: {
         maxIterations: 10,
         currentIteration: 0,

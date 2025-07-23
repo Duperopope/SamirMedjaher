@@ -2,13 +2,14 @@
 
 ## 🚨 RÈGLES CRITIQUES - À RESPECTER ABSOLUMENT
 
-### 🔒 **MAIN BRANCH = INTOUCHABLE**
-- **FICHIERS INTERDITS** : 
-  - `cv.html` ❌
-  - `README.md` ❌  
-  - Tout fichier racine ❌
+### 🔒 **MAIN BRANCH = COMMITS INTERDITS**
+- **COMMITS INTERDITS** : 
+  - `cv.html` ❌ (pas de commit)
+  - `README.md` ❌ (pas de commit)
+  - Tout fichier racine ❌ (pas de commit)
+- **MODIFICATIONS OK** : On peut modifier pour tests ✅
 - **POURQUOI** : Main = version stable production
-- **CONSÉQUENCE** : Ne JAMAIS modifier main avant merge final
+- **SÉCURITÉ** : Si on plante l'alpha, git checkout pour revenir
 
 ### 🔬 **RD BRANCH = ZONE DE DÉVELOPPEMENT**
 - **FICHIERS AUTORISÉS** :
