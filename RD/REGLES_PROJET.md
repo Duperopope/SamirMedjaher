@@ -100,6 +100,68 @@ del commit_msg.txt
 - **Solution** : Messages courts ou fichier temporaire
 - **Évolution** : Documenter dans règles pour éviter répétition
 
+### � **ERREUR CRITIQUE NOUVELLE - TERMINAL POLLUTION**
+
+#### ⚠️ **TERMINAL CMD CORROMPU DÉTECTÉ**
+- **SYMPTÔMES CRITIQUES** :
+  - `'ou' n'est pas reconnu en tant que commande`
+  - `'-' n'est pas reconnu en tant que commande`  
+  - `'Enumerating' n'est pas reconnu en tant que commande`
+  - **TOUS LES MOTS** interprétés comme commandes
+- **CAUSE** : Terminal CMD pollué/corrompu ou PATH système endommagé
+- **DANGER** : ⚠️ **BLOQUE TOUS LES COMMITS ET OPÉRATIONS GIT**
+- **SOLUTIONS URGENTES** :
+```bash
+# 1. IMMÉDIATE : Fermer/rouvrir terminal
+exit
+# Nouveau CMD ou PowerShell
+
+# 2. ALTERNATIVE : PowerShell
+powershell
+cd G:\Code\CV
+
+# 3. URGENCE : Vérifier PATH système
+echo %PATH%
+# Si PATH corrompu → Réparer variables environnement
+```
+
+#### 🧠 **APPRENTISSAGE SYSTÈME** :
+- **Type erreur** : `terminal_corruption`  
+- **Fréquence** : Critique mais rare
+- **Prévention** : Surveiller pollution terminal
+- **Auto-correction** : Impossible - action manuelle requise
+- **Status** : 🚨 **ERREUR BLOQUANTE IDENTIFIÉE**
+
+### �🔄 **SURVEILLANCE CONTINUE OBLIGATOIRE**
+
+#### 🔍 **Système de Surveillance 24/7**
+- **PROBLÈME** : Le chaos peut revenir sans surveillance
+- **SOLUTION** : Surveillance continue automatisée avec seuils
+- **OUTILS** : 
+  - `continuous_surveillance.js` : Vérifications temps réel
+  - `automated_surveillance.js` : Surveillance daemon 24/7  
+  - `start_surveillance.bat` : Lancement facile Windows
+- **SEUILS** : 
+  - 20 fichiers = ALERTE (nettoyage recommandé)
+  - 30 fichiers = CHAOS CRITIQUE (auto-cleanup)
+- **FRÉQUENCE** : 
+  - Check rapide : 5 minutes
+  - Check complet : 30 minutes
+  - Maintenance : quotidienne
+- **AUTO-ACTIONS** : Nettoyage automatique si chaos détecté
+
+#### ⚙️ **Commandes Surveillance**
+```bash
+# Check unique
+node continuous_surveillance.js
+
+# Surveillance continue daemon
+node automated_surveillance.js --daemon
+
+# Lancement Windows facile
+start_surveillance.bat
+```
+
 ---
 
 ## 📊 **ÉTAT ACTUEL PROJET**

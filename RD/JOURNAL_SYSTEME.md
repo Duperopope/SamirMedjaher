@@ -28,6 +28,11 @@
 | **ERREUR CMD COMMIT** | **Messages multiline sur CMD** | **❌ RÉCURRENTE** | **CMD interprète ✅/- comme commandes - ÉVOLUER SYSTÈME** |
 | **commit_helper.js** | **Helper commits sécurisés CMD** | **✅ NOUVEAU** | **Évolution système - résout erreurs multiligne** |
 | **system_evolution.js** | **Système auto-apprentissage erreurs** | **✅ NOUVEAU** | **Le système apprend et évolue automatiquement** |
+| **🆘 EMERGENCY CLEANUP** | **Nettoyage bordel critique** | **✅ SAUVÉ** | **50→13 fichiers, 34 pollutions archivées** |
+| **continuous_surveillance.js** | **Surveillance système temps réel** | **✅ NOUVEAU** | **Détection chaos avec seuils + auto-nettoyage** |
+| **automated_surveillance.js** | **Surveillance continue 24/7** | **✅ NOUVEAU** | **Checks auto 5min + 30min + maintenance** |
+| **start_surveillance.bat** | **Script démarrage surveillance** | **✅ NOUVEAU** | **Lancement surveillance Windows facile** |
+| **🚨 TERMINAL CORRUPTION** | **CMD pollué - mots = commandes** | **❌ CRITIQUE** | **Bloque commits - redémarrer terminal URGENT** |
 
 ### ❌ **FICHIERS POLLUTION IDENTIFIÉS :**
 | Fichier | Problème | Action requise |
