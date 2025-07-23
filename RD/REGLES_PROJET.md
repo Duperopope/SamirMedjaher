@@ -74,6 +74,32 @@ git status
 git reset --hard HEAD
 ```
 
+### ⚠️ **ERREURS RÉCURRENTES À ÉVITER :**
+
+#### 🚨 **CMD + GIT COMMIT MULTILINE = ÉCHEC**
+```bash
+# ❌ INTERDIT - CMD Windows  
+git commit -m "Ligne 1
+✅ Ligne 2
+- Ligne 3"
+# CMD essaie d'exécuter ✅ et - comme commandes !
+
+# ✅ SOLUTION - Message simple
+git commit -m "RD v1.3: Mobile First Revolution + AI Control System"
+
+# ✅ ou Fichier temporaire
+echo "Message long..." > commit_msg.txt
+git commit -F commit_msg.txt
+del commit_msg.txt
+```
+
+#### 🧠 **MÉMORISATION ERREURS :**
+- **Erreur** : Messages commit multiligne sur CMD Windows
+- **Symptôme** : "n'est pas reconnu en tant que commande"
+- **Cause** : CMD interprète chaque ligne comme commande
+- **Solution** : Messages courts ou fichier temporaire
+- **Évolution** : Documenter dans règles pour éviter répétition
+
 ---
 
 ## 📊 **ÉTAT ACTUEL PROJET**

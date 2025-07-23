@@ -24,6 +24,10 @@
 | `GUIDE_MANIEMENT_AI.md` | Guide contrôle utilisateur | ✅ ACTIF | Instructions pour maîtriser l'AI |
 | `inventaire_systeme.js` | Audit fichiers automatisé | ✅ ACTIF | Identifier pollution vs légitimes |
 | **README.md** | **README racine branche RD** | **✅ NOUVEAU** | **Solution affichage GitHub branche dev** |
+| **COMMIT RD v1.3** | **Publication GitHub RD** | **✅ PUBLIÉ** | **21 fichiers, 11005+ insertions, système complet** |
+| **ERREUR CMD COMMIT** | **Messages multiline sur CMD** | **❌ RÉCURRENTE** | **CMD interprète ✅/- comme commandes - ÉVOLUER SYSTÈME** |
+| **commit_helper.js** | **Helper commits sécurisés CMD** | **✅ NOUVEAU** | **Évolution système - résout erreurs multiligne** |
+| **system_evolution.js** | **Système auto-apprentissage erreurs** | **✅ NOUVEAU** | **Le système apprend et évolue automatiquement** |
 
 ### ❌ **FICHIERS POLLUTION IDENTIFIÉS :**
 | Fichier | Problème | Action requise |
@@ -54,6 +58,22 @@
 - [ ] Mettre à jour ce journal avec le statut
 - [ ] Documenter dans REGLES_PROJET.md si règle générale
 - [ ] Planifier révision/nettoyage si temporaire
+
+### 🧠 **LEÇONS AUTO-ÉVOLUTION :**
+
+#### 📝 **Erreur Récurrente Identifiée - CMD Commit Multiline**
+- **Problème** : Messages git commit multiligne sur CMD Windows
+- **Symptôme** : `'✅' n'est pas reconnu en tant que commande interne`
+- **Cause** : CMD interprète chaque ligne après -m comme commande séparée
+- **Solution immédiate** : Messages courts ou fichiers temporaires
+- **Évolution système** : Règles mises à jour pour éviter répétition
+- **Status** : ✅ Documenté, règles évoluées, erreur résolue
+
+#### 🔄 **Amélioration Continue du Système**
+- **Principe** : Chaque erreur = évolution des règles
+- **Méthode** : Documentation → Prévention → Auto-correction
+- **Objectif** : Système qui apprend de ses erreurs
+- **Résultat** : Plus d'erreurs récurrentes
 
 ---
 

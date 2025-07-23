@@ -1,0 +1,13 @@
+[
+  {
+    "id": 1753244335531,
+    "timestamp": "2025-07-23T04:18:55.531Z",
+    "type": "cmd_multiline_commit",
+    "description": "Messages git commit multiligne sur CMD Windows",
+    "symptom": "✅ n'est pas reconnu en tant que commande interne",
+    "cause": "CMD Windows interprète chaque ligne après git commit -m comme commande séparée",
+    "solution": "Utiliser commit_helper.js ou fichiers temporaires pour messages longs",
+    "prevention": "Toujours vérifier compatibilité CMD avant commits multiligne",
+    "status": "documented"
+  }
+]
