@@ -5,6 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 const { LearningSystem } = require('./learning_system');
+const { ProjectMapper } = require('./project_mapper'); // Smart context management to save tokens
 
 // Configuration
 const CONFIG = {
@@ -500,10 +501,12 @@ class IterativeDevelopmentSystem {
         this.fileManager = new FileManager(this.logger);
         this.gitManager = new GitManager(this.logger);
         this.learningSystem = new LearningSystem(this.logger, CONFIG);
+        this.projectMapper = new ProjectMapper(); // Smart context system to save tokens
         
         this.logger.log('🚀 Iterative Development System initialized');
         this.logger.log('🤖 Autonomous mode: ' + (CONFIG.autonomous.enabled ? 'ENABLED' : 'DISABLED'));
         this.logger.log('🧠 Learning system: ENABLED');
+        this.logger.log('🗺️ Smart mapping: ENABLED');
     }
 
     async initialize() {
@@ -528,6 +531,28 @@ class IterativeDevelopmentSystem {
         }
         
         this.logger.log('✅ Environment initialized');
+    }
+
+    // Smart Context Management - Saves tokens and prevents hallucinations
+    async getSmartContext(query = 'general') {
+        this.logger.log('🧠 Loading smart context for: ' + query);
+        
+        // Update project map if needed
+        const status = this.projectMapper.getProjectStatus();
+        if (status.status === 'NO_MAP') {
+            await this.projectMapper.buildProjectMap();
+        }
+        
+        // Get relevant context for the query
+        const context = this.projectMapper.getRelevantContext(query);
+        this.logger.log(`💡 Smart context loaded: ${context.relevantSections.length} sections identified`);
+        
+        return {
+            projectStatus: status,
+            relevantContext: context,
+            recommendations: context.suggestedActions,
+            tokenSaved: true
+        };
     }
 
     // Enhanced safe file modification
