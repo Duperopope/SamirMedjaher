@@ -196,56 +196,46 @@ class SupervisionSystem {
     }
 
     displayDashboard(dashboard) {
-        console.log('═'.repeat(80));
-        console.log('🎛️  TABLEAU DE BORD DE SUPERVISION');
-        console.log('═'.repeat(80));
+        // Compact display
+        console.log('🎛️ SUPERVISION (' + new Date().toLocaleTimeString() + ')');
+        console.log('─'.repeat(50));
         
-        console.log('\n📊 ÉTAT DU SYSTÈME:');
-        console.log(`   Phase actuelle: ${dashboard.systemStatus.projectPhase}`);
-        console.log(`   Taille fichier: ${dashboard.systemStatus.fileSize}`);
-        console.log(`   Features: ${dashboard.systemStatus.featuresImplemented} implémentées`);
-        console.log(`   Mode autonome: ${dashboard.systemStatus.autonomousMode ? '✅ ACTIF' : '❌ INACTIF'}`);
-        console.log(`   Niveau sécurité: ${dashboard.systemStatus.safetyLevel}`);
+        // One-line status
+        const status = dashboard.systemStatus;
+        console.log(`📊 ${status.projectPhase} | ${status.fileSize} | ${status.featuresImplemented} features | ${status.autonomousMode ? '✅' : '❌'} Auto`);
 
-        console.log('\n⚡ ACTIONS RÉCENTES:');
-        dashboard.recentActions.slice(-5).forEach(action => {
-            const icon = action.impact === 'CRITICAL' ? '🔴' : 
-                        action.impact === 'HIGH' ? '🟡' : '🟢';
-            console.log(`   ${icon} [${action.timestamp.split('T')[1].split('.')[0]}] ${action.action}`);
-        });
-
-        console.log('\n📋 ACTIONS EN ATTENTE:');
-        dashboard.pendingActions.nextTasks.forEach((task, i) => {
-            console.log(`   ${i + 1}. ${task} ${dashboard.pendingActions.requiresApproval ? '⏸️ NÉCESSITE APPROBATION' : '▶️'}`);
-        });
-
-        console.log('\n⚠️  RISQUES IDENTIFIÉS:');
-        if (dashboard.risksAssessment.length === 0) {
-            console.log('   ✅ Aucun risque critique détecté');
-        } else {
-            dashboard.risksAssessment.forEach(risk => {
-                const icon = risk.level === 'HIGH' ? '🔴' : risk.level === 'MEDIUM' ? '🟡' : '🟢';
-                console.log(`   ${icon} [${risk.type}] ${risk.description}`);
-                console.log(`      → ${risk.recommendation}`);
+        // Recent actions (max 3)
+        if (dashboard.recentActions.length > 0) {
+            console.log('\n⚡ RÉCENT:');
+            dashboard.recentActions.slice(-3).forEach(action => {
+                const icon = action.impact === 'CRITICAL' ? '🔴' : 
+                            action.impact === 'HIGH' ? '🟡' : '🟢';
+                const time = action.timestamp.split('T')[1].split('.')[0].slice(0, 5);
+                console.log(`   ${icon} [${time}] ${action.action}`);
             });
         }
 
-        console.log('\n🎮 CONTRÔLES UTILISATEUR:');
-        dashboard.userControls.availableCommands.slice(0, 3).forEach(cmd => {
-            console.log(`   • ${cmd.command}: ${cmd.description}`);
-        });
+        // Pending tasks (compact)
+        if (dashboard.pendingActions.nextTasks.length > 0) {
+            console.log('\n📋 EN ATTENTE:');
+            dashboard.pendingActions.nextTasks.slice(0, 3).forEach((task, i) => {
+                console.log(`   ${i + 1}. ${task} ${dashboard.pendingActions.requiresApproval ? '⏸️' : '▶️'}`);
+            });
+        }
 
-        console.log('\n💡 RECOMMANDATIONS:');
-        dashboard.recommendations.forEach(rec => {
-            const icon = rec.priority === 'URGENT' ? '🚨' : 
-                        rec.priority === 'HIGH' ? '🔥' : '💡';
-            console.log(`   ${icon} [${rec.priority}] ${rec.action}`);
-            console.log(`      Raison: ${rec.reason}`);
-        });
+        // Critical issues only
+        const criticalIssues = dashboard.securityAssessment?.criticalIssues || [];
+        if (criticalIssues.length > 0) {
+            console.log('\n⚠️ CRITIQUE:');
+            criticalIssues.slice(0, 2).forEach(issue => {
+                console.log(`   🔴 ${issue.type}: ${issue.description}`);
+            });
+        }
 
-        console.log('\n═'.repeat(80));
-        console.log(`📝 Rapport sauvegardé: ${this.supervisorPath}`);
-        console.log('═'.repeat(80));
+        // Controls (compact)
+        console.log('\n🎮 CONTRÔLES: approve-next-task | block-auto-commits | request-manual-review');
+        
+        console.log('─'.repeat(50));
     }
 
     parseSystemLogs() {

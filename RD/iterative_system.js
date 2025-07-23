@@ -6,6 +6,7 @@ const path = require('path');
 const { execSync } = require('child_process');
 const { LearningSystem } = require('./learning_system');
 const { ProjectMapper } = require('./project_mapper'); // Smart context management to save tokens
+const { PreviewSystem } = require('./preview_system'); // Real-time testing integration
 
 // Configuration
 const CONFIG = {
@@ -502,6 +503,7 @@ class IterativeDevelopmentSystem {
         this.gitManager = new GitManager(this.logger);
         this.learningSystem = new LearningSystem(this.logger, CONFIG);
         this.projectMapper = new ProjectMapper(); // Smart context system to save tokens
+        this.previewSystem = new PreviewSystem(); // Real-time testing integration
         
         this.logger.log('🚀 Iterative Development System initialized');
         this.logger.log('🤖 Autonomous mode: ' + (CONFIG.autonomous.enabled ? 'ENABLED' : 'DISABLED'));
