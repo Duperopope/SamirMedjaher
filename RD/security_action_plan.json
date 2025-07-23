@@ -1,0 +1,16 @@
+{
+  "timestamp": "2025-07-23T02:56:59.993Z",
+  "totalIssues": 1,
+  "priority": "HIGH",
+  "actions": [
+    {
+      "id": 1,
+      "type": "XSS_VULNERABILITY",
+      "priority": "HIGH",
+      "description": "Corriger: 19 usage(s) de .innerHTML détecté(s) - risque XSS",
+      "solution": "Utiliser .textContent ou DOMPurify pour sanitizer",
+      "location": "index.html",
+      "estimated_time": "30-60 minutes"
+    }
+  ]
+}
