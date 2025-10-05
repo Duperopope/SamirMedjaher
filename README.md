@@ -1,6 +1,6 @@
 # CV Interactif - Samir Medjaher 🎮
 
-Un CV interactif moderne avec système de gamification avancé, développé en HTML/CSS/JavaScript pur.
+Un CV interactif moderne avec système de gamification avancé, développé en HTML/CSS/JavaScript pur consurtable ici : https://duperopope.github.io/SamirMedjaher/ .
 
 ## 🌟 Fonctionnalités Principales
 
