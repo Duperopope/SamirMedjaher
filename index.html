@@ -3488,5 +3488,137 @@ body.hud-preview-active .game-notification {
         });
     });
     </script>
+
+    <!-- 🎮 GAMING DASHBOARD v2.0 - NEXT-GEN GAMIFICATION -->
+    
+    <!-- Dashboard UI Styles -->
+    <link rel="stylesheet" href="gaming-ui.css">
+    
+    <style>
+        /* Dashboard Toggle Button */
+        .dashboard-toggle-btn:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4) !important;
+        }
+        
+        .dashboard-toggle-btn:active {
+            transform: scale(0.95) !important;
+        }
+    </style>
+    
+    <!-- Advanced Mini-Games Styles -->
+    <link rel="stylesheet" href="gaming-minigames-advanced.css">
+    
+    <!-- Chart.js for Stats Dashboard -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    
+    <!-- Dashboard Core Engine -->
+    <script src="gaming-dashboard.js"></script>
+    
+    <!-- Advanced Mini-Games -->
+    <script src="gaming-minigames-advanced.js"></script>
+    
+    <!-- Initialize Dashboard -->
+    <script>
+        // Wait for gameplay system to be ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hook dashboard to gaming mode unlock
+            const originalUnlockGaming = window.unlockGamingMode;
+            if (originalUnlockGaming) {
+                window.unlockGamingMode = function() {
+                    originalUnlockGaming();
+                    
+                    // Init dashboard
+                    if (window.gamingDashboard) {
+                        window.gamingDashboard.init();
+                        console.log('🎮 Gaming Dashboard v2.0 initialized!');
+                    }
+                };
+            }
+            
+            // Create dashboard button in HUD
+            setTimeout(() => {
+                if (gamingMode) {
+                    const hud = document.getElementById('gameHUD');
+                    if (hud && !document.getElementById('dashboardToggle')) {
+                        const dashboardBtn = document.createElement('button');
+                        dashboardBtn.id = 'dashboardToggle';
+                        dashboardBtn.className = 'game-stat dashboard-toggle-btn';
+                        dashboardBtn.innerHTML = '<i class="fas fa-th-large"></i> Dashboard';
+                        dashboardBtn.title = 'Ouvrir le Gaming Dashboard';
+                        dashboardBtn.onclick = () => {
+                            if (window.gamingDashboard) {
+                                window.gamingDashboard.toggle();
+                            }
+                        };
+                        dashboardBtn.style.cssText = 'cursor:pointer;padding:0.5rem 1rem;background:linear-gradient(135deg,#8b5cf6,#06b6d4);border-radius:8px;transition:all 0.3s ease;';
+                        hud.appendChild(dashboardBtn);
+                    }
+                }
+            }, 1000);
+        });
+    </script>
+    
+    <!-- Dashboard HTML Structure -->
+    <div id="gamingDashboard" class="gaming-dashboard hidden">
+        <!-- Vertical Tab Navigation -->
+        <div class="dashboard-tabs">
+            <button class="dashboard-tab-btn active" data-tab="eric" onclick="window.gamingDashboard.switchTab('eric')">
+                <div>🐱</div>
+                <span class="tab-label">Éric</span>
+            </button>
+            <button class="dashboard-tab-btn" data-tab="shop" onclick="window.gamingDashboard.switchTab('shop')">
+                <div>🛒</div>
+                <span class="tab-label">Shop</span>
+            </button>
+            <button class="dashboard-tab-btn" data-tab="games" onclick="window.gamingDashboard.switchTab('games')">
+                <div>🎮</div>
+                <span class="tab-label">Jeux</span>
+                <div class="tab-badge"></div>
+            </button>
+            <button class="dashboard-tab-btn" data-tab="stats" onclick="window.gamingDashboard.switchTab('stats')">
+                <div>📊</div>
+                <span class="tab-label">Stats</span>
+            </button>
+            <button class="dashboard-tab-btn" data-tab="quests" onclick="window.gamingDashboard.switchTab('quests')">
+                <div>⭐</div>
+                <span class="tab-label">Quêtes</span>
+            </button>
+            <button class="dashboard-tab-btn" data-tab="events" onclick="window.gamingDashboard.switchTab('events')">
+                <div>🎁</div>
+                <span class="tab-label">Events</span>
+            </button>
+            <button class="dashboard-tab-btn" data-tab="achievements" onclick="window.gamingDashboard.switchTab('achievements')">
+                <div>🏆</div>
+                <span class="tab-label">Trophées</span>
+            </button>
+        </div>
+        
+        <!-- Tab Content Area -->
+        <div class="dashboard-content">
+            <div id="tab-eric" class="dashboard-tab-content active">
+                <!-- Éric content rendered by JS -->
+            </div>
+            <div id="tab-shop" class="dashboard-tab-content">
+                <!-- Shop content rendered by JS -->
+            </div>
+            <div id="tab-games" class="dashboard-tab-content">
+                <!-- Games content rendered by JS -->
+            </div>
+            <div id="tab-stats" class="dashboard-tab-content">
+                <!-- Stats content rendered by JS -->
+            </div>
+            <div id="tab-quests" class="dashboard-tab-content">
+                <!-- Quests content rendered by JS -->
+            </div>
+            <div id="tab-events" class="dashboard-tab-content">
+                <!-- Events content rendered by JS -->
+            </div>
+            <div id="tab-achievements" class="dashboard-tab-content">
+                <!-- Achievements content rendered by JS -->
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

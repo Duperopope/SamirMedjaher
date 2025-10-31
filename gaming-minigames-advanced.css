@@ -1,0 +1,407 @@
+/**
+ * 🎮 ADVANCED MINI-GAMES CSS
+ * Styles for 4 new addictive games
+ */
+
+/* ============================================
+   🎨 GENERAL MINIGAME STYLES
+   ============================================ */
+
+.minigame-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.minigame-header h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #06b6d4, #10b981);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1rem;
+}
+
+.game-score,
+.game-stats {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #fbbf24;
+}
+
+.game-stats span {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.game-controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.control-btn {
+    background: linear-gradient(135deg, #06b6d4, #10b981);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.control-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(6, 182, 212, 0.4);
+}
+
+.control-btn:active {
+    transform: scale(0.95);
+}
+
+.control-btn.big-btn {
+    font-size: 1.5rem;
+    padding: 1.5rem 3rem;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+}
+
+.game-instructions {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    text-align: center;
+}
+
+.game-instructions p {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+/* ============================================
+   🪙 COIN RUSH STYLES
+   ============================================ */
+
+#coinrush-canvas {
+    display: block;
+    margin: 0 auto;
+    border: 2px solid rgba(6, 182, 212, 0.3);
+    border-radius: 16px;
+    background: linear-gradient(180deg, #0a192f 0%, #1e3a5f 100%);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    max-width: 100%;
+    height: auto;
+}
+
+/* ============================================
+   🧠 MEMORY PRO STYLES
+   ============================================ */
+
+.difficulty-selector {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.diff-btn {
+    background: rgba(15, 23, 42, 0.6);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.7);
+    border-radius: 12px;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.diff-btn:hover {
+    border-color: rgba(6, 182, 212, 0.5);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.diff-btn.active {
+    background: linear-gradient(135deg, #06b6d4, #10b981);
+    border-color: transparent;
+    color: white;
+    box-shadow: 0 4px 16px rgba(6, 182, 212, 0.3);
+}
+
+.memory-grid {
+    display: grid;
+    gap: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.memory-card {
+    aspect-ratio: 1;
+    cursor: pointer;
+    perspective: 1000px;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.memory-card.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    font-size: 3rem;
+    font-weight: 700;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.card-front {
+    background: linear-gradient(135deg, #1e293b, #334155);
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.card-back {
+    background: linear-gradient(135deg, #06b6d4, #10b981);
+    color: white;
+    transform: rotateY(180deg);
+}
+
+.memory-card.matched .card-inner {
+    opacity: 0.6;
+}
+
+.memory-card.matched .card-back {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    animation: matchPulse 0.5s ease;
+}
+
+@keyframes matchPulse {
+    0%, 100% {
+        transform: rotateY(180deg) scale(1);
+    }
+    50% {
+        transform: rotateY(180deg) scale(1.1);
+    }
+}
+
+/* ============================================
+   🎵 RHYTHM CLICKER STYLES
+   ============================================ */
+
+.rhythm-track {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    height: 150px;
+    margin: 0 auto 2rem;
+    background: linear-gradient(90deg, 
+        rgba(15, 23, 42, 0.9) 0%,
+        rgba(6, 182, 212, 0.2) 50%,
+        rgba(15, 23, 42, 0.9) 100%
+    );
+    border: 2px solid rgba(6, 182, 212, 0.3);
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.hit-zone {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    border-left: 2px solid rgba(255, 255, 255, 0.5);
+    border-right: 2px solid rgba(255, 255, 255, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    animation: hitZonePulse 1s ease-in-out infinite;
+}
+
+@keyframes hitZonePulse {
+    0%, 100% {
+        background: rgba(255, 255, 255, 0.1);
+    }
+    50% {
+        background: rgba(6, 182, 212, 0.2);
+    }
+}
+
+.rhythm-note {
+    position: absolute;
+    right: -50px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2.5rem;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+    transition: color 0.2s;
+}
+
+.rhythm-feedback {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fbbf24;
+    text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+    animation: feedbackPop 0.5s ease-out;
+    pointer-events: none;
+}
+
+@keyframes feedbackPop {
+    0% {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0;
+    }
+}
+
+.game-over-screen {
+    text-align: center;
+    padding: 2rem;
+    background: rgba(15, 23, 42, 0.9);
+    border-radius: 16px;
+    margin: 1rem;
+}
+
+.game-over-screen h2 {
+    font-size: 2rem;
+    color: #fbbf24;
+    margin-bottom: 1rem;
+}
+
+.game-over-screen p {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 0.5rem;
+}
+
+/* ============================================
+   🏗️ STACK BUILDER STYLES
+   ============================================ */
+
+#stack-canvas {
+    display: block;
+    margin: 0 auto;
+    border: 2px solid rgba(16, 185, 129, 0.3);
+    border-radius: 16px;
+    background: linear-gradient(180deg, #0a192f 0%, #1e3a5f 100%);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    max-width: 100%;
+    height: auto;
+}
+
+/* ============================================
+   📱 RESPONSIVE MOBILE
+   ============================================ */
+
+@media (max-width: 768px) {
+    .minigame-header h2 {
+        font-size: 1.5rem;
+    }
+    
+    .game-score,
+    .game-stats {
+        font-size: 1rem;
+        gap: 1rem;
+    }
+    
+    #coinrush-canvas,
+    #stack-canvas {
+        width: 100%;
+        height: auto;
+    }
+    
+    .memory-grid {
+        gap: 0.5rem;
+        padding: 0.5rem;
+    }
+    
+    .card-front,
+    .card-back {
+        font-size: 2rem;
+    }
+    
+    .rhythm-track {
+        height: 100px;
+    }
+    
+    .rhythm-note {
+        font-size: 2rem;
+    }
+    
+    .hit-zone {
+        width: 60px;
+        font-size: 2rem;
+    }
+    
+    .control-btn {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .control-btn.big-btn {
+        font-size: 1.2rem;
+        padding: 1rem 2rem;
+    }
+    
+    .game-instructions {
+        padding: 1rem;
+    }
+    
+    .game-instructions p {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .difficulty-selector {
+        flex-direction: column;
+    }
+    
+    .diff-btn {
+        width: 100%;
+    }
+    
+    .game-controls {
+        flex-direction: column;
+    }
+    
+    .control-btn {
+        width: 100%;
+    }
+}

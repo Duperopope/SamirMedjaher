@@ -1,0 +1,1143 @@
+/**
+ * 🎨 GAMING DASHBOARD UI v2.0
+ * Ultra-Modern Design System
+ * 
+ * Features:
+ * - Glassmorphism v2 with advanced blur
+ * - Neumorphism accents
+ * - Smooth 60fps animations
+ * - Mobile-first responsive
+ * - Dark mode optimized
+ * - Micro-interactions
+ */
+
+/* ============================================
+   🎨 CSS VARIABLES - DESIGN TOKENS
+   ============================================ */
+
+:root {
+    /* Brand Colors */
+    --gaming-primary: #06b6d4;
+    --gaming-secondary: #10b981;
+    --gaming-accent: #8b5cf6;
+    --gaming-gold: #fbbf24;
+    --gaming-legendary: #9d00ff;
+    
+    /* Glassmorphism v2 */
+    --glass-bg: rgba(15, 23, 42, 0.6);
+    --glass-bg-hover: rgba(15, 23, 42, 0.75);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-border-hover: rgba(6, 182, 212, 0.3);
+    --glass-blur: blur(20px) saturate(180%);
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.2);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.3);
+    --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.4);
+    --shadow-neon: 0 0 20px rgba(6, 182, 212, 0.5);
+    
+    /* Neumorphism */
+    --neomorph-light: rgba(255, 255, 255, 0.05);
+    --neomorph-dark: rgba(0, 0, 0, 0.4);
+    
+    /* Animation Timings */
+    --transition-fast: 0.15s cubic-bezier(0.4, 0.0, 0.2, 1);
+    --transition-base: 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    --transition-slow: 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
+    --spring: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    
+    /* Spacing */
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+    --space-2xl: 3rem;
+    
+    /* Border Radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    --radius-full: 9999px;
+    
+    /* Z-index layers */
+    --z-dashboard: 9000;
+    --z-modal: 10000;
+    --z-notification: 11000;
+}
+
+/* ============================================
+   📱 GAMING DASHBOARD CONTAINER
+   ============================================ */
+
+.gaming-dashboard {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: var(--z-dashboard);
+    display: flex;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(30px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-slow);
+}
+
+.gaming-dashboard.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.gaming-dashboard.hidden {
+    display: none;
+}
+
+/* ============================================
+   🎯 VERTICAL TAB NAVIGATION
+   ============================================ */
+
+.dashboard-tabs {
+    width: 80px;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border-right: 1px solid var(--glass-border);
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-md) 0;
+    gap: var(--space-sm);
+    box-shadow: var(--shadow-lg);
+}
+
+.dashboard-tab-btn {
+    position: relative;
+    width: 100%;
+    height: 64px;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    transition: all var(--transition-base);
+    padding: var(--space-sm);
+}
+
+.dashboard-tab-btn:hover {
+    color: rgba(255, 255, 255, 0.9);
+    background: rgba(6, 182, 212, 0.1);
+    transform: translateX(4px);
+}
+
+.dashboard-tab-btn.active {
+    color: var(--gaming-primary);
+    background: rgba(6, 182, 212, 0.15);
+}
+
+.dashboard-tab-btn.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 40px;
+    background: linear-gradient(180deg, var(--gaming-primary), var(--gaming-secondary));
+    border-radius: 0 4px 4px 0;
+    box-shadow: var(--shadow-neon);
+}
+
+.tab-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tab-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 8px;
+    height: 8px;
+    background: #ef4444;
+    border-radius: var(--radius-full);
+    animation: pulse 2s infinite;
+}
+
+/* ============================================
+   📄 TAB CONTENT AREA
+   ============================================ */
+
+.dashboard-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--space-xl);
+    background: linear-gradient(135deg, 
+        rgba(15, 23, 42, 0.8) 0%, 
+        rgba(30, 41, 59, 0.8) 50%,
+        rgba(51, 65, 85, 0.8) 100%
+    );
+}
+
+.dashboard-tab-content {
+    display: none;
+    animation: fadeInUp var(--transition-base) ease-out;
+}
+
+.dashboard-tab-content.active {
+    display: block;
+}
+
+/* ============================================
+   🐱 ERIC TAB
+   ============================================ */
+
+.eric-world {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.eric-world h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--gaming-primary), var(--gaming-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: var(--space-xl);
+    text-align: center;
+}
+
+.eric-stage {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-2xl);
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 
+        var(--shadow-lg),
+        inset 0 0 60px rgba(6, 182, 212, 0.05);
+    margin-bottom: var(--space-xl);
+    position: relative;
+    overflow: hidden;
+}
+
+.eric-stage::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, transparent 70%);
+    animation: rotate 20s linear infinite;
+}
+
+#eric-container {
+    position: relative;
+    z-index: 1;
+}
+
+.eric-actions {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* ============================================
+   🛒 SHOP TAB
+   ============================================ */
+
+.shop-dashboard {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.shop-dashboard h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gaming-gold);
+    margin-bottom: var(--space-xl);
+    text-align: center;
+}
+
+/* ============================================
+   🎮 GAMES TAB
+   ============================================ */
+
+.games-dashboard {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.games-dashboard h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--gaming-accent), var(--gaming-primary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: var(--space-xl);
+    text-align: center;
+}
+
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--space-lg);
+}
+
+.game-card {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+
+.game-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(16, 185, 129, 0.1));
+    opacity: 0;
+    transition: opacity var(--transition-base);
+}
+
+.game-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: var(--glass-border-hover);
+    box-shadow: 
+        var(--shadow-xl),
+        var(--shadow-neon);
+}
+
+.game-card:hover::before {
+    opacity: 1;
+}
+
+.game-card:active {
+    transform: translateY(-4px) scale(0.98);
+}
+
+.game-icon {
+    font-size: 4rem;
+    text-align: center;
+    margin-bottom: var(--space-md);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.game-card h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: var(--space-sm);
+    text-align: center;
+}
+
+.game-card p {
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.new-badge {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-md);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    animation: pulse 2s infinite;
+}
+
+/* ============================================
+   📊 STATS TAB
+   ============================================ */
+
+.stats-dashboard {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.stats-dashboard h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gaming-primary);
+    margin-bottom: var(--space-xl);
+    text-align: center;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-lg);
+    margin-bottom: var(--space-2xl);
+}
+
+.stat-card {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    text-align: center;
+    box-shadow: 
+        8px 8px 16px var(--neomorph-dark),
+        -8px -8px 16px var(--neomorph-light);
+    transition: all var(--transition-base);
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 
+        12px 12px 24px var(--neomorph-dark),
+        -12px -12px 24px var(--neomorph-light);
+}
+
+.stat-card h3 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--gaming-primary), var(--gaming-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: var(--space-sm);
+}
+
+.stat-card p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stats-charts {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    box-shadow: var(--shadow-lg);
+}
+
+#statsChart {
+    max-height: 400px;
+}
+
+/* ============================================
+   ⭐ QUESTS TAB
+   ============================================ */
+
+.quests-dashboard {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.quests-dashboard h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gaming-gold);
+    margin-bottom: var(--space-xl);
+    text-align: center;
+}
+
+.quests-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+}
+
+.quest-card {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-base);
+    position: relative;
+    overflow: hidden;
+}
+
+.quest-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, var(--gaming-gold), var(--gaming-secondary));
+}
+
+.quest-card.completed {
+    opacity: 0.7;
+    border-color: var(--gaming-secondary);
+}
+
+.quest-card.completed::before {
+    background: var(--gaming-secondary);
+}
+
+.quest-card:hover {
+    transform: translateX(8px);
+    border-color: var(--glass-border-hover);
+}
+
+.quest-card h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: var(--space-sm);
+}
+
+.quest-card p {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: var(--space-md);
+}
+
+.quest-objectives {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    margin-bottom: var(--space-md);
+}
+
+.objective {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-sm) 0;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.9rem;
+}
+
+.objective .progress {
+    font-weight: 600;
+    color: var(--gaming-primary);
+}
+
+.quest-rewards {
+    display: flex;
+    gap: var(--space-md);
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--gaming-gold);
+    font-weight: 600;
+}
+
+.completed-badge {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
+    background: var(--gaming-secondary);
+    color: white;
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-full);
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+/* ============================================
+   🎁 EVENTS TAB
+   ============================================ */
+
+.events-dashboard {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.events-dashboard h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: var(--space-xl);
+}
+
+.no-event {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: var(--space-md);
+}
+
+.active-event {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-2xl);
+    box-shadow: var(--shadow-xl);
+}
+
+.event-info {
+    margin-bottom: var(--space-xl);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.event-challenges {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+}
+
+.challenge-card {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    text-align: left;
+}
+
+.challenge-card h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: var(--space-md);
+}
+
+.challenge-progress {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+}
+
+.progress-bar {
+    flex: 1;
+    height: 12px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gaming-primary), var(--gaming-secondary));
+    border-radius: var(--radius-full);
+    transition: width var(--transition-slow);
+}
+
+.challenge-reward {
+    color: var(--gaming-gold);
+    font-weight: 600;
+}
+
+/* ============================================
+   🏆 ACHIEVEMENTS TAB
+   ============================================ */
+
+.achievements-dashboard {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.achievements-dashboard h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--gaming-gold), var(--gaming-legendary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: var(--space-xl);
+    text-align: center;
+}
+
+.achievement-points {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+}
+
+.achievement-points h3 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--gaming-gold);
+}
+
+.achievements-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+}
+
+.achievement-category {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    box-shadow: var(--shadow-lg);
+}
+
+.achievement-category h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: var(--space-lg);
+}
+
+.achievement-tiers {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.achievement-tier {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    border: 2px solid transparent;
+    transition: all var(--transition-base);
+    opacity: 0.5;
+}
+
+.achievement-tier.unlocked {
+    opacity: 1;
+    border-color: currentColor;
+    box-shadow: 0 4px 16px currentColor;
+}
+
+.achievement-tier:hover {
+    transform: translateX(8px);
+}
+
+.tier-icon {
+    font-size: 2rem;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.tier-info {
+    flex: 1;
+}
+
+.tier-info h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: var(--space-xs);
+}
+
+.tier-info p {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.tier-reward {
+    color: var(--gaming-gold);
+    font-weight: 600;
+}
+
+.unlocked-badge {
+    font-size: 1.5rem;
+}
+
+/* ============================================
+   🎲 LOOTBOX OPENING OVERLAY
+   ============================================ */
+
+.lootbox-opening-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(20px);
+    z-index: var(--z-modal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn var(--transition-base);
+}
+
+.lootbox-animation {
+    text-align: center;
+}
+
+.box-icon {
+    font-size: 6rem;
+    animation: bounce 1s infinite;
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.5));
+}
+
+.lootbox-animation h2 {
+    color: #fff;
+    font-size: 2rem;
+    margin: var(--space-xl) 0;
+}
+
+.loading-spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    border-top-color: var(--gaming-primary);
+    border-radius: var(--radius-full);
+    margin: 0 auto;
+    animation: spin 1s linear infinite;
+}
+
+.lootbox-result {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 2px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-2xl);
+    min-width: 400px;
+    animation: scaleIn var(--transition-slow) var(--spring);
+}
+
+.lootbox-result h2 {
+    color: #fff;
+    font-size: 2rem;
+    margin-bottom: var(--space-xl);
+}
+
+.drop-display {
+    font-size: 3rem;
+    margin: var(--space-2xl) 0;
+    animation: float 2s ease-in-out infinite;
+}
+
+.lootbox-result.legendary {
+    border-color: var(--gaming-legendary);
+    box-shadow: 0 0 40px rgba(157, 0, 255, 0.5);
+}
+
+.lootbox-result.epic {
+    border-color: var(--gaming-accent);
+    box-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+}
+
+.lootbox-result.rare {
+    border-color: var(--gaming-primary);
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+}
+
+/* ============================================
+   🎨 ACTION BUTTONS
+   ============================================ */
+
+.action-btn {
+    background: linear-gradient(135deg, var(--gaming-primary), var(--gaming-secondary));
+    color: white;
+    border: none;
+    border-radius: var(--radius-lg);
+    padding: var(--space-md) var(--space-xl);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
+}
+
+.action-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg), var(--shadow-neon);
+}
+
+.action-btn:hover::before {
+    left: 100%;
+}
+
+.action-btn:active {
+    transform: scale(0.95);
+}
+
+.claim-btn {
+    background: var(--gaming-gold);
+    margin-top: var(--space-xl);
+}
+
+/* ============================================
+   📢 NOTIFICATIONS
+   ============================================ */
+
+.dashboard-notification {
+    position: fixed;
+    top: var(--space-xl);
+    right: var(--space-xl);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    color: white;
+    font-weight: 600;
+    box-shadow: var(--shadow-xl);
+    z-index: var(--z-notification);
+    max-width: 400px;
+    transform: translateX(calc(100% + var(--space-xl)));
+    transition: transform var(--transition-base);
+}
+
+.dashboard-notification.active {
+    transform: translateX(0);
+}
+
+.dashboard-notification.success {
+    border-left: 4px solid var(--gaming-secondary);
+}
+
+.dashboard-notification.error {
+    border-left: 4px solid #ef4444;
+}
+
+.dashboard-notification.achievement {
+    border-left: 4px solid var(--gaming-gold);
+    animation: pulse 0.5s;
+}
+
+.dashboard-notification.event {
+    border-left: 4px solid var(--gaming-accent);
+}
+
+.dashboard-notification.prestige {
+    border-left: 4px solid var(--gaming-legendary);
+    box-shadow: 0 0 40px rgba(157, 0, 255, 0.5);
+}
+
+/* ============================================
+   💬 QUEST STORY POPUP
+   ============================================ */
+
+.quest-story-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    z-index: var(--z-modal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity var(--transition-base);
+}
+
+.quest-story-popup.active {
+    opacity: 1;
+}
+
+.story-content {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 2px solid var(--gaming-gold);
+    border-radius: var(--radius-xl);
+    padding: var(--space-2xl);
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(251, 191, 36, 0.3);
+    animation: scaleIn var(--transition-slow) var(--spring);
+}
+
+.story-content p {
+    font-size: 1.1rem;
+    color: #fff;
+    line-height: 1.6;
+    margin-bottom: var(--space-xl);
+}
+
+.story-content button {
+    background: var(--gaming-gold);
+    color: #000;
+    border: none;
+    border-radius: var(--radius-lg);
+    padding: var(--space-md) var(--space-2xl);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.story-content button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 16px rgba(251, 191, 36, 0.5);
+}
+
+/* ============================================
+   🎬 ANIMATIONS
+   ============================================ */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ============================================
+   📱 RESPONSIVE - MOBILE FIRST
+   ============================================ */
+
+@media (max-width: 768px) {
+    .dashboard-tabs {
+        width: 60px;
+        padding: var(--space-sm) 0;
+    }
+    
+    .dashboard-tab-btn {
+        height: 56px;
+        font-size: 1.25rem;
+    }
+    
+    .tab-label {
+        font-size: 0.6rem;
+    }
+    
+    .dashboard-content {
+        padding: var(--space-lg);
+    }
+    
+    .games-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .lootbox-result {
+        min-width: 90vw;
+    }
+    
+    .dashboard-notification {
+        right: var(--space-md);
+        top: var(--space-md);
+        max-width: calc(100vw - 2 * var(--space-md));
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .eric-actions {
+        flex-direction: column;
+    }
+    
+    .action-btn {
+        width: 100%;
+    }
+}
+
+/* ============================================
+   🌙 DARK MODE OPTIMIZATION (already dark)
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
