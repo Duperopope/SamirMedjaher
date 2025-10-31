@@ -620,7 +620,7 @@
 
 .minigames-trigger {
     position: fixed;
-    bottom: 180px;
+    bottom: 110px;
     right: 20px;
     width: 60px;
     height: 60px;
@@ -698,7 +698,7 @@
     }
     
     .minigames-trigger {
-        bottom: 160px;
+        bottom: 90px;
         right: 15px;
         width: 55px;
         height: 55px;
