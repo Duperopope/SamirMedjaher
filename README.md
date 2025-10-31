@@ -15,7 +15,8 @@ Un CV interactif moderne avec système de gamification avancé, développé en H
 ### 🎮 Système de Gamification (v1.1)
 
 #### Mode Gaming Débloquable
-- **Déblocage secret** : Cliquez 3 fois sur la photo de profil
+- **Déblocage secret** : Cliquez 3 fois rapidement sur la photo de profil
+- **Reset localStorage** : Maintenez le portrait 10 secondes (barre de progression + vibration)
 - **HUD de jeu** avec score, XP, niveau et succès
 - **Tamagotchi intégré** : "Éric" votre compagnon virtuel
 
@@ -181,6 +182,17 @@ git clone https://github.com/Duperopope/SamirMedjaher.git
 Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
 
 ## 🔄 Changelog
+
+### v1.3.0 (2025-10-31) - "UX Polish & Reset Feature"
+- ✅ **Fix critique** : Résolution conflit click/long-press pour déblocage Tamagotchi
+- ✅ **Nouvelle feature** : Reset localStorage par long press (10s) sur le portrait
+- ✅ **UX améliorée** : Discrimination temporelle intelligente (500ms grace period)
+- ✅ **Feedback visuel** : Barre de progression rouge + vibration mobile
+- ✅ **Fix layout** : Repositionnement bouton mini-jeux (évite chevauchement HUD)
+- ✅ **Documentation complète** : 3 guides techniques + guide utilisateur
+- 📚 Références : MDN Web API, Material Design UX patterns
+
+**Détails techniques** : Voir `SOLUTION_FINALE.md`, `CLICK_LONGPRESS_FIX.md`, `GUIDE_TEST_TAMAGOTCHI.md`
 
 ### v1.2.0 (2025-07-23) - "HUD Revolution"
 - ✅ Système de positionnement HUD complet et précis
