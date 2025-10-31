@@ -9,7 +9,7 @@
 
 .shop-trigger {
     position: fixed;
-    bottom: 180px;  /* Au-dessus du bouton mini-jeux */
+    bottom: 250px;  /* Au-dessus du HUD (208px) */
     right: 20px;
     width: 60px;
     height: 60px;
@@ -408,7 +408,7 @@
 
 @media (max-width: 768px) {
     .shop-trigger {
-        bottom: 160px;
+        bottom: 220px;
         right: 15px;
         width: 55px;
         height: 55px;

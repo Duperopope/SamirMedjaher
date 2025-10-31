@@ -440,6 +440,12 @@ function handleLongPress() {
  * Initialise les event listeners tactiles
  */
 function initTouchEvents(element) {
+    // Bloquer le menu contextuel sur mobile (long-press)
+    element.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+    }, { passive: false });
+    
     // Touch start
     element.addEventListener('touchstart', (e) => {
         if (!gamingMode) return;
