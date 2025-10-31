@@ -1,15 +1,17 @@
 /**
  * 🐱 TAMAGOTCHI ENHANCED - Éric le Chat Pro
- * Version 2.0 - Super animé et interactif
+ * Version 3.0 - Gaming complet + interactions tactiles
  * 
  * Features:
  * - Système de faim/humeur automatique
  * - Animations CSS fluides
- * - Mini-jeux interactifs
+ * - Mini-jeux interactifs (4 jeux)
  * - Réactions au hover
  * - Particules d'émotions
  * - Double-clic pour jouer
  * - Système de sommeil
+ * - Interactions tactiles (swipe, long press, pinch)
+ * - Support mobile complet
  */
 
 // ============================================
@@ -357,8 +359,162 @@ function loadTamaState() {
 // INITIALISATION
 // ============================================
 
+// ============================================
+// INTERACTIONS TACTILES (MOBILE)
+// ============================================
+
+let touchState = {
+    startX: 0,
+    startY: 0,
+    startTime: 0,
+    startDistance: 0,
+    isLongPress: false,
+    longPressTimer: null,
+};
+
+/**
+ * Détecte le swipe (glisser)
+ */
+function handleSwipe(startX, startY, endX, endY) {
+    const deltaX = endX - startX;
+    const deltaY = endY - startY;
+    const absX = Math.abs(deltaX);
+    const absY = Math.abs(deltaY);
+    
+    // Swipe horizontal (caresser)
+    if (absX > absY && absX > 50) {
+        if (deltaX > 0) {
+            // Swipe droite
+            petTamagotchi();
+            showGameNotification('😺 Caresse douce →');
+        } else {
+            // Swipe gauche
+            petTamagotchi();
+            showGameNotification('😺 Caresse douce ←');
+        }
+        playTamaAnimation('bounce');
+        if (navigator.vibrate) navigator.vibrate(30);
+    }
+    
+    // Swipe vertical (secouer)
+    if (absY > absX && absY > 80) {
+        if (tamaState.isSleeping) {
+            wakeTamagotchi();
+        } else {
+            tamaState.mood = Math.min(100, tamaState.mood + 5);
+            showGameNotification('😸 Secoué !');
+            playTamaAnimation('shake');
+            if (navigator.vibrate) navigator.vibrate([30, 50, 30]);
+        }
+    }
+}
+
+/**
+ * Détecte le pinch (pincer/chatouiller)
+ */
+function handlePinch(distance) {
+    tamaState.mood = Math.min(100, tamaState.mood + 8);
+    showEmotionParticle('😹', 'happy');
+    showGameNotification('😹 Chatouilles ! Hihi !');
+    playTamaAnimation('spin');
+    if (navigator.vibrate) navigator.vibrate([20, 30, 20, 30, 20]);
+    updateTamaVisuals();
+    saveTamaState();
+}
+
+/**
+ * Détecte le long press (câlin)
+ */
+function handleLongPress() {
+    tamaState.mood = Math.min(100, tamaState.mood + 15);
+    tamaState.hunger = Math.min(100, tamaState.hunger + 5);
+    showEmotionParticle('💖', 'love');
+    showGameNotification('🤗 Gros câlin ! Éric ronronne...');
+    playTamaAnimation('bounce');
+    if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+    updateTamaVisuals();
+    saveTamaState();
+}
+
+/**
+ * Initialise les event listeners tactiles
+ */
+function initTouchEvents(element) {
+    // Touch start
+    element.addEventListener('touchstart', (e) => {
+        if (!gamingMode) return;
+        
+        const touches = e.touches;
+        
+        if (touches.length === 1) {
+            // Single touch
+            touchState.startX = touches[0].clientX;
+            touchState.startY = touches[0].clientY;
+            touchState.startTime = Date.now();
+            touchState.isLongPress = false;
+            
+            // Long press timer
+            touchState.longPressTimer = setTimeout(() => {
+                touchState.isLongPress = true;
+                handleLongPress();
+            }, 800); // 800ms pour long press
+            
+        } else if (touches.length === 2) {
+            // Pinch gesture
+            clearTimeout(touchState.longPressTimer);
+            const dx = touches[0].clientX - touches[1].clientX;
+            const dy = touches[0].clientY - touches[1].clientY;
+            touchState.startDistance = Math.sqrt(dx * dx + dy * dy);
+        }
+    }, { passive: true });
+    
+    // Touch move
+    element.addEventListener('touchmove', (e) => {
+        if (!gamingMode) return;
+        
+        // Cancel long press si mouvement
+        if (touchState.longPressTimer) {
+            clearTimeout(touchState.longPressTimer);
+        }
+        
+        const touches = e.touches;
+        
+        if (touches.length === 2) {
+            // Pinch detection
+            const dx = touches[0].clientX - touches[1].clientX;
+            const dy = touches[0].clientY - touches[1].clientY;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            
+            const delta = Math.abs(distance - touchState.startDistance);
+            if (delta > 30) {
+                handlePinch(distance);
+                touchState.startDistance = distance; // Reset pour éviter spam
+            }
+        }
+    }, { passive: true });
+    
+    // Touch end
+    element.addEventListener('touchend', (e) => {
+        if (!gamingMode) return;
+        
+        clearTimeout(touchState.longPressTimer);
+        
+        if (e.changedTouches.length === 1 && !touchState.isLongPress) {
+            const endX = e.changedTouches[0].clientX;
+            const endY = e.changedTouches[0].clientY;
+            const duration = Date.now() - touchState.startTime;
+            
+            // Tap court = nourrir (déjà géré par onclick)
+            // Swipe detection
+            if (duration < 500) {
+                handleSwipe(touchState.startX, touchState.startY, endX, endY);
+            }
+        }
+    }, { passive: true });
+}
+
 function initTamagotchiEnhanced() {
-    console.log('🐱 Tamagotchi Enhanced initialisé !');
+    console.log('🐱 Tamagotchi Enhanced v3.0 initialisé !');
     
     // Charger l'état sauvegardé
     loadTamaState();
@@ -369,13 +525,13 @@ function initTamagotchiEnhanced() {
     // Ajouter les event listeners
     const tama = document.getElementById('tamagotchi');
     if (tama) {
-        // Double-clic pour jouer
+        // Double-clic pour jouer (desktop)
         tama.addEventListener('dblclick', (e) => {
             e.preventDefault();
             playWithTamagotchi();
         });
         
-        // Hover pour caresser
+        // Hover pour caresser (desktop)
         let hoverTimeout;
         tama.addEventListener('mouseenter', () => {
             hoverTimeout = setTimeout(() => {
@@ -386,6 +542,9 @@ function initTamagotchiEnhanced() {
         tama.addEventListener('mouseleave', () => {
             clearTimeout(hoverTimeout);
         });
+        
+        // Interactions tactiles (mobile)
+        initTouchEvents(tama);
         
         // Clic sur Éric endormi pour le réveiller
         tama.addEventListener('click', (e) => {
