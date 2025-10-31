@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Tamagotchi</title>
+    <style>
+        body {
+            background: #0f172a;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+        
+        .test-section {
+            background: rgba(30,41,59,0.5);
+            border: 2px solid #06b6d4;
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: #06b6d4;
+            margin: 0 0 1rem 0;
+        }
+        
+        h2 {
+            color: #10b981;
+            font-size: 1.2rem;
+            margin: 1rem 0 0.5rem 0;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #06b6d4, #10b981);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            margin: 0.5rem;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(6,182,212,0.3);
+        }
+        
+        .status {
+            background: rgba(15,23,42,0.8);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+        
+        .success { color: #10b981; }
+        .error { color: #ef4444; }
+        .info { color: #06b6d4; }
+        
+        .tamagotchi {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 80px;
+            height: 80px;
+            background: rgba(15,23,42,0.9);
+            border-radius: 50%;
+            border: 2px solid #06b6d4;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(6,182,212,0.3);
+        }
+        
+        .tamagotchi.show {
+            display: flex;
+        }
+        
+        .profile-img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 2px solid #06b6d4;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .profile-img:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="test-section">
+        <h1>🧪 Test Tamagotchi - Diagnostic</h1>
+        
+        <h2>1. Test Photo de Profil</h2>
+        <p>Clique 3 fois sur cette image pour débloquer le mode gaming :</p>
+        <img src="assets/images/eric-cat.png" class="profile-img" id="testProfile" onclick="handleProfileClick()">
+        <div class="status" id="clickStatus">Clics: 0 / 3</div>
+        
+        <h2>2. Status Mode Gaming</h2>
+        <div class="status" id="gamingStatus">Mode Gaming: ❌ Désactivé</div>
+        
+        <h2>3. Tests Manuels</h2>
+        <button onclick="testLocalStorage()">📦 Tester localStorage</button>
+        <button onclick="forceUnlockGaming()">🔓 Forcer Déblocage</button>
+        <button onclick="showTamagotchi()">👁️ Afficher Tamagotchi</button>
+        <button onclick="clearAllData()">🗑️ Réinitialiser Tout</button>
+        
+        <h2>4. Résultats</h2>
+        <div class="status" id="results">Attente des tests...</div>
+    </div>
+    
+    <!-- Tamagotchi Test -->
+    <div class="tamagotchi" id="tamagotchi" onclick="alert('Tamagotchi cliqué !')">
+        🐱
+    </div>
+    
+    <script>
+        let clickCount = 0;
+        let gamingUnlocked = localStorage.getItem('gamingUnlocked') === 'true';
+        let gamingMode = localStorage.getItem('gamingMode') === 'true';
+        
+        // Update initial status
+        updateStatus();
+        
+        function handleProfileClick() {
+            clickCount++;
+            document.getElementById('clickStatus').innerHTML = `Clics: ${clickCount} / 3`;
+            
+            if (clickCount >= 3 && !gamingUnlocked) {
+                unlockGaming();
+            }
+        }
+        
+        function unlockGaming() {
+            gamingUnlocked = true;
+            gamingMode = true;
+            localStorage.setItem('gamingUnlocked', 'true');
+            localStorage.setItem('gamingMode', 'true');
+            
+            updateStatus();
+            showTamagotchi();
+            
+            addResult('success', '✅ Mode gaming débloqué !');
+        }
+        
+        function showTamagotchi() {
+            const tama = document.getElementById('tamagotchi');
+            tama.classList.add('show');
+            addResult('success', '✅ Tamagotchi affiché !');
+        }
+        
+        function updateStatus() {
+            const status = document.getElementById('gamingStatus');
+            const icon = gamingMode ? '✅' : '❌';
+            const text = gamingMode ? 'Activé' : 'Désactivé';
+            status.innerHTML = `Mode Gaming: ${icon} ${text}`;
+            
+            // Show tamagotchi if gaming is on
+            if (gamingMode) {
+                showTamagotchi();
+            }
+        }
+        
+        function testLocalStorage() {
+            const results = document.getElementById('results');
+            let html = '<strong>📦 Test localStorage:</strong><br>';
+            
+            html += `- gamingUnlocked: ${localStorage.getItem('gamingUnlocked') || 'null'}<br>`;
+            html += `- gamingMode: ${localStorage.getItem('gamingMode') || 'null'}<br>`;
+            html += `- profileClickCount: ${localStorage.getItem('profileClickCount') || 'null'}<br>`;
+            html += `- tamaState: ${localStorage.getItem('tamaState') ? 'existe' : 'null'}<br>`;
+            
+            results.innerHTML = html;
+        }
+        
+        function forceUnlockGaming() {
+            unlockGaming();
+        }
+        
+        function clearAllData() {
+            localStorage.clear();
+            clickCount = 0;
+            gamingUnlocked = false;
+            gamingMode = false;
+            
+            document.getElementById('clickStatus').innerHTML = 'Clics: 0 / 3';
+            updateStatus();
+            
+            const tama = document.getElementById('tamagotchi');
+            tama.classList.remove('show');
+            
+            addResult('info', 'ℹ️ Toutes les données effacées. Rafraîchis la page.');
+        }
+        
+        function addResult(type, message) {
+            const results = document.getElementById('results');
+            results.innerHTML = `<span class="${type}">${message}</span><br>` + results.innerHTML;
+        }
+        
+        // Auto-diagnostic on load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                addResult('info', '🔍 Page de test chargée');
+                testLocalStorage();
+            }, 500);
+        });
+    </script>
+</body>
+</html>
