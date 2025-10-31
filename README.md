@@ -183,6 +183,26 @@ Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
 
 ## 🔄 Changelog
 
+### v1.3.2 (2025-10-31) - "Skills System Verification"
+- ✅ **Investigation complète** : Système de compétences vérifié 100% fonctionnel
+- ✅ **28 compétences** : 9 dev + 7 gamedev + 7 systèmes + 5 outils
+- ✅ **Documentation** : Rapport d'investigation détaillé créé (SKILLS_INVESTIGATION_REPORT.md)
+- ✅ **Cause identifiée** : Cache navigateur (non un bug réel)
+- 📊 **Vérifications** : HTML structure, JavaScript code, CSS styles, rendering
+- 🎯 **Solution** : Hard refresh (Ctrl+Shift+R) pour vider le cache
+
+**Rapport complet** : `SKILLS_INVESTIGATION_REPORT.md`
+
+### v1.3.1 (2025-10-31) - "Gaming Dashboard v2.0"
+- 🎮 **Gaming Dashboard Next-Gen** : Interface unifiée avec onglets verticaux
+- 🕹️ **4 Mini-Jeux Avancés** : Coin Rush, Memory Pro, Rhythm Clicker, Stack Builder
+- 🏆 **Système Quests** : 4 chaînes narratives avec progression
+- 🎉 **Events Saisonniers** : Halloween, Noël, Weekend Boost, Friday 13
+- 💎 **Achievement Tiers** : Bronze → Silver → Gold → Platinum → Legendary
+- 🎁 **Gacha/Lootbox** : Système de pity counter intégré
+- 🚀 **Prestige System** : Reset pour multiplicateurs permanents
+- 📊 **Stats Dashboard** : Charts.js intégré pour visualisation
+
 ### v1.3.0 (2025-10-31) - "UX Polish & Reset Feature"
 - ✅ **Fix critique** : Résolution conflit click/long-press pour déblocage Tamagotchi
 - ✅ **Nouvelle feature** : Reset localStorage par long press (10s) sur le portrait
