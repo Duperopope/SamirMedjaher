@@ -437,7 +437,7 @@ body.hud-preview-active .game-notification {
                          alt="Samir Medjaher" 
                          class="profile-img mx-auto mb-4"
                          id="profileImage"
-                         onclick="triggerPortraitDialogue()"
+                         onclick="handlePortraitClick(event)"
                          onmousedown="startResetTimer(event)"
                          onmouseup="cancelResetTimer()"
                          onmouseleave="cancelResetTimer()"
@@ -2727,26 +2727,41 @@ body.hud-preview-active .game-notification {
         let resetTimer = null;
         let resetStartTime = 0;
         let resetAnimationFrame = null;
+        let isLongPressActive = false; // Flag pour différencier click/long-press
         
         function startResetTimer(event) {
-            // Prevent triggering click on long press
-            event.preventDefault();
+            // NE PAS preventDefault() immédiatement - laisser passer les clics normaux
+            // On va discriminer après 500ms si c'est vraiment un long press
             
             resetStartTime = Date.now();
+            isLongPressActive = false;
             const progress = document.getElementById('resetProgress');
-            progress.classList.add('active');
-            progress.style.setProperty('--progress', '0%');
             
             // Animation loop
             function updateProgress() {
                 const elapsed = Date.now() - resetStartTime;
-                const percent = Math.min((elapsed / 10000) * 100, 100);
-                progress.style.setProperty('--progress', percent + '%');
+                
+                // Après 500ms, on considère que c'est un long press
+                if (elapsed >= 500 && !isLongPressActive) {
+                    isLongPressActive = true;
+                    progress.classList.add('active');
+                    // Vibration légère pour indiquer le début du long press
+                    if (navigator.vibrate) {
+                        navigator.vibrate(50);
+                    }
+                }
+                
+                // Calcul du pourcentage (0-100% sur 10 secondes)
+                if (isLongPressActive) {
+                    const percent = Math.min(((elapsed - 500) / 9500) * 100, 100);
+                    progress.style.setProperty('--progress', percent + '%');
+                }
                 
                 if (elapsed >= 10000) {
                     // Reset completed!
                     resetLocalStorage();
-                } else {
+                } else if (resetStartTime > 0) {
+                    // Continue seulement si pas annulé
                     resetAnimationFrame = requestAnimationFrame(updateProgress);
                 }
             }
@@ -2755,6 +2770,8 @@ body.hud-preview-active .game-notification {
         }
         
         function cancelResetTimer() {
+            const wasLongPress = isLongPressActive;
+            
             if (resetAnimationFrame) {
                 cancelAnimationFrame(resetAnimationFrame);
                 resetAnimationFrame = null;
@@ -2764,6 +2781,11 @@ body.hud-preview-active .game-notification {
             progress.classList.remove('active');
             progress.style.setProperty('--progress', '0%');
             resetStartTime = 0;
+            isLongPressActive = false;
+            
+            // Si c'était un long press actif, on empêche le click
+            // Sinon, on laisse le click normal se produire
+            return wasLongPress;
         }
         
         function resetLocalStorage() {
@@ -2797,6 +2819,18 @@ body.hud-preview-active .game-notification {
             setTimeout(() => {
                 location.reload();
             }, 1000);
+        }
+        
+        // Wrapper pour gérer le conflit entre click et long-press
+        function handlePortraitClick(event) {
+            // Si c'était un long press, on ignore le click
+            if (isLongPressActive) {
+                event.preventDefault();
+                return;
+            }
+            
+            // Sinon, comportement normal du click
+            triggerPortraitDialogue();
         }
         
         function triggerPortraitDialogue() {
