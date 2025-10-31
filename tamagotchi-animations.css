@@ -1,0 +1,318 @@
+/**
+ * 🎨 TAMAGOTCHI ANIMATIONS CSS
+ * Animations fluides pour Éric le Chat
+ */
+
+/* ============================================
+   ANIMATIONS PRINCIPALES
+   ============================================ */
+
+/* Bounce - Quand on nourrit */
+@keyframes tama-bounce {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    25% {
+        transform: translateY(-15px) scale(1.1);
+    }
+    50% {
+        transform: translateY(0) scale(1.05);
+    }
+    75% {
+        transform: translateY(-8px) scale(1.05);
+    }
+}
+
+.tama-bounce {
+    animation: tama-bounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Shake - Quand affamé ou mécontent */
+@keyframes tama-shake {
+    0%, 100% {
+        transform: translateX(0) rotate(0deg);
+    }
+    25% {
+        transform: translateX(-10px) rotate(-5deg);
+    }
+    50% {
+        transform: translateX(10px) rotate(5deg);
+    }
+    75% {
+        transform: translateX(-10px) rotate(-5deg);
+    }
+}
+
+.tama-shake {
+    animation: tama-shake 0.5s ease-in-out;
+}
+
+/* Spin - Quand on joue */
+@keyframes tama-spin {
+    0% {
+        transform: rotate(0deg) scale(1);
+    }
+    50% {
+        transform: rotate(180deg) scale(1.2);
+    }
+    100% {
+        transform: rotate(360deg) scale(1);
+    }
+}
+
+.tama-spin {
+    animation: tama-spin 0.8s ease-in-out;
+}
+
+/* Float - Animation idle */
+@keyframes tama-float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+.tama-float {
+    animation: tama-float 2s ease-in-out;
+}
+
+/* ============================================
+   PARTICULES D'ÉMOTIONS
+   ============================================ */
+
+@keyframes tama-float-up {
+    0% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0) scale(0.5);
+    }
+    50% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-30px) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-60px) scale(0.8);
+    }
+}
+
+.tama-particle {
+    position: absolute;
+    pointer-events: none;
+    z-index: 10000;
+    font-size: 2rem;
+    animation: tama-float-up 2s ease-out forwards;
+}
+
+.tama-particle-love {
+    animation-duration: 1.5s;
+}
+
+.tama-particle-love-small {
+    font-size: 1.2rem;
+    animation-duration: 1s;
+}
+
+.tama-particle-angry {
+    animation-duration: 1s;
+}
+
+.tama-particle-hungry,
+.tama-particle-sad {
+    animation-duration: 2s;
+}
+
+/* ============================================
+   ÉTATS DU TAMAGOTCHI
+   ============================================ */
+
+/* Hover effect - Attire l'attention */
+#tamagotchi:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+    transition: all 0.3s ease;
+}
+
+#tamagotchi:active {
+    transform: scale(0.95);
+    transition: all 0.1s ease;
+}
+
+/* Pulsation douce pour attirer l'attention */
+@keyframes tama-pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 0 15px rgba(6, 182, 212, 0);
+    }
+}
+
+.tama-needs-attention {
+    animation: tama-pulse 2s infinite;
+}
+
+/* ============================================
+   INDICATEURS VISUELS
+   ============================================ */
+
+/* Indicateur de faim (rouge) */
+.tama-hungry {
+    border-color: #ef4444 !important;
+    animation: tama-pulse-red 1.5s infinite;
+}
+
+@keyframes tama-pulse-red {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 0 12px rgba(239, 68, 68, 0);
+    }
+}
+
+/* Indicateur d'humeur basse (orange) */
+.tama-unhappy {
+    border-color: #f59e0b !important;
+    animation: tama-pulse-orange 2s infinite;
+}
+
+@keyframes tama-pulse-orange {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 0 12px rgba(245, 158, 11, 0);
+    }
+}
+
+/* État heureux (vert) */
+.tama-happy {
+    border-color: #10b981 !important;
+}
+
+/* État endormi (bleu foncé) */
+.tama-sleeping {
+    border-color: #6366f1 !important;
+    opacity: 0.8;
+    animation: tama-sleep-pulse 3s infinite;
+}
+
+@keyframes tama-sleep-pulse {
+    0%, 100% {
+        opacity: 0.6;
+    }
+    50% {
+        opacity: 0.9;
+    }
+}
+
+/* ============================================
+   TOOLTIP / BULLES D'INFO
+   ============================================ */
+
+.tama-tooltip {
+    position: absolute;
+    bottom: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(15, 23, 42, 0.95);
+    color: white;
+    padding: 0.5rem 0.8rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 10001;
+    border: 1px solid rgba(6, 182, 212, 0.3);
+}
+
+#tamagotchi:hover .tama-tooltip {
+    opacity: 1;
+}
+
+/* Flèche du tooltip */
+.tama-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: rgba(15, 23, 42, 0.95);
+}
+
+/* ============================================
+   BARRE DE STATS (optionnel)
+   ============================================ */
+
+.tama-stats-bar {
+    position: absolute;
+    bottom: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 5px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#tamagotchi:hover .tama-stats-bar {
+    opacity: 1;
+}
+
+.tama-stat-icon {
+    display: inline-block;
+    margin-right: 2px;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+    .tama-particle {
+        font-size: 1.5rem;
+    }
+    
+    #tamagotchi:hover {
+        transform: scale(1.03);
+    }
+    
+    .tama-tooltip {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.6rem;
+    }
+}
+
+/* ============================================
+   ACCESSIBILITÉ
+   ============================================ */
+
+/* Réduire les animations si préféré */
+@media (prefers-reduced-motion: reduce) {
+    .tama-bounce,
+    .tama-shake,
+    .tama-spin,
+    .tama-float,
+    .tama-particle {
+        animation: none !important;
+    }
+    
+    .tama-needs-attention,
+    .tama-hungry,
+    .tama-unhappy,
+    .tama-sleeping {
+        animation: none !important;
+    }
+    
+    #tamagotchi:hover {
+        transform: none;
+    }
+}

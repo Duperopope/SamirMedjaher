@@ -107,6 +107,18 @@ body.hud-preview-active .game-notification {
     style="width:100%;height:100%;object-fit:cover;border-radius:50%;cursor:pointer;"
     alt="Éric le chat"
     />
+    <!-- Tooltip interactif -->
+    <div class="tama-tooltip" id="tamaTooltip">
+        <div style="font-weight:600;margin-bottom:2px;">🐱 Éric - Niveau <span id="tamaLevelDisplay">1</span></div>
+        <div style="font-size:0.75rem;opacity:0.9;">
+            <span class="tama-stat-icon">🍔</span> Faim: <span id="tamaHungerDisplay">100</span>%
+            <span style="margin:0 4px;">|</span>
+            <span class="tama-stat-icon">😊</span> Humeur: <span id="tamaMoodDisplay">100</span>%
+        </div>
+        <div style="font-size:0.7rem;opacity:0.7;margin-top:4px;border-top:1px solid rgba(255,255,255,0.2);padding-top:4px;">
+            👆 Clic: Nourrir | 👆👆 Double-clic: Jouer
+        </div>
+    </div>
     </div>
 
     <!-- Gaming Controller Button (hidden by default, replaces Eric when gaming is disabled) -->
@@ -3198,5 +3210,11 @@ body.hud-preview-active .game-notification {
         // Initialize everything
         document.addEventListener('DOMContentLoaded', initializeCV);
     </script>
+    
+    <!-- Tamagotchi Enhanced - CSS Animations -->
+    <link rel="stylesheet" href="tamagotchi-animations.css">
+    
+    <!-- Tamagotchi Enhanced - JavaScript Logic -->
+    <script src="tamagotchi-enhanced.js"></script>
 </body>
 </html>
