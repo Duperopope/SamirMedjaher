@@ -2269,19 +2269,31 @@ body.hud-preview-active .game-notification {
 
         // Gaming Functions
         function unlockGamingMode() {
-            if (gamingUnlocked) return;
+            console.log('🎮 unlockGamingMode called! gamingUnlocked:', gamingUnlocked);
+            if (gamingUnlocked) {
+                console.log('⚠️ Already unlocked, returning');
+                return;
+            }
             
+            console.log('✅ Unlocking gaming mode now!');
             gamingUnlocked = true;
             localStorage.setItem('gamingUnlocked', 'true');
             
             const gameToggle = document.getElementById('gameToggle');
-            gameToggle.classList.add('unlocked');
+            console.log('🎮 gameToggle element:', gameToggle);
+            if (gameToggle) {
+                gameToggle.classList.add('unlocked');
+                console.log('✅ Added unlocked class to gameToggle');
+            } else {
+                console.error('❌ gameToggle element not found!');
+            }
             
             unlockAchievement('gaming_unlocked', true); // Force show even if gaming not enabled yet
             
             // Auto-enable gaming mode
             gamingMode = true;
             localStorage.setItem('gamingMode', 'true');
+            console.log('✅ Gaming mode enabled, calling updateGamingMode()');
             updateGamingMode();
         }
 
@@ -2871,8 +2883,11 @@ body.hud-preview-active .game-notification {
             typewriter.type();
 
             // Unlock gaming mode after 3 clicks
+            console.log('🎮 Portrait clicks:', portraitClicks, 'gamingUnlocked:', gamingUnlocked);
             if (portraitClicks >= 3 && !gamingUnlocked) {
+                console.log('🎉 Unlocking gaming mode in 2 seconds...');
                 setTimeout(() => {
+                    console.log('🚀 Calling unlockGamingMode()');
                     unlockGamingMode();
                 }, 2000);
             }
