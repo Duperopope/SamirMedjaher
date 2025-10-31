@@ -73,19 +73,18 @@ body.hud-preview-active .game-notification {
     
     <!-- Gaming HUD Stats -->
     <div class="game-hud" id="gameHUD">
-        <div class="game-stat">
-            <i class="fas fa-trophy"></i>
-            <span id="scoreDisplay">0</span>
+        <div class="game-stat" title="Coins">
+            🪙 <span id="coinsDisplay">0</span>
         </div>
-        <div class="game-stat">
-            <i class="fas fa-star"></i>
-            <span id="xpDisplay">0</span> XP
-        </div>
-        <div class="game-stat">
+        <div class="game-stat" title="Niveau">
             <i class="fas fa-medal"></i>
             <span id="levelDisplay">1</span>
         </div>
-        <div class="xp-bar">
+        <div class="game-stat" title="XP">
+            <i class="fas fa-star"></i>
+            <span id="xpDisplay">0</span>/<span id="xpMaxDisplay">100</span>
+        </div>
+        <div class="xp-bar" title="Progression vers niveau suivant">
             <div class="xp-progress" id="xpProgress"></div>
         </div>
     </div>
@@ -3366,5 +3365,128 @@ body.hud-preview-active .game-notification {
     
     <!-- Tamagotchi Mini-Games - JavaScript Logic -->
     <script src="tamagotchi-minigames.js"></script>
+    
+    <!-- Gameplay System v2.0 - Coins, XP, Évolution -->
+    <script src="tamagotchi-gameplay.js"></script>
+    
+    <!-- Shop System - Boutique complète -->
+    <link rel="stylesheet" href="tamagotchi-shop.css">
+    <script src="tamagotchi-shop.js"></script>
+    
+    <script>
+    // Fonction pour mettre à jour le HUD avec gameState
+    function updateGameplayHUD() {
+        if (!window.gameplaySystem || !window.gameplaySystem.gameState) return;
+        
+        const gs = window.gameplaySystem.gameState;
+        
+        // Update coins
+        const coinsEl = document.getElementById('coinsDisplay');
+        if (coinsEl) coinsEl.textContent = gs.coins.toLocaleString();
+        
+        // Update level
+        const levelEl = document.getElementById('levelDisplay');
+        if (levelEl) levelEl.textContent = gs.level;
+        
+        // Update XP
+        const xpEl = document.getElementById('xpDisplay');
+        const xpMaxEl = document.getElementById('xpMaxDisplay');
+        if (xpEl) xpEl.textContent = gs.xp;
+        if (xpMaxEl) xpMaxEl.textContent = gs.xpToNextLevel;
+        
+        // Update XP bar
+        const xpProgress = document.getElementById('xpProgress');
+        if (xpProgress) {
+            const percentage = (gs.xp / gs.xpToNextLevel) * 100;
+            xpProgress.style.width = percentage + '%';
+        }
+    }
+    
+    // Appeler updateGameplayHUD régulièrement
+    setInterval(updateGameplayHUD, 1000);
+    
+    // Initialisation gameplay quand gaming mode activé
+    document.addEventListener('DOMContentLoaded', function() {
+        // Hook pour activer gameplay system
+        const originalUnlock = window.unlockGamingMode;
+        window.unlockGamingMode = function() {
+            originalUnlock();
+            
+            // Init gameplay
+            if (window.gameplaySystem) {
+                window.gameplaySystem.initGameplaySystem();
+            }
+            
+            // Init shop
+            if (window.shopSystem) {
+                window.shopSystem.initShop();
+                
+                // Activer bouton shop
+                setTimeout(() => {
+                    const shopTrigger = document.querySelector('.shop-trigger');
+                    if (shopTrigger) {
+                        shopTrigger.classList.add('active');
+                    }
+                }, 500);
+            }
+        };
+        
+        // Hooks sur actions CV pour coins
+        const originalContactItem = document.querySelectorAll('.contact-item');
+        originalContactItem.forEach(item => {
+            if (item.textContent.includes('Email') || item.textContent.includes('@')) {
+                item.addEventListener('click', function() {
+                    if (gamingMode && window.gameplaySystem) {
+                        window.gameplaySystem.onEmailSent();
+                    }
+                });
+            }
+        });
+        
+        // Hook sur téléchargement CV
+        document.querySelectorAll('.download-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (gamingMode && window.gameplaySystem) {
+                    window.gameplaySystem.onCVDownloaded();
+                }
+            });
+        });
+        
+        // Hook sur skills
+        document.querySelectorAll('.skill-bubble').forEach(skill => {
+            skill.addEventListener('click', function() {
+                if (gamingMode && window.gameplaySystem) {
+                    window.gameplaySystem.onSkillViewed();
+                }
+            });
+        });
+        
+        // Hook sur vidéos portfolio
+        document.querySelectorAll('.portfolio-card').forEach(card => {
+            card.addEventListener('click', function() {
+                if (gamingMode && window.gameplaySystem) {
+                    window.gameplaySystem.onVideoWatched();
+                }
+            });
+        });
+        
+        // Hook sur sections visitées
+        const sectionsToTrack = ['profile-view', 'experience-view', 'skills-view', 'languages-view'];
+        sectionsToTrack.forEach(section => {
+            const elements = document.querySelectorAll(`[data-action="${section}"]`);
+            elements.forEach(el => {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting && gamingMode && window.gameplaySystem) {
+                            window.gameplaySystem.onSectionVisited(section);
+                        }
+                    });
+                }, { threshold: 0.5 });
+                
+                observer.observe(el);
+            });
+        });
+    });
+    </script>
 </body>
 </html>

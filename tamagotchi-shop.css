@@ -1,0 +1,555 @@
+/**
+ * 🏪 TAMAGOTCHI SHOP UI
+ * Interface boutique complète avec nourriture, skins, boosters
+ */
+
+/* ============================================
+   BOUTON SHOP TRIGGER
+   ============================================ */
+
+.shop-trigger {
+    position: fixed;
+    bottom: 180px;  /* Au-dessus du bouton mini-jeux */
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #10b981, #059669);
+    border: 3px solid rgba(16, 185, 129, 0.5);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 9998;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+    font-size: 1.8rem;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.shop-trigger.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.shop-trigger:hover {
+    transform: scale(1.1) rotate(-10deg);
+    box-shadow: 0 12px 35px rgba(16, 185, 129, 0.6);
+}
+
+.shop-trigger .new-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #ef4444;
+    color: white;
+    font-size: 0.6rem;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-weight: 700;
+    animation: pulse 2s infinite;
+}
+
+/* ============================================
+   MODAL SHOP
+   ============================================ */
+
+.shop-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 20001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.shop-modal.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.shop-container {
+    background: linear-gradient(145deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95));
+    border: 2px solid rgba(16, 185, 129, 0.3);
+    border-radius: 20px;
+    padding: 2rem;
+    max-width: 90vw;
+    max-height: 90vh;
+    width: 800px;
+    overflow-y: auto;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+}
+
+.shop-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid rgba(16, 185, 129, 0.2);
+}
+
+.shop-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #10b981;
+    margin: 0;
+}
+
+.shop-balance {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: white;
+    box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+}
+
+.shop-close {
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0.5rem;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.shop-close:hover {
+    color: #ef4444;
+    transform: rotate(90deg);
+}
+
+/* ============================================
+   TABS SHOP
+   ============================================ */
+
+.shop-tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid rgba(148, 163, 184, 0.2);
+}
+
+.shop-tab {
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.shop-tab.active {
+    color: #10b981;
+    border-bottom-color: #10b981;
+}
+
+.shop-tab:hover:not(.active) {
+    color: #e2e8f0;
+}
+
+/* ============================================
+   CONTENU SHOP
+   ============================================ */
+
+.shop-content {
+    color: #e2e8f0;
+}
+
+.shop-section {
+    display: none;
+}
+
+.shop-section.active {
+    display: block;
+}
+
+.shop-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.shop-item {
+    background: linear-gradient(145deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.6));
+    border: 2px solid rgba(16, 185, 129, 0.2);
+    border-radius: 15px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.shop-item:hover {
+    transform: translateY(-5px);
+    border-color: rgba(16, 185, 129, 0.5);
+    box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+}
+
+.shop-item.locked {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.shop-item.locked:hover {
+    transform: none;
+}
+
+.shop-item.owned {
+    border-color: #fbbf24;
+}
+
+.shop-item.owned::after {
+    content: '✓ Possédé';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #fbbf24;
+    color: white;
+    font-size: 0.7rem;
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-weight: 700;
+}
+
+.shop-item-icon {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.shop-item-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #e2e8f0;
+    margin-bottom: 0.5rem;
+}
+
+.shop-item-description {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    margin-bottom: 1rem;
+    min-height: 40px;
+}
+
+.shop-item-price {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    font-weight: 700;
+    display: inline-block;
+    margin-bottom: 0.75rem;
+}
+
+.shop-item-btn {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    border: none;
+    padding: 0.5rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.shop-item-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+}
+
+.shop-item-btn:disabled {
+    background: #64748b;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.shop-item-btn.equip {
+    background: linear-gradient(135deg, #8b5cf6, #6366f1);
+}
+
+.shop-item-btn.equipped {
+    background: #fbbf24;
+    cursor: default;
+}
+
+/* ============================================
+   INVENTORY
+   ============================================ */
+
+.inventory-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.inventory-item {
+    background: linear-gradient(145deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.6));
+    border: 2px solid rgba(6, 182, 212, 0.2);
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+}
+
+.inventory-item-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.inventory-item-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #e2e8f0;
+    margin-bottom: 0.25rem;
+}
+
+.inventory-item-count {
+    background: #10b981;
+    color: white;
+    font-size: 0.8rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+}
+
+.inventory-item-use {
+    background: #06b6d4;
+    color: white;
+    border: none;
+    padding: 0.4rem 1rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.inventory-item-use:hover {
+    background: #0891b2;
+    transform: scale(1.05);
+}
+
+.inventory-item-use:disabled {
+    background: #64748b;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ============================================
+   LOOT BOX
+   ============================================ */
+
+.lootbox-animation {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20002;
+    text-align: center;
+}
+
+.lootbox-icon {
+    font-size: 8rem;
+    animation: lootboxShake 0.5s ease infinite;
+}
+
+.lootbox-reveal {
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    color: #fbbf24;
+    font-weight: 700;
+    animation: fadeInUp 0.5s ease;
+}
+
+@keyframes lootboxShake {
+    0%, 100% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg); }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   RESPONSIVE MOBILE
+   ============================================ */
+
+@media (max-width: 768px) {
+    .shop-trigger {
+        bottom: 160px;
+        right: 15px;
+        width: 55px;
+        height: 55px;
+        font-size: 1.6rem;
+    }
+    
+    .shop-container {
+        width: 95vw;
+        max-height: 85vh;
+        padding: 1.5rem;
+    }
+    
+    .shop-title {
+        font-size: 1.5rem;
+    }
+    
+    .shop-balance {
+        font-size: 1rem;
+        padding: 0.4rem 1rem;
+    }
+    
+    .shop-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1rem;
+    }
+    
+    .shop-item {
+        padding: 1rem;
+    }
+    
+    .shop-item-icon {
+        font-size: 2.5rem;
+    }
+    
+    .shop-tabs {
+        overflow-x: auto;
+        overflow-y: hidden;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .shop-tab {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .inventory-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+}
+
+/* ============================================
+   CONFIRMATION POPUP
+   ============================================ */
+
+.confirmation-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(15, 23, 42, 0.98);
+    border: 2px solid #10b981;
+    border-radius: 20px;
+    padding: 2rem;
+    z-index: 20003;
+    text-align: center;
+    max-width: 400px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.confirmation-popup h3 {
+    color: #10b981;
+    margin-bottom: 1rem;
+}
+
+.confirmation-popup p {
+    color: #e2e8f0;
+    margin-bottom: 1.5rem;
+}
+
+.confirmation-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.confirmation-buttons button {
+    padding: 0.75rem 2rem;
+    border-radius: 10px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.confirmation-buttons .confirm-yes {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+}
+
+.confirmation-buttons .confirm-yes:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+}
+
+.confirmation-buttons .confirm-no {
+    background: #64748b;
+    color: white;
+}
+
+.confirmation-buttons .confirm-no:hover {
+    background: #475569;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.1);
+    }
+}
+
+.purchase-success {
+    animation: purchaseSuccess 0.5s ease;
+}
+
+@keyframes purchaseSuccess {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
