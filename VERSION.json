@@ -1,7 +1,19 @@
 {
-  "current": "0.28",
+  "current": "0.29",
   "lastUpdate": "2025-11-02",
   "changelog": [
+    {
+      "version": "0.29",
+      "date": "2025-11-02",
+      "changes": [
+        "🎮 Gaming Connector créé - Liaison entre tous les systèmes",
+        "⚙️ Onglet Settings ajouté au dashboard",
+        "🎯 Modal système pour mini-jeux en overlay",
+        "🐱 Fonctions Éric (nourrir, jouer, câliner) connectées",
+        "🛒 Fonctions Shop connectées au dashboard",
+        "🎁 Système lootbox préparé"
+      ]
+    },
     {
       "version": "0.28",
       "date": "2025-11-02",
@@ -12,31 +24,8 @@
         "✅ CV content (skills, experience, carousel) now renders correctly",
         "🔧 Fixed race condition in gaming system initialization"
       ]
-    },
-    {
-      "version": "0.23",
-      "date": "2025-11-02",
-      "changes": [
-        "🐛 FIX MINIMAL: Footer status auto-clear après 3s",
-        "✅ Status 'Ready' après échec dashboard",
-        "🔧 Aucun changement de comportement du CV",
-        "⚡ Rollback de la v0.23 cassée précédente"
-      ]
-    },
-    {
-      "version": "0.22",
-      "date": "2025-11-02",
-      "changes": [
-        "🎮 FIX MAJEUR: Gaming mode 100% fonctionnel",
-        "✅ Bouton debug supprimé définitivement",
-        "✅ unlockGamingMode() refactorisée (retry 3x)",
-        "✅ Debug status footer en temps réel",
-        "✅ showGameNotification() sécurisée",
-        "✅ Cache-busting VERSION.json",
-        "📚 Documentation VERSIONING.md"
-      ]
     }
   ],
-  "nextVersion": "0.25",
+  "nextVersion": "0.30",
   "autoIncrement": 0.01
 }
