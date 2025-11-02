@@ -21,11 +21,18 @@
     --z-base: 1;
     --z-dropdown: 1000;
     --z-sticky: 1020;
-    --z-fixed: 1030;
-    --z-modal-backdrop: 1040;
-    --z-modal: 1050;
-    --z-popover: 1060;
-    --z-tooltip: 1070;
+    --z-fixed: 1030;        /* Header buttons */
+    --z-modal-backdrop: 1040; /* Overlay backgrounds */
+    --z-modal: 1050;        /* Main modals (color-picker, theater, mini-game) */
+    --z-popover: 1060;      /* Tamagotchi menu, tooltips */
+    --z-tooltip: 1070;      /* Top-level tooltips */
+    --z-notification: 1080; /* Game notifications */
+    
+    /* Legacy z-index values for gradual migration */
+    /* Old value: 10000 → New: 1050 (modal) */
+    /* Old value: 10001 → New: 1080 (notification) */
+    /* Old value: 10005 → New: 1070 (tooltip) */
+    /* Old value: 20001+ → New: Shop uses 1050 (modal level) */
     
     /* Layout */
     --header-height: 4rem;
@@ -197,5 +204,81 @@
     100% {
         opacity: 1;
         transform: scale(1) translateY(0);
+    }
+}
+
+/* ==============================================
+   TAMAGOTCHI CONTEXT MENU
+   ============================================== */
+
+.tama-context-menu {
+    position: fixed;
+    bottom: 110px; /* Au-dessus du Tamagotchi */
+    right: 20px;
+    background: rgba(30, 41, 59, 0.98);
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(6, 182, 212, 0.3);
+    border-radius: var(--radius-lg);
+    padding: var(--space-sm);
+    z-index: var(--z-popover);
+    box-shadow: var(--shadow-xl);
+    min-width: 180px;
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+    transition: all var(--transition-base);
+}
+
+.tama-context-menu.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+    display: block !important;
+}
+
+.tama-menu-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    color: #e2e8f0;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.tama-menu-item:hover {
+    background: rgba(6, 182, 212, 0.15);
+    transform: translateX(-3px);
+}
+
+.tama-menu-icon {
+    font-size: 1.4rem;
+    width: 28px;
+    text-align: center;
+}
+
+.tama-menu-text {
+    flex: 1;
+}
+
+/* Responsive Tamagotchi Menu */
+@media (max-width: 968px) {
+    .tama-context-menu {
+        bottom: 90px;
+        right: 15px;
+        min-width: 160px;
+    }
+    
+    .tama-menu-item {
+        padding: var(--space-sm);
+        font-size: 0.9rem;
+    }
+    
+    .tama-menu-icon {
+        font-size: 1.2rem;
+        width: 24px;
     }
 }
