@@ -14,6 +14,14 @@
  */
 
 // ============================================
+// STUB FUNCTIONS (Prevent errors when called before definition)
+// ============================================
+function checkQuestCompletion(questId) {
+    console.log(`🔧 [STUB] checkQuestCompletion(${questId}) called - Implementation pending`);
+    // Will be implemented below
+}
+
+// ============================================
 // ÉTAT DU JEU (Extension de tamaState)
 // ============================================
 

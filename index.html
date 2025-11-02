@@ -1424,6 +1424,7 @@ body.hud-preview-active .game-notification {
 
         // Initialize Functions
         function initializeCV() {
+            console.log('🚀 [DEBUG] initializeCV() called - gamingMode:', gamingMode, 'gamingUnlocked:', gamingUnlocked);
             applyTheme(currentTheme);
             const canvas = document.getElementById('particleCanvas');
             particleSystem = new AdvancedParticleSystem(canvas);
@@ -1614,6 +1615,7 @@ body.hud-preview-active .game-notification {
         }
 
         function updateContent() {
+            console.log('🔧 [DEBUG] updateContent() called - gamingMode:', gamingMode, 'gamingUnlocked:', gamingUnlocked);
             const t = translations[currentLang];
             
             document.querySelectorAll('[data-lang]').forEach(el => {
@@ -1694,6 +1696,7 @@ body.hud-preview-active .game-notification {
         }
 
         function updateSkills() {
+            console.log('🎯 [DEBUG] updateSkills() called');
             const categories = ['development', 'gamedev', 'systems', 'tools'];
             
             categories.forEach(category => {
@@ -2332,6 +2335,7 @@ body.hud-preview-active .game-notification {
         
         function restoreGamingState() {
             // Restore gaming state after page reload (no animation, no dashboard auto-open)
+            console.log('🔄 [DEBUG] restoreGamingState() called');
             console.log('🔄 Restoring gaming state from localStorage...');
             
             gamingUnlocked = true;

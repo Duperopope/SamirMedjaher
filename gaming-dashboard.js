@@ -1063,9 +1063,15 @@ function checkAchievementUnlocked(achievementKey, tier) {
     return achievement && achievement[tier] === true;
 }
 
-function unlockAchievement(achievementKey, tier) {
+function unlockAchievement(achievementKey, tier = 'bronze') {
     if (!dashboardState.achievements[achievementKey]) {
         dashboardState.achievements[achievementKey] = {};
+    }
+    
+    // Safety check: ensure tier is valid
+    if (!tier || !ACHIEVEMENT_TIERS[tier]) {
+        console.warn(`⚠️ Invalid tier for achievement ${achievementKey}:`, tier, '- using bronze as fallback');
+        tier = 'bronze';
     }
     
     if (!dashboardState.achievements[achievementKey][tier]) {
@@ -1076,6 +1082,10 @@ function unlockAchievement(achievementKey, tier) {
         dashboardState.metrics.achievementsUnlocked++;
         
         const achievement = ACHIEVEMENT_CATALOG[achievementKey];
+        if (!achievement || !achievement.tiers || !achievement.tiers[tier]) {
+            console.warn(`⚠️ Achievement ${achievementKey} not found in catalog or missing tier ${tier}`);
+            return;
+        }
         const reward = achievement.tiers[tier].reward;
         
         if (window.gameplaySystem) {
