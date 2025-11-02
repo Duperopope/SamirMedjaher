@@ -3850,61 +3850,80 @@ body.hud-preview-active .game-notification {
             }
         };
         
-        // Hooks sur actions CV pour coins
-        const originalContactItem = document.querySelectorAll('.contact-item');
-        originalContactItem.forEach(item => {
-            if (item.textContent.includes('Email') || item.textContent.includes('@')) {
-                item.addEventListener('click', function() {
-                    if (gamingMode && window.gameplaySystem) {
-                        window.gameplaySystem.onEmailSent();
-                    }
-                });
+        // Hooks sur actions CV pour coins - WAIT FOR gameplaySystem
+        function installCVActionsHooks() {
+            if (!window.gameplaySystem || typeof window.gameplaySystem.onEmailSent !== 'function') {
+                console.log('⏳ Waiting for gameplaySystem...');
+                setTimeout(installCVActionsHooks, 100);
+                return;
             }
-        });
-        
-        // Hook sur téléchargement CV
-        document.querySelectorAll('.download-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                if (gamingMode && window.gameplaySystem) {
-                    window.gameplaySystem.onCVDownloaded();
-                }
-            });
-        });
-        
-        // Hook sur skills
-        document.querySelectorAll('.skill-bubble').forEach(skill => {
-            skill.addEventListener('click', function() {
-                if (gamingMode && window.gameplaySystem) {
-                    window.gameplaySystem.onSkillViewed();
-                }
-            });
-        });
-        
-        // Hook sur vidéos portfolio
-        document.querySelectorAll('.portfolio-card').forEach(card => {
-            card.addEventListener('click', function() {
-                if (gamingMode && window.gameplaySystem) {
-                    window.gameplaySystem.onVideoWatched();
-                }
-            });
-        });
-        
-        // Hook sur sections visitées
-        const sectionsToTrack = ['profile-view', 'experience-view', 'skills-view', 'languages-view'];
-        sectionsToTrack.forEach(section => {
-            const elements = document.querySelectorAll(`[data-action="${section}"]`);
-            elements.forEach(el => {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting && gamingMode && window.gameplaySystem) {
-                            window.gameplaySystem.onSectionVisited(section);
+            
+            console.log('🔌 Installing CV actions hooks...');
+            
+            // Hook Email
+            document.querySelectorAll('.contact-item').forEach(item => {
+                if (item.textContent.includes('Email') || item.textContent.includes('@')) {
+                    item.addEventListener('click', function() {
+                        if (localStorage.getItem('gamingMode') === 'true' && window.gameplaySystem) {
+                            console.log('📧 Email clicked → Reward');
+                            window.gameplaySystem.onEmailSent();
                         }
                     });
-                }, { threshold: 0.5 });
-                
-                observer.observe(el);
+                }
             });
-        });
+            
+            // Hook Download CV
+            document.querySelectorAll('.download-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (localStorage.getItem('gamingMode') === 'true' && window.gameplaySystem) {
+                        console.log('💾 Download clicked → Reward');
+                        window.gameplaySystem.onCVDownloaded();
+                    }
+                });
+            });
+            
+            // Hook Skills
+            document.querySelectorAll('.skill-bubble').forEach(skill => {
+                skill.addEventListener('click', function() {
+                    if (localStorage.getItem('gamingMode') === 'true' && window.gameplaySystem) {
+                        console.log('🎯 Skill clicked → Reward');
+                        window.gameplaySystem.onSkillViewed();
+                    }
+                });
+            });
+            
+            // Hook Portfolio
+            document.querySelectorAll('.portfolio-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    if (localStorage.getItem('gamingMode') === 'true' && window.gameplaySystem) {
+                        console.log('🎬 Video clicked → Reward');
+                        window.gameplaySystem.onVideoWatched();
+                    }
+                });
+            });
+            
+            // Hook Sections
+            const sectionsToTrack = ['profile-view', 'experience-view', 'skills-view', 'languages-view'];
+            sectionsToTrack.forEach(section => {
+                const elements = document.querySelectorAll(`[data-action="${section}"]`);
+                elements.forEach(el => {
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting && localStorage.getItem('gamingMode') === 'true' && window.gameplaySystem) {
+                                window.gameplaySystem.onSectionVisited(section);
+                            }
+                        });
+                    }, { threshold: 0.5 });
+                    
+                    observer.observe(el);
+                });
+            });
+            
+            console.log('✅ CV actions hooks installed!');
+        }
+        
+        // Start installation
+        installCVActionsHooks();
     });
     </script>
 
