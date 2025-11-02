@@ -1,7 +1,17 @@
 {
-  "current": "0.22",
+  "current": "0.23",
   "lastUpdate": "2025-11-02",
   "changelog": [
+    {
+      "version": "0.23",
+      "date": "2025-11-02",
+      "changes": [
+        "🐛 FIX MINIMAL: Footer status auto-clear après 3s",
+        "✅ Status 'Ready' après échec dashboard",
+        "🔧 Aucun changement de comportement du CV",
+        "⚡ Rollback de la v0.23 cassée précédente"
+      ]
+    },
     {
       "version": "0.22",
       "date": "2025-11-02",
@@ -14,48 +24,8 @@
         "✅ Cache-busting VERSION.json",
         "📚 Documentation VERSIONING.md"
       ]
-    },
-    {
-      "version": "0.21",
-      "date": "2025-11-02",
-      "changes": [
-        "🐛 Fix: Bouton langue mobile (min-width responsive)",
-        "🐛 Fix: Gaming mode charge correctement (alert→notification)",
-        "🐛 Fix: Tamagotchi + HUD apparaissent",
-        "🎯 Footer version avec auto-load VERSION.json",
-        "📜 Script bump-version.sh créé"
-      ]
-    },
-    {
-      "version": "0.2",
-      "date": "2025-11-02",
-      "changes": [
-        "✅ UI refactoring complet (13/13 tâches)",
-        "🐛 Fix: Reset 10 clics avec détection pause",
-        "🐛 Fix: Gaming Dashboard auto-open avec retry",
-        "🐛 Fix: Bouton FR/EN border-radius circulaire",
-        "🎨 Design-system.css créé avec variables CSS",
-        "🎮 Menu contextuel Tamagotchi (4 options)",
-        "📚 Documentation: Z-INDEX-HIERARCHY.md",
-        "📦 Plan: MODULARIZATION_PLAN.md",
-        "🏗️ Architecture scalable et production-ready"
-      ]
-    },
-    {
-      "version": "0.1",
-      "date": "2025-10-30",
-      "changes": [
-        "🎉 Version initiale",
-        "🎮 Gaming mode avec achievements",
-        "🐱 Tamagotchi Éric intégré",
-        "🏪 Boutique avec skins/boosters",
-        "📊 Gaming Dashboard v2.0",
-        "🎯 Mini-jeux avancés",
-        "🌐 Multilingue FR/EN",
-        "🎨 Personnalisation couleurs"
-      ]
     }
   ],
-  "nextVersion": "0.23",
+  "nextVersion": "0.24",
   "autoIncrement": 0.01
 }

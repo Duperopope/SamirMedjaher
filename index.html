@@ -2379,6 +2379,10 @@ body.hud-preview-active .game-notification {
                 console.log(`✅ Gaming Dashboard ready (attempt ${attempt})`);
                 updateGamingStatus('Dashboard opened!', '✅');
                 window.gamingDashboard.toggle();
+                // Auto-clear status after 3 seconds
+                setTimeout(() => {
+                    updateGamingStatus('Ready', '✅');
+                }, 3000);
                 return;
             }
             
@@ -2390,7 +2394,7 @@ body.hud-preview-active .game-notification {
                 }, 1000);
             } else {
                 console.error('❌ Gaming Dashboard not available after 3 attempts');
-                updateGamingStatus('Dashboard failed', '❌');
+                updateGamingStatus('Ready - Click 🎮', '✅');
                 showGameNotification('Cliquez sur 🎮 pour ouvrir le Dashboard');
             }
         }
