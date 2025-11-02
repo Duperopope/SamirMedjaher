@@ -96,6 +96,39 @@
     display: none;
 }
 
+/* Close Button */
+.dashboard-close-btn {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    z-index: 10000;
+    width: 48px;
+    height: 48px;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dashboard-close-btn:hover {
+    background: var(--glass-bg-hover);
+    border-color: var(--glass-border-hover);
+    color: var(--gaming-primary);
+    transform: scale(1.05) rotate(90deg);
+    box-shadow: var(--shadow-neon);
+}
+
+.dashboard-close-btn:active {
+    transform: scale(0.95) rotate(90deg);
+}
+
 /* ============================================
    🎯 VERTICAL TAB NAVIGATION
    ============================================ */

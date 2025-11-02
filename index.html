@@ -4047,6 +4047,11 @@ body.hud-preview-active .game-notification {
     
     <!-- Dashboard HTML Structure -->
     <div id="gamingDashboard" class="gaming-dashboard hidden">
+        <!-- Close Button -->
+        <button class="dashboard-close-btn" onclick="window.gamingDashboard.toggle()" title="Fermer le dashboard">
+            <i class="fas fa-times"></i>
+        </button>
+        
         <!-- Vertical Tab Navigation -->
         <div class="dashboard-tabs">
             <button class="dashboard-tab-btn active" data-tab="eric" onclick="window.gamingDashboard.switchTab('eric')">
