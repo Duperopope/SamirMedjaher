@@ -2799,12 +2799,18 @@ body.hud-preview-active .game-notification {
         }
 
         // ============================================
-        // RESET LOCALSTORAGE (LONG PRESS 10s)
+        // RESET LOCALSTORAGE (LONG PRESS 10s OU 10 CLICS RAPIDES)
         // ============================================
         let resetTimer = null;
         let resetStartTime = 0;
         let resetAnimationFrame = null;
         let isLongPressActive = false; // Flag pour différencier click/long-press
+        
+        // Quick clicks reset
+        let quickClickCount = 0;
+        let quickClickTimer = null;
+        const QUICK_CLICK_THRESHOLD = 10; // 10 clics
+        const QUICK_CLICK_TIMEOUT = 3000; // en 3 secondes
         
         function startResetTimer(event) {
             // NE PAS preventDefault() immédiatement - laisser passer les clics normaux
@@ -2935,6 +2941,66 @@ body.hud-preview-active .game-notification {
             
             portraitClicks++;
             localStorage.setItem('portraitClicks', portraitClicks.toString());
+            
+            // Quick click reset detection
+            quickClickCount++;
+            
+            // Reset timer if first click or restart if new sequence
+            if (quickClickTimer) {
+                clearTimeout(quickClickTimer);
+            }
+            
+            quickClickTimer = setTimeout(() => {
+                quickClickCount = 0;
+            }, QUICK_CLICK_TIMEOUT);
+            
+            // Check if 10 quick clicks reached
+            if (quickClickCount >= QUICK_CLICK_THRESHOLD) {
+                clearTimeout(quickClickTimer);
+                quickClickCount = 0;
+                
+                // Trigger reset with confirmation
+                const confirmMessage = currentLang === 'fr'
+                    ? '🎯 10 clics rapides détectés !\n\nVoulez-vous réinitialiser complètement le CV ?\n(Vide cache + données gaming)'
+                    : '🎯 10 quick clicks detected!\n\nDo you want to completely reset the CV?\n(Clear cache + gaming data)';
+                
+                if (confirm(confirmMessage)) {
+                    resetLocalStorage();
+                    return; // Don't show dialogue
+                } else {
+                    // Reset counter
+                    quickClickCount = 0;
+                }
+            }
+            
+            // Show click counter feedback if getting close
+            if (quickClickCount >= 5 && quickClickCount < QUICK_CLICK_THRESHOLD) {
+                const remaining = QUICK_CLICK_THRESHOLD - quickClickCount;
+                const feedbackDiv = document.createElement('div');
+                feedbackDiv.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background: linear-gradient(135deg, #ef4444, #dc2626);
+                    color: white;
+                    padding: 1rem 2rem;
+                    border-radius: 16px;
+                    font-size: 1.5rem;
+                    font-weight: bold;
+                    z-index: 10000;
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+                    animation: popIn 0.2s ease;
+                `;
+                feedbackDiv.textContent = `${remaining} clics restants pour reset ! 🔄`;
+                document.body.appendChild(feedbackDiv);
+                
+                setTimeout(() => {
+                    feedbackDiv.style.opacity = '0';
+                    feedbackDiv.style.transition = 'opacity 0.3s ease';
+                    setTimeout(() => feedbackDiv.remove(), 300);
+                }, 800);
+            }
             
             // Portrait click achievements
             if (portraitClicks === 10) {
