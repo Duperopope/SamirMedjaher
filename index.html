@@ -2384,13 +2384,26 @@ body.hud-preview-active .game-notification {
             // AUTO-OPEN Gaming Dashboard on first unlock
             setTimeout(() => {
                 console.log('🎮 Auto-opening Gaming Dashboard...');
+                console.log('🔍 Checking window.gamingDashboard:', window.gamingDashboard);
+                
                 if (window.gamingDashboard && typeof window.gamingDashboard.toggle === 'function') {
+                    console.log('✅ Gaming Dashboard found, calling toggle()');
                     window.gamingDashboard.toggle();
                     console.log('✅ Gaming Dashboard opened!');
                 } else {
-                    console.error('❌ Gaming Dashboard not available');
+                    console.error('❌ Gaming Dashboard not available, retrying in 1s...');
+                    // Retry once after 1 more second
+                    setTimeout(() => {
+                        if (window.gamingDashboard && typeof window.gamingDashboard.toggle === 'function') {
+                            console.log('✅ Retry successful! Opening Gaming Dashboard');
+                            window.gamingDashboard.toggle();
+                        } else {
+                            console.error('❌ Gaming Dashboard still not available after retry');
+                            alert('⚠️ Gaming Dashboard n\'a pas pu s\'ouvrir automatiquement.\n\nCliquez sur le bouton 🎮 en haut à droite pour l\'ouvrir manuellement.');
+                        }
+                    }, 1000);
                 }
-            }, 1500); // Wait 1.5s for animation to complete
+            }, 2000); // Wait 2s for scripts to load
         }
 
         function toggleGaming() {
@@ -2914,8 +2927,10 @@ body.hud-preview-active .game-notification {
         // Quick clicks reset
         let quickClickCount = 0;
         let quickClickTimer = null;
+        let lastClickTime = 0;
         const QUICK_CLICK_THRESHOLD = 10; // 10 clics
         const QUICK_CLICK_TIMEOUT = 3000; // en 3 secondes
+        const MAX_CLICK_INTERVAL = 800; // Max 800ms entre chaque clic
         
         function startResetTimer(event) {
             // NE PAS preventDefault() immédiatement - laisser passer les clics normaux
@@ -3048,7 +3063,20 @@ body.hud-preview-active .game-notification {
             localStorage.setItem('portraitClicks', portraitClicks.toString());
             
             // Quick click reset detection
+            const now = Date.now();
+            const timeSinceLastClick = now - lastClickTime;
+            
+            // Si plus de 800ms depuis le dernier clic, reset le compteur
+            if (timeSinceLastClick > MAX_CLICK_INTERVAL && quickClickCount > 0) {
+                quickClickCount = 0;
+                if (quickClickTimer) {
+                    clearTimeout(quickClickTimer);
+                    quickClickTimer = null;
+                }
+            }
+            
             quickClickCount++;
+            lastClickTime = now;
             
             // Reset timer if first click or restart if new sequence
             if (quickClickTimer) {
@@ -3057,6 +3085,7 @@ body.hud-preview-active .game-notification {
             
             quickClickTimer = setTimeout(() => {
                 quickClickCount = 0;
+                lastClickTime = 0;
             }, QUICK_CLICK_TIMEOUT);
             
             // Check if 10 quick clicks reached
