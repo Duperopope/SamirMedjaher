@@ -1,7 +1,18 @@
 {
-  "current": "0.23",
+  "current": "0.28",
   "lastUpdate": "2025-11-02",
   "changelog": [
+    {
+      "version": "0.28",
+      "date": "2025-11-02",
+      "changes": [
+        "🐛 CRITICAL FIX: Gaming mode page refresh no longer breaks CV",
+        "✅ checkQuestCompletion() stub prevents undefined errors",
+        "✅ unlockAchievement() safety checks for tier/achievement",
+        "✅ CV content (skills, experience, carousel) now renders correctly",
+        "🔧 Fixed race condition in gaming system initialization"
+      ]
+    },
     {
       "version": "0.23",
       "date": "2025-11-02",
