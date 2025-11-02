@@ -1,7 +1,20 @@
 {
-  "current": "0.21",
+  "current": "0.22",
   "lastUpdate": "2025-11-02",
   "changelog": [
+    {
+      "version": "0.22",
+      "date": "2025-11-02",
+      "changes": [
+        "🎮 FIX MAJEUR: Gaming mode 100% fonctionnel",
+        "✅ Bouton debug supprimé définitivement",
+        "✅ unlockGamingMode() refactorisée (retry 3x)",
+        "✅ Debug status footer en temps réel",
+        "✅ showGameNotification() sécurisée",
+        "✅ Cache-busting VERSION.json",
+        "📚 Documentation VERSIONING.md"
+      ]
+    },
     {
       "version": "0.21",
       "date": "2025-11-02",
@@ -43,6 +56,6 @@
       ]
     }
   ],
-  "nextVersion": "0.22",
+  "nextVersion": "0.23",
   "autoIncrement": 0.01
 }
