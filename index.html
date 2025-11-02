@@ -97,25 +97,7 @@ body.hud-preview-active .game-notification {
         </div>
     </div>
 
-    <!-- Debug Gaming Unlock Button (only shows if not unlocked) -->
-    <div id="debugGamingBtn" style="
-        position: fixed;
-        bottom: 20px;
-        left: 20px;
-        background: linear-gradient(135deg, #ef4444, #dc2626);
-        color: white;
-        padding: 0.75rem 1.5rem;
-        border-radius: 12px;
-        cursor: pointer;
-        font-weight: 600;
-        font-size: 0.9rem;
-        z-index: 1000;
-        box-shadow: 0 4px 16px rgba(239, 68, 68, 0.3);
-        transition: all 0.3s ease;
-        display: none;
-    " onclick="forceUnlockGaming()" title="Debug: Forcer le déblocage gaming">
-        🔓 Debug: Unlock Gaming
-    </div>
+
 
     <!-- Gaming HUD (removed from top-left, now in Gaming Zone) -->
 
@@ -2340,71 +2322,77 @@ body.hud-preview-active .game-notification {
         }
 
         // Gaming Functions
-        function forceUnlockGaming() {
-            console.log('🔓 FORCE UNLOCK GAMING (DEBUG)');
-            // Reset counters
-            localStorage.setItem('portraitClicks', '3');
-            portraitClicks = 3;
-            gamingUnlocked = false; // Force to false so unlock works
-            unlockGamingMode();
-            
-            // Hide debug button
-            const debugBtn = document.getElementById('debugGamingBtn');
-            if (debugBtn) debugBtn.style.display = 'none';
+        
+        function updateGamingStatus(status, emoji = '✅') {
+            const statusEl = document.getElementById('gamingStatus');
+            if (statusEl) {
+                statusEl.textContent = emoji + ' ' + status;
+            }
         }
         
         function unlockGamingMode() {
-            console.log('🎮 unlockGamingMode called! gamingUnlocked:', gamingUnlocked);
+            // Prevent double unlock
             if (gamingUnlocked) {
-                console.log('⚠️ Already unlocked, returning');
+                console.log('⚠️ Gaming already unlocked');
+                updateGamingStatus('Already unlocked', '✅');
                 return;
             }
             
-            console.log('✅ Unlocking gaming mode now!');
-            gamingUnlocked = true;
-            localStorage.setItem('gamingUnlocked', 'true');
+            console.log('🎮 UNLOCKING GAMING MODE!');
+            updateGamingStatus('Unlocking...', '🔓');
             
+            // 1. Set flags
+            gamingUnlocked = true;
+            gamingMode = true;
+            localStorage.setItem('gamingUnlocked', 'true');
+            localStorage.setItem('gamingMode', 'true');
+            updateGamingStatus('Flags set', '📝');
+            
+            // 2. Show game toggle button
             const gameToggle = document.getElementById('gameToggle');
-            console.log('🎮 gameToggle element:', gameToggle);
             if (gameToggle) {
                 gameToggle.classList.add('unlocked');
-                console.log('✅ Added unlocked class to gameToggle');
+                updateGamingStatus('Button shown', '🎮');
             } else {
-                console.error('❌ gameToggle element not found!');
+                updateGamingStatus('Button ERROR', '❌');
             }
             
-            unlockAchievement('gaming_unlocked', true); // Force show even if gaming not enabled yet
-            
-            // Auto-enable gaming mode
-            gamingMode = true;
-            localStorage.setItem('gamingMode', 'true');
-            console.log('✅ Gaming mode enabled, calling updateGamingMode()');
+            // 3. Update gaming display (HUD + Tamagotchi)
             updateGamingMode();
+            updateGamingStatus('HUD active', '🎯');
             
-            // AUTO-OPEN Gaming Dashboard on first unlock
+            // 4. Show achievement toast
+            unlockAchievement('gaming_unlocked', true);
+            updateGamingStatus('Achievement', '🏆');
+            
+            // 5. Auto-open Gaming Dashboard (with retry mechanism)
             setTimeout(() => {
-                console.log('🎮 Auto-opening Gaming Dashboard...');
-                console.log('🔍 Checking window.gamingDashboard:', window.gamingDashboard);
-                
-                if (window.gamingDashboard && typeof window.gamingDashboard.toggle === 'function') {
-                    console.log('✅ Gaming Dashboard found, calling toggle()');
-                    window.gamingDashboard.toggle();
-                    console.log('✅ Gaming Dashboard opened!');
-                } else {
-                    console.error('❌ Gaming Dashboard not available, retrying in 1s...');
-                    // Retry once after 1 more second
-                    setTimeout(() => {
-                        if (window.gamingDashboard && typeof window.gamingDashboard.toggle === 'function') {
-                            console.log('✅ Retry successful! Opening Gaming Dashboard');
-                            window.gamingDashboard.toggle();
-                        } else {
-                            console.error('❌ Gaming Dashboard still not available after retry');
-                            // Don't use alert() as it blocks execution - use notification instead
-                            showGameNotification('⚠️ Dashboard indisponible - Cliquez sur 🎮 pour l\'ouvrir');
-                        }
-                    }, 1000);
-                }
-            }, 2000); // Wait 2s for scripts to load
+                updateGamingStatus('Opening Dashboard...', '⏳');
+                openGamingDashboardWithRetry();
+            }, 1500);
+            
+            console.log('✅ Gaming mode fully unlocked and active!');
+        }
+        
+        function openGamingDashboardWithRetry(attempt = 1, maxAttempts = 3) {
+            if (window.gamingDashboard && typeof window.gamingDashboard.toggle === 'function') {
+                console.log(`✅ Gaming Dashboard ready (attempt ${attempt})`);
+                updateGamingStatus('Dashboard opened!', '✅');
+                window.gamingDashboard.toggle();
+                return;
+            }
+            
+            if (attempt < maxAttempts) {
+                console.log(`⏳ Dashboard not ready, retry ${attempt}/${maxAttempts}...`);
+                updateGamingStatus(`Retry ${attempt}/${maxAttempts}`, '⏳');
+                setTimeout(() => {
+                    openGamingDashboardWithRetry(attempt + 1, maxAttempts);
+                }, 1000);
+            } else {
+                console.error('❌ Gaming Dashboard not available after 3 attempts');
+                updateGamingStatus('Dashboard failed', '❌');
+                showGameNotification('Cliquez sur 🎮 pour ouvrir le Dashboard');
+            }
         }
 
         function toggleGaming() {
@@ -2783,8 +2771,14 @@ body.hud-preview-active .game-notification {
 
         function showGameNotification(text) {
             const notification = document.getElementById('gameNotification');
-            document.getElementById('notificationText').textContent = text;
+            const notificationText = document.getElementById('notificationText');
             
+            if (!notification || !notificationText) {
+                console.error('❌ Game notification elements not found!');
+                return;
+            }
+            
+            notificationText.textContent = text;
             notification.classList.add('show');
             setTimeout(() => notification.classList.remove('show'), 3000);
         }
@@ -4024,9 +4018,13 @@ body.hud-preview-active .game-notification {
     <!-- Footer Version Info -->
     <footer class="cv-footer">
         <div class="version-info">
-            <span class="version-number">v<span id="appVersion">0.2</span></span>
+            <span class="version-number">v<span id="appVersion">0.21</span></span>
             <span class="version-separator">•</span>
             <span class="last-update">Dernière mise à jour: <span id="lastUpdate">2025-11-02</span></span>
+            <span class="version-separator">•</span>
+            <span id="debugStatus" style="font-size:0.65rem; color:#64748b;">
+                Gaming: <span id="gamingStatus">⏳</span>
+            </span>
         </div>
     </footer>
 
