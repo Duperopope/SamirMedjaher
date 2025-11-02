@@ -1,7 +1,18 @@
 {
-  "current": "0.2",
+  "current": "0.21",
   "lastUpdate": "2025-11-02",
   "changelog": [
+    {
+      "version": "0.21",
+      "date": "2025-11-02",
+      "changes": [
+        "🐛 Fix: Bouton langue mobile (min-width responsive)",
+        "🐛 Fix: Gaming mode charge correctement (alert→notification)",
+        "🐛 Fix: Tamagotchi + HUD apparaissent",
+        "🎯 Footer version avec auto-load VERSION.json",
+        "📜 Script bump-version.sh créé"
+      ]
+    },
     {
       "version": "0.2",
       "date": "2025-11-02",
@@ -32,6 +43,6 @@
       ]
     }
   ],
-  "nextVersion": "0.21",
+  "nextVersion": "0.22",
   "autoIncrement": 0.01
 }
