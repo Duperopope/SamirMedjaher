@@ -1,0 +1,201 @@
+/**
+ * Design System CSS
+ * Système unifié de design pour le CV Gaming
+ * Version: 2.0
+ * Date: 2025-11-02
+ */
+
+/* ==============================================
+   VARIABLES CSS (Design Tokens)
+   ============================================== */
+:root {
+    /* Spacing System (8px base) */
+    --space-xs: 0.25rem;   /* 4px */
+    --space-sm: 0.5rem;    /* 8px */
+    --space-md: 1rem;      /* 16px */
+    --space-lg: 1.5rem;    /* 24px */
+    --space-xl: 2rem;      /* 32px */
+    --space-2xl: 3rem;     /* 48px */
+    
+    /* Z-Index Scale (Organized hierarchy) */
+    --z-base: 1;
+    --z-dropdown: 1000;
+    --z-sticky: 1020;
+    --z-fixed: 1030;
+    --z-modal-backdrop: 1040;
+    --z-modal: 1050;
+    --z-popover: 1060;
+    --z-tooltip: 1070;
+    
+    /* Layout */
+    --header-height: 4rem;
+    --header-padding: var(--space-lg);
+    
+    /* Colors (already defined in main) */
+    /* Keeping existing variables from main CSS */
+    
+    /* Border Radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    --radius-full: 9999px;
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.2);
+    --shadow-xl: 0 12px 48px rgba(0, 0, 0, 0.25);
+    
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-base: 300ms ease;
+    --transition-slow: 500ms ease;
+}
+
+/* ==============================================
+   HEADER ACTIONS BAR (Unified Button System)
+   ============================================== */
+
+.header-actions {
+    position: fixed;
+    top: var(--header-padding);
+    right: var(--header-padding);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    z-index: var(--z-fixed);
+    transition: all var(--transition-base);
+}
+
+.header-btn {
+    width: 40px;
+    height: 40px;
+    background: rgba(30, 41, 59, 0.15);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(148, 163, 184, 0.1);
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+}
+
+.header-btn:hover {
+    background: rgba(30, 41, 59, 0.25);
+    border-color: var(--primary);
+    transform: scale(1.1);
+}
+
+/* Game Toggle Specific */
+.game-toggle {
+    background: rgba(139, 92, 246, 0.1);
+    border-color: rgba(139, 92, 246, 0.2);
+    color: var(--accent);
+    display: none; /* Hidden by default */
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.game-toggle.unlocked {
+    display: flex;
+    animation: unlockAnimation 0.8s ease forwards;
+}
+
+.game-toggle:hover {
+    background: rgba(139, 92, 246, 0.2);
+}
+
+/* Color Picker Specific */
+.color-picker-trigger i {
+    font-size: 1rem;
+}
+
+/* Language Switch Specific */
+.lang-switch {
+    background: rgba(30, 41, 59, 0.15);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 0.3rem;
+    display: flex;
+    gap: 0.3rem;
+    border: 1px solid rgba(148, 163, 184, 0.1);
+    width: auto;
+    height: auto;
+}
+
+.lang-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    padding: 0.4rem 0.8rem;
+    border-radius: 15px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all var(--transition-base);
+    font-size: 0.8rem;
+}
+
+.lang-btn.active {
+    background: rgba(6, 182, 212, 0.2);
+    color: var(--primary);
+}
+
+/* ==============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================== */
+
+@media (max-width: 968px) {
+    .header-actions {
+        top: var(--space-md);
+        right: var(--space-md);
+        gap: var(--space-xs);
+    }
+    
+    .header-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+    
+    .lang-switch {
+        padding: 0.25rem;
+    }
+    
+    .lang-btn {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .header-actions {
+        top: var(--space-sm);
+        right: var(--space-sm);
+        gap: 0.25rem;
+    }
+    
+    .header-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 0.9rem;
+    }
+}
+
+/* ==============================================
+   UNLOCK ANIMATION
+   ============================================== */
+
+@keyframes unlockAnimation {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
