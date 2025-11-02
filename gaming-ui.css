@@ -130,6 +130,90 @@
 }
 
 /* ============================================
+   🎮 MINIGAME MODAL
+   ============================================ */
+
+.minigame-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10001;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.minigame-modal.active {
+    display: flex;
+}
+
+.minigame-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+.minigame-modal-content {
+    position: relative;
+    z-index: 1;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 2rem;
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow-xl);
+}
+
+.minigame-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.minigame-modal-header h2 {
+    color: var(--gaming-primary);
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.minigame-close-btn {
+    width: 40px;
+    height: 40px;
+    background: var(--glass-bg-hover);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.minigame-close-btn:hover {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.4);
+    color: #ef4444;
+    transform: rotate(90deg);
+}
+
+.minigame-container {
+    min-width: 600px;
+    min-height: 400px;
+}
+
+/* ============================================
    🎯 VERTICAL TAB NAVIGATION
    ============================================ */
 

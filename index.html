@@ -4004,6 +4004,9 @@ body.hud-preview-active .game-notification {
     <!-- Advanced Mini-Games -->
     <script src="gaming-minigames-advanced.js?v=0.28"></script>
     
+    <!-- Gaming Connector - Liens entre tous les systèmes -->
+    <script src="gaming-connector.js?v=0.28"></script>
+    
     <!-- Initialize Dashboard -->
     <script>
         // Wait for gameplay system to be ready
@@ -4083,6 +4086,10 @@ body.hud-preview-active .game-notification {
                 <div>🏆</div>
                 <span class="tab-label">Trophées</span>
             </button>
+            <button class="dashboard-tab-btn" data-tab="settings" onclick="window.gamingDashboard.switchTab('settings')">
+                <div>⚙️</div>
+                <span class="tab-label">Réglages</span>
+            </button>
         </div>
         
         <!-- Tab Content Area -->
@@ -4107,6 +4114,9 @@ body.hud-preview-active .game-notification {
             </div>
             <div id="tab-achievements" class="dashboard-tab-content">
                 <!-- Achievements content rendered by JS -->
+            </div>
+            <div id="tab-settings" class="dashboard-tab-content">
+                <!-- Settings content rendered by JS -->
             </div>
         </div>
     </div>

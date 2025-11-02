@@ -602,6 +602,9 @@ function renderTabContent(tabId) {
         case 'achievements':
             renderAchievementsTab(container);
             break;
+        case 'settings':
+            renderSettingsTab(container);
+            break;
     }
 }
 
@@ -887,6 +890,73 @@ function renderAchievementsTab(container) {
     `;
     
     container.innerHTML = html;
+}
+
+function renderSettingsTab(container) {
+    container.innerHTML = `
+        <div class="settings-dashboard">
+            <h2>⚙️ Réglages Gaming</h2>
+            
+            <!-- HUD Settings -->
+            <div class="settings-section">
+                <h3>🎯 Affichage HUD</h3>
+                <div class="settings-group">
+                    <label>
+                        <span>Opacité HUD (%)</span>
+                        <input type="range" id="hudOpacity" min="0" max="100" value="90" 
+                               oninput="updateHudOpacity(this.value)">
+                        <span id="hudOpacityValue">90%</span>
+                    </label>
+                    <label>
+                        <span>Opacité Fond (%)</span>
+                        <input type="range" id="hudBgOpacity" min="0" max="100" value="80" 
+                               oninput="updateHudBgOpacity(this.value)">
+                        <span id="hudBgOpacityValue">80%</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Position Settings -->
+            <div class="settings-section">
+                <h3>📍 Positions</h3>
+                <div class="settings-group">
+                    <label>
+                        <span>Position Éric (Bas - rem)</span>
+                        <input type="range" id="ericBottom" min="0" max="20" step="0.5" value="2" 
+                               oninput="updateEricPosition()">
+                        <span id="ericBottomValue">2rem</span>
+                    </label>
+                    <label>
+                        <span>Position Éric (Droite - rem)</span>
+                        <input type="range" id="ericRight" min="0" max="20" step="0.5" value="2" 
+                               oninput="updateEricPosition()">
+                        <span id="ericRightValue">2rem</span>
+                    </label>
+                    <label>
+                        <span>Taille Éric (px)</span>
+                        <input type="range" id="ericSize" min="60" max="120" value="80" 
+                               oninput="updateEricSize()">
+                        <span id="ericSizeValue">80px</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Reset Button -->
+            <div class="settings-section">
+                <h3>🔧 Actions</h3>
+                <button onclick="resetGamingSettings()" class="action-btn danger">
+                    🔄 Réinitialiser tous les réglages
+                </button>
+                <button onclick="exportGamingData()" class="action-btn">
+                    📥 Exporter mes données
+                </button>
+            </div>
+        </div>
+    `;
+    
+    // Load saved settings
+    loadHudSettings();
+    loadHudPositions();
 }
 
 /* ============================================
