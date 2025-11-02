@@ -2865,7 +2865,7 @@ body.hud-preview-active .game-notification {
             return wasLongPress;
         }
         
-        function resetLocalStorage() {
+        async function resetLocalStorage() {
             // Cancel animation
             if (resetAnimationFrame) {
                 cancelAnimationFrame(resetAnimationFrame);
@@ -2885,16 +2885,34 @@ body.hud-preview-active .game-notification {
             // Clear all localStorage
             localStorage.clear();
             
+            // Clear sessionStorage too
+            sessionStorage.clear();
+            
+            // Try to clear browser cache (if supported)
+            try {
+                if ('caches' in window) {
+                    const cacheNames = await caches.keys();
+                    await Promise.all(
+                        cacheNames.map(name => caches.delete(name))
+                    );
+                    console.log('✅ Cache navigateur vidé');
+                }
+            } catch (error) {
+                console.log('⚠️ Impossible de vider le cache:', error);
+            }
+            
             // Show notification
             const message = currentLang === 'fr' 
-                ? '🔄 localStorage réinitialisé !\\n\\nToutes les données ont été effacées.\\nLa page va se recharger...'
-                : '🔄 localStorage reset!\\n\\nAll data has been cleared.\\nPage will reload...';
+                ? '🔄 Réinitialisation complète !\\n\\n✅ localStorage effacé\\n✅ sessionStorage effacé\\n✅ Cache navigateur vidé\\n\\nLa page va se recharger...'
+                : '🔄 Complete reset!\\n\\n✅ localStorage cleared\\n✅ sessionStorage cleared\\n✅ Browser cache cleared\\n\\nPage will reload...';
             
             alert(message);
             
-            // Reload page after 1 second
+            // Reload page with cache bypass after 1 second
             setTimeout(() => {
-                location.reload();
+                // Force cache bypass with timestamp parameter
+                const timestamp = new Date().getTime();
+                window.location.href = window.location.pathname + '?nocache=' + timestamp;
             }, 1000);
         }
         
