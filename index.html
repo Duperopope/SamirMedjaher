@@ -1440,7 +1440,7 @@ body.hud-preview-active .game-notification {
             
             // Initialize gaming unlock state
             if (gamingUnlocked) {
-                unlockGamingMode();
+                restoreGamingState(); // Restore visual state without unlock animation
             }
 
             // Setup gaming toggle hover events
@@ -2328,6 +2328,28 @@ body.hud-preview-active .game-notification {
             if (statusEl) {
                 statusEl.textContent = emoji + ' ' + status;
             }
+        }
+        
+        function restoreGamingState() {
+            // Restore gaming state after page reload (no animation, no dashboard auto-open)
+            console.log('🔄 Restoring gaming state from localStorage...');
+            
+            gamingUnlocked = true;
+            gamingMode = true;
+            
+            // Show game toggle button
+            const gameToggle = document.getElementById('gameToggle');
+            if (gameToggle) {
+                gameToggle.classList.add('unlocked');
+            }
+            
+            // Update gaming display (HUD + Tamagotchi)
+            updateGamingMode();
+            
+            // Update status quietly
+            updateGamingStatus('Ready', '✅');
+            
+            console.log('✅ Gaming state restored successfully');
         }
         
         function unlockGamingMode() {
