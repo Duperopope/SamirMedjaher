@@ -3714,8 +3714,42 @@ body.hud-preview-active .game-notification {
             document.querySelector('.portfolio-section').scrollIntoView({behavior: 'smooth'});
         }
 
+        // ============================================
+        // VERSION AUTO-LOADER
+        // ============================================
+        async function loadVersion() {
+            try {
+                const response = await fetch('VERSION.json');
+                const versionData = await response.json();
+                
+                // Update version number
+                const versionEl = document.getElementById('appVersion');
+                if (versionEl) {
+                    versionEl.textContent = versionData.current;
+                }
+                
+                // Update last update date
+                const lastUpdateEl = document.getElementById('lastUpdate');
+                if (lastUpdateEl) {
+                    lastUpdateEl.textContent = versionData.lastUpdate;
+                }
+                
+                console.log(`📌 CV Gaming v${versionData.current} - ${versionData.lastUpdate}`);
+            } catch (error) {
+                console.warn('⚠️ Version info not loaded:', error);
+                // Fallback to hardcoded values
+                const versionEl = document.getElementById('appVersion');
+                const lastUpdateEl = document.getElementById('lastUpdate');
+                if (versionEl) versionEl.textContent = '0.2';
+                if (lastUpdateEl) lastUpdateEl.textContent = '2025-11-02';
+            }
+        }
+
         // Initialize everything
-        document.addEventListener('DOMContentLoaded', initializeCV);
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeCV();
+            loadVersion();
+        });
     </script>
     
     <!-- Tamagotchi Enhanced - CSS Animations -->
@@ -3983,6 +4017,15 @@ body.hud-preview-active .game-notification {
             </div>
         </div>
     </div>
+
+    <!-- Footer Version Info -->
+    <footer class="cv-footer">
+        <div class="version-info">
+            <span class="version-number">v<span id="appVersion">0.2</span></span>
+            <span class="version-separator">•</span>
+            <span class="last-update">Dernière mise à jour: <span id="lastUpdate">2025-11-02</span></span>
+        </div>
+    </footer>
 
 </body>
 </html>

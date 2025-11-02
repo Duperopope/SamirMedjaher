@@ -1,0 +1,37 @@
+{
+  "current": "0.2",
+  "lastUpdate": "2025-11-02",
+  "changelog": [
+    {
+      "version": "0.2",
+      "date": "2025-11-02",
+      "changes": [
+        "✅ UI refactoring complet (13/13 tâches)",
+        "🐛 Fix: Reset 10 clics avec détection pause",
+        "🐛 Fix: Gaming Dashboard auto-open avec retry",
+        "🐛 Fix: Bouton FR/EN border-radius circulaire",
+        "🎨 Design-system.css créé avec variables CSS",
+        "🎮 Menu contextuel Tamagotchi (4 options)",
+        "📚 Documentation: Z-INDEX-HIERARCHY.md",
+        "📦 Plan: MODULARIZATION_PLAN.md",
+        "🏗️ Architecture scalable et production-ready"
+      ]
+    },
+    {
+      "version": "0.1",
+      "date": "2025-10-30",
+      "changes": [
+        "🎉 Version initiale",
+        "🎮 Gaming mode avec achievements",
+        "🐱 Tamagotchi Éric intégré",
+        "🏪 Boutique avec skins/boosters",
+        "📊 Gaming Dashboard v2.0",
+        "🎯 Mini-jeux avancés",
+        "🌐 Multilingue FR/EN",
+        "🎨 Personnalisation couleurs"
+      ]
+    }
+  ],
+  "nextVersion": "0.21",
+  "autoIncrement": 0.01
+}
