@@ -2399,7 +2399,8 @@ body.hud-preview-active .game-notification {
                             window.gamingDashboard.toggle();
                         } else {
                             console.error('❌ Gaming Dashboard still not available after retry');
-                            alert('⚠️ Gaming Dashboard n\'a pas pu s\'ouvrir automatiquement.\n\nCliquez sur le bouton 🎮 en haut à droite pour l\'ouvrir manuellement.');
+                            // Don't use alert() as it blocks execution - use notification instead
+                            showGameNotification('⚠️ Dashboard indisponible - Cliquez sur 🎮 pour l\'ouvrir');
                         }
                     }, 1000);
                 }
