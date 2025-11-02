@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔍 Vérification Site CV</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: #e2e8f0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+        h1 {
+            color: #06b6d4;
+            border-bottom: 2px solid #06b6d4;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        h2 {
+            color: #10b981;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .test-section {
+            background: rgba(30, 41, 59, 0.5);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            border-left: 4px solid #8b5cf6;
+        }
+        .success {
+            color: #10b981;
+            font-weight: bold;
+        }
+        .error {
+            color: #ef4444;
+            font-weight: bold;
+        }
+        .info {
+            color: #06b6d4;
+        }
+        .code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            margin: 0.5rem 0;
+            overflow-x: auto;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .card {
+            background: rgba(6, 182, 212, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+        .skill-count {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #fbbf24;
+        }
+        button {
+            background: linear-gradient(135deg, #06b6d4, #10b981);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(6, 182, 212, 0.4);
+        }
+        #results {
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Vérification Complète du Site CV</h1>
+        
+        <div class="test-section">
+            <h2>📍 URL du Site</h2>
+            <div class="code info" id="siteUrl">Chargement...</div>
+        </div>
+
+        <div class="test-section">
+            <h2>🎯 Tests Automatiques</h2>
+            <button onclick="runAllTests()">▶️ Lancer Tous les Tests</button>
+            <button onclick="testSkills()">🎓 Test Compétences</button>
+            <button onclick="testGaming()">🎮 Test Gaming</button>
+            <button onclick="testUI()">🎨 Test Interface</button>
+        </div>
+
+        <div class="test-section">
+            <h2>📊 Résultats des Tests</h2>
+            <div id="results">Aucun test lancé pour le moment...</div>
+        </div>
+
+        <div class="test-section">
+            <h2>🎓 Statistiques des Compétences</h2>
+            <div class="grid" id="skillsStats">
+                <div class="card">
+                    <div>💻 Développement</div>
+                    <div class="skill-count" id="devCount">-</div>
+                </div>
+                <div class="card">
+                    <div>🎮 Game Dev</div>
+                    <div class="skill-count" id="gamedevCount">-</div>
+                </div>
+                <div class="card">
+                    <div>🖥️ Systèmes</div>
+                    <div class="skill-count" id="systemsCount">-</div>
+                </div>
+                <div class="card">
+                    <div>🔧 Outils</div>
+                    <div class="skill-count" id="toolsCount">-</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>🌐 Accès Public</h2>
+            <button onclick="openMainSite()">🚀 Ouvrir le Site Principal</button>
+            <button onclick="openGitHub()">📦 GitHub Repository</button>
+        </div>
+    </div>
+
+    <script>
+        const mainSiteUrl = 'https://3000-iq1qmxxgskgyrxelcuypx-2b54fc91.sandbox.novita.ai';
+        const githubUrl = 'https://github.com/Duperopope/SamirMedjaher';
+
+        // Display site URL
+        document.getElementById('siteUrl').textContent = `🌐 ${mainSiteUrl}`;
+
+        function log(message, type = 'info') {
+            const results = document.getElementById('results');
+            const timestamp = new Date().toLocaleTimeString();
+            const icon = type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️';
+            results.textContent += `[${timestamp}] ${icon} ${message}\n`;
+            results.scrollTop = results.scrollHeight;
+        }
+
+        function clearLog() {
+            document.getElementById('results').textContent = '';
+        }
+
+        async function testSkills() {
+            clearLog();
+            log('🎓 TEST DES COMPÉTENCES - Début', 'info');
+            log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', 'info');
+
+            try {
+                // Fetch main site
+                log('📡 Chargement du site principal...', 'info');
+                const response = await fetch(mainSiteUrl);
+                const html = await response.text();
+                
+                // Create temporary DOM
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+
+                // Check containers
+                const containers = ['developmentSkills', 'gamedevSkills', 'systemsSkills', 'toolsSkills'];
+                const categories = ['Développement', 'Game Dev', 'Systèmes', 'Outils'];
+                
+                log('', 'info');
+                log('🔍 Vérification des conteneurs HTML...', 'info');
+                
+                containers.forEach((id, index) => {
+                    const container = doc.getElementById(id);
+                    if (container) {
+                        log(`  ✅ Container "${id}" trouvé`, 'success');
+                    } else {
+                        log(`  ❌ Container "${id}" MANQUANT`, 'error');
+                    }
+                });
+
+                // Check skillsData in script
+                log('', 'info');
+                log('🔍 Vérification de l\'objet skillsData...', 'info');
+                
+                if (html.includes('const skillsData = {')) {
+                    log('  ✅ Objet skillsData trouvé dans le code', 'success');
+                    
+                    // Count skills in each category
+                    const devMatch = html.match(/development:\s*{([^}]+(?:{[^}]*}[^}]*)*)/);
+                    const gamedevMatch = html.match(/gamedev:\s*{([^}]+(?:{[^}]*}[^}]*)*)/);
+                    const systemsMatch = html.match(/systems:\s*{([^}]+(?:{[^}]*}[^}]*)*)/);
+                    const toolsMatch = html.match(/tools:\s*{([^}]+(?:{[^}]*}[^}]*)*)/);
+                    
+                    const devCount = devMatch ? (devMatch[1].match(/'[^']+'\s*:/g) || []).length : 0;
+                    const gamedevCount = gamedevMatch ? (gamedevMatch[1].match(/'[^']+'\s*:/g) || []).length : 0;
+                    const systemsCount = systemsMatch ? (systemsMatch[1].match(/'[^']+'\s*:/g) || []).length : 0;
+                    const toolsCount = toolsMatch ? (toolsMatch[1].match(/'[^']+'\s*:/g) || []).length : 0;
+                    
+                    log(`  📊 Développement: ${devCount} compétences`, 'info');
+                    log(`  📊 Game Dev: ${gamedevCount} compétences`, 'info');
+                    log(`  📊 Systèmes: ${systemsCount} compétences`, 'info');
+                    log(`  📊 Outils: ${toolsCount} compétences`, 'info');
+                    
+                    const total = devCount + gamedevCount + systemsCount + toolsCount;
+                    log(`  🎯 TOTAL: ${total} compétences`, total === 28 ? 'success' : 'error');
+                    
+                    // Update stats
+                    document.getElementById('devCount').textContent = devCount;
+                    document.getElementById('gamedevCount').textContent = gamedevCount;
+                    document.getElementById('systemsCount').textContent = systemsCount;
+                    document.getElementById('toolsCount').textContent = toolsCount;
+                } else {
+                    log('  ❌ Objet skillsData NON TROUVÉ', 'error');
+                }
+
+                // Check updateSkills function
+                log('', 'info');
+                log('🔍 Vérification de la fonction updateSkills()...', 'info');
+                
+                if (html.includes('function updateSkills()')) {
+                    log('  ✅ Fonction updateSkills() trouvée', 'success');
+                } else {
+                    log('  ❌ Fonction updateSkills() MANQUANTE', 'error');
+                }
+
+                log('', 'info');
+                log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', 'info');
+                log('🎓 TEST DES COMPÉTENCES - Terminé', 'success');
+
+            } catch (error) {
+                log(`❌ ERREUR: ${error.message}`, 'error');
+            }
+        }
+
+        async function testGaming() {
+            clearLog();
+            log('🎮 TEST DU SYSTÈME GAMING - Début', 'info');
+            log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', 'info');
+
+            try {
+                const response = await fetch(mainSiteUrl);
+                const html = await response.text();
+
+                // Check gaming files
+                const gamingFiles = [
+                    'gaming-dashboard.js',
+                    'gaming-ui.css',
+                    'gaming-minigames-advanced.js',
+                    'tamagotchi-enhanced.js',
+                    'tamagotchi-gameplay.js'
+                ];
+
+                log('📦 Vérification des fichiers gaming...', 'info');
+                gamingFiles.forEach(file => {
+                    if (html.includes(file)) {
+                        log(`  ✅ ${file}`, 'success');
+                    } else {
+                        log(`  ❌ ${file} MANQUANT`, 'error');
+                    }
+                });
+
+                log('', 'info');
+                log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', 'info');
+                log('🎮 TEST DU SYSTÈME GAMING - Terminé', 'success');
+
+            } catch (error) {
+                log(`❌ ERREUR: ${error.message}`, 'error');
+            }
+        }
+
+        async function testUI() {
+            clearLog();
+            log('🎨 TEST DE L\'INTERFACE - Début', 'info');
+            log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', 'info');
+
+            try {
+                const response = await fetch(mainSiteUrl);
+                const html = await response.text();
+
+                // Check key UI elements
+                const checks = [
+                    { name: 'Section Compétences', pattern: 'Compétences Techniques' },
+                    { name: 'Switch Langue', pattern: 'lang-switch' },
+                    { name: 'Game Toggle', pattern: 'game-toggle' },
+                    { name: 'Tamagotchi', pattern: 'tamagotchi' },
+                    { name: 'Gaming Dashboard', pattern: 'gamingDashboard' },
+                    { name: 'Particle System', pattern: 'particleCanvas' }
+                ];
+
+                log('🔍 Vérification des éléments UI...', 'info');
+                checks.forEach(check => {
+                    if (html.includes(check.pattern)) {
+                        log(`  ✅ ${check.name}`, 'success');
+                    } else {
+                        log(`  ❌ ${check.name} MANQUANT`, 'error');
+                    }
+                });
+
+                log('', 'info');
+                log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', 'info');
+                log('🎨 TEST DE L\'INTERFACE - Terminé', 'success');
+
+            } catch (error) {
+                log(`❌ ERREUR: ${error.message}`, 'error');
+            }
+        }
+
+        async function runAllTests() {
+            clearLog();
+            log('🚀 LANCEMENT DE TOUS LES TESTS', 'info');
+            log('═══════════════════════════════════════════════', 'info');
+            log('', 'info');
+
+            await testSkills();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            log('\n', 'info');
+            await testGaming();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            log('\n', 'info');
+            await testUI();
+
+            log('\n', 'info');
+            log('═══════════════════════════════════════════════', 'info');
+            log('✅ TOUS LES TESTS TERMINÉS', 'success');
+        }
+
+        function openMainSite() {
+            window.open(mainSiteUrl, '_blank');
+        }
+
+        function openGitHub() {
+            window.open(githubUrl, '_blank');
+        }
+
+        // Run tests on load
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                runAllTests();
+            }, 500);
+        });
+    </script>
+</body>
+</html>
