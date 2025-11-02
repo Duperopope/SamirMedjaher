@@ -3720,7 +3720,9 @@ body.hud-preview-active .game-notification {
         // ============================================
         async function loadVersion() {
             try {
-                const response = await fetch('VERSION.json');
+                // Cache-busting: ajoute timestamp pour forcer rechargement
+                const timestamp = new Date().getTime();
+                const response = await fetch(`VERSION.json?v=${timestamp}`);
                 const versionData = await response.json();
                 
                 // Update version number
@@ -3738,10 +3740,10 @@ body.hud-preview-active .game-notification {
                 console.log(`📌 CV Gaming v${versionData.current} - ${versionData.lastUpdate}`);
             } catch (error) {
                 console.warn('⚠️ Version info not loaded:', error);
-                // Fallback to hardcoded values
+                // Fallback to hardcoded values (update manually after each version bump)
                 const versionEl = document.getElementById('appVersion');
                 const lastUpdateEl = document.getElementById('lastUpdate');
-                if (versionEl) versionEl.textContent = '0.2';
+                if (versionEl) versionEl.textContent = '0.21';
                 if (lastUpdateEl) lastUpdateEl.textContent = '2025-11-02';
             }
         }
