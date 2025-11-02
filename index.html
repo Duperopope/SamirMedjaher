@@ -2413,22 +2413,32 @@ body.hud-preview-active .game-notification {
             const toggle = document.getElementById('gameToggle');
             const minigamesTrigger = document.getElementById('minigamesTrigger');
 
+            // Safety check: prevent crash if elements don't exist
+            if (!hud || !tama) {
+                console.error('❌ Gaming elements not found in DOM!', { hud: !!hud, tama: !!tama });
+                return;
+            }
+
             if (gamingMode && gamingUnlocked) {
                 hud.classList.add('show');
                 tama.classList.add('show');
                 if (minigamesTrigger) minigamesTrigger.classList.add('active');
-                toggle.innerHTML = '🎮';
-                toggle.style.background = 'rgba(139, 92, 246, 0.2)';
-                toggle.title = 'Mode Gaming: Activé';
-                toggle.setAttribute('data-text', 'Gaming ON');
+                if (toggle) {
+                    toggle.innerHTML = '🎮';
+                    toggle.style.background = 'rgba(139, 92, 246, 0.2)';
+                    toggle.title = 'Mode Gaming: Activé';
+                    toggle.setAttribute('data-text', 'Gaming ON');
+                }
             } else if (gamingUnlocked) {
                 hud.classList.remove('show');
                 tama.classList.remove('show');
                 if (minigamesTrigger) minigamesTrigger.classList.remove('active');
-                toggle.innerHTML = '🎮';
-                toggle.style.background = 'rgba(148, 163, 184, 0.1)';
-                toggle.title = 'Mode Gaming: Désactivé';
-                toggle.setAttribute('data-text', 'Gaming OFF');
+                if (toggle) {
+                    toggle.innerHTML = '🎮';
+                    toggle.style.background = 'rgba(148, 163, 184, 0.1)';
+                    toggle.title = 'Mode Gaming: Désactivé';
+                    toggle.setAttribute('data-text', 'Gaming OFF');
+                }
             }
         }
 
@@ -3229,13 +3239,23 @@ body.hud-preview-active .game-notification {
                 
                 setTimeout(() => {
                     console.log('🚀 Calling unlockGamingMode()');
-                    unlockGamingMode();
                     
-                    // Remove overlay
+                    // Wrap in try-catch to prevent crashes
+                    try {
+                        unlockGamingMode();
+                    } catch (error) {
+                        console.error('❌ Error in unlockGamingMode:', error);
+                    }
+                    
+                    // ALWAYS remove overlay after 1.5s (even if error)
                     setTimeout(() => {
                         unlockOverlay.style.opacity = '0';
                         unlockOverlay.style.transition = 'opacity 0.5s ease';
-                        setTimeout(() => unlockOverlay.remove(), 500);
+                        setTimeout(() => {
+                            if (unlockOverlay && unlockOverlay.parentNode) {
+                                unlockOverlay.remove();
+                            }
+                        }, 500);
                     }, 1500);
                 }, 1000);
             }
