@@ -131,36 +131,125 @@ function buyItemFromDashboard(itemId, category) {
 
 /**
  * Nourrir Éric depuis le dashboard
+ * Version v2.0 - Avec vérification d'inventaire et utilisation automatique du food
  */
 function feedEricFromDashboard() {
     console.log('🍔 Feeding Éric...');
     
-    // Play eating animation
+    // 1. Vérifier si le joueur a de la nourriture dans l'inventaire
+    const gameState = (typeof window.gameplaySystem !== 'undefined') 
+        ? window.gameplaySystem.gameState 
+        : null;
+    
+    if (!gameState || !gameState.inventory || !gameState.inventory.foods) {
+        showNotification('❌ Système d\'inventaire non chargé', 'error');
+        return;
+    }
+    
+    // 2. Trouver le premier item de nourriture disponible dans l'inventaire
+    const availableFoods = Object.entries(gameState.inventory.foods).filter(([id, count]) => count > 0);
+    
+    if (availableFoods.length === 0) {
+        // Pas de nourriture disponible
+        showNotification('🚫 Vous n\'avez pas de nourriture !', 'error');
+        setTimeout(() => {
+            showNotification('💡 Achetez-en dans l\'onglet Shop 🛒', 'info');
+        }, 1500);
+        return;
+    }
+    
+    // 3. Utiliser le premier item disponible
+    const [foodId, currentCount] = availableFoods[0];
+    
+    // Trouver les détails de l'item dans le catalogue
+    const SHOP_CATALOG = window.shopSystem?.SHOP_CATALOG || {
+        food: [
+            { id: 'burger', name: 'Burger Gourmet', icon: '🍔', effects: { hunger: 40, mood: 20 } },
+            { id: 'pizza', name: 'Pizza Complète', icon: '🍕', effects: { hunger: 60, mood: 30 } },
+            { id: 'sushi', name: 'Sushi Premium', icon: '🍣', effects: { hunger: 80, mood: 50, xp: 10 } },
+            { id: 'cake', name: 'Gâteau Magique', icon: '🎂', effects: { hunger: 100, mood: 100, boost: true } }
+        ]
+    };
+    
+    const foodItem = SHOP_CATALOG.food.find(f => f.id === foodId);
+    
+    if (!foodItem) {
+        showNotification('❌ Item introuvable dans le catalogue', 'error');
+        return;
+    }
+    
+    // 4. Vérifier si Éric a vraiment faim
+    if (typeof tamaState !== 'undefined' && tamaState.hunger >= 100) {
+        showNotification('🍔 Éric n\'a pas faim ! (Faim: 100%)', 'info');
+        return;
+    }
+    
+    // 5. Jouer l'animation de manger
     playEricAnimation('eating');
     
-    // Try different possible function names
-    if (typeof feedEric === 'function') {
-        feedEric();
-        showNotification('🍔 Éric a été nourri !', 'success');
-    } else if (typeof window.tamaSystem !== 'undefined' && typeof window.tamaSystem.feed === 'function') {
-        window.tamaSystem.feed();
-        showNotification('🍔 Éric a été nourri !', 'success');
-    } else if (typeof tamaState !== 'undefined') {
-        // Manual hunger increase
-        if (tamaState.hunger < 100) {
-            tamaState.hunger = Math.min(100, tamaState.hunger + 30);
-            if (typeof saveTamaState === 'function') saveTamaState();
-            showNotification('🍔 Éric a été nourri ! (+30 faim)', 'success');
-            
-            // Update stats display in dashboard
-            refreshEricStats();
-        } else {
-            showNotification('🍔 Éric n\'a pas faim !', 'info');
+    // 6. Appliquer les effets du food item
+    if (typeof tamaState !== 'undefined') {
+        // Appliquer hunger
+        if (foodItem.effects.hunger) {
+            const oldHunger = tamaState.hunger || 50;
+            tamaState.hunger = Math.min(100, oldHunger + foodItem.effects.hunger);
+            const hungerGain = tamaState.hunger - oldHunger;
+            console.log(`  ↗️ Hunger: ${oldHunger} → ${tamaState.hunger} (+${hungerGain})`);
         }
-    } else {
-        showNotification('❌ Système temporairement indisponible', 'error');
-        console.warn('Tamagotchi functions not found. Available:', Object.keys(window).filter(k => k.toLowerCase().includes('tama')));
+        
+        // Appliquer mood
+        if (foodItem.effects.mood) {
+            const oldMood = tamaState.mood || 50;
+            tamaState.mood = Math.min(100, oldMood + foodItem.effects.mood);
+            const moodGain = tamaState.mood - oldMood;
+            console.log(`  ↗️ Mood: ${oldMood} → ${tamaState.mood} (+${moodGain})`);
+        }
+        
+        // Appliquer XP bonus
+        if (foodItem.effects.xp && typeof window.gameplaySystem !== 'undefined') {
+            window.gameplaySystem.addXP(foodItem.effects.xp, 'premium_food');
+            console.log(`  ⭐ XP bonus: +${foodItem.effects.xp}`);
+        }
+        
+        // Boost spécial du gâteau
+        if (foodItem.effects.boost && typeof window.shopSystem !== 'undefined') {
+            // Activer boost coins x2 pendant 10 min
+            if (typeof window.shopSystem.activateBoost === 'function') {
+                window.shopSystem.activateBoost('coinBoost', 600000);
+                setTimeout(() => {
+                    showNotification('🎂 Boost Coins x2 activé pendant 10 min !', 'epic');
+                }, 1000);
+            }
+        }
+        
+        // Sauvegarder l'état du tamagotchi
+        if (typeof saveTamaState === 'function') saveTamaState();
+        
+        // Rafraîchir l'affichage des stats
+        refreshEricStats();
     }
+    
+    // 7. Décrémenter l'inventaire
+    gameState.inventory.foods[foodId]--;
+    const remainingCount = gameState.inventory.foods[foodId];
+    
+    // Sauvegarder gameState
+    if (typeof window.gameplaySystem !== 'undefined' && typeof window.gameplaySystem.saveGameState === 'function') {
+        window.gameplaySystem.saveGameState();
+    }
+    
+    // 8. Notification de succès avec détails
+    showNotification(
+        `${foodItem.icon} ${foodItem.name} utilisé ! (${remainingCount} restant${remainingCount > 1 ? 's' : ''})`,
+        'success'
+    );
+    
+    // 9. Rafraîchir l'affichage du shop/inventaire si ouvert
+    if (typeof window.shopSystem !== 'undefined' && typeof window.shopSystem.renderShopContent === 'function') {
+        window.shopSystem.renderShopContent();
+    }
+    
+    console.log(`✅ ${foodItem.name} utilisé avec succès ! Inventaire: ${remainingCount}`);
 }
 
 /**

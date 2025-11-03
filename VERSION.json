@@ -1,7 +1,18 @@
 {
-  "current": "0.30",
-  "lastUpdate": "2025-11-02",
+  "current": "0.35",
+  "lastUpdate": "2025-11-03",
   "changelog": [
+    {
+      "version": "0.35",
+      "date": "2025-11-03",
+      "changes": [
+        "🍔 Vérification d'inventaire avant de nourrir Éric - Empêche feed sans nourriture",
+        "📦 Utilisation automatique du premier food disponible dans l'inventaire",
+        "📊 Notifications détaillées avec nom de l'item + quantité restante",
+        "⚡ Application correcte des effets (hunger, mood, XP, boost spécial gâteau)",
+        "💾 Décrémentation automatique de l'inventaire + sauvegarde"
+      ]
+    },
     {
       "version": "0.30",
       "date": "2025-11-02",
@@ -23,6 +34,6 @@
       ]
     }
   ],
-  "nextVersion": "0.31",
+  "nextVersion": "0.36",
   "autoIncrement": 0.01
 }
