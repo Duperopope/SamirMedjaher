@@ -141,13 +141,24 @@ function feedEricFromDashboard() {
         ? window.gameplaySystem.gameState 
         : null;
     
+    console.log('📦 DEBUG gameState:', gameState);
+    console.log('📦 DEBUG inventory:', gameState?.inventory);
+    console.log('📦 DEBUG foods:', gameState?.inventory?.foods);
+    
     if (!gameState || !gameState.inventory || !gameState.inventory.foods) {
         showNotification('❌ Système d\'inventaire non chargé', 'error');
+        console.error('❌ gameState not properly loaded:', {
+            hasGameplaySystem: typeof window.gameplaySystem !== 'undefined',
+            hasGameState: !!gameState,
+            hasInventory: !!gameState?.inventory,
+            hasFoods: !!gameState?.inventory?.foods
+        });
         return;
     }
     
     // 2. Trouver le premier item de nourriture disponible dans l'inventaire
     const availableFoods = Object.entries(gameState.inventory.foods).filter(([id, count]) => count > 0);
+    console.log('📦 DEBUG availableFoods:', availableFoods);
     
     if (availableFoods.length === 0) {
         // Pas de nourriture disponible

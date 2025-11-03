@@ -240,12 +240,11 @@ function addCoins(amount, source = 'unknown') {
     gameState.coins += finalAmount;
     gameState.coinsLifetime += finalAmount;
     
-    // Notification unifiée
+    // Notification unifiée (plus de fallback showCoinGain)
     if (typeof window.unifiedNotifications !== 'undefined') {
         window.unifiedNotifications.notifyCoinsGained(finalAmount, source);
-    } else {
-        showCoinGain(finalAmount, source);
     }
+    // Ancien système showCoinGain() désactivé - tout passe par notifications unifiées
     
     // Sauvegarder
     saveGameState();

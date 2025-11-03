@@ -1,7 +1,18 @@
 {
-  "current": "0.37",
+  "current": "0.38",
   "lastUpdate": "2025-11-03",
   "changelog": [
+    {
+      "version": "0.38",
+      "date": "2025-11-03",
+      "changes": [
+        "❌ Suppression bouton manette (game-toggle) obsolète - Ne sert plus à rien",
+        "🔧 Fix gains XP/Coins - Suppression du fallback showCoinGain(), tout passe par notifications unifiées",
+        "📊 Plus de popups centre écran - Tous les gains apparaîssent dans la zone unifiée",
+        "🐞 Debug nourriture - Ajout logs détaillés pour diagnostiquer problème inventaire",
+        "🥫 Fix inventaire foods - Vérification gameState.inventory.foods correctement"
+      ]
+    },
     {
       "version": "0.37",
       "date": "2025-11-03",
@@ -57,6 +68,6 @@
       ]
     }
   ],
-  "nextVersion": "0.38",
+  "nextVersion": "0.39",
   "autoIncrement": 0.01
 }
