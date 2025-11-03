@@ -183,6 +183,59 @@ Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
 
 ## 🔄 Changelog
 
+### v0.41 (2025-11-03) - "🔥 CACHE-BUST CRITIQUE + Fix Positionnement"
+- 🔥 **FIX MAJEUR Cache-Bust** : Tous les scripts JS/CSS mis à jour avec paramètres ?v= synchronisés
+- 🐛 **Bug popup "+31" résolu** : `tamagotchi-gameplay.js` était chargé en v0.34 avec ancien code popup
+- 📍 **Réorganisation positionnement** : HUD XP descendu de 13rem → 5rem (évite chevauchement)
+- ✅ **Stack vertical logique** : Éric (2rem) → HUD (5rem) → Notifications (9rem) → Toggles (13rem/17rem)
+- 🚀 **Push GitHub réussi** : 7 commits v0.35→v0.41 synchronisés avec repository
+- 🔧 **Hard refresh recommandé** : Ctrl+Shift+R pour forcer rechargement des nouvelles versions
+
+**Fichiers modifiés** :
+- `index.html` : Tous les `<script src="...?v=0.40">` et `<link href="...?v=0.41">`
+- `unified-notifications.css` : Override `.game-hud { bottom: 5rem !important; }`
+- `VERSION.json` : Documentation complète du fix cache-bust
+
+**Impact utilisateur** :
+- ✅ Plus de popup "+31" sous le doigt lors des clics
+- ✅ Notifications bien positionnées sans chevauchement
+- ✅ Interface gaming fluide et professionnelle
+
+### v0.40 (2025-11-03) - "Redirection Système Unifié"
+- ✅ Redirection `showGameNotification()` → `window.unifiedNotifications.show()`
+- ✅ Redirection `showAchievement()` → `window.unifiedNotifications.showAchievement()`
+- 🔄 Fallback intelligent vers console si système unifié non chargé
+- 🎯 Toutes les notifications XP/Coins dans zone unifiée
+
+### v0.39 (2025-11-03) - "Suppression Popups Centre Écran"
+- ✅ Fonction `showCoinGain()` complètement désactivée (marquée DEPRECATED)
+- 📊 Tous les gains passent par `window.unifiedNotifications.notifyCoinsGained()`
+- 🔧 Plus de popups au centre de l'écran
+
+### v0.38 (2025-11-03) - "Nettoyage + Debug Inventaire"
+- ❌ Suppression bouton game-toggle obsolète (ne servait plus)
+- 🐞 Ajout logs debug pour diagnostiquer problème inventaire nourriture
+- 📦 Fix vérification `gameState.inventory.foods`
+
+### v0.37 (2025-11-03) - "Gains XP/Coins + Toggle XP Bar"
+- 📊 Tous les gains XP/Coins dans zone notifications unifiée
+- 🎮 Bouton toggle XP bar (afficher/masquer avec préférence sauvegardée)
+- 🛒 Fix shop system : Ajout `buyItem()` et `useItem()` génériques
+- 📦 Exposition SHOP_CATALOG dans `window.shopSystem`
+
+### v0.36 (2025-11-03) - "Système Notifications Unifié"
+- 🔔 Remplacement achievement toast + game notification par système unifié
+- 📍 Zone unique avec 5 types (achievement, success, info, error, epic)
+- 🎚️ Bouton toggle avec badge de compteur
+- 📜 File d'attente intelligente (max 5 notifications visibles)
+- 💾 Historique des 50 dernières notifications
+
+### v0.35 (2025-11-03) - "Bloquer Feed Sans Inventaire"
+- 🍔 Vérification d'inventaire avant de nourrir Éric
+- 📦 Utilisation automatique du premier food disponible
+- ⚡ Application correcte des effets (hunger, mood, XP, boosts)
+- 💾 Décrémentation automatique + sauvegarde
+
 ### v1.4.0 (2025-11-02) - "Professional UI Overhaul"
 - 🎯 **10/10 Tâches Complétées** : Refactorisation UI complète et professionnelle
 - ✅ **Bouton debug supprimé** : Production-ready (4 emplacements nettoyés)
