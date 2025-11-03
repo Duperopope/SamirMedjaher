@@ -792,16 +792,63 @@ function initShop() {
     // Shop trigger removed - now accessible via dashboard only
 }
 
+/**
+ * Fonction générique pour acheter un item depuis le dashboard
+ * @param {string} category - 'food', 'skins', 'boosters', 'lootboxes'
+ * @param {string} itemId - ID de l'item
+ */
+function buyItem(category, itemId) {
+    console.log(`🛒 buyItem(${category}, ${itemId})`);
+    
+    switch(category) {
+        case 'food':
+            return buyFood(itemId);
+        case 'skins':
+            return buySkin(itemId);
+        case 'boosters':
+            return buyBooster(itemId);
+        case 'lootboxes':
+            return buyLootbox(itemId);
+        default:
+            console.error(`❌ Unknown category: ${category}`);
+            return false;
+    }
+}
+
+/**
+ * Fonction générique pour utiliser un item depuis l'inventaire
+ * @param {string} category - 'food', 'boosters'
+ * @param {string} itemId - ID de l'item
+ */
+function useItem(category, itemId) {
+    console.log(`📦 useItem(${category}, ${itemId})`);
+    
+    switch(category) {
+        case 'food':
+            return useFood(itemId);
+        case 'boosters':
+            return useBooster(itemId);
+        default:
+            console.error(`❌ Unknown category: ${category}`);
+            return false;
+    }
+}
+
 // Exposer globalement
 window.shopSystem = {
     openShop,
     closeShop,
     initShop,
+    buyItem,      // ← Nouvelle fonction générique
     buyFood,
     useFood,
+    useItem,      // ← Nouvelle fonction générique
     buySkin,
     equipSkin,
     buyBooster,
     useBooster,
-    buyLootbox
+    buyLootbox,
+    SHOP_CATALOG,  // ← Exposer le catalogue aussi
+    activateBoost,
+    renderShopContent
 };

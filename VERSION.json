@@ -1,7 +1,18 @@
 {
-  "current": "0.36",
+  "current": "0.37",
   "lastUpdate": "2025-11-03",
   "changelog": [
+    {
+      "version": "0.37",
+      "date": "2025-11-03",
+      "changes": [
+        "📊 Gains XP/Coins affichés dans zone notifications unifiée - Plus de popups centre écran",
+        "🎮 Bouton toggle XP bar - Afficher/masquer la barre avec préférence sauvegardée",
+        "🛒 Fix shop system - Ajout buyItem() et useItem() génériques pour achats dashboard",
+        "📦 Exposition SHOP_CATALOG + activateBoost + renderShopContent dans window.shopSystem",
+        "🔔 Notifications level-up utilisent le système unifié avec rewards affichés"
+      ]
+    },
     {
       "version": "0.36",
       "date": "2025-11-03",
@@ -46,6 +57,6 @@
       ]
     }
   ],
-  "nextVersion": "0.37",
+  "nextVersion": "0.38",
   "autoIncrement": 0.01
 }

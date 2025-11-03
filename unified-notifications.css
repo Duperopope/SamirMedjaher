@@ -354,6 +354,51 @@
    RESPONSIVE
    ============================================ */
 
+/* ============================================
+   BOUTON TOGGLE XP BAR
+   ============================================ */
+
+.xpbar-toggle {
+    position: fixed;
+    bottom: 17rem;
+    right: 2rem;
+    width: 44px;
+    height: 44px;
+    background: rgba(15, 23, 42, 0.9);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--game-xp);
+    cursor: pointer;
+    z-index: 10001;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.2);
+    font-size: 1.1rem;
+}
+
+.xpbar-toggle:hover {
+    transform: scale(1.1);
+    background: rgba(16, 185, 129, 0.2);
+    border-color: rgba(16, 185, 129, 0.5);
+    box-shadow: 0 12px 35px rgba(16, 185, 129, 0.4);
+}
+
+.xpbar-toggle:active {
+    transform: scale(0.95);
+}
+
+.xpbar-toggle.active {
+    background: rgba(16, 185, 129, 0.25);
+    border-color: rgba(16, 185, 129, 0.6);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
 @media (max-width: 968px) {
     .unified-notifications-zone {
         bottom: 11rem;
@@ -363,6 +408,14 @@
     
     .notifications-toggle {
         bottom: 15rem;
+        right: 1rem;
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    
+    .xpbar-toggle {
+        bottom: 19rem;
         right: 1rem;
         width: 40px;
         height: 40px;

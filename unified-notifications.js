@@ -373,6 +373,32 @@ function notifyInventoryError(message) {
 }
 
 // ============================================
+// XP BAR TOGGLE
+// ============================================
+
+/**
+ * Toggle affichage/masquage de la XP bar
+ */
+function toggleXPBar() {
+    const xpBar = document.getElementById('gameHUD');
+    const toggleButton = document.getElementById('xpbarToggle');
+    
+    if (!xpBar || !toggleButton) return;
+    
+    const isVisible = xpBar.classList.contains('show');
+    
+    if (isVisible) {
+        xpBar.classList.remove('show');
+        toggleButton.classList.remove('active');
+        localStorage.setItem('xpbar-visible', 'false');
+    } else {
+        xpBar.classList.add('show');
+        toggleButton.classList.add('active');
+        localStorage.setItem('xpbar-visible', 'true');
+    }
+}
+
+// ============================================
 // INITIALISATION
 // ============================================
 
@@ -382,20 +408,39 @@ function notifyInventoryError(message) {
 function initUnifiedNotifications() {
     console.log('🔔 Initializing Unified Notifications System...');
     
-    // Charger la préférence de visibilité
+    // Charger la préférence de visibilité notifications
     const savedVisible = localStorage.getItem('notifications-visible');
     notificationState.isVisible = savedVisible !== 'false';
     
-    // Appliquer l'état initial
+    // Appliquer l'état initial notifications
     const zone = document.getElementById('unifiedNotificationsZone');
     if (zone && !notificationState.isVisible) {
         zone.classList.add('hidden');
     }
     
-    // Attacher l'event listener au bouton toggle
+    // Charger la préférence de visibilité XP bar
+    const xpBarVisible = localStorage.getItem('xpbar-visible');
+    const xpBar = document.getElementById('gameHUD');
+    const xpBarButton = document.getElementById('xpbarToggle');
+    
+    if (xpBar) {
+        // Par défaut visible si en mode gaming
+        const shouldShowXPBar = xpBarVisible !== 'false';
+        if (shouldShowXPBar) {
+            xpBar.classList.add('show');
+            if (xpBarButton) xpBarButton.classList.add('active');
+        }
+    }
+    
+    // Attacher l'event listener au bouton toggle notifications
     const toggleButton = document.getElementById('notificationsToggle');
     if (toggleButton) {
         toggleButton.addEventListener('click', toggleNotificationsZone);
+    }
+    
+    // Attacher l'event listener au bouton toggle XP bar
+    if (xpBarButton) {
+        xpBarButton.addEventListener('click', toggleXPBar);
     }
     
     // Notification de bienvenue (test)
@@ -421,6 +466,7 @@ window.unifiedNotifications = {
     close: closeNotification,
     clearAll: clearAllNotifications,
     toggle: toggleNotificationsZone,
+    toggleXPBar: toggleXPBar,
     notifyCoinsGained,
     notifyXPGained,
     notifyLevelUp,

@@ -240,8 +240,12 @@ function addCoins(amount, source = 'unknown') {
     gameState.coins += finalAmount;
     gameState.coinsLifetime += finalAmount;
     
-    // Notification visuelle
-    showCoinGain(finalAmount, source);
+    // Notification unifiée
+    if (typeof window.unifiedNotifications !== 'undefined') {
+        window.unifiedNotifications.notifyCoinsGained(finalAmount, source);
+    } else {
+        showCoinGain(finalAmount, source);
+    }
     
     // Sauvegarder
     saveGameState();
@@ -359,6 +363,11 @@ function addXP(amount, source = 'unknown') {
     
     gameState.xp += finalAmount;
     
+    // Notification unifiée pour XP
+    if (typeof window.unifiedNotifications !== 'undefined') {
+        window.unifiedNotifications.notifyXPGained(finalAmount, gameState.level, source);
+    }
+    
     // Check level up
     checkLevelUp();
     
@@ -399,11 +408,16 @@ function checkLevelUp() {
  * Notification level up
  */
 function showLevelUpNotification() {
-    showNotification(
-        `🎉 Niveau ${gameState.level}! +${gameState.level * 50} coins`,
-        'success',
-        3000
-    );
+    // Utiliser notification unifiée en priorité
+    if (typeof window.unifiedNotifications !== 'undefined') {
+        window.unifiedNotifications.notifyLevelUp(gameState.level);
+    } else {
+        showNotification(
+            `🎉 Niveau ${gameState.level}! +${gameState.level * 50} coins`,
+            'success',
+            3000
+        );
+    }
     
     // Vibration
     if (navigator.vibrate) {
