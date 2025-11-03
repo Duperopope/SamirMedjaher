@@ -379,10 +379,14 @@ function openLootboxFromDashboard(lootboxType = 'basic') {
 
 /**
  * Affiche une notification temporaire
+ * Version v2.0 - Utilise le système unifié
  */
 function showNotification(message, type = 'info') {
-    // Réutilise le système de notifications existant
-    if (typeof showGameNotification !== 'undefined') {
+    // Utiliser le système unifié si disponible
+    if (typeof window.unifiedNotifications !== 'undefined' && window.unifiedNotifications.show) {
+        window.unifiedNotifications.show(message, type);
+    } else if (typeof showGameNotification !== 'undefined') {
+        // Fallback sur l'ancien système
         showGameNotification(message);
     } else {
         console.log(`[${type.toUpperCase()}] ${message}`);

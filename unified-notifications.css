@@ -1,0 +1,384 @@
+/**
+ * 🔔 UNIFIED NOTIFICATIONS SYSTEM v1.0
+ * Système unifié de notifications pour achievements + actions gaming
+ * Zone centralisée avec bouton toggle pour afficher/masquer
+ */
+
+/* ============================================
+   ZONE DE NOTIFICATIONS UNIFIÉE
+   ============================================ */
+
+.unified-notifications-zone {
+    position: fixed;
+    bottom: 9rem;
+    right: 2rem;
+    z-index: 10002;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-width: 320px;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.unified-notifications-zone.hidden {
+    opacity: 0;
+    transform: translateX(400px);
+    pointer-events: none;
+}
+
+/* ============================================
+   CARTE DE NOTIFICATION INDIVIDUELLE
+   ============================================ */
+
+.notification-card {
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 12px;
+    padding: 1rem;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    transform: translateX(400px);
+    opacity: 0;
+    pointer-events: all;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.notification-card.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.notification-card.removing {
+    transform: translateX(400px) scale(0.8);
+    opacity: 0;
+}
+
+/* ============================================
+   TYPES DE NOTIFICATIONS
+   ============================================ */
+
+/* Achievement (Succès débloqué) */
+.notification-card.achievement {
+    background: linear-gradient(135deg, 
+        rgba(251, 191, 36, 0.2), 
+        rgba(245, 158, 11, 0.1)
+    );
+    border-color: rgba(251, 191, 36, 0.4);
+    box-shadow: 0 8px 25px rgba(251, 191, 36, 0.3);
+}
+
+.notification-card.achievement::before {
+    content: '🏆';
+    position: absolute;
+    top: -6px;
+    left: 12px;
+    background: var(--dark);
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    border: 2px solid var(--game-gold);
+    z-index: 1;
+}
+
+/* Success (Action réussie) */
+.notification-card.success {
+    background: linear-gradient(135deg, 
+        rgba(6, 182, 212, 0.2), 
+        rgba(16, 185, 129, 0.1)
+    );
+    border-color: rgba(6, 182, 212, 0.4);
+    box-shadow: 0 8px 25px rgba(6, 182, 212, 0.3);
+}
+
+.notification-card.success::before {
+    content: '✅';
+    position: absolute;
+    top: -6px;
+    left: 12px;
+    background: var(--dark);
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    border: 2px solid var(--primary);
+    z-index: 1;
+}
+
+/* Info (Information générale) */
+.notification-card.info {
+    background: linear-gradient(135deg, 
+        rgba(139, 92, 246, 0.2), 
+        rgba(99, 102, 241, 0.1)
+    );
+    border-color: rgba(139, 92, 246, 0.4);
+    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+}
+
+.notification-card.info::before {
+    content: '💡';
+    position: absolute;
+    top: -6px;
+    left: 12px;
+    background: var(--dark);
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    border: 2px solid var(--accent);
+    z-index: 1;
+}
+
+/* Error (Erreur) */
+.notification-card.error {
+    background: linear-gradient(135deg, 
+        rgba(239, 68, 68, 0.2), 
+        rgba(220, 38, 38, 0.1)
+    );
+    border-color: rgba(239, 68, 68, 0.4);
+    box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+}
+
+.notification-card.error::before {
+    content: '❌';
+    position: absolute;
+    top: -6px;
+    left: 12px;
+    background: var(--dark);
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    font-size: 12px;
+    border: 2px solid #ef4444;
+    z-index: 1;
+}
+
+/* Epic (Événement épique/rare) */
+.notification-card.epic {
+    background: linear-gradient(135deg, 
+        rgba(251, 191, 36, 0.3), 
+        rgba(245, 158, 11, 0.2)
+    );
+    border-color: rgba(251, 191, 36, 0.6);
+    box-shadow: 0 8px 25px rgba(251, 191, 36, 0.4),
+                0 0 40px rgba(251, 191, 36, 0.2);
+    animation: epicGlow 2s ease-in-out infinite;
+}
+
+.notification-card.epic::before {
+    content: '⭐';
+    position: absolute;
+    top: -6px;
+    left: 12px;
+    background: var(--dark);
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    border: 2px solid var(--game-gold);
+    z-index: 1;
+    animation: epicSpin 3s linear infinite;
+}
+
+@keyframes epicGlow {
+    0%, 100% {
+        box-shadow: 0 8px 25px rgba(251, 191, 36, 0.4),
+                    0 0 40px rgba(251, 191, 36, 0.2);
+    }
+    50% {
+        box-shadow: 0 12px 35px rgba(251, 191, 36, 0.6),
+                    0 0 60px rgba(251, 191, 36, 0.3);
+    }
+}
+
+@keyframes epicSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ============================================
+   CONTENU DE LA NOTIFICATION
+   ============================================ */
+
+.notification-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    padding-top: 0.25rem;
+}
+
+.notification-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+    flex: 1;
+}
+
+.notification-close {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 0;
+    font-size: 1.1rem;
+    line-height: 1;
+    transition: all 0.2s ease;
+    opacity: 0.6;
+}
+
+.notification-close:hover {
+    opacity: 1;
+    color: var(--text-primary);
+    transform: scale(1.1);
+}
+
+.notification-message {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    margin: 0;
+}
+
+.notification-rewards {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.reward-item {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+    color: var(--game-gold);
+    font-weight: 600;
+}
+
+/* ============================================
+   BOUTON TOGGLE NOTIFICATIONS
+   ============================================ */
+
+.notifications-toggle {
+    position: fixed;
+    bottom: 13rem;
+    right: 2rem;
+    width: 44px;
+    height: 44px;
+    background: rgba(15, 23, 42, 0.9);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(6, 182, 212, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    cursor: pointer;
+    z-index: 10001;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(6, 182, 212, 0.2);
+    font-size: 1.1rem;
+}
+
+.notifications-toggle:hover {
+    transform: scale(1.1);
+    background: rgba(6, 182, 212, 0.2);
+    border-color: rgba(6, 182, 212, 0.5);
+    box-shadow: 0 12px 35px rgba(6, 182, 212, 0.4);
+}
+
+.notifications-toggle:active {
+    transform: scale(0.95);
+}
+
+.notifications-toggle.has-notifications {
+    animation: notificationPulse 2s ease-in-out infinite;
+}
+
+@keyframes notificationPulse {
+    0%, 100% {
+        box-shadow: 0 8px 25px rgba(6, 182, 212, 0.2);
+    }
+    50% {
+        box-shadow: 0 12px 35px rgba(6, 182, 212, 0.5);
+    }
+}
+
+.notification-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    font-weight: 700;
+    border: 2px solid var(--dark);
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.3s ease;
+}
+
+.notification-badge.show {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 968px) {
+    .unified-notifications-zone {
+        bottom: 11rem;
+        right: 1rem;
+        max-width: 280px;
+    }
+    
+    .notifications-toggle {
+        bottom: 15rem;
+        right: 1rem;
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    
+    .notification-card {
+        padding: 0.85rem;
+        font-size: 0.85rem;
+    }
+    
+    .notification-title {
+        font-size: 0.85rem;
+    }
+    
+    .notification-message {
+        font-size: 0.8rem;
+    }
+}

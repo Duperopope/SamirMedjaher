@@ -1,7 +1,19 @@
 {
-  "current": "0.35",
+  "current": "0.36",
   "lastUpdate": "2025-11-03",
   "changelog": [
+    {
+      "version": "0.36",
+      "date": "2025-11-03",
+      "changes": [
+        "🔔 Système de notifications unifié - Remplace achievement toast + game notification",
+        "📍 Zone unique de notifications avec 5 types (achievement, success, info, error, epic)",
+        "🎚️ Bouton toggle pour afficher/masquer les notifications avec badge de compteur",
+        "📜 File d'attente intelligente - Max 5 notifications visibles simultanément",
+        "🎨 Animations fluides avec stack vertical et auto-hide après durée",
+        "💾 Historique des 50 dernières notifications avec préférence sauvegardée"
+      ]
+    },
     {
       "version": "0.35",
       "date": "2025-11-03",
@@ -34,6 +46,6 @@
       ]
     }
   ],
-  "nextVersion": "0.36",
+  "nextVersion": "0.37",
   "autoIncrement": 0.01
 }
