@@ -243,80 +243,6 @@ body.hud-preview-active .game-notification {
                     </div>
                 </div>
 
-                <div class="documentation-section">
-                    <h4 class="text-lg font-semibold mb-2 text-white">🎮 Personnalisation HUD Gaming</h4>
-                    <div class="grid grid-cols-1 gap-4">
-                        <div class="control-group">
-                            <label>Couleur de fond du HUD</label>
-                            <input type="color" id="hudBgColor" class="control-input" value="#0f172a" onchange="updateHudStyles()">
-                        </div>
-                        <div class="control-group">
-                            <label>Transparence du HUD: <span id="hudOpacityValue">90%</span></label>
-                            <input type="range" id="hudOpacity" class="control-input" min="10" max="100" value="90" onchange="updateHudStyles()">
-                        </div>
-                        <div class="control-group">
-                            <label>Transparence du fond: <span id="hudBgOpacityValue">90%</span></label>
-                            <input type="range" id="hudBgOpacity" class="control-input" min="10" max="100" value="90" onchange="updateHudStyles()">
-                        </div>
-                    </div>
-                    <div class="flex gap-2 mt-4">
-                        <button class="preset-btn" onclick="resetHudStyles()">Reset HUD</button>
-                    </div>
-                </div>
-
-                <div class="documentation-section">
-                    <h4 class="text-lg font-semibold mb-2 text-white">📐 Positionnement du HUD Gaming</h4>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="control-group">
-                            <label>Position Éric - Bas: <span id="ericBottomValue">3.5rem</span></label>
-                            <input type="range" id="ericBottom" class="control-input" min="1" max="10" value="3.5" step="0.5" onchange="updateHudPositions()">
-                        </div>
-                        <div class="control-group">
-                            <label>Position Éric - Droite: <span id="ericRightValue">2rem</span></label>
-                            <input type="range" id="ericRight" class="control-input" min="1" max="10" value="2" step="0.5" onchange="updateHudPositions()">
-                        </div>
-                        <div class="control-group">
-                            <label>Taille d'Éric: <span id="ericSizeValue">88px</span></label>
-                            <input type="range" id="ericSize" class="control-input" min="60" max="120" value="88" onchange="updateHudPositions()">
-                        </div>
-                        <div class="control-group">
-                            <label>Position HUD - Bas: <span id="hudBottomValue">5rem</span></label>
-                            <input type="range" id="hudBottom" class="control-input" min="5" max="20" value="5" step="0.5" onchange="updateHudPositions()">
-                        </div>
-                        <div class="control-group">
-                            <label>Position HUD - Droite: <span id="hudRightValue">2rem</span></label>
-                            <input type="range" id="hudRight" class="control-input" min="1" max="10" value="2" step="0.5" onchange="updateHudPositions()">
-                        </div>
-                        <div class="control-group">
-                            <label>Taille HUD: <span id="hudScaleValue">100%</span></label>
-                            <input type="range" id="hudScale" class="control-input" min="70" max="130" value="100" onchange="updateHudPositions()">
-                        </div>
-                        <div class="control-group">
-                            <label>Position Notif - Bas: <span id="notifBottomValue">11rem</span></label>
-                            <input type="range" id="notifBottom" class="control-input" min="3" max="15" value="11" step="0.5" onchange="updateHudPositions()">
-                        </div>
-                        <div class="control-group">
-                            <label>Position Notif - Droite: <span id="notifRightValue">2rem</span></label>
-                            <input type="range" id="notifRight" class="control-input" min="1" max="10" value="2" step="0.5" onchange="updateHudPositions()">
-                        </div>
-                        <div class="control-group">
-                            <label>Position Achievements - Bas: <span id="achievBottomValue">15.5rem</span></label>
-                            <input type="range" id="achievBottom" class="control-input" min="8" max="20" value="15.5" step="0.5" onchange="updateHudPositions()">
-                        </div>
-                        <div class="control-group">
-                            <label>Position Achievements - Droite: <span id="achievRightValue">1rem</span></label>
-                            <input type="range" id="achievRight" class="control-input" min="0" max="8" value="1" step="0.5" onchange="updateHudPositions()">
-                        </div>
-                    </div>
-                    <div class="flex gap-2 mt-4">
-                        <button class="preset-btn" onclick="resetHudPositions()">Reset Positions</button>
-                        <button class="preset-btn" onclick="applyPresetLayout('compact')">Layout Compact</button>
-                        <button class="preset-btn" onclick="applyPresetLayout('spacious')">Layout Spacieux</button>
-                        <button class="preset-btn" id="previewToggle" onclick="toggleHudPreview()">
-                            <i class="fas fa-eye mr-1"></i>Prévisualiser
-                        </button>
-                    </div>
-                </div>
             </div>
 
             <!-- Particles Tab -->
@@ -396,32 +322,111 @@ body.hud-preview-active .game-notification {
 
             <!-- Gaming Tab -->
             <div id="gamingTab" class="tab-content">
+                <!-- Stats Section -->
                 <div class="documentation-section">
-                    <h4 class="text-lg font-semibold mb-4 text-white">🎮 Mode Gaming</h4>
-                    <div class="space-y-6">
-                        <!-- Stats Section -->
-                        <div class="bg-gray-800 bg-opacity-30 rounded-lg p-4">
-                            <h5 class="text-md font-medium mb-3 text-white">📊 Statistiques</h5>
-                            <div class="space-y-2">
-                                <p class="text-sm text-gray-300">Score Total: <span id="totalScore" class="text-primary font-bold">0</span></p>
-                                <p class="text-sm text-gray-300">Succès: <span id="totalAchievements" class="text-primary font-bold">0</span>/<span id="maxAchievements" class="text-secondary font-bold">0</span></p>
-                                <p class="text-sm text-gray-300">Niveau d'éric: <span id="tamaLevel" class="text-primary font-bold">1</span></p>
-                            </div>
-                        </div>
-
-                        <!-- Achievements Section -->
-                        <div class="bg-gray-800 bg-opacity-30 rounded-lg p-4">
-                            <h5 class="text-md font-medium mb-3 text-white">🏆 Succès Débloqués</h5>
-                            <div id="achievementsList" class="space-y-2 max-h-40 overflow-y-auto">
-                                <p class="text-xs text-gray-400 italic">Aucun succès débloqué pour le moment</p>
-                            </div>
-                        </div>
-
-                        <!-- Actions Section -->
+                    <h4 class="text-lg font-semibold mb-4 text-white">📊 Statistiques Gaming</h4>
+                    <div class="bg-gray-800 bg-opacity-30 rounded-lg p-4">
                         <div class="space-y-2">
-                            <button class="game-button w-full" onclick="startMiniGame()">🧩 Mini-Jeu</button>
-                            <button class="game-button w-full bg-red-600 hover:bg-red-700" onclick="resetProfile()">🔄 Reset Profile</button>
+                            <p class="text-sm text-gray-300">Score Total: <span id="totalScore" class="text-primary font-bold">0</span></p>
+                            <p class="text-sm text-gray-300">Succès: <span id="totalAchievements" class="text-primary font-bold">0</span>/<span id="maxAchievements" class="text-secondary font-bold">0</span></p>
+                            <p class="text-sm text-gray-300">Niveau d'Éric: <span id="tamaLevel" class="text-primary font-bold">1</span></p>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Achievements Section -->
+                <div class="documentation-section">
+                    <h4 class="text-lg font-semibold mb-3 text-white">🏆 Succès Débloqués</h4>
+                    <div class="bg-gray-800 bg-opacity-30 rounded-lg p-4">
+                        <div id="achievementsList" class="space-y-2 max-h-40 overflow-y-auto">
+                            <p class="text-xs text-gray-400 italic">Aucun succès débloqué pour le moment</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HUD Customization Section -->
+                <div class="documentation-section">
+                    <h4 class="text-lg font-semibold mb-2 text-white">🎮 Personnalisation HUD</h4>
+                    <div class="grid grid-cols-1 gap-4">
+                        <div class="control-group">
+                            <label>Couleur de fond du HUD</label>
+                            <input type="color" id="hudBgColor" class="control-input" value="#0f172a" onchange="updateHudStyles()">
+                        </div>
+                        <div class="control-group">
+                            <label>Transparence du HUD: <span id="hudOpacityValue">90%</span></label>
+                            <input type="range" id="hudOpacity" class="control-input" min="10" max="100" value="90" onchange="updateHudStyles()">
+                        </div>
+                        <div class="control-group">
+                            <label>Transparence du fond: <span id="hudBgOpacityValue">90%</span></label>
+                            <input type="range" id="hudBgOpacity" class="control-input" min="10" max="100" value="90" onchange="updateHudStyles()">
+                        </div>
+                    </div>
+                    <div class="flex gap-2 mt-4">
+                        <button class="preset-btn" onclick="resetHudStyles()">Reset HUD</button>
+                    </div>
+                </div>
+
+                <!-- HUD Positioning Section -->
+                <div class="documentation-section">
+                    <h4 class="text-lg font-semibold mb-2 text-white">📐 Positionnement des Éléments</h4>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="control-group">
+                            <label>Position Éric - Bas: <span id="ericBottomValue">3.5rem</span></label>
+                            <input type="range" id="ericBottom" class="control-input" min="1" max="10" value="3.5" step="0.5" onchange="updateHudPositions()">
+                        </div>
+                        <div class="control-group">
+                            <label>Position Éric - Droite: <span id="ericRightValue">2rem</span></label>
+                            <input type="range" id="ericRight" class="control-input" min="1" max="10" value="2" step="0.5" onchange="updateHudPositions()">
+                        </div>
+                        <div class="control-group">
+                            <label>Taille d'Éric: <span id="ericSizeValue">88px</span></label>
+                            <input type="range" id="ericSize" class="control-input" min="60" max="120" value="88" onchange="updateHudPositions()">
+                        </div>
+                        <div class="control-group">
+                            <label>Position HUD - Bas: <span id="hudBottomValue">5rem</span></label>
+                            <input type="range" id="hudBottom" class="control-input" min="5" max="20" value="5" step="0.5" onchange="updateHudPositions()">
+                        </div>
+                        <div class="control-group">
+                            <label>Position HUD - Droite: <span id="hudRightValue">2rem</span></label>
+                            <input type="range" id="hudRight" class="control-input" min="1" max="10" value="2" step="0.5" onchange="updateHudPositions()">
+                        </div>
+                        <div class="control-group">
+                            <label>Taille HUD: <span id="hudScaleValue">100%</span></label>
+                            <input type="range" id="hudScale" class="control-input" min="70" max="130" value="100" onchange="updateHudPositions()">
+                        </div>
+                        <div class="control-group">
+                            <label>Position Notif - Bas: <span id="notifBottomValue">11rem</span></label>
+                            <input type="range" id="notifBottom" class="control-input" min="3" max="15" value="11" step="0.5" onchange="updateHudPositions()">
+                        </div>
+                        <div class="control-group">
+                            <label>Position Notif - Droite: <span id="notifRightValue">2rem</span></label>
+                            <input type="range" id="notifRight" class="control-input" min="1" max="10" value="2" step="0.5" onchange="updateHudPositions()">
+                        </div>
+                        <div class="control-group">
+                            <label>Position Achievements - Bas: <span id="achievBottomValue">15.5rem</span></label>
+                            <input type="range" id="achievBottom" class="control-input" min="8" max="20" value="15.5" step="0.5" onchange="updateHudPositions()">
+                        </div>
+                        <div class="control-group">
+                            <label>Position Achievements - Droite: <span id="achievRightValue">1rem</span></label>
+                            <input type="range" id="achievRight" class="control-input" min="0" max="8" value="1" step="0.5" onchange="updateHudPositions()">
+                        </div>
+                    </div>
+                    <div class="flex gap-2 mt-4">
+                        <button class="preset-btn" onclick="resetHudPositions()">Reset Positions</button>
+                        <button class="preset-btn" onclick="applyPresetLayout('compact')">Layout Compact</button>
+                        <button class="preset-btn" onclick="applyPresetLayout('spacious')">Layout Spacieux</button>
+                        <button class="preset-btn" id="previewToggle" onclick="toggleHudPreview()">
+                            <i class="fas fa-eye mr-1"></i>Prévisualiser
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Actions Section -->
+                <div class="documentation-section">
+                    <h4 class="text-lg font-semibold mb-3 text-white">⚡ Actions Rapides</h4>
+                    <div class="space-y-2">
+                        <button class="game-button w-full" onclick="startMiniGame()">🧩 Mini-Jeu</button>
+                        <button class="game-button w-full bg-red-600 hover:bg-red-700" onclick="resetProfile()">🔄 Reset Profile</button>
                     </div>
                 </div>
             </div>
@@ -2002,8 +2007,7 @@ body.hud-preview-active .game-notification {
             const tamagotchi = document.getElementById('tamagotchi');
             const gamingController = document.getElementById('gamingController');
             const gameHUD = document.getElementById('gameHUD');
-            const gameNotification = document.getElementById('gameNotification');
-            const achievementToast = document.getElementById('achievementToast');
+            const unifiedNotificationsZone = document.getElementById('unifiedNotificationsZone');
 
             if (tamagotchi) {
                 tamagotchi.style.bottom = ericBottom + 'rem';
@@ -2026,14 +2030,9 @@ body.hud-preview-active .game-notification {
                 gameHUD.style.transformOrigin = 'bottom right';
             }
 
-            if (gameNotification) {
-                gameNotification.style.bottom = notifBottom + 'rem';
-                gameNotification.style.right = notifRight + 'rem';
-            }
-
-            if (achievementToast) {
-                achievementToast.style.bottom = achievBottom + 'rem';
-                achievementToast.style.right = achievRight + 'rem';
+            if (unifiedNotificationsZone) {
+                unifiedNotificationsZone.style.bottom = notifBottom + 'rem';
+                unifiedNotificationsZone.style.right = notifRight + 'rem';
             }
 
             // Sauvegarder les positions
@@ -2138,18 +2137,15 @@ body.hud-preview-active .game-notification {
             // Forcer l'affichage temporaire de tous les éléments gaming
             const gameHUD = document.getElementById('gameHUD');
             const tamagotchi = document.getElementById('tamagotchi');
-            const gameNotification = document.getElementById('gameNotification');
-            const achievementToast = document.getElementById('achievementToast');
+            const unifiedNotificationsZone = document.getElementById('unifiedNotificationsZone');
             const overlay = document.getElementById('colorPickerOverlay');
             
             // Sauvegarder l'état actuel
             const currentGamingMode = gamingMode;
-            const originalHudDisplay = gameHUD.style.display;
-            const originalTamaDisplay = tamagotchi.style.display;
             
             // Afficher temporairement tous les éléments
-            gameHUD.classList.add('show');
-            tamagotchi.classList.add('show');
+            if (gameHUD) gameHUD.classList.add('show');
+            if (tamagotchi) tamagotchi.classList.add('show');
             
             // Ajouter des étiquettes temporaires
             const hudLabel = document.createElement('div');
@@ -2190,19 +2186,30 @@ body.hud-preview-active .game-notification {
             `;
             document.body.appendChild(ericLabel);
             
-            // Afficher une notification de demo
-            document.getElementById('notificationText').textContent = '📱 Zone Notifications';
-            gameNotification.classList.add('show');
-            
-            // Afficher un achievement de demo
-            document.getElementById('achievementTitle').textContent = '🏆 Zone Achievements';
-            document.getElementById('achievementDesc').textContent = 'Succès et récompenses apparaissent ici';
-            achievementToast.classList.add('show');
+            // Afficher une notification de démo dans le système unifié
+            const notifLabel = document.createElement('div');
+            notifLabel.id = 'temp-notif-label';
+            notifLabel.innerHTML = '🔔 Zone Notifications';
+            notifLabel.style.cssText = `
+                position: fixed;
+                bottom: ${document.getElementById('notifBottom').value}rem;
+                right: ${document.getElementById('notifRight').value}rem;
+                background: rgba(251,191,36,0.9);
+                color: white;
+                padding: 8px 12px;
+                border-radius: 8px;
+                font-size: 12px;
+                font-weight: bold;
+                z-index: 10003;
+                pointer-events: none;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            `;
+            document.body.appendChild(notifLabel);
             
             // Ajouter les classes CSS pour marquer la prévisualisation
             document.body.classList.add('hud-preview-mode');
             document.body.classList.add('hud-preview-active');
-            overlay.classList.add('hud-preview-mode');
+            if (overlay) overlay.classList.add('hud-preview-mode');
             
             // Animation subtile pour attirer l'attention
             let pulseCount = 0;
@@ -2212,16 +2219,15 @@ body.hud-preview-active .game-notification {
                     return;
                 }
                 
-                const elements = [gameHUD, tamagotchi, gameNotification, achievementToast];
+                const elements = [gameHUD, tamagotchi, notifLabel].filter(el => el);
                 elements.forEach(el => {
-                    if (el) {
-                        el.style.transform += ' scale(' + (pulseCount % 2 === 0 ? '1.05' : '1') + ')';
-                        setTimeout(() => {
-                            if (el.style.transform) {
-                                el.style.transform = el.style.transform.replace(/scale\([^)]*\)/g, '');
-                            }
-                        }, 200);
-                    }
+                    const currentTransform = el.style.transform || '';
+                    const scale = pulseCount % 2 === 0 ? 1.05 : 1;
+                    el.style.transform = currentTransform.replace(/scale\([^)]*\)/g, '') + ` scale(${scale})`;
+                    
+                    setTimeout(() => {
+                        el.style.transform = el.style.transform.replace(/scale\([^)]*\)/g, '');
+                    }, 200);
                 });
                 pulseCount++;
             }, 400);
@@ -2238,29 +2244,27 @@ body.hud-preview-active .game-notification {
             document.body.classList.remove('hud-preview-mode');
             document.body.classList.remove('hud-preview-active');
             const overlay = document.getElementById('colorPickerOverlay');
-            overlay.classList.remove('hud-preview-mode');
+            if (overlay) overlay.classList.remove('hud-preview-mode');
             
             // Masquer les éléments si le mode gaming n'est pas actif
             if (!gamingMode) {
                 const gameHUD = document.getElementById('gameHUD');
                 const tamagotchi = document.getElementById('tamagotchi');
-                const gameNotification = document.getElementById('gameNotification');
-                const achievementToast = document.getElementById('achievementToast');
                 
-                gameHUD.classList.remove('show');
-                tamagotchi.classList.remove('show');
-                gameNotification.classList.remove('show');
-                achievementToast.classList.remove('show');
+                if (gameHUD) gameHUD.classList.remove('show');
+                if (tamagotchi) tamagotchi.classList.remove('show');
             }
             
             // Supprimer les étiquettes temporaires
             const hudLabel = document.getElementById('temp-hud-label');
             const ericLabel = document.getElementById('temp-eric-label');
+            const notifLabel = document.getElementById('temp-notif-label');
             if (hudLabel) hudLabel.remove();
             if (ericLabel) ericLabel.remove();
+            if (notifLabel) notifLabel.remove();
             
             // Nettoyer les transformations
-            document.querySelectorAll('.game-hud, .tamagotchi, .game-notification, .achievement-toast').forEach(el => {
+            document.querySelectorAll('.game-hud, .tamagotchi, .unified-notifications-zone').forEach(el => {
                 if (el.style.transform) {
                     el.style.transform = el.style.transform.replace(/scale\([^)]*\)/g, '');
                 }
@@ -2962,9 +2966,8 @@ body.hud-preview-active .game-notification {
             document.getElementById('gamingController').style.display = 'flex';
             
             // Masquer tous les éléments gaming
-            document.getElementById('gameHUD').classList.remove('show');
-            document.getElementById('achievementToast').classList.remove('show');
-            document.getElementById('gameNotification').classList.remove('show');
+            const gameHUD = document.getElementById('gameHUD');
+            if (gameHUD) gameHUD.classList.remove('show');
             
             showGameNotification('Mode Gaming désactivé');
         }
