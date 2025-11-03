@@ -1,0 +1,591 @@
+/**
+ * 🎨 ERIC ANIMATIONS CSS
+ * Animations CSS avancées pour les sprites d'Eric
+ * Version: 1.0
+ */
+
+/* ============================================
+   ANIMATIONS DE BASE - ÉTATS PRINCIPAUX
+   ============================================ */
+
+/* État IDLE - Respiration douce */
+.eric-idle {
+    animation: eric-breathing 4s ease-in-out infinite;
+}
+
+@keyframes eric-breathing {
+    0%, 100% {
+        transform: scale(1) translateY(0);
+    }
+    50% {
+        transform: scale(1.02) translateY(-2px);
+    }
+}
+
+/* État HAPPY - Sautille de joie */
+.eric-happy {
+    animation: eric-bounce-happy 0.6s ease-in-out infinite;
+}
+
+@keyframes eric-bounce-happy {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    25% {
+        transform: translateY(-15px) scale(1.05, 0.95);
+    }
+    50% {
+        transform: translateY(0) scale(1);
+    }
+    75% {
+        transform: translateY(-8px) scale(1.03, 0.97);
+    }
+}
+
+/* Queue qui remue quand heureux */
+.eric-happy .tail {
+    animation: tail-wag 0.4s ease-in-out infinite;
+    transform-origin: center right;
+}
+
+@keyframes tail-wag {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(15deg);
+    }
+}
+
+/* État SAD - Oreilles tombantes */
+.eric-sad {
+    animation: eric-sad-sway 2s ease-in-out infinite;
+    opacity: 0.9;
+}
+
+@keyframes eric-sad-sway {
+    0%, 100% {
+        transform: rotate(-2deg);
+    }
+    50% {
+        transform: rotate(2deg);
+    }
+}
+
+.eric-sad .ear-left {
+    transform: rotate(10deg);
+    transform-origin: bottom center;
+}
+
+.eric-sad .ear-right {
+    transform: rotate(-10deg);
+    transform-origin: bottom center;
+}
+
+/* État HUNGRY - Tremble + estomac gronde */
+.eric-hungry {
+    animation: eric-shake-hungry 0.5s ease-in-out infinite;
+}
+
+@keyframes eric-shake-hungry {
+    0%, 100% {
+        transform: translateX(0) rotate(0deg);
+    }
+    25% {
+        transform: translateX(-3px) rotate(-1deg);
+    }
+    50% {
+        transform: translateX(3px) rotate(1deg);
+    }
+    75% {
+        transform: translateX(-3px) rotate(-1deg);
+    }
+}
+
+.eric-hungry .hunger-icon {
+    animation: hunger-pulse 1s ease-in-out infinite;
+}
+
+@keyframes hunger-pulse {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
+
+/* État EATING - Animation de mastication */
+.eric-eating {
+    animation: eric-eating-bounce 0.8s ease-in-out infinite;
+}
+
+@keyframes eric-eating-bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    25% {
+        transform: translateY(-5px);
+    }
+    50% {
+        transform: translateY(0);
+    }
+}
+
+.eric-eating .mouth {
+    animation: mouth-chewing 0.4s ease-in-out infinite;
+    transform-origin: center;
+}
+
+@keyframes mouth-chewing {
+    0%, 100% {
+        transform: scaleY(1);
+    }
+    50% {
+        transform: scaleY(1.3);
+    }
+}
+
+/* Bol de nourriture qui bouge */
+.eric-eating .food-bowl {
+    animation: bowl-shake 0.4s ease-in-out infinite;
+    transform-origin: bottom center;
+}
+
+@keyframes bowl-shake {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(-3deg);
+    }
+    75% {
+        transform: rotate(3deg);
+    }
+}
+
+/* État PLAYING - Joue avec la balle */
+.eric-playing {
+    animation: eric-play-bounce 1s ease-in-out infinite;
+}
+
+@keyframes eric-play-bounce {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-20px) rotate(-5deg);
+    }
+    50% {
+        transform: translateY(0) rotate(0deg);
+    }
+    75% {
+        transform: translateY(-10px) rotate(5deg);
+    }
+}
+
+.eric-playing .toy-ball {
+    animation: ball-bounce 1s ease-in-out infinite;
+}
+
+@keyframes ball-bounce {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+    }
+    25% {
+        transform: translate(-10px, -30px) scale(1.1);
+    }
+    50% {
+        transform: translate(-20px, 0) scale(1);
+    }
+    75% {
+        transform: translate(-10px, -15px) scale(1.05);
+    }
+}
+
+/* État SLEEPING - Respiration lente + ZZZ */
+.eric-sleeping {
+    animation: eric-sleep-breathing 3s ease-in-out infinite;
+    opacity: 0.85;
+}
+
+@keyframes eric-sleep-breathing {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.03);
+    }
+}
+
+.eric-sleeping .zzz {
+    animation: zzz-float 2s ease-in-out infinite;
+    opacity: 0;
+}
+
+.eric-sleeping .zzz:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.eric-sleeping .zzz:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.eric-sleeping .zzz:nth-child(3) {
+    animation-delay: 1s;
+}
+
+@keyframes zzz-float {
+    0% {
+        opacity: 0;
+        transform: translateY(0);
+    }
+    25% {
+        opacity: 1;
+    }
+    75% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+/* État LOVE - Coeurs dans les yeux + coeurs flottants */
+.eric-love {
+    animation: eric-love-sway 2s ease-in-out infinite;
+}
+
+@keyframes eric-love-sway {
+    0%, 100% {
+        transform: rotate(-5deg);
+    }
+    50% {
+        transform: rotate(5deg);
+    }
+}
+
+.eric-love .floating-heart {
+    animation: heart-float 3s ease-in-out infinite;
+    opacity: 0;
+}
+
+.eric-love .floating-heart:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.eric-love .floating-heart:nth-child(2) {
+    animation-delay: 1s;
+}
+
+@keyframes heart-float {
+    0% {
+        opacity: 0;
+        transform: translateY(0) scale(0.5);
+    }
+    25% {
+        opacity: 1;
+        transform: translateY(-20px) scale(1);
+    }
+    75% {
+        opacity: 1;
+        transform: translateY(-40px) scale(0.8);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-60px) scale(0.5);
+    }
+}
+
+/* ============================================
+   ANIMATIONS DES PARTIES DU CORPS
+   ============================================ */
+
+/* Clignement des yeux (toutes les 3-5 secondes) */
+.eric-sprite .eyes {
+    animation: eye-blink 4s ease-in-out infinite;
+}
+
+@keyframes eye-blink {
+    0%, 48%, 52%, 100% {
+        transform: scaleY(1);
+    }
+    50% {
+        transform: scaleY(0.1);
+    }
+}
+
+/* Mouvement subtil des pupilles (suit le curseur simulé) */
+.eric-sprite .pupil-left,
+.eric-sprite .pupil-right {
+    animation: pupil-look-around 6s ease-in-out infinite;
+}
+
+@keyframes pupil-look-around {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    25% {
+        transform: translate(2px, -1px);
+    }
+    50% {
+        transform: translate(-2px, 1px);
+    }
+    75% {
+        transform: translate(1px, 2px);
+    }
+}
+
+/* Moustaches qui bougent légèrement */
+.eric-sprite .whiskers line {
+    animation: whiskers-twitch 3s ease-in-out infinite;
+    transform-origin: right center;
+}
+
+.eric-sprite .whiskers line:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.eric-sprite .whiskers line:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.eric-sprite .whiskers line:nth-child(3) {
+    animation-delay: 1s;
+}
+
+@keyframes whiskers-twitch {
+    0%, 90%, 100% {
+        transform: rotate(0deg);
+    }
+    92% {
+        transform: rotate(3deg);
+    }
+    96% {
+        transform: rotate(-3deg);
+    }
+}
+
+/* Ombre au sol qui bouge avec Eric */
+.ground-shadow {
+    animation: shadow-pulse 4s ease-in-out infinite;
+}
+
+@keyframes shadow-pulse {
+    0%, 100% {
+        opacity: 0.2;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.15;
+        transform: scale(1.05);
+    }
+}
+
+/* ============================================
+   ANIMATIONS D'INTERACTION
+   ============================================ */
+
+/* Quand on clique sur Eric */
+.eric-sprite.clicked {
+    animation: eric-poked 0.3s ease-out;
+}
+
+@keyframes eric-poked {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.95);
+    }
+    100% {
+        transform: scale(1.05);
+    }
+}
+
+/* Quand Eric reçoit de la nourriture */
+.eric-sprite.receiving-food {
+    animation: eric-excited 0.8s ease-out;
+}
+
+@keyframes eric-excited {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-20px) rotate(-5deg);
+    }
+    50% {
+        transform: translateY(-10px) rotate(5deg);
+    }
+    75% {
+        transform: translateY(-15px) rotate(-3deg);
+    }
+}
+
+/* Quand Eric monte de niveau */
+.eric-sprite.level-up {
+    animation: eric-level-up 1.5s ease-out;
+}
+
+@keyframes eric-level-up {
+    0% {
+        transform: scale(1) rotate(0deg);
+        filter: brightness(1);
+    }
+    25% {
+        transform: scale(1.2) rotate(10deg);
+        filter: brightness(1.5);
+    }
+    50% {
+        transform: scale(1.1) rotate(-5deg);
+        filter: brightness(1.3);
+    }
+    75% {
+        transform: scale(1.15) rotate(5deg);
+        filter: brightness(1.4);
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+        filter: brightness(1);
+    }
+}
+
+/* ============================================
+   EFFETS DE PARTICULES
+   ============================================ */
+
+/* Particules de coeur */
+@keyframes particle-heart-float {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(0.5) rotate(0deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(var(--tx), -80px) scale(1.2) rotate(360deg);
+    }
+}
+
+/* Particules d'étoiles */
+@keyframes particle-star-burst {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(0) rotate(0deg);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(var(--tx), var(--ty)) scale(1) rotate(180deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(calc(var(--tx) * 1.5), calc(var(--ty) * 1.5)) scale(0.5) rotate(360deg);
+    }
+}
+
+/* Particules de nourriture qui tombent */
+@keyframes particle-food-fall {
+    0% {
+        opacity: 1;
+        transform: translate(0, -50px) rotate(0deg) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(var(--tx), 20px) rotate(360deg) scale(0.5);
+    }
+}
+
+/* Particules de pièces */
+@keyframes particle-coin-collect {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(0.5) rotate(0deg);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(var(--tx), var(--ty)) scale(1.2) rotate(720deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(calc(var(--tx) * 2), calc(var(--ty) * 2)) scale(0) rotate(1080deg);
+    }
+}
+
+/* ============================================
+   TRANSITIONS ENTRE ÉTATS
+   ============================================ */
+
+.eric-sprite {
+    transition: all 0.3s ease-out;
+}
+
+/* Hover effect */
+.eric-sprite:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+    cursor: pointer;
+}
+
+.eric-sprite:active {
+    transform: scale(0.95);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+    /* Réduire l'intensité des animations sur mobile */
+    .eric-idle {
+        animation-duration: 5s;
+    }
+    
+    .eric-happy {
+        animation-duration: 0.8s;
+    }
+    
+    .eric-playing {
+        animation-duration: 1.2s;
+    }
+}
+
+/* ============================================
+   ACCESSIBILITÉ
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    /* Désactiver toutes les animations si l'utilisateur préfère */
+    .eric-sprite,
+    .eric-sprite * {
+        animation: none !important;
+        transition: none !important;
+    }
+    
+    /* Garder seulement les transformations de base */
+    .eric-sprite:hover {
+        transform: scale(1.02);
+    }
+}
+
+/* ============================================
+   DARK/LIGHT MODE SUPPORT
+   ============================================ */
+
+@media (prefers-color-scheme: light) {
+    .ground-shadow {
+        fill: rgba(0, 0, 0, 0.3);
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .ground-shadow {
+        fill: rgba(0, 0, 0, 0.5);
+    }
+    
+    .eric-sprite {
+        filter: brightness(1.1);
+    }
+}

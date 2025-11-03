@@ -1,7 +1,22 @@
 {
-  "current": "0.42",
+  "current": "0.43",
   "lastUpdate": "2025-11-03",
   "changelog": [
+    {
+      "version": "0.43",
+      "date": "2025-11-03",
+      "changes": [
+        "🐱 ERIC ENHANCED SYSTEM v1.0 - Tamagotchi interactif professionnel !",
+        "🎨 Sprites SVG animés avec 8 états : idle, happy, hungry, sad, eating, playing, sleeping, love",
+        "🎬 Scène 3D/isométrique interactive avec décor (sol, murs, objets)",
+        "🎮 5 boutons d'interaction : Feed, Play, Pet, Sleep, Clean avec animations",
+        "✨ Système de particules avancé : coeurs, étoiles, nourriture, sparkles",
+        "🌍 Cycle jour/nuit automatique avec changement de thème",
+        "🎯 Drag & drop des objets de décor (balle, bol, coussin)",
+        "🔗 Intégration complète avec système de gameplay existant",
+        "💾 Sauvegarde automatique de l'état d'Eric"
+      ]
+    },
     {
       "version": "0.42",
       "date": "2025-11-03",
@@ -110,6 +125,6 @@
       ]
     }
   ],
-  "nextVersion": "0.43",
+  "nextVersion": "0.44",
   "autoIncrement": 0.01
 }
