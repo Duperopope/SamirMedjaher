@@ -1,7 +1,17 @@
 {
-  "current": "0.38",
+  "current": "0.39",
   "lastUpdate": "2025-11-03",
   "changelog": [
+    {
+      "version": "0.39",
+      "date": "2025-11-03",
+      "changes": [
+        "✅ Suppression totale popups centre écran - showCoinGain() complètement désactivé",
+        "📍 TOUS les gains XP/Coins dans zone notifications unifiée - Plus de chevauchement",
+        "📊 Fallback intelligent - Si système unifié disponible, l'utilise automatiquement",
+        "🔧 Fonction showCoinGain() marquée DEPRECATED avec warning console"
+      ]
+    },
     {
       "version": "0.38",
       "date": "2025-11-03",
@@ -68,6 +78,6 @@
       ]
     }
   ],
-  "nextVersion": "0.39",
+  "nextVersion": "0.40",
   "autoIncrement": 0.01
 }

@@ -272,55 +272,18 @@ function spendCoins(amount) {
 }
 
 /**
- * Animation gain de coins
+ * Animation gain de coins - DEPRECATED
+ * Cette fonction est maintenant remplacée par le système de notifications unifiées
+ * Les gains de coins/XP apparaissent dans la zone de notifications (bottom-right)
  */
 function showCoinGain(amount, source) {
-    const notification = document.createElement('div');
-    notification.className = 'coin-gain-notification';
-    notification.textContent = `+${amount} 🪙`;
-    notification.style.cssText = `
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: linear-gradient(135deg, #fbbf24, #f59e0b);
-        color: white;
-        padding: 1rem 2rem;
-        border-radius: 12px;
-        font-size: 1.5rem;
-        font-weight: 700;
-        z-index: 10003;
-        box-shadow: 0 10px 40px rgba(251, 191, 36, 0.5);
-        animation: coinGainAnim 1.5s ease-out forwards;
-        pointer-events: none;
-    `;
+    // ⚠️ FONCTION DÉSACTIVÉE - Utilisez window.unifiedNotifications.notifyCoinsGained()
+    console.warn('⚠️ showCoinGain() is deprecated. Use window.unifiedNotifications.notifyCoinsGained()');
     
-    document.body.appendChild(notification);
-    
-    setTimeout(() => notification.remove(), 1500);
-}
-
-// Animation CSS pour coin gain
-if (!document.getElementById('coinGainStyle')) {
-    const style = document.createElement('style');
-    style.id = 'coinGainStyle';
-    style.textContent = `
-        @keyframes coinGainAnim {
-            0% {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(0.5);
-            }
-            50% {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1.2);
-            }
-            100% {
-                opacity: 0;
-                transform: translate(-50%, -70%) scale(0.8);
-            }
-        }
-    `;
-    document.head.appendChild(style);
+    // Fallback vers le système unifié si disponible
+    if (typeof window.unifiedNotifications !== 'undefined') {
+        window.unifiedNotifications.notifyCoinsGained(amount, source);
+    }
 }
 
 // ============================================
