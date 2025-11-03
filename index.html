@@ -712,7 +712,7 @@ body.hud-preview-active .game-notification {
 
     <script>
         // VERSION CHECK - Clear localStorage if version changes
-        const CURRENT_VERSION = '0.40';
+        const CURRENT_VERSION = '0.42';
         const storedVersion = localStorage.getItem('cv-version');
         if (storedVersion !== CURRENT_VERSION) {
             console.log(`🔄 Version changed (${storedVersion} → ${CURRENT_VERSION}) - Clearing gaming state`);
@@ -3823,7 +3823,7 @@ body.hud-preview-active .game-notification {
                 // Fallback to hardcoded values (update manually after each version bump)
                 const versionEl = document.getElementById('appVersion');
                 const lastUpdateEl = document.getElementById('lastUpdate');
-                if (versionEl) versionEl.textContent = '0.34';
+                if (versionEl) versionEl.textContent = '0.42';
                 if (lastUpdateEl) lastUpdateEl.textContent = '2025-11-02';
             }
         }
