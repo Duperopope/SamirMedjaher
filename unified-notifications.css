@@ -396,6 +396,16 @@
 }
 
 /* ============================================
+   OVERRIDE POSITION HUD XP BAR
+   ============================================ */
+
+/* Fix: HUD était à bottom:13rem (même niveau que toggle notifications)
+   Maintenant à 5rem pour éviter chevauchement avec notifications zone (9rem) */
+.game-hud {
+    bottom: 5rem !important;
+}
+
+/* ============================================
    RESPONSIVE
    ============================================ */
 

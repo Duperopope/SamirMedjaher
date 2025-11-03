@@ -1,7 +1,18 @@
 {
-  "current": "0.40",
+  "current": "0.41",
   "lastUpdate": "2025-11-03",
   "changelog": [
+    {
+      "version": "0.41",
+      "date": "2025-11-03",
+      "changes": [
+        "🔥 FIX CACHE-BUST CRITIQUE - Tous les ?v= mis à jour à v0.40 !",
+        "📦 tamagotchi-gameplay.js était en v0.34 avec ANCIEN code popup",
+        "🎯 Cache navigateur chargeait ancienne showCoinGain() avec popup centre écran",
+        "✅ TOUS les scripts maintenant synchronisés à v0.40 - Hard refresh forcé",
+        "🚀 Le popup '+31' sous le doigt devrait ENFIN disparaître complètement"
+      ]
+    },
     {
       "version": "0.40",
       "date": "2025-11-03",
@@ -88,6 +99,6 @@
       ]
     }
   ],
-  "nextVersion": "0.41",
+  "nextVersion": "0.42",
   "autoIncrement": 0.01
 }
