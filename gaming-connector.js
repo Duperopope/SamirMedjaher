@@ -134,11 +134,26 @@ function buyItemFromDashboard(itemId, category) {
  */
 function feedEricFromDashboard() {
     console.log('🍔 Feeding Éric...');
-    if (typeof feedEric !== 'undefined') {
+    
+    // Try different possible function names
+    if (typeof feedEric === 'function') {
         feedEric();
         showNotification('🍔 Éric a été nourri !', 'success');
+    } else if (typeof window.tamaSystem !== 'undefined' && typeof window.tamaSystem.feed === 'function') {
+        window.tamaSystem.feed();
+        showNotification('🍔 Éric a été nourri !', 'success');
+    } else if (typeof tamaState !== 'undefined') {
+        // Manual hunger increase
+        if (tamaState.hunger < 100) {
+            tamaState.hunger = Math.min(100, tamaState.hunger + 30);
+            if (typeof saveTamaState === 'function') saveTamaState();
+            showNotification('🍔 Éric a été nourri ! (+30 faim)', 'success');
+        } else {
+            showNotification('🍔 Éric n\'a pas faim !', 'info');
+        }
     } else {
-        showNotification('❌ Tamagotchi system not loaded', 'error');
+        showNotification('❌ Système temporairement indisponible', 'error');
+        console.warn('Tamagotchi functions not found. Available:', Object.keys(window).filter(k => k.toLowerCase().includes('tama')));
     }
 }
 
@@ -147,11 +162,24 @@ function feedEricFromDashboard() {
  */
 function playWithEricFromDashboard() {
     console.log('🎾 Playing with Éric...');
-    if (typeof playWithTama !== 'undefined') {
+    
+    if (typeof playWithTama === 'function') {
         playWithTama();
         showNotification('🎾 Éric s\'amuse !', 'success');
+    } else if (typeof window.tamaSystem !== 'undefined' && typeof window.tamaSystem.play === 'function') {
+        window.tamaSystem.play();
+        showNotification('🎾 Éric s\'amuse !', 'success');
+    } else if (typeof tamaState !== 'undefined') {
+        // Manual mood increase
+        if (tamaState.mood < 100) {
+            tamaState.mood = Math.min(100, tamaState.mood + 20);
+            if (typeof saveTamaState === 'function') saveTamaState();
+            showNotification('🎾 Éric s\'amuse ! (+20 humeur)', 'success');
+        } else {
+            showNotification('🎾 Éric est déjà très heureux !', 'info');
+        }
     } else {
-        showNotification('❌ Tamagotchi system not loaded', 'error');
+        showNotification('❌ Système temporairement indisponible', 'error');
     }
 }
 
@@ -160,11 +188,21 @@ function playWithEricFromDashboard() {
  */
 function cuddleEricFromDashboard() {
     console.log('🤗 Cuddling Éric...');
-    if (typeof cuddleEric !== 'undefined') {
+    
+    if (typeof cuddleEric === 'function') {
         cuddleEric();
         showNotification('🤗 Éric est heureux !', 'success');
+    } else if (typeof window.tamaSystem !== 'undefined' && typeof window.tamaSystem.cuddle === 'function') {
+        window.tamaSystem.cuddle();
+        showNotification('🤗 Éric est heureux !', 'success');
+    } else if (typeof tamaState !== 'undefined') {
+        // Manual mood + hunger increase
+        tamaState.mood = Math.min(100, (tamaState.mood || 50) + 15);
+        tamaState.hunger = Math.min(100, (tamaState.hunger || 50) + 5);
+        if (typeof saveTamaState === 'function') saveTamaState();
+        showNotification('🤗 Éric est heureux ! (+15 humeur, +5 faim)', 'success');
     } else {
-        showNotification('❌ Tamagotchi system not loaded', 'error');
+        showNotification('❌ Système temporairement indisponible', 'error');
     }
 }
 
