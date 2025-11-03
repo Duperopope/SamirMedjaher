@@ -1,7 +1,23 @@
 {
-  "current": "0.47",
+  "current": "0.48",
   "lastUpdate": "2025-11-03",
   "changelog": [
+    {
+      "version": "0.48",
+      "date": "2025-11-03",
+      "changes": [
+        "🎮 JEU PHASER 3 COMPLET ! Vrai moteur de jeu professionnel style Waven 2.5D",
+        "🎨 Graphismes 2.5D avec parallax multi-couches et profondeur visuelle",
+        "✨ Effets visuels modernes : particules (étoiles, cœurs, sparkles), glow, ombres",
+        "🐈‍⬛ Chat noir généré programmatiquement avec détails HD (yeux verts, moustaches)",
+        "📊 Système de stats complet avec barres animées (faim, humeur, santé, énergie)",
+        "🎯 Interactions fluides : caresser, nourrir, jouer avec animations tweens",
+        "💫 Animations 60 FPS hardware-accelerated avec Phaser 3",
+        "🌈 Backgrounds colorés style Waven avec effet de profondeur",
+        "🎬 Tweens professionnels : respiration, bounce, rotation, scale",
+        "⚡ Performance optimisée - Physique Arcade intégrée, game loop fluide"
+      ]
+    },
     {
       "version": "0.47",
       "date": "2025-11-03",
@@ -183,6 +199,6 @@
       ]
     }
   ],
-  "nextVersion": "0.48",
+  "nextVersion": "0.49",
   "autoIncrement": 0.01
 }

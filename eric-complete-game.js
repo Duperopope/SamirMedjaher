@@ -373,21 +373,15 @@ class EricCompleteGame {
                     ${this.renderFurniture(room.furniture)}
                 </div>
                 
-                <!-- Eric au centre (rendu isométrique) -->
-                <div class="eric-character isometric-character-container" id="ericCharacter">
-                    <div class="isometric-floor"></div>
-                    <div class="interaction-overlay"></div>
-                    <div class="state-indicator state-${this.getCurrentState()}">${this.getStateLabel()}</div>
-                    <!-- Le canvas isométrique sera inséré ici -->
+                <!-- 🎮 PHASER GAME CANVAS -->
+                <div id="ericGameContainer" style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+                    <!-- Le jeu Phaser sera créé ici -->
                 </div>
-                
-                <!-- Effets et particules -->
-                <div class="room-effects" id="roomEffects"></div>
             </div>
         `;
         
-        // Initialiser le renderer isométrique
-        this.initIsometricRenderer();
+        // Initialiser le jeu Phaser
+        this.initPhaserGame();
         
         // Ajouter interactivité sur Eric
         const ericContainer = document.getElementById('ericCharacter');
@@ -399,23 +393,30 @@ class EricCompleteGame {
     }
     
     /**
-     * Initialise le renderer HD professionnel avec vraies assets
+     * Initialise le jeu Phaser professionnel
      */
-    initIsometricRenderer() {
-        const container = document.getElementById('ericCharacter');
-        if (!container) return;
+    initPhaserGame() {
+        console.log('🎮 Initialisation du jeu Phaser...');
         
-        // Créer le renderer HD avec vraies assets
-        if (window.EricHDRenderer) {
-            this.hdRenderer = new EricHDRenderer('ericCharacter');
-            
-            // Synchroniser l'état initial
-            this.updateIsometricState();
-            
-            console.log('✅ HD Renderer initialisé avec vraies assets professionnelles');
+        // Vérifier que Phaser est chargé
+        if (typeof Phaser === 'undefined') {
+            console.error('❌ Phaser non chargé ! Vérifiez le CDN.');
+            return;
+        }
+        
+        // Vérifier que le conteneur existe
+        const container = document.getElementById('ericGameContainer');
+        if (!container) {
+            console.error('❌ Conteneur ericGameContainer introuvable');
+            return;
+        }
+        
+        // Initialiser le jeu Phaser
+        if (window.initEricPhaserGame) {
+            window.initEricPhaserGame();
+            console.log('✅ Jeu Phaser initialisé avec succès');
         } else {
-            console.warn('⚠️ EricHDRenderer non disponible, fallback sur images PNG');
-            this.fallbackToImages(container);
+            console.error('❌ initEricPhaserGame non disponible');
         }
     }
     
