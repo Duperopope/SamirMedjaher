@@ -2451,7 +2451,6 @@ body.hud-preview-active .game-notification {
             const hud = document.getElementById('gameHUD');
             const tama = document.getElementById('tamagotchi');
             const toggle = document.getElementById('gameToggle');
-            const minigamesTrigger = document.getElementById('minigamesTrigger');
 
             // Safety check: prevent crash if elements don't exist
             if (!hud || !tama) {
@@ -2462,7 +2461,6 @@ body.hud-preview-active .game-notification {
             if (gamingMode && gamingUnlocked) {
                 hud.classList.add('show');
                 tama.classList.add('show');
-                if (minigamesTrigger) minigamesTrigger.classList.add('active');
                 if (toggle) {
                     toggle.innerHTML = '🎮';
                     toggle.style.background = 'rgba(139, 92, 246, 0.2)';
@@ -2472,7 +2470,6 @@ body.hud-preview-active .game-notification {
             } else if (gamingUnlocked) {
                 hud.classList.remove('show');
                 tama.classList.remove('show');
-                if (minigamesTrigger) minigamesTrigger.classList.remove('active');
                 if (toggle) {
                     toggle.innerHTML = '🎮';
                     toggle.style.background = 'rgba(148, 163, 184, 0.1)';
