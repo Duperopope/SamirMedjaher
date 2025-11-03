@@ -61,20 +61,16 @@ class EricIntegrationManager {
     
     /**
      * Initialise le système de sprites
+     * Utilise les vraies images PNG au lieu de générer du SVG
      */
     initSprites() {
-        if (typeof EricSprites === 'undefined') {
-            console.error('❌ EricSprites class non trouvée ! Vérifier que eric-sprites.js est chargé.');
-            return;
-        }
-        
         // Charger l'évolution depuis le gameState
         if (this.gameState && this.gameState.evolution) {
             this.evolution = this.gameState.evolution;
         }
         
-        this.ericSprites = new EricSprites(this.evolution);
-        console.log('✅ Sprites Eric initialisés (évolution:', this.evolution + ')');
+        // Pas besoin de EricSprites class, on utilise les vraies images
+        console.log('✅ Système d\'images Eric initialisé (évolution:', this.evolution + ')');
     }
     
     /**
@@ -134,9 +130,14 @@ class EricIntegrationManager {
                     overflow: hidden;
                 ">
                     <div id="ericSpriteDisplay" style="
-                        width: 150px;
-                        height: 150px;
-                    "></div>
+                        width: 200px;
+                        height: 200px;
+                    ">
+                        <img src="assets/images/eric-normal.png" 
+                             alt="Eric" 
+                             style="width: 100%; height: 100%; object-fit: contain;"
+                             class="eric-sprite eric-idle">
+                    </div>
                 </div>
             `;
         }
@@ -190,23 +191,36 @@ class EricIntegrationManager {
     
     /**
      * Met à jour le sprite d'Eric
+     * Utilise les vraies images PNG au lieu des sprites SVG
      */
     updateEricSprite(state) {
-        if (!this.ericSprites) {
-            console.warn('⚠️ Sprites Eric non initialisés');
-            return;
-        }
+        // Mapping des états vers les vraies images
+        const imageMap = {
+            'idle': 'eric-normal.png',
+            'happy': 'eric-happy.png',
+            'hungry': 'eric-hungry.png',
+            'sad': 'eric-unhappy.png',
+            'eating': 'eric-fed.png',
+            'playing': 'eric-happy.png',
+            'sleeping': 'eric-sleeping.png',
+            'love': 'eric-happy.png'
+        };
         
-        // Générer le nouveau sprite
-        const spriteHTML = this.ericSprites.generateSprite(state);
+        const imageName = imageMap[state] || 'eric-normal.png';
+        const imagePath = `assets/images/${imageName}`;
         
-        // Injecter dans l'affichage
+        // Mettre à jour l'image dans la scène
         const displayContainer = document.getElementById('ericSpriteDisplay');
         if (displayContainer) {
-            displayContainer.innerHTML = spriteHTML;
+            displayContainer.innerHTML = `
+                <img src="${imagePath}" 
+                     alt="Eric - ${state}" 
+                     style="width: 100%; height: 100%; object-fit: contain;"
+                     class="eric-sprite eric-${state}">
+            `;
             this.currentState = state;
             
-            console.log(`🎨 Sprite Eric mis à jour: ${state}`);
+            console.log(`🎨 Image Eric mise à jour: ${state} (${imageName})`);
         }
     }
     
