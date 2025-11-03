@@ -81,25 +81,34 @@ class EricIntegrationManager {
      * Initialise la scène 3D
      */
     async initScene() {
-        // Chercher le conteneur du tamagotchi
-        const tamagotchiContainer = document.getElementById('tamagotchi');
+        // ⚠️ NE PAS toucher au tamagotchi rond - il ouvre le dashboard
+        // À la place, injecter la scène dans l'onglet "Eric" du dashboard
         
-        if (!tamagotchiContainer) {
-            console.error('❌ Conteneur tamagotchi non trouvé !');
+        const ericTabContent = document.getElementById('tab-eric');
+        
+        if (!ericTabContent) {
+            console.error('❌ Onglet Eric du dashboard non trouvé !');
             return;
         }
         
-        // Transformer le conteneur en scène complète
-        tamagotchiContainer.innerHTML = '<div id="ericSceneRoot"></div>';
-        tamagotchiContainer.style.width = '400px';
-        tamagotchiContainer.style.height = '400px';
-        tamagotchiContainer.style.background = 'transparent';
-        tamagotchiContainer.style.borderRadius = '24px';
+        // Créer le conteneur de la scène dans l'onglet Eric
+        ericTabContent.innerHTML = `
+            <div class="eric-dashboard-container" style="
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 2rem;
+            ">
+                <div id="ericSceneRoot"></div>
+            </div>
+        `;
         
         // Initialiser la scène si EricScene est disponible
         if (typeof EricScene !== 'undefined') {
             this.ericScene = new EricScene('ericSceneRoot');
-            console.log('✅ Scène 3D Eric initialisée');
+            console.log('✅ Scène 3D Eric initialisée dans le dashboard');
         } else {
             console.warn('⚠️ EricScene class non trouvée ! Mode fallback avec sprite simple.');
             this.createSimpleDisplay();
