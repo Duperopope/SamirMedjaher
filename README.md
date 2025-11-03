@@ -183,6 +183,52 @@ Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
 
 ## 🔄 Changelog
 
+### v0.46 (2025-11-03) - "🎨 RENDU ISOMÉTRIQUE PROFESSIONNEL - Style Dofus/Wakfu"
+- 🎨 **Transformation visuelle majeure** : Eric rendu en isométrique style RPG tactique français
+- 📐 **Moteur de projection isométrique** : Système 2:1 avec formules mathématiques exactes (Pikuma)
+- 🖼️ **Générateur de sprites procédural** : 48 frames (8 directions × 6 états) générés dynamiquement
+- 🎬 **Animations frame-by-frame** : Transitions fluides entre états et directions
+- 🧭 **8 directions cardinales** : N, NE, E, SE, S, SW, W, NW pour mouvements réalistes
+- 🎭 **6 états animés** : idle, walk, eat, play, sleep, sad avec personnalité unique
+- ✨ **Effets visuels avancés** : Ombres dynamiques, highlights, particules, glow effects
+- 🌈 **Palette colorée professionnelle** : Corps orange vif, ventre crème, yeux verts expressifs
+- 🎮 **Fallback intelligent** : Bascule automatique vers PNG si renderer non disponible
+- 🔧 **Architecture modulaire** : 3 fichiers séparés (renderer, sprites, animations)
+
+**Nouveaux fichiers** :
+- `eric-isometric-renderer.js` : Moteur de rendu avec projection cartésienne/isométrique (11.7KB)
+- `eric-isometric-sprites.js` : Générateur Canvas de sprites stylisés procéduraux (19.7KB)
+- `eric-isometric-animations.css` : Animations CSS professionnelles et effets visuels (12.3KB)
+
+**Améliorations techniques** :
+- **Projection isométrique 2:1** : `x_screen = (x - y) * TILE_WIDTH/2`, `y_screen = (x + y) * TILE_HEIGHT/2`
+- **Sprite sheet 1024×7680px** : Structure optimisée pour animation fluide
+- **Canvas rendering** : Performance optimale avec `imageSmoothingQuality: 'high'`
+- **Animations procédurales** : Queue qui remue, oreilles mobiles, respiration naturelle
+- **Intégration transparente** : Branché dans `eric-complete-game.js` sans casser l'existant
+
+**Impact visuel** :
+- ✅ Eric passe de simple PNG à personnage isométrique professionnel
+- ✅ Style rappelant Dofus/Wakfu avec qualité comparable
+- ✅ Animations riches et expressives (48 frames vs 6 images statiques)
+- ✅ Expérience gaming significativement améliorée
+
+**Sources & Références** :
+- [Pikuma - Isometric Projection](https://pikuma.com/blog/isometric-projection-in-games) : Formules mathématiques
+- Dofus/Wakfu art style : Inspiration RPG tactique français
+- Formules dimetric : Optimisation pixel art ratio 2:1
+
+### v0.45 (2025-11-03) - "🎮 JEU COMPLET - Eric devient un vrai tamagotchi immersif"
+- 🎮 **Transformation majeure** : Onglet Eric devient un jeu complet et immersif
+- 📊 **4 barres de stats visuelles** : Faim, Humeur, Santé, Énergie avec dégradation automatique
+- 🏠 **4 pièces explorables** : Salon, Cuisine, Chambre, Jardin avec décors uniques
+- 🎒 **Système d'inventaire complet** : Grid visuelle avec items draggables
+- 🛒 **Boutique avec 3 catégories** : Nourriture, Jouets, Soins
+- 🎮 **Section mini-jeux** : Memory, Attrape, Puzzle pour gagner des pièces
+- ✨ **Animations fluides** : Effets de particules professionnels
+- 💾 **Sauvegarde automatique** : Progression persistée en temps réel
+- 🪙 **Système monétaire** : 100 pièces de départ + gains via mini-jeux
+
 ### v0.43 (2025-11-03) - "🐱 ERIC ENHANCED SYSTEM v1.0 - Tamagotchi Professionnel"
 - 🐱 **Système Eric Enhanced complet** : Tamagotchi interactif de nouvelle génération
 - 🎨 **Sprites SVG animés** : 8 états distincts (idle, happy, hungry, sad, eating, playing, sleeping, love)
