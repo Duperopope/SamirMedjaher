@@ -1,31 +1,28 @@
 {
-  "current": "0.29",
+  "current": "0.30",
   "lastUpdate": "2025-11-02",
   "changelog": [
+    {
+      "version": "0.30",
+      "date": "2025-11-02",
+      "changes": [
+        "🛒 Shop complet intégré au dashboard avec 5 catégories",
+        "📦 Inventaire visuel avec gestion items/skins",
+        "🐱 Portrait Éric animé avec stats et actions",
+        "⚡ Quick Feed Menu pour achats rapides",
+        "🎨 Interface moderne avec grid responsive"
+      ]
+    },
     {
       "version": "0.29",
       "date": "2025-11-02",
       "changes": [
-        "🎮 Gaming Connector créé - Liaison entre tous les systèmes",
-        "⚙️ Onglet Settings ajouté au dashboard",
-        "🎯 Modal système pour mini-jeux en overlay",
-        "🐱 Fonctions Éric (nourrir, jouer, câliner) connectées",
-        "🛒 Fonctions Shop connectées au dashboard",
-        "🎁 Système lootbox préparé"
-      ]
-    },
-    {
-      "version": "0.28",
-      "date": "2025-11-02",
-      "changes": [
-        "🐛 CRITICAL FIX: Gaming mode page refresh no longer breaks CV",
-        "✅ checkQuestCompletion() stub prevents undefined errors",
-        "✅ unlockAchievement() safety checks for tier/achievement",
-        "✅ CV content (skills, experience, carousel) now renders correctly",
-        "🔧 Fixed race condition in gaming system initialization"
+        "🎮 Gaming Connector créé",
+        "⚙️ Onglet Settings ajouté",
+        "🎯 Modal système mini-jeux"
       ]
     }
   ],
-  "nextVersion": "0.30",
+  "nextVersion": "0.31",
   "autoIncrement": 0.01
 }
