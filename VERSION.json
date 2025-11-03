@@ -1,7 +1,17 @@
 {
-  "current": "0.39",
+  "current": "0.40",
   "lastUpdate": "2025-11-03",
   "changelog": [
+    {
+      "version": "0.40",
+      "date": "2025-11-03",
+      "changes": [
+        "✅ FIX FINAL popups sous le doigt ! Redirection showGameNotification() + showAchievement()",
+        "📍 Tous les +XP/+Coins dans zone unifiée - Plus AUCUNE popup à l'endroit du clic",
+        "🔄 Fallback intelligent vers console si système unifié pas chargé",
+        "🎯 Fonctions index.html maintenant connectées au système unifié"
+      ]
+    },
     {
       "version": "0.39",
       "date": "2025-11-03",
@@ -78,6 +88,6 @@
       ]
     }
   ],
-  "nextVersion": "0.40",
+  "nextVersion": "0.41",
   "autoIncrement": 0.01
 }
