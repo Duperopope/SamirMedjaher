@@ -90,6 +90,10 @@ class EricCompleteGame {
         this.isPlaying = false;
         this.miniGameActive = false;
         
+        // Renderer isométrique
+        this.isometricRenderer = null;
+        this.currentEricState = 'idle';
+        
         this.init();
     }
     
@@ -369,10 +373,9 @@ class EricCompleteGame {
                     ${this.renderFurniture(room.furniture)}
                 </div>
                 
-                <!-- Eric au centre -->
+                <!-- Eric au centre (rendu isométrique) -->
                 <div class="eric-character" id="ericCharacter">
-                    <img src="assets/images/eric-normal.png" alt="Eric">
-                    <div class="eric-shadow"></div>
+                    <!-- Le canvas isométrique sera inséré ici -->
                 </div>
                 
                 <!-- Effets et particules -->
@@ -380,10 +383,16 @@ class EricCompleteGame {
             </div>
         `;
         
+        // Initialiser le renderer isométrique
+        this.initIsometricRenderer();
+        
         // Ajouter interactivité sur Eric
-        document.getElementById('ericCharacter').addEventListener('click', () => {
-            this.petEric();
-        });
+        const ericContainer = document.getElementById('ericCharacter');
+        if (ericContainer) {
+            ericContainer.addEventListener('click', () => {
+                this.petEric();
+            });
+        }
     }
     
     /**
@@ -456,12 +465,93 @@ class EricCompleteGame {
     }
     
     /**
+     * Initialise le renderer isométrique
+     */
+    initIsometricRenderer() {
+        const ericContainer = document.getElementById('ericCharacter');
+        if (!ericContainer) {
+            console.warn('❌ Conteneur Eric introuvable');
+            return;
+        }
+        
+        // Vérifier si la classe IsometricRenderer est disponible
+        if (typeof IsometricRenderer === 'undefined') {
+            console.warn('⚠️ IsometricRenderer non chargé, utilisation du fallback PNG');
+            this.useFallbackRenderer(ericContainer);
+            return;
+        }
+        
+        // Créer le renderer isométrique
+        try {
+            this.isometricRenderer = new IsometricRenderer(ericContainer);
+            
+            // Insérer le canvas
+            ericContainer.innerHTML = '';
+            ericContainer.appendChild(this.isometricRenderer.getCanvas());
+            
+            // Définir l'état initial
+            this.updateEricState('idle');
+            
+            console.log('✅ Renderer isométrique initialisé');
+        } catch (error) {
+            console.error('❌ Erreur lors de l\'initialisation du renderer:', error);
+            this.useFallbackRenderer(ericContainer);
+        }
+    }
+    
+    /**
+     * Utilise le renderer PNG de secours
+     */
+    useFallbackRenderer(container) {
+        container.innerHTML = `
+            <img src="assets/images/eric-normal.png" alt="Eric">
+            <div class="eric-shadow"></div>
+        `;
+    }
+    
+    /**
+     * Met à jour l'état visuel d'Eric
+     */
+    updateEricState(state) {
+        this.currentEricState = state;
+        
+        if (this.isometricRenderer) {
+            this.isometricRenderer.setState(state);
+        } else {
+            // Fallback: changer l'image PNG
+            const img = document.querySelector('#ericCharacter img');
+            if (img) {
+                const stateImages = {
+                    'idle': 'eric-normal.png',
+                    'walk': 'eric-normal.png',
+                    'eat': 'eric-fed.png',
+                    'play': 'eric-happy.png',
+                    'sleep': 'eric-sleeping.png',
+                    'sad': 'eric-unhappy.png'
+                };
+                img.src = `assets/images/${stateImages[state] || 'eric-normal.png'}`;
+            }
+        }
+        
+        // Mettre à jour les classes CSS
+        const ericChar = document.getElementById('ericCharacter');
+        if (ericChar) {
+            ericChar.className = `eric-character ${state}`;
+        }
+    }
+    
+    /**
      * Caresse Eric
      */
     petEric() {
         this.modifyStat('mood', 5);
         this.createParticleEffect('hearts');
-        this.playAnimation('happy');
+        this.updateEricState('play');
+        
+        // Retour à idle après animation
+        setTimeout(() => {
+            this.updateEricState('idle');
+        }, 2000);
         
         if (window.showNotification) {
             window.showNotification('💕 Eric ronronne de bonheur !', 'success');
@@ -493,12 +583,17 @@ class EricCompleteGame {
     }
     
     /**
-     * Joue une animation sur Eric
+     * Joue une animation sur Eric (legacy)
      */
     playAnimation(animation) {
-        const eric = document.getElementById('ericCharacter');
-        eric.classList.add(`anim-${animation}`);
-        setTimeout(() => eric.classList.remove(`anim-${animation}`), 1000);
+        // Les animations sont maintenant gérées par updateEricState
+        const stateMapping = {
+            'happy': 'play',
+            'hungry': 'sad',
+            'eating': 'eat',
+            'sleeping': 'sleep'
+        };
+        this.updateEricState(stateMapping[animation] || animation);
     }
     
     /**
@@ -639,11 +734,24 @@ class EricCompleteGame {
      * Vérifie les conditions critiques
      */
     checkCriticalConditions() {
+        // Détermine l'état visuel selon les stats
         if (this.stats.hunger.current < 20) {
-            this.playAnimation('hungry');
-        }
-        if (this.stats.mood.current < 20) {
-            this.playAnimation('sad');
+            if (this.currentEricState === 'idle') {
+                this.updateEricState('sad');
+            }
+        } else if (this.stats.mood.current < 20) {
+            if (this.currentEricState === 'idle') {
+                this.updateEricState('sad');
+            }
+        } else if (this.stats.energy.current < 20) {
+            if (this.currentEricState === 'idle') {
+                this.updateEricState('sleep');
+            }
+        } else {
+            // Retour à idle si les stats sont bonnes
+            if (this.currentEricState === 'sad' || this.currentEricState === 'sleep') {
+                this.updateEricState('idle');
+            }
         }
     }
     

@@ -1,7 +1,23 @@
 {
-  "current": "0.45",
+  "current": "0.46",
   "lastUpdate": "2025-11-03",
   "changelog": [
+    {
+      "version": "0.46",
+      "date": "2025-11-03",
+      "changes": [
+        "🎨 RENDU ISOMÉTRIQUE PROFESSIONNEL ! Eric transformé style Dofus/Wakfu",
+        "🖼️ Générateur de sprites isométriques procédural avec 8 directions × 6 états",
+        "📐 Moteur de projection isométrique 2:1 avec formules mathématiques exactes",
+        "🎬 Animations frame-by-frame fluides avec transitions état/direction",
+        "✨ Effets visuels avancés : ombres dynamiques, highlights, particules",
+        "🎭 États animés: idle, walk, eat, play, sleep, sad avec sprites stylisés",
+        "🧭 8 directions cardinales : N, NE, E, SE, S, SW, W, NW",
+        "🔧 Fallback intelligent vers PNG si renderer non disponible",
+        "🎮 Intégration complète dans eric-complete-game.js",
+        "🌈 Palette colorée style RPG tactique français avec effets professionnels"
+      ]
+    },
     {
       "version": "0.45",
       "date": "2025-11-03",
@@ -18,7 +34,7 @@
       ]
     },
     {
-      "version": "0.45",
+      "version": "0.44",
       "date": "2025-11-03",
       "changes": [
         "🎨 FIX: Utilisation des vraies images PNG d'Eric au lieu des sprites SVG",
@@ -151,6 +167,6 @@
       ]
     }
   ],
-  "nextVersion": "0.45",
+  "nextVersion": "0.46",
   "autoIncrement": 0.01
 }

@@ -1,0 +1,598 @@
+/**
+ * 🎨 ERIC ISOMETRIC ANIMATIONS
+ * Animations et effets visuels pour le rendu isométrique
+ * Style professionnel Dofus/Wakfu
+ * Version: 1.0
+ */
+
+/* ============================================
+   CANVAS PRINCIPAL
+   ============================================ */
+
+.eric-isometric-canvas {
+    width: 100%;
+    height: 100%;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+    display: block;
+}
+
+/* ============================================
+   CONTENEUR DE JEU ISOMÉTRIQUE
+   ============================================ */
+
+.eric-isometric-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+    border-radius: 12px;
+}
+
+/* ============================================
+   GRILLE ISOMÉTRIQUE (pour debug)
+   ============================================ */
+
+.isometric-grid {
+    position: absolute;
+    inset: 0;
+    opacity: 0.1;
+    pointer-events: none;
+    background-image: 
+        repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 64px,
+            rgba(255, 255, 255, 0.1) 64px,
+            rgba(255, 255, 255, 0.1) 65px
+        ),
+        repeating-linear-gradient(
+            -45deg,
+            transparent,
+            transparent 64px,
+            rgba(255, 255, 255, 0.1) 64px,
+            rgba(255, 255, 255, 0.1) 65px
+        );
+}
+
+/* ============================================
+   ANIMATIONS DU PERSONNAGE
+   ============================================ */
+
+/* Animation de respiration (idle) */
+@keyframes breathe {
+    0%, 100% {
+        transform: scale(1) translateY(0);
+    }
+    50% {
+        transform: scale(1.02) translateY(-2px);
+    }
+}
+
+.eric-breathing {
+    animation: breathe 3s ease-in-out infinite;
+}
+
+/* Animation de saut (play) */
+@keyframes jump {
+    0%, 100% {
+        transform: translateY(0) scale(1, 1);
+    }
+    50% {
+        transform: translateY(-30px) scale(1.1, 0.9);
+    }
+}
+
+.eric-jumping {
+    animation: jump 0.6s ease-in-out;
+}
+
+/* Animation de rotation (360°) */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.eric-spinning {
+    animation: spin 1s ease-in-out;
+}
+
+/* Animation de rebond */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-20px);
+    }
+    60% {
+        transform: translateY(-10px);
+    }
+}
+
+.eric-bouncing {
+    animation: bounce 1s ease-in-out;
+}
+
+/* Animation de tremblement (triste) */
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        transform: translateX(-3px);
+    }
+    20%, 40%, 60%, 80% {
+        transform: translateX(3px);
+    }
+}
+
+.eric-shaking {
+    animation: shake 0.5s ease-in-out;
+}
+
+/* Animation de pulsation */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+}
+
+.eric-pulsing {
+    animation: pulse 1s ease-in-out infinite;
+}
+
+/* ============================================
+   EFFETS VISUELS
+   ============================================ */
+
+/* Ombre portée dynamique */
+.eric-shadow {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 12px;
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.4) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(4px);
+    z-index: 0;
+}
+
+.eric-shadow.moving {
+    animation: shadowMove 0.8s ease-in-out infinite;
+}
+
+@keyframes shadowMove {
+    0%, 100% {
+        transform: translateX(-50%) scale(1);
+        opacity: 0.4;
+    }
+    50% {
+        transform: translateX(-50%) scale(0.8);
+        opacity: 0.2;
+    }
+}
+
+/* Effet de brillance/highlight */
+.eric-highlight {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+        circle at 30% 30%,
+        rgba(255, 255, 255, 0.3) 0%,
+        rgba(255, 255, 255, 0.1) 30%,
+        transparent 60%
+    );
+    border-radius: 50%;
+    mix-blend-mode: overlay;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.eric-character:hover .eric-highlight {
+    opacity: 1;
+}
+
+/* Effet de lueur (glow) */
+.eric-glow {
+    position: absolute;
+    inset: -10px;
+    pointer-events: none;
+    background: radial-gradient(
+        circle at center,
+        rgba(255, 215, 0, 0.3) 0%,
+        rgba(255, 215, 0, 0.1) 40%,
+        transparent 70%
+    );
+    border-radius: 50%;
+    filter: blur(15px);
+    opacity: 0;
+    z-index: -1;
+    animation: glowPulse 2s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.6;
+        transform: scale(1.1);
+    }
+}
+
+.eric-character.happy .eric-glow,
+.eric-character.playing .eric-glow {
+    opacity: 1;
+}
+
+/* ============================================
+   EFFETS DE PARTICULES
+   ============================================ */
+
+/* Conteneur de particules */
+.particle-container {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 100;
+}
+
+/* Cœurs flottants */
+.particle-heart {
+    position: absolute;
+    font-size: 20px;
+    animation: floatHeart 2s ease-out forwards;
+}
+
+@keyframes floatHeart {
+    0% {
+        transform: translateY(0) scale(0);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(-40px) scale(1.2);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-80px) scale(0.8);
+        opacity: 0;
+    }
+}
+
+/* Étincelles */
+.particle-sparkle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #FFD700;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #FFD700;
+    animation: sparkle 1s ease-out forwards;
+}
+
+@keyframes sparkle {
+    0% {
+        transform: translate(0, 0) scale(0);
+        opacity: 1;
+    }
+    50% {
+        transform: translate(var(--x), var(--y)) scale(1.5);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(calc(var(--x) * 2), calc(var(--y) * 2)) scale(0);
+        opacity: 0;
+    }
+}
+
+/* Bulles Zzz (sommeil) */
+.particle-zzz {
+    position: absolute;
+    font-size: 18px;
+    font-weight: bold;
+    color: #94A3B8;
+    animation: floatZzz 3s ease-in-out infinite;
+}
+
+@keyframes floatZzz {
+    0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+    }
+    20% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-60px) translateX(20px);
+        opacity: 0;
+    }
+}
+
+/* Étoiles (joie) */
+.particle-star {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    clip-path: polygon(
+        50% 0%,
+        61% 35%,
+        98% 35%,
+        68% 57%,
+        79% 91%,
+        50% 70%,
+        21% 91%,
+        32% 57%,
+        2% 35%,
+        39% 35%
+    );
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    animation: twinkle 1.5s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% {
+        transform: scale(0.8) rotate(0deg);
+        opacity: 0.6;
+    }
+    50% {
+        transform: scale(1.2) rotate(180deg);
+        opacity: 1;
+    }
+}
+
+/* ============================================
+   TRANSITIONS FLUIDES
+   ============================================ */
+
+.eric-character {
+    transition: 
+        transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+        filter 0.3s ease,
+        opacity 0.3s ease;
+}
+
+.eric-character.transitioning {
+    opacity: 0.8;
+    filter: blur(2px);
+}
+
+/* ============================================
+   EFFETS D'INTERACTION
+   ============================================ */
+
+.eric-character:hover {
+    transform: translateY(-5px);
+    filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.4));
+    cursor: pointer;
+}
+
+.eric-character:active {
+    transform: translateY(-2px) scale(0.98);
+}
+
+/* ============================================
+   EFFETS SELON L'ÉTAT
+   ============================================ */
+
+/* État: Faim */
+.eric-character.hungry {
+    animation: shake 0.5s ease-in-out infinite;
+}
+
+.eric-character.hungry::after {
+    content: '🍖';
+    position: absolute;
+    top: -30px;
+    right: -30px;
+    font-size: 24px;
+    animation: floatHeart 2s ease-in-out infinite;
+}
+
+/* État: Triste */
+.eric-character.sad {
+    filter: grayscale(0.3) brightness(0.8);
+}
+
+.eric-character.sad::after {
+    content: '😢';
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20px;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* État: Dort */
+.eric-character.sleeping {
+    animation: breathe 4s ease-in-out infinite;
+    filter: brightness(0.7);
+}
+
+/* État: Joue */
+.eric-character.playing {
+    animation: bounce 0.8s ease-in-out infinite;
+}
+
+/* État: Mange */
+.eric-character.eating {
+    animation: munch 0.5s ease-in-out infinite;
+}
+
+@keyframes munch {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05) rotate(2deg);
+    }
+}
+
+/* ============================================
+   EFFETS DE NIVEAU D'ÉNERGIE
+   ============================================ */
+
+.eric-character.low-energy {
+    animation: fade 3s ease-in-out infinite;
+}
+
+@keyframes fade {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+/* ============================================
+   ANIMATIONS D'ENTRÉE/SORTIE
+   ============================================ */
+
+.eric-enter {
+    animation: enterScene 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes enterScene {
+    from {
+        transform: translateY(100px) scale(0);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+.eric-exit {
+    animation: exitScene 0.5s ease-in forwards;
+}
+
+@keyframes exitScene {
+    from {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-100px) scale(0);
+        opacity: 0;
+    }
+}
+
+/* ============================================
+   INDICATEURS VISUELS
+   ============================================ */
+
+/* Indicateur de niveau de stat */
+.stat-indicator {
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 4px 12px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 20px;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.eric-character:hover .stat-indicator {
+    opacity: 1;
+}
+
+/* Badge de notification */
+.notification-badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 24px;
+    height: 24px;
+    background: #EF4444;
+    border: 3px solid white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    animation: badgePulse 2s ease-in-out infinite;
+    z-index: 1000;
+}
+
+@keyframes badgePulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+    }
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+    }
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+    .eric-isometric-canvas {
+        width: 100%;
+        height: auto;
+        max-height: 300px;
+    }
+    
+    .particle-container {
+        display: none; /* Désactive les particules sur mobile pour performance */
+    }
+}
+
+/* ============================================
+   PERFORMANCES
+   ============================================ */
+
+/* Optimisations GPU */
+.eric-character,
+.eric-shadow,
+.particle-container,
+.eric-glow {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* Réduction des animations si préférence utilisateur */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

@@ -14,10 +14,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     
     <!-- Design System CSS (Unified Variables & Components) -->
-    <link rel="stylesheet" href="design-system.css?v=0.45">
+    <link rel="stylesheet" href="design-system.css?v=0.46">
     
     <!-- Unified Notifications System CSS -->
-    <link rel="stylesheet" href="unified-notifications.css?v=0.45">
+    <link rel="stylesheet" href="unified-notifications.css?v=0.46">
     
     <style>
         :root{--primary:#06b6d4;--secondary:#10b981;--accent:#8b5cf6;--dark:#0f172a;--dark-light:#1e293b;--dark-medium:#334155;--text-primary:#e2e8f0;--text-secondary:#94a3b8;--text-muted:#64748b;--game-gold:#fbbf24;--game-xp:#10b981}*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}body{background:linear-gradient(135deg,var(--dark) 0%,var(--dark-light) 50%,var(--dark-medium) 100%);color:var(--text-primary);line-height:1.5;min-height:100vh;position:relative;overflow-x:hidden}#particleCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}.glass-subtle{background:rgba(30,41,59,0.1);backdrop-filter:blur(15px);border-radius:16px;border:1px solid rgba(148,163,184,0.08);box-shadow:0 8px 32px rgba(0,0,0,0.12);position:relative;z-index:1}.glass-card{background:rgba(15,23,42,0.15);backdrop-filter:blur(12px);border-radius:12px;border:1px solid rgba(148,163,184,0.06);transition:all 0.3s ease;position:relative;z-index:1}.glass-card:hover{background:rgba(15,23,42,0.2);border-color:rgba(6,182,212,0.15);transform:translateY(-2px)}.profile-img{width:140px;height:140px;border-radius:50%;border:2px solid var(--primary);box-shadow:0 0 20px rgba(6,182,212,0.15);object-fit:cover;transition:all 0.3s ease;cursor:pointer}.profile-img:hover{transform:scale(1.03);box-shadow:0 0 30px rgba(6,182,212,0.25)}.section-title{font-size:1.25rem;font-weight:600;color:var(--primary);margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem;padding-bottom:0.5rem;border-bottom:1px solid var(--dark-medium)}.contact-item{display:flex;align-items:center;gap:0.5rem;color:var(--text-secondary);padding:0.3rem;border-radius:6px;transition:all 0.3s ease;cursor:pointer}.contact-item:hover{color:var(--text-primary);background:rgba(6,182,212,0.1);transform:translateX(3px)}.contact-item i{color:var(--primary);width:16px;text-align:center;font-size:0.9rem}.skill-bubble{position:relative;background:linear-gradient(135deg,rgba(6,182,212,0.1),rgba(16,185,129,0.08));border:1px solid rgba(6,182,212,0.2);border-radius:20px;padding:0.5rem 0.8rem;text-align:center;cursor:pointer;transition:all 0.3s ease;font-size:0.8rem;margin:0.2rem;display:inline-block}.skill-bubble:hover{transform:translateY(-3px) scale(1.05);background:linear-gradient(135deg,rgba(6,182,212,0.2),rgba(16,185,129,0.15));border-color:rgba(6,182,212,0.4);box-shadow:0 8px 25px rgba(6,182,212,0.3)}.skill-tooltip{position:absolute;bottom:120%;left:50%;transform:translateX(-50%);background:rgba(15,23,42,0.95);backdrop-filter:blur(15px);border:1px solid rgba(6,182,212,0.3);border-radius:8px;padding:0.75rem;font-size:0.7rem;white-space:nowrap;opacity:0;pointer-events:none;transition:all 0.3s ease;z-index:10001;max-width:280px;white-space:normal}.skill-tooltip.show{opacity:1}.typewriter-cursor{display:inline-block;background:var(--primary);width:2px;height:1.2em;margin-left:2px;animation:blink 1s infinite}@keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}.experience-item{position:relative;padding-left:1rem;margin-bottom:1rem}.experience-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--primary),var(--secondary));border-radius:1px}.lang-switch{position:fixed;top:1.5rem;right:1.5rem;background:rgba(30,41,59,0.15);backdrop-filter:blur(15px);border-radius:20px;padding:0.3rem;display:flex;gap:0.3rem;border:1px solid rgba(148,163,184,0.1);z-index:1000}.lang-btn{background:transparent;border:none;color:var(--text-secondary);padding:0.4rem 0.8rem;border-radius:15px;cursor:pointer;font-weight:500;transition:all 0.3s ease;font-size:0.8rem}.lang-btn.active{background:rgba(6,182,212,0.2);color:var(--primary)}.color-picker-trigger{position:fixed;top:1.5rem;right:8rem;width:40px;height:40px;background:rgba(30,41,59,0.15);backdrop-filter:blur(15px);border:1px solid rgba(148,163,184,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:1000;transition:all 0.3s ease}.color-picker-trigger:hover{background:rgba(30,41,59,0.25);border-color:var(--primary);transform:scale(1.1)}.game-toggle{position:fixed;top:1.5rem;right:13rem;background:rgba(139,92,246,0.1);backdrop-filter:blur(15px);border:1px solid rgba(139,92,246,0.2);border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;color:var(--accent);cursor:pointer;font-size:1.2rem;transition:all 0.3s ease;z-index:1000;display:none;opacity:0;transform:scale(0.8);overflow:hidden;white-space:nowrap}.game-toggle.unlocked{display:flex;animation:unlockAnimation 0.8s ease forwards}.game-toggle:hover{background:rgba(139,92,246,0.2);transform:scale(1.05);width:auto;border-radius:20px;padding:0.3rem 0.8rem;font-size:0.8rem;min-width:120px}@keyframes unlockAnimation{0%{opacity:0;transform:scale(0.8) translateY(-10px)}100%{opacity:1;transform:scale(1) translateY(0)}}.game-hud{position:fixed;bottom:13rem;right:2rem;z-index:1000;background:var(--hud-bg, rgba(15,23,42,0.9));backdrop-filter:blur(15px);border-radius:12px;padding:0.75rem 1rem;border:1px solid rgba(6,182,212,0.2);display:none;align-items:center;gap:1rem;opacity:var(--hud-opacity, 0.9);transition:all 0.3s ease;box-shadow:0 8px 25px rgba(6,182,212,0.2)}.game-hud.show{display:flex}        .game-stat{display:flex;align-items:center;gap:0.3rem;font-size:0.8rem;color:var(--text-secondary)}.game-stat i{color:var(--game-gold)}.xp-bar{width:60px;height:4px;background:rgba(148,163,184,0.2);border-radius:2px;overflow:hidden}.xp-progress{height:100%;background:linear-gradient(90deg,var(--game-xp),var(--primary));border-radius:2px;transition:width 0.5s ease;width:0%}.achievement-toast{position:fixed;bottom:12rem;right:1rem;background:linear-gradient(135deg,var(--game-gold),#f59e0b);color:white;padding:0.8rem 1rem;border-radius:12px;box-shadow:0 10px 30px rgba(251,191,36,0.3);z-index:10002;transform:translateX(100%);transition:transform 0.5s cubic-bezier(0.4,0,0.2,1);max-width:280px;border:1px solid rgba(255,255,255,0.1);font-size:0.85rem}.achievement-toast.show{transform:translateX(0)}.achievement-toast::before{content:'🏆';position:absolute;top:-8px;left:8px;background:var(--dark);border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:10px;border:1px solid var(--game-gold)}.achievement-toast.show{transform:translateX(0)}.tamagotchi{position:fixed;bottom:2rem;right:2rem;width:80px;height:80px;background:rgba(15,23,42,0.9);border-radius:50%;border:2px solid var(--primary);display:none;align-items:center;justify-content:center;font-size:2rem;cursor:pointer;z-index:1000;transition:all 0.3s ease;box-shadow:0 8px 25px rgba(6,182,212,0.3)}.tamagotchi.show{display:flex;animation:gamingPulse 3s infinite}.tamagotchi:hover{transform:scale(1.1);box-shadow:0 12px 35px rgba(6,182,212,0.4)}
@@ -714,7 +714,7 @@ body.hud-preview-active .game-notification {
         // VERSION CHECK - Clear localStorage if version changes
         // ⚠️ IMPORTANT: Utiliser le script ./update-version.sh pour mettre à jour
         // Cette constante est synchronisée automatiquement par le script
-        const CURRENT_VERSION = '0.45';
+        const CURRENT_VERSION = '0.46';
         const storedVersion = localStorage.getItem('cv-version');
         if (storedVersion !== CURRENT_VERSION) {
             console.log(`🔄 Version changed (${storedVersion} → ${CURRENT_VERSION}) - Clearing gaming state`);
@@ -3852,28 +3852,35 @@ body.hud-preview-active .game-notification {
     </script>
     
     <!-- Tamagotchi Enhanced - CSS Animations -->
-    <link rel="stylesheet" href="tamagotchi-animations.css?v=0.45">
+    <link rel="stylesheet" href="tamagotchi-animations.css?v=0.46">
     
     <!-- Tamagotchi Mini-Games - CSS Interface -->
-    <link rel="stylesheet" href="tamagotchi-minigames.css?v=0.45">
+    <link rel="stylesheet" href="tamagotchi-minigames.css?v=0.46">
     
     <!-- Tamagotchi Enhanced - JavaScript Logic -->
-    <script src="tamagotchi-enhanced.js?v=0.45"></script>
+    <script src="tamagotchi-enhanced.js?v=0.46"></script>
     
     <!-- Tamagotchi Mini-Games - JavaScript Logic -->
-    <script src="tamagotchi-minigames.js?v=0.45"></script>
+    <script src="tamagotchi-minigames.js?v=0.46"></script>
     
     <!-- Gameplay System v2.0 - Coins, XP, Évolution -->
-    <script src="tamagotchi-gameplay.js?v=0.45"></script>
+    <script src="tamagotchi-gameplay.js?v=0.46"></script>
     
     <!-- Shop System - Boutique complète -->
-    <link rel="stylesheet" href="tamagotchi-shop.css?v=0.45">
-    <script src="tamagotchi-shop.js?v=0.45"></script>
+    <link rel="stylesheet" href="tamagotchi-shop.css?v=0.46">
+    <script src="tamagotchi-shop.js?v=0.46"></script>
     
     <!-- 🐱 ERIC COMPLETE GAME SYSTEM v2.0 - Jeu tamagotchi complet -->
     <!-- Jeu complet et immersif dans l'onglet Eric du dashboard -->
-    <link rel="stylesheet" href="eric-complete-game.css?v=0.45">
-    <script src="eric-complete-game.js?v=0.45"></script>
+    
+    <!-- 🎨 Système de rendu isométrique professionnel (Dofus/Wakfu style) -->
+    <link rel="stylesheet" href="eric-isometric-animations.css?v=0.46">
+    <script src="eric-isometric-sprites.js?v=0.46"></script>
+    <script src="eric-isometric-renderer.js?v=0.46"></script>
+    
+    <!-- 🎮 Jeu complet Eric -->
+    <link rel="stylesheet" href="eric-complete-game.css?v=0.46">
+    <script src="eric-complete-game.js?v=0.46"></script>
     
     <script>
     // Fonction pour mettre à jour le HUD avec gameState
@@ -4013,7 +4020,7 @@ body.hud-preview-active .game-notification {
     <!-- 🎮 GAMING DASHBOARD v2.0 - NEXT-GEN GAMIFICATION -->
     
     <!-- Dashboard UI Styles -->
-    <link rel="stylesheet" href="gaming-ui.css?v=0.45">
+    <link rel="stylesheet" href="gaming-ui.css?v=0.46">
     
     <style>
         /* Dashboard Toggle Button */
@@ -4028,22 +4035,22 @@ body.hud-preview-active .game-notification {
     </style>
     
     <!-- Advanced Mini-Games Styles -->
-    <link rel="stylesheet" href="gaming-minigames-advanced.css?v=0.45">
+    <link rel="stylesheet" href="gaming-minigames-advanced.css?v=0.46">
     
     <!-- Chart.js for Stats Dashboard -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     
     <!-- Dashboard Core Engine -->
-    <script src="gaming-dashboard.js?v=0.45"></script>
+    <script src="gaming-dashboard.js?v=0.46"></script>
     
     <!-- Advanced Mini-Games -->
-    <script src="gaming-minigames-advanced.js?v=0.45"></script>
+    <script src="gaming-minigames-advanced.js?v=0.46"></script>
     
     <!-- Gaming Connector - Liens entre tous les systèmes -->
-    <script src="gaming-connector.js?v=0.45"></script>
+    <script src="gaming-connector.js?v=0.46"></script>
     
     <!-- Unified Notifications System -->
-    <script src="unified-notifications.js?v=0.45"></script>
+    <script src="unified-notifications.js?v=0.46"></script>
     
     <!-- Initialize Dashboard -->
     <script>
