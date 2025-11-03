@@ -789,14 +789,7 @@ function animatePurchase() {
 function initShop() {
     console.log('🏪 Shop system initialized');
     
-    // Créer bouton shop si pas existant
-    if (!document.querySelector('.shop-trigger')) {
-        const trigger = document.createElement('div');
-        trigger.className = 'shop-trigger';
-        trigger.innerHTML = '🏪';
-        trigger.onclick = openShop;
-        document.body.appendChild(trigger);
-    }
+    // Shop trigger removed - now accessible via dashboard only
 }
 
 // Exposer globalement
