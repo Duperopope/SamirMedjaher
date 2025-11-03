@@ -135,6 +135,9 @@ function buyItemFromDashboard(itemId, category) {
 function feedEricFromDashboard() {
     console.log('🍔 Feeding Éric...');
     
+    // Play eating animation
+    playEricAnimation('eating');
+    
     // Try different possible function names
     if (typeof feedEric === 'function') {
         feedEric();
@@ -148,6 +151,9 @@ function feedEricFromDashboard() {
             tamaState.hunger = Math.min(100, tamaState.hunger + 30);
             if (typeof saveTamaState === 'function') saveTamaState();
             showNotification('🍔 Éric a été nourri ! (+30 faim)', 'success');
+            
+            // Update stats display in dashboard
+            refreshEricStats();
         } else {
             showNotification('🍔 Éric n\'a pas faim !', 'info');
         }
@@ -163,6 +169,9 @@ function feedEricFromDashboard() {
 function playWithEricFromDashboard() {
     console.log('🎾 Playing with Éric...');
     
+    // Play playing animation
+    playEricAnimation('playing');
+    
     if (typeof playWithTama === 'function') {
         playWithTama();
         showNotification('🎾 Éric s\'amuse !', 'success');
@@ -175,6 +184,9 @@ function playWithEricFromDashboard() {
             tamaState.mood = Math.min(100, tamaState.mood + 20);
             if (typeof saveTamaState === 'function') saveTamaState();
             showNotification('🎾 Éric s\'amuse ! (+20 humeur)', 'success');
+            
+            // Update stats display
+            refreshEricStats();
         } else {
             showNotification('🎾 Éric est déjà très heureux !', 'info');
         }
@@ -189,6 +201,9 @@ function playWithEricFromDashboard() {
 function cuddleEricFromDashboard() {
     console.log('🤗 Cuddling Éric...');
     
+    // Play cuddling animation
+    playEricAnimation('cuddling');
+    
     if (typeof cuddleEric === 'function') {
         cuddleEric();
         showNotification('🤗 Éric est heureux !', 'success');
@@ -201,6 +216,9 @@ function cuddleEricFromDashboard() {
         tamaState.hunger = Math.min(100, (tamaState.hunger || 50) + 5);
         if (typeof saveTamaState === 'function') saveTamaState();
         showNotification('🤗 Éric est heureux ! (+15 humeur, +5 faim)', 'success');
+        
+        // Update stats display
+        refreshEricStats();
     } else {
         showNotification('❌ Système temporairement indisponible', 'error');
     }
@@ -283,6 +301,93 @@ function showNotification(message, type = 'info') {
 }
 
 // ============================================
+// ÉRIC ANIMATIONS
+// ============================================
+
+/**
+ * Joue une animation visuelle sur Éric
+ * @param {string} type - 'eating', 'playing', 'cuddling'
+ */
+function playEricAnimation(type) {
+    const ericIcon = document.getElementById('ericIcon');
+    const ericCharacter = document.getElementById('ericCharacter');
+    const overlay = document.getElementById('ericAnimationOverlay');
+    
+    if (!ericIcon || !ericCharacter || !overlay) return;
+    
+    // Remove previous animations
+    ericCharacter.classList.remove('eric-eating', 'eric-playing', 'eric-cuddling');
+    overlay.innerHTML = '';
+    
+    // Animation configs
+    const animations = {
+        eating: {
+            class: 'eric-eating',
+            particles: ['🍔', '🍕', '🍣', '😋', '💚'],
+            duration: 2000
+        },
+        playing: {
+            class: 'eric-playing',
+            particles: ['🎾', '⚽', '🎮', '😄', '⭐'],
+            duration: 2500
+        },
+        cuddling: {
+            class: 'eric-cuddling',
+            particles: ['💕', '💖', '✨', '🤗', '😊'],
+            duration: 2000
+        }
+    };
+    
+    const anim = animations[type];
+    if (!anim) return;
+    
+    // Add animation class
+    ericCharacter.classList.add(anim.class);
+    
+    // Create particle effects
+    for (let i = 0; i < 8; i++) {
+        setTimeout(() => {
+            const particle = document.createElement('div');
+            particle.className = 'eric-particle';
+            particle.textContent = anim.particles[Math.floor(Math.random() * anim.particles.length)];
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.animationDelay = `${Math.random() * 0.5}s`;
+            overlay.appendChild(particle);
+            
+            setTimeout(() => particle.remove(), 2000);
+        }, i * 150);
+    }
+    
+    // Remove animation class after duration
+    setTimeout(() => {
+        ericCharacter.classList.remove(anim.class);
+    }, anim.duration);
+}
+
+/**
+ * Rafraîchit l'affichage des stats d'Éric dans le dashboard
+ */
+function refreshEricStats() {
+    // Get current stats
+    const mood = (typeof tamaState !== 'undefined') ? (tamaState.mood || 50) : 50;
+    const hunger = (typeof tamaState !== 'undefined') ? (tamaState.hunger || 50) : 50;
+    
+    // Update stat bars with animation
+    const moodFill = document.querySelector('.stat-fill.mood');
+    const hungerFill = document.querySelector('.stat-fill.hunger');
+    
+    if (moodFill) {
+        moodFill.style.width = `${mood}%`;
+        moodFill.parentElement.parentElement.querySelector('.stat-label span:last-child').textContent = `${mood}%`;
+    }
+    
+    if (hungerFill) {
+        hungerFill.style.width = `${hunger}%`;
+        hungerFill.parentElement.parentElement.querySelector('.stat-label span:last-child').textContent = `${hunger}%`;
+    }
+}
+
+// ============================================
 // EXPOSE GLOBALLY
 // ============================================
 
@@ -298,7 +403,9 @@ window.gamingConnector = {
     useInventoryItem,
     getInventory,
     openLootboxFromDashboard,
-    showNotification
+    showNotification,
+    playEricAnimation,
+    refreshEricStats
 };
 
-console.log('✅ Gaming Connector v1.0 loaded!');
+console.log('✅ Gaming Connector v1.1 loaded!');

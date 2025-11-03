@@ -634,15 +634,28 @@ function toggleDashboard() {
     
     dashboardState.isOpen = !dashboardState.isOpen;
     
+    // Get Éric tamagotchi element
+    const tamagotchi = document.getElementById('tamagotchi');
+    
     if (dashboardState.isOpen) {
         dashboard.classList.remove('hidden');
         dashboard.classList.add('active');
+        
+        // Hide Éric when dashboard is open
+        if (tamagotchi) {
+            tamagotchi.style.display = 'none';
+        }
         
         // Start session timer
         dashboardState.lastSessionStart = Date.now();
     } else {
         dashboard.classList.remove('active');
         dashboard.classList.add('hidden');
+        
+        // Show Éric when dashboard is closed (if gaming mode is active)
+        if (tamagotchi && localStorage.getItem('gamingMode') === 'true') {
+            tamagotchi.style.display = 'flex';
+        }
         
         // Update playtime
         updatePlaytime();
@@ -681,12 +694,14 @@ function renderEricTab(container) {
             <h2>🐱 Monde d'Éric</h2>
             
             <!-- Eric Display -->
-            <div class="eric-stage">
-                <div class="eric-character">
-                    <div class="eric-icon">${icon}</div>
+            <div class="eric-stage" id="ericStage">
+                <div class="eric-character" id="ericCharacter">
+                    <div class="eric-icon" id="ericIcon">${icon}</div>
                     <div class="eric-level">Niveau ${level}</div>
                     <div class="eric-evolution">${evolution}</div>
                 </div>
+                <!-- Animation overlays -->
+                <div class="eric-animation-overlay" id="ericAnimationOverlay"></div>
             </div>
             
             <!-- Eric Stats -->
