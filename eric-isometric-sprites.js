@@ -1,96 +1,107 @@
 /**
- * 🎨 ERIC ISOMETRIC SPRITES GENERATOR
+ * 🎨 ERIC ISOMETRIC SPRITE GENERATOR
  * Générateur procédural de sprites isométriques style Dofus/Wakfu
  * Version: 1.0
  * 
- * Génère un sprite sheet complet avec:
- * - 8 directions (N, NE, E, SE, S, SW, W, NW)
- * - 6 états (idle, walk, eat, play, sleep, sad)
- * - Animations frame-by-frame
- * - Style coloré et professionnel
+ * Références artistiques:
+ * - Style Dofus/Wakfu: Coloré, cartoon, isométrique avec outlines épais
+ * - Palette: Couleurs vives et saturées, ombres douces
+ * - Proportions: Style chibi/cartoon (tête large, corps compact)
  * 
- * Format du sprite sheet: 8 colonnes × 48 lignes (6 états × 8 directions)
- * Dimensions: 1024px × 7680px (128px × 160px par sprite)
+ * Génère un sprite sheet complet:
+ * - 8 directions × 6 états = 48 sprites de base
+ * - 4-8 frames par animation
+ * - Format: Canvas → Data URL
  */
 
 // ============================================
-// CONFIGURATION DES SPRITES
+// CONFIGURATION ARTISTIQUE
 // ============================================
 
-const SPRITE_CONFIG = {
-    // Palette de couleurs style Dofus/Wakfu
+const SPRITE_ART_CONFIG = {
+    // Palette de couleurs style Dofus/Wakfu (chaude et vibrante)
     colors: {
-        // Corps du chat (orange vif)
-        bodyMain: '#FF8C42',
-        bodyShade: '#E67029',
-        bodyHighlight: '#FFB07A',
-        
-        // Ventre (blanc crème)
-        bellyMain: '#FFF5E1',
-        bellyShade: '#FFE4B5',
-        
-        // Yeux (verts expressifs)
-        eyeMain: '#4ADE80',
-        eyePupil: '#065F46',
-        eyeHighlight: '#DCFCE7',
-        
-        // Accessoires
-        collar: '#EF4444',
-        collarTag: '#FCD34D',
-        
-        // Ombres et contours
-        outline: '#1F2937',
-        shadow: 'rgba(0, 0, 0, 0.3)',
+        // Fourrure du chat (orange/roux vibrant)
+        fur: {
+            base: '#FF8C42',
+            light: '#FFB366',
+            dark: '#E67332',
+            shadow: '#CC5A22'
+        },
+        // Ventre (crème clair)
+        belly: {
+            base: '#FFF5E1',
+            light: '#FFFFFF',
+            shadow: '#F5E5C8'
+        },
+        // Yeux (vert émeraude brillant)
+        eyes: {
+            base: '#2ECC71',
+            light: '#5FE89C',
+            pupil: '#1A5D3A',
+            shine: '#FFFFFF'
+        },
+        // Nez et détails (rose)
+        details: {
+            nose: '#FF6B9D',
+            paws: '#FF9966',
+            tongue: '#FF7B8B'
+        },
+        // Outline (brun foncé épais style Dofus)
+        outline: '#3D2817',
         
         // Effets spéciaux
-        sparkle: '#FFD700',
-        heart: '#EC4899',
-        zzz: '#94A3B8'
+        effects: {
+            happy: '#FFD700',      // Particules dorées
+            love: '#FF69B4',       // Cœurs roses
+            sleep: '#87CEEB',      // Z bleus
+            energy: '#F39C12'      // Éclairs orange
+        }
     },
     
-    // Proportions du chat isométrique
+    // Style de dessin
+    style: {
+        outlineWidth: 3,           // Outline épais style cartoon
+        shadowBlur: 4,             // Ombrage doux
+        highlightIntensity: 0.3,   // Intensité des highlights
+        roundness: 0.8             // Arrondissement des formes (0-1)
+    },
+    
+    // Proportions du personnage (style chibi)
     proportions: {
-        // Corps
-        bodyWidth: 50,
-        bodyHeight: 40,
-        bodyDepth: 45,
-        
-        // Tête
-        headRadius: 22,
-        headOffsetY: -35,
-        
-        // Oreilles
-        earWidth: 12,
-        earHeight: 15,
-        
-        // Queue
-        tailLength: 35,
-        tailWidth: 8,
-        
-        // Pattes
-        legWidth: 8,
-        legHeight: 15,
-        
-        // Yeux
-        eyeRadius: 5,
-        pupilRadius: 3
+        headSize: 0.45,        // Tête = 45% de la hauteur totale
+        bodySize: 0.35,        // Corps = 35%
+        legsSize: 0.20,        // Pattes = 20%
+        earHeight: 0.25,       // Oreilles = 25% de la tête
+        tailLength: 0.6        // Queue = 60% du corps
     }
 };
 
 // ============================================
-// GÉNÉRATEUR DE SPRITE SHEET
+// GÉNÉRATEUR DE SPRITES
 // ============================================
 
 class IsometricSpriteGenerator {
     constructor() {
         this.canvas = document.createElement('canvas');
-        this.canvas.width = 128 * 8;  // 8 directions
-        this.canvas.height = 160 * 48; // 6 états × 8 directions
         this.ctx = this.canvas.getContext('2d');
         
-        // Configuration du contexte
+        // Dimensions du sprite sheet complet
+        // 8 frames max × 8 directions × 6 états
+        this.canvas.width = 128 * 8;  // 1024px
+        this.canvas.height = 160 * 48; // 7680px (8 directions × 6 états)
+        
+        this.setupContext();
+    }
+    
+    /**
+     * Configure le contexte de dessin
+     */
+    setupContext() {
         this.ctx.imageSmoothingEnabled = true;
         this.ctx.imageSmoothingQuality = 'high';
+        this.ctx.lineCap = 'round';
+        this.ctx.lineJoin = 'round';
     }
     
     /**
@@ -106,13 +117,15 @@ class IsometricSpriteGenerator {
         
         for (const state of states) {
             for (const direction of directions) {
-                const frames = this.getFrameCount(state);
+                const frames = ISOMETRIC_CONFIG.STATES[state].frames;
                 
-                for (let frame = 0; frame < frames; frame++) {
+                for (let frame = 0; frame < 8; frame++) {
                     const x = frame * 128;
                     const y = row * 160;
                     
-                    this.drawCharacter(x, y, state, direction, frame, frames);
+                    if (frame < frames) {
+                        this.drawCharacter(x, y, state, direction, frame, frames);
+                    }
                 }
                 
                 row++;
@@ -124,184 +137,125 @@ class IsometricSpriteGenerator {
     }
     
     /**
-     * Obtient le nombre de frames par état
-     */
-    getFrameCount(state) {
-        const frameCounts = {
-            'idle': 4,
-            'walk': 8,
-            'eat': 6,
-            'play': 8,
-            'sleep': 4,
-            'sad': 4
-        };
-        return frameCounts[state] || 4;
-    }
-    
-    /**
-     * Dessine un personnage complet
+     * Dessine un personnage à une position donnée
      */
     drawCharacter(x, y, state, direction, frame, totalFrames) {
-        // Centre du sprite
-        const centerX = x + 64;
-        const centerY = y + 120;
-        
-        // Sauvegarde du contexte
         this.ctx.save();
-        
-        // Animation parameters
-        const t = frame / totalFrames;
-        const angle = this.getDirectionAngle(direction);
-        
-        // Dessine les composants dans l'ordre (back to front)
-        this.drawTail(centerX, centerY, angle, state, t);
-        this.drawBody(centerX, centerY, angle, state, t);
-        this.drawLegs(centerX, centerY, angle, state, t);
-        this.drawHead(centerX, centerY, angle, state, t);
-        this.drawEars(centerX, centerY, angle, state, t);
-        this.drawFace(centerX, centerY, angle, state, t);
-        this.drawEffects(centerX, centerY, state, t);
-        
-        // Restaure le contexte
-        this.ctx.restore();
-    }
-    
-    /**
-     * Obtient l'angle de la direction
-     */
-    getDirectionAngle(direction) {
-        const angles = {
-            'N': 0, 'NE': 45, 'E': 90, 'SE': 135,
-            'S': 180, 'SW': 225, 'W': 270, 'NW': 315
-        };
-        return angles[direction] || 135;
-    }
-    
-    /**
-     * Dessine le corps principal (isométrique)
-     */
-    drawBody(x, y, angle, state, t) {
-        const prop = SPRITE_CONFIG.proportions;
-        
-        // Corps principal (ellipse isométrique)
-        this.ctx.save();
-        this.ctx.translate(x, y);
+        this.ctx.translate(x + 64, y + 80); // Centre du sprite
         
         // Rotation selon la direction
-        const rotOffset = (angle - 135) * Math.PI / 180;
-        this.ctx.rotate(rotOffset);
+        const angle = ISOMETRIC_CONFIG.DIRECTIONS[direction].angle;
+        const radians = (angle - 135) * Math.PI / 180; // Ajustement pour que SE soit par défaut
         
-        // Animation de respiration
-        const breathe = state === 'sleep' ? Math.sin(t * Math.PI * 2) * 2 : 0;
+        // Animation de marche (balancement)
+        const walkCycle = Math.sin((frame / totalFrames) * Math.PI * 2);
+        const bounce = state === 'walk' ? walkCycle * 3 : 0;
         
-        // Ombre du corps
-        this.ctx.fillStyle = SPRITE_CONFIG.colors.shadow;
-        this.ctx.beginPath();
-        this.ctx.ellipse(0, 15, prop.bodyWidth/2, prop.bodyHeight/3, 0, 0, Math.PI * 2);
-        this.ctx.fill();
+        this.ctx.translate(0, bounce);
         
-        // Corps principal (projection isométrique)
-        this.drawIsometricBox(
-            -prop.bodyWidth/2,
-            -prop.bodyHeight/2,
-            prop.bodyWidth,
-            prop.bodyHeight,
-            prop.bodyDepth + breathe,
-            SPRITE_CONFIG.colors.bodyMain,
-            SPRITE_CONFIG.colors.bodyShade
-        );
-        
-        // Ventre (ellipse blanche)
-        this.ctx.fillStyle = SPRITE_CONFIG.colors.bellyMain;
-        this.ctx.beginPath();
-        this.ctx.ellipse(0, 5, prop.bodyWidth/3, prop.bodyHeight/2.5, 0, 0, Math.PI * 2);
-        this.ctx.fill();
-        
-        // Contour du ventre
-        this.ctx.strokeStyle = SPRITE_CONFIG.colors.outline;
-        this.ctx.lineWidth = 2;
-        this.ctx.stroke();
-        
-        // Collier
-        this.ctx.fillStyle = SPRITE_CONFIG.colors.collar;
-        this.ctx.fillRect(-prop.bodyWidth/3, -prop.bodyHeight/2 - 5, prop.bodyWidth * 2/3, 6);
-        
-        // Médaille du collier
-        this.ctx.fillStyle = SPRITE_CONFIG.colors.collarTag;
-        this.ctx.beginPath();
-        this.ctx.arc(0, -prop.bodyHeight/2 - 2, 4, 0, Math.PI * 2);
-        this.ctx.fill();
+        // Dessine les parties du personnage (de l'arrière vers l'avant)
+        this.drawTail(state, frame, totalFrames);
+        this.drawBody(state, direction);
+        this.drawLegs(state, frame, totalFrames, walkCycle);
+        this.drawHead(state, direction, frame, totalFrames);
+        this.drawEars(direction);
+        this.drawFace(state, frame, totalFrames);
+        this.drawEffects(state, frame, totalFrames);
         
         this.ctx.restore();
     }
     
     /**
-     * Dessine une boîte isométrique (pour le corps)
+     * Dessine le corps
      */
-    drawIsometricBox(x, y, width, height, depth, colorMain, colorShade) {
-        // Face avant
-        this.ctx.fillStyle = colorMain;
+    drawBody(state, direction) {
+        const colors = SPRITE_ART_CONFIG.colors;
+        
+        // Corps principal (forme ovale)
+        this.ctx.save();
+        
+        // Ombre
+        this.ctx.fillStyle = colors.fur.shadow;
         this.ctx.beginPath();
-        this.ctx.moveTo(x, y);
-        this.ctx.lineTo(x + width, y);
-        this.ctx.lineTo(x + width, y + height);
-        this.ctx.lineTo(x, y + height);
-        this.ctx.closePath();
+        this.ctx.ellipse(2, 2, 28, 22, 0, 0, Math.PI * 2);
         this.ctx.fill();
         
-        // Contour
-        this.ctx.strokeStyle = SPRITE_CONFIG.colors.outline;
+        // Corps
+        this.ctx.fillStyle = colors.fur.base;
+        this.ctx.beginPath();
+        this.ctx.ellipse(0, 0, 28, 22, 0, 0, Math.PI * 2);
+        this.ctx.fill();
+        
+        // Outline
+        this.ctx.strokeStyle = colors.outline;
+        this.ctx.lineWidth = SPRITE_ART_CONFIG.style.outlineWidth;
+        this.ctx.stroke();
+        
+        // Ventre
+        this.ctx.fillStyle = colors.belly.base;
+        this.ctx.beginPath();
+        this.ctx.ellipse(0, 5, 18, 15, 0, 0, Math.PI * 2);
+        this.ctx.fill();
+        
+        // Outline ventre
+        this.ctx.strokeStyle = colors.outline;
         this.ctx.lineWidth = 2;
         this.ctx.stroke();
         
-        // Face de côté (ombre)
-        this.ctx.fillStyle = colorShade;
+        // Highlight
+        this.ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
         this.ctx.beginPath();
-        this.ctx.moveTo(x + width, y);
-        this.ctx.lineTo(x + width + depth/2, y - depth/2);
-        this.ctx.lineTo(x + width + depth/2, y + height - depth/2);
-        this.ctx.lineTo(x + width, y + height);
-        this.ctx.closePath();
+        this.ctx.ellipse(-8, -8, 10, 8, -0.3, 0, Math.PI * 2);
         this.ctx.fill();
-        this.ctx.stroke();
+        
+        this.ctx.restore();
     }
     
     /**
      * Dessine la tête
      */
-    drawHead(x, y, angle, state, t) {
-        const prop = SPRITE_CONFIG.proportions;
-        const headY = y + prop.headOffsetY;
+    drawHead(state, direction, frame, totalFrames) {
+        const colors = SPRITE_ART_CONFIG.colors;
         
         this.ctx.save();
-        this.ctx.translate(x, headY);
+        this.ctx.translate(0, -35);
         
-        // Rotation selon direction
-        const rotOffset = (angle - 135) * Math.PI / 180;
-        this.ctx.rotate(rotOffset);
-        
-        // Animation de tête selon l'état
-        let headBob = 0;
-        if (state === 'walk') {
-            headBob = Math.sin(t * Math.PI * 2) * 3;
+        // Animation de hochement de tête
+        if (state === 'eat') {
+            const nod = Math.sin((frame / totalFrames) * Math.PI * 4) * 5;
+            this.ctx.rotate(nod * Math.PI / 180);
         }
         
-        // Tête (cercle)
-        this.ctx.fillStyle = SPRITE_CONFIG.colors.bodyMain;
+        // Ombre de la tête
+        this.ctx.fillStyle = colors.fur.shadow;
         this.ctx.beginPath();
-        this.ctx.arc(0, headBob, prop.headRadius, 0, Math.PI * 2);
+        this.ctx.arc(2, 2, 25, 0, Math.PI * 2);
         this.ctx.fill();
         
-        // Contour
-        this.ctx.strokeStyle = SPRITE_CONFIG.colors.outline;
-        this.ctx.lineWidth = 2;
+        // Tête principale
+        this.ctx.fillStyle = colors.fur.base;
+        this.ctx.beginPath();
+        this.ctx.arc(0, 0, 25, 0, Math.PI * 2);
+        this.ctx.fill();
+        
+        // Outline tête
+        this.ctx.strokeStyle = colors.outline;
+        this.ctx.lineWidth = SPRITE_ART_CONFIG.style.outlineWidth;
         this.ctx.stroke();
         
-        // Zone blanche du museau
-        this.ctx.fillStyle = SPRITE_CONFIG.colors.bellyMain;
+        // Highlight tête
+        this.ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
         this.ctx.beginPath();
-        this.ctx.arc(0, headBob + 5, prop.headRadius * 0.6, 0, Math.PI * 2);
+        this.ctx.arc(-8, -8, 12, 0, Math.PI * 2);
         this.ctx.fill();
+        
+        // Museau
+        this.ctx.fillStyle = colors.belly.base;
+        this.ctx.beginPath();
+        this.ctx.ellipse(0, 8, 15, 12, 0, 0, Math.PI * 2);
+        this.ctx.fill();
+        this.ctx.strokeStyle = colors.outline;
+        this.ctx.lineWidth = 2;
         this.ctx.stroke();
         
         this.ctx.restore();
@@ -310,24 +264,17 @@ class IsometricSpriteGenerator {
     /**
      * Dessine les oreilles
      */
-    drawEars(x, y, angle, state, t) {
-        const prop = SPRITE_CONFIG.proportions;
-        const headY = y + prop.headOffsetY;
+    drawEars(direction) {
+        const colors = SPRITE_ART_CONFIG.colors;
         
         this.ctx.save();
-        this.ctx.translate(x, headY);
-        
-        const rotOffset = (angle - 135) * Math.PI / 180;
-        this.ctx.rotate(rotOffset);
-        
-        // Animation des oreilles (nervosité ou attention)
-        const earWiggle = state === 'play' ? Math.sin(t * Math.PI * 4) * 5 : 0;
+        this.ctx.translate(0, -50);
         
         // Oreille gauche
-        this.drawEar(-prop.headRadius * 0.6, -prop.headRadius * 0.8, -15 + earWiggle);
+        this.drawEar(-15, -5, colors);
         
         // Oreille droite
-        this.drawEar(prop.headRadius * 0.6, -prop.headRadius * 0.8, 15 - earWiggle);
+        this.drawEar(15, -5, colors);
         
         this.ctx.restore();
     }
@@ -335,77 +282,74 @@ class IsometricSpriteGenerator {
     /**
      * Dessine une oreille
      */
-    drawEar(x, y, angle) {
-        const prop = SPRITE_CONFIG.proportions;
-        
+    drawEar(x, y, colors) {
         this.ctx.save();
         this.ctx.translate(x, y);
-        this.ctx.rotate(angle * Math.PI / 180);
         
-        // Oreille (triangle)
-        this.ctx.fillStyle = SPRITE_CONFIG.colors.bodyMain;
+        // Forme triangulaire arrondie
+        this.ctx.fillStyle = colors.fur.dark;
         this.ctx.beginPath();
         this.ctx.moveTo(0, 0);
-        this.ctx.lineTo(-prop.earWidth/2, prop.earHeight);
-        this.ctx.lineTo(prop.earWidth/2, prop.earHeight);
-        this.ctx.closePath();
+        this.ctx.quadraticCurveTo(-8, -10, 0, -20);
+        this.ctx.quadraticCurveTo(8, -10, 0, 0);
         this.ctx.fill();
         
-        // Contour
-        this.ctx.strokeStyle = SPRITE_CONFIG.colors.outline;
+        this.ctx.strokeStyle = colors.outline;
         this.ctx.lineWidth = 2;
         this.ctx.stroke();
         
         // Intérieur rose
-        this.ctx.fillStyle = '#FFB3D9';
+        this.ctx.fillStyle = colors.details.nose;
         this.ctx.beginPath();
-        this.ctx.moveTo(0, prop.earHeight * 0.3);
-        this.ctx.lineTo(-prop.earWidth/4, prop.earHeight * 0.8);
-        this.ctx.lineTo(prop.earWidth/4, prop.earHeight * 0.8);
-        this.ctx.closePath();
+        this.ctx.moveTo(0, -2);
+        this.ctx.quadraticCurveTo(-4, -8, 0, -14);
+        this.ctx.quadraticCurveTo(4, -8, 0, -2);
         this.ctx.fill();
         
         this.ctx.restore();
     }
     
     /**
-     * Dessine le visage (yeux, nez, bouche)
+     * Dessine le visage (yeux, nez, moustaches)
      */
-    drawFace(x, y, angle, state, t) {
-        const prop = SPRITE_CONFIG.proportions;
-        const headY = y + prop.headOffsetY;
+    drawFace(state, frame, totalFrames) {
+        const colors = SPRITE_ART_CONFIG.colors;
         
         this.ctx.save();
-        this.ctx.translate(x, headY);
-        
-        const rotOffset = (angle - 135) * Math.PI / 180;
-        this.ctx.rotate(rotOffset);
-        
-        // Position des yeux selon l'état
-        let eyeY = 0;
-        let eyeOpenness = 1;
-        
-        if (state === 'sleep') {
-            eyeOpenness = 0.1; // Yeux fermés
-        } else if (state === 'sad') {
-            eyeY = 2;
-        }
+        this.ctx.translate(0, -35);
         
         // Yeux
-        this.drawEye(-8, eyeY, eyeOpenness, state);
-        this.drawEye(8, eyeY, eyeOpenness, state);
+        const eyeY = state === 'sleep' ? 0 : -5;
+        
+        // Œil gauche
+        this.drawEye(-10, eyeY, state === 'sleep', colors);
+        
+        // Œil droit
+        this.drawEye(10, eyeY, state === 'sleep', colors);
         
         // Nez
-        this.ctx.fillStyle = '#D946EF';
+        this.ctx.fillStyle = colors.details.nose;
         this.ctx.beginPath();
-        this.ctx.moveTo(0, 8);
-        this.ctx.lineTo(-3, 5);
-        this.ctx.lineTo(3, 5);
+        this.ctx.moveTo(0, 5);
+        this.ctx.lineTo(-3, 8);
+        this.ctx.lineTo(3, 8);
         this.ctx.closePath();
         this.ctx.fill();
+        this.ctx.strokeStyle = colors.outline;
+        this.ctx.lineWidth = 1.5;
+        this.ctx.stroke();
         
-        // Bouche selon l'état
-        this.drawMouth(0, 10, state);
+        // Bouche (sourit si content)
+        if (state === 'play' || state === 'eat') {
+            this.ctx.strokeStyle = colors.outline;
+            this.ctx.lineWidth = 2;
+            this.ctx.beginPath();
+            this.ctx.arc(0, 10, 5, 0, Math.PI);
+            this.ctx.stroke();
+        }
+        
+        // Moustaches
+        this.drawWhiskers(colors.outline);
         
         this.ctx.restore();
     }
@@ -413,234 +357,330 @@ class IsometricSpriteGenerator {
     /**
      * Dessine un œil
      */
-    drawEye(x, y, openness, state) {
-        const prop = SPRITE_CONFIG.proportions;
+    drawEye(x, y, sleeping, colors) {
+        this.ctx.save();
+        this.ctx.translate(x, y);
         
-        // Blanc de l'œil
-        this.ctx.fillStyle = '#FFFFFF';
-        this.ctx.beginPath();
-        this.ctx.ellipse(x, y, prop.eyeRadius, prop.eyeRadius * openness, 0, 0, Math.PI * 2);
-        this.ctx.fill();
-        
-        // Contour
-        this.ctx.strokeStyle = SPRITE_CONFIG.colors.outline;
-        this.ctx.lineWidth = 1.5;
-        this.ctx.stroke();
-        
-        if (openness > 0.5) {
-            // Iris
-            this.ctx.fillStyle = SPRITE_CONFIG.colors.eyeMain;
+        if (sleeping) {
+            // Yeux fermés
+            this.ctx.strokeStyle = colors.outline;
+            this.ctx.lineWidth = 2;
             this.ctx.beginPath();
-            this.ctx.arc(x, y, prop.eyeRadius * 0.7, 0, Math.PI * 2);
+            this.ctx.arc(0, 0, 5, 0, Math.PI);
+            this.ctx.stroke();
+        } else {
+            // Yeux ouverts
+            // Blanc de l'œil
+            this.ctx.fillStyle = '#FFFFFF';
+            this.ctx.beginPath();
+            this.ctx.ellipse(0, 0, 6, 7, 0, 0, Math.PI * 2);
+            this.ctx.fill();
+            
+            // Iris
+            this.ctx.fillStyle = colors.eyes.base;
+            this.ctx.beginPath();
+            this.ctx.ellipse(0, 1, 4, 5, 0, 0, Math.PI * 2);
             this.ctx.fill();
             
             // Pupille
-            this.ctx.fillStyle = SPRITE_CONFIG.colors.eyePupil;
+            this.ctx.fillStyle = colors.eyes.pupil;
             this.ctx.beginPath();
-            this.ctx.arc(x, y, prop.pupilRadius, 0, Math.PI * 2);
+            this.ctx.ellipse(0, 2, 2, 3, 0, 0, Math.PI * 2);
             this.ctx.fill();
             
             // Reflet
-            this.ctx.fillStyle = SPRITE_CONFIG.colors.eyeHighlight;
+            this.ctx.fillStyle = colors.eyes.shine;
             this.ctx.beginPath();
-            this.ctx.arc(x - 1, y - 1, 2, 0, Math.PI * 2);
+            this.ctx.arc(-1, -1, 2, 0, Math.PI * 2);
             this.ctx.fill();
+            
+            // Outline
+            this.ctx.strokeStyle = colors.outline;
+            this.ctx.lineWidth = 2;
+            this.ctx.beginPath();
+            this.ctx.ellipse(0, 0, 6, 7, 0, 0, Math.PI * 2);
+            this.ctx.stroke();
         }
+        
+        this.ctx.restore();
     }
     
     /**
-     * Dessine la bouche
+     * Dessine les moustaches
      */
-    drawMouth(x, y, state) {
-        this.ctx.strokeStyle = SPRITE_CONFIG.colors.outline;
-        this.ctx.lineWidth = 2;
-        this.ctx.lineCap = 'round';
+    drawWhiskers(color) {
+        this.ctx.strokeStyle = color;
+        this.ctx.lineWidth = 1.5;
         
-        this.ctx.beginPath();
+        // Moustaches gauches
+        [-15, -20, -18].forEach((startX, i) => {
+            this.ctx.beginPath();
+            this.ctx.moveTo(startX, 3 + i * 3);
+            this.ctx.quadraticCurveTo(startX - 8, 3 + i * 2, startX - 15, 5 + i * 2);
+            this.ctx.stroke();
+        });
         
-        if (state === 'sad') {
-            // Bouche triste
-            this.ctx.arc(x, y + 5, 5, 0.2 * Math.PI, 0.8 * Math.PI);
-        } else if (state === 'eat') {
-            // Bouche ouverte
-            this.ctx.arc(x, y, 5, 0, Math.PI);
-        } else {
-            // Bouche souriante
-            this.ctx.arc(x, y, 5, 0.2 * Math.PI, 0.8 * Math.PI, true);
-        }
-        
-        this.ctx.stroke();
+        // Moustaches droites
+        [15, 20, 18].forEach((startX, i) => {
+            this.ctx.beginPath();
+            this.ctx.moveTo(startX, 3 + i * 3);
+            this.ctx.quadraticCurveTo(startX + 8, 3 + i * 2, startX + 15, 5 + i * 2);
+            this.ctx.stroke();
+        });
     }
     
     /**
      * Dessine les pattes
      */
-    drawLegs(x, y, angle, state, t) {
-        const prop = SPRITE_CONFIG.proportions;
-        
-        this.ctx.save();
-        this.ctx.translate(x, y);
-        
-        const rotOffset = (angle - 135) * Math.PI / 180;
-        this.ctx.rotate(rotOffset);
+    drawLegs(state, frame, totalFrames, walkCycle) {
+        const colors = SPRITE_ART_CONFIG.colors;
         
         // Animation de marche
-        let legOffset = 0;
-        if (state === 'walk') {
-            legOffset = Math.sin(t * Math.PI * 2) * 5;
-        }
+        const leftLegAngle = state === 'walk' ? walkCycle * 20 : 0;
+        const rightLegAngle = state === 'walk' ? -walkCycle * 20 : 0;
         
-        // Pattes avant
-        this.drawLeg(-15, 10, legOffset);
-        this.drawLeg(15, 10, -legOffset);
+        // Patte arrière gauche
+        this.drawLeg(-15, 15, leftLegAngle, colors);
         
-        // Pattes arrière
-        this.drawLeg(-20, 15, -legOffset);
-        this.drawLeg(20, 15, legOffset);
+        // Patte arrière droite
+        this.drawLeg(15, 15, rightLegAngle, colors);
         
-        this.ctx.restore();
+        // Patte avant gauche
+        this.drawLeg(-10, 20, rightLegAngle, colors);
+        
+        // Patte avant droite
+        this.drawLeg(10, 20, leftLegAngle, colors);
     }
     
     /**
      * Dessine une patte
      */
-    drawLeg(x, y, offset) {
-        const prop = SPRITE_CONFIG.proportions;
-        
-        this.ctx.fillStyle = SPRITE_CONFIG.colors.bodyMain;
-        this.ctx.fillRect(x - prop.legWidth/2, y + offset, prop.legWidth, prop.legHeight);
-        
-        // Contour
-        this.ctx.strokeStyle = SPRITE_CONFIG.colors.outline;
-        this.ctx.lineWidth = 2;
-        this.ctx.strokeRect(x - prop.legWidth/2, y + offset, prop.legWidth, prop.legHeight);
-        
-        // Patte (bout arrondi)
-        this.ctx.beginPath();
-        this.ctx.arc(x, y + offset + prop.legHeight, prop.legWidth/2, 0, Math.PI * 2);
-        this.ctx.fill();
-        this.ctx.stroke();
-    }
-    
-    /**
-     * Dessine la queue
-     */
-    drawTail(x, y, angle, state, t) {
-        const prop = SPRITE_CONFIG.proportions;
-        
+    drawLeg(x, y, angle, colors) {
         this.ctx.save();
         this.ctx.translate(x, y);
+        this.ctx.rotate(angle * Math.PI / 180);
         
-        const rotOffset = (angle - 135) * Math.PI / 180;
-        this.ctx.rotate(rotOffset);
-        
-        // Animation de la queue
-        const tailWag = state === 'play' ? Math.sin(t * Math.PI * 4) * 30 : 
-                        state === 'sad' ? -20 : 
-                        Math.sin(t * Math.PI) * 10;
-        
-        // Queue (courbe Bézier)
-        this.ctx.strokeStyle = SPRITE_CONFIG.colors.bodyMain;
-        this.ctx.lineWidth = prop.tailWidth;
-        this.ctx.lineCap = 'round';
-        
+        // Patte
+        this.ctx.fillStyle = colors.fur.base;
         this.ctx.beginPath();
-        this.ctx.moveTo(-prop.bodyWidth/2, 0);
-        this.ctx.quadraticCurveTo(
-            -prop.bodyWidth/2 - 20,
-            -15 + tailWag/2,
-            -prop.bodyWidth/2 - prop.tailLength,
-            -25 + tailWag
-        );
+        this.ctx.ellipse(0, 0, 6, 12, 0, 0, Math.PI * 2);
+        this.ctx.fill();
+        
+        this.ctx.strokeStyle = colors.outline;
+        this.ctx.lineWidth = 2;
         this.ctx.stroke();
         
-        // Contour de la queue
-        this.ctx.strokeStyle = SPRITE_CONFIG.colors.outline;
-        this.ctx.lineWidth = 2;
+        // Patte (bout)
+        this.ctx.fillStyle = colors.details.paws;
+        this.ctx.beginPath();
+        this.ctx.ellipse(0, 10, 7, 5, 0, 0, Math.PI * 2);
+        this.ctx.fill();
         this.ctx.stroke();
         
         this.ctx.restore();
     }
     
     /**
-     * Dessine les effets spéciaux selon l'état
+     * Dessine la queue
      */
-    drawEffects(x, y, state, t) {
-        this.ctx.save();
-        this.ctx.translate(x, y);
+    drawTail(state, frame, totalFrames) {
+        const colors = SPRITE_ART_CONFIG.colors;
         
-        if (state === 'play') {
-            // Cœurs
-            this.drawHeart(-30, -60 - Math.sin(t * Math.PI * 2) * 10, 12);
-            this.drawHeart(30, -50 - Math.sin(t * Math.PI * 2 + 1) * 10, 8);
-        } else if (state === 'sleep') {
-            // Zzz
-            this.drawZzz(20, -70 - Math.sin(t * Math.PI) * 5);
-        } else if (state === 'eat') {
-            // Étincelles
-            this.drawSparkle(-25, -50);
-            this.drawSparkle(25, -55);
+        // Animation de balancement
+        const swing = Math.sin((frame / totalFrames) * Math.PI * 2) * 15;
+        
+        this.ctx.save();
+        this.ctx.translate(-25, 0);
+        this.ctx.rotate((swing + 30) * Math.PI / 180);
+        
+        // Queue (forme courbe)
+        this.ctx.strokeStyle = colors.outline;
+        this.ctx.lineWidth = SPRITE_ART_CONFIG.style.outlineWidth;
+        this.ctx.lineCap = 'round';
+        
+        this.ctx.beginPath();
+        this.ctx.moveTo(0, 0);
+        this.ctx.quadraticCurveTo(-10, -20, -5, -40);
+        this.ctx.lineWidth = 12;
+        this.ctx.strokeStyle = colors.fur.base;
+        this.ctx.stroke();
+        
+        this.ctx.lineWidth = SPRITE_ART_CONFIG.style.outlineWidth;
+        this.ctx.strokeStyle = colors.outline;
+        this.ctx.stroke();
+        
+        this.ctx.restore();
+    }
+    
+    /**
+     * Dessine des effets spéciaux selon l'état
+     */
+    drawEffects(state, frame, totalFrames) {
+        const colors = SPRITE_ART_CONFIG.colors;
+        
+        this.ctx.save();
+        
+        switch (state) {
+            case 'play':
+                // Étoiles brillantes
+                this.drawStars(frame, totalFrames, colors.effects.happy);
+                break;
+                
+            case 'sleep':
+                // Z de sommeil
+                this.drawSleepZ(frame, totalFrames, colors.effects.sleep);
+                break;
+                
+            case 'eat':
+                // Particules de nourriture
+                this.drawFoodParticles(frame, totalFrames, colors.effects.energy);
+                break;
+                
+            case 'sad':
+                // Larmes
+                this.drawTears(frame, totalFrames, '#4A90E2');
+                break;
         }
         
         this.ctx.restore();
     }
     
     /**
-     * Dessine un cœur
+     * Dessine des étoiles
      */
-    drawHeart(x, y, size) {
-        this.ctx.fillStyle = SPRITE_CONFIG.colors.heart;
-        this.ctx.beginPath();
-        this.ctx.moveTo(x, y + size/4);
-        this.ctx.quadraticCurveTo(x, y, x + size/2, y);
-        this.ctx.quadraticCurveTo(x + size, y, x + size, y + size/4);
-        this.ctx.quadraticCurveTo(x + size, y + size/2, x, y + size);
-        this.ctx.quadraticCurveTo(x - size, y + size/2, x - size, y + size/4);
-        this.ctx.quadraticCurveTo(x - size, y, x - size/2, y);
-        this.ctx.quadraticCurveTo(x, y, x, y + size/4);
-        this.ctx.fill();
+    drawStars(frame, totalFrames, color) {
+        const progress = frame / totalFrames;
+        const positions = [
+            { x: -30, y: -60 },
+            { x: 30, y: -55 },
+            { x: 0, y: -70 }
+        ];
+        
+        positions.forEach((pos, i) => {
+            const delay = i * 0.3;
+            const alpha = Math.sin((progress + delay) * Math.PI * 2);
+            
+            if (alpha > 0) {
+                this.ctx.save();
+                this.ctx.translate(pos.x, pos.y);
+                this.ctx.globalAlpha = alpha;
+                
+                this.ctx.fillStyle = color;
+                this.ctx.strokeStyle = SPRITE_ART_CONFIG.colors.outline;
+                this.ctx.lineWidth = 2;
+                
+                // Étoile à 5 branches
+                this.ctx.beginPath();
+                for (let j = 0; j < 5; j++) {
+                    const angle = (j * 4 * Math.PI / 5) - Math.PI / 2;
+                    const r = j % 2 === 0 ? 8 : 4;
+                    const x = Math.cos(angle) * r;
+                    const y = Math.sin(angle) * r;
+                    if (j === 0) this.ctx.moveTo(x, y);
+                    else this.ctx.lineTo(x, y);
+                }
+                this.ctx.closePath();
+                this.ctx.fill();
+                this.ctx.stroke();
+                
+                this.ctx.restore();
+            }
+        });
     }
     
     /**
-     * Dessine des Zzz
+     * Dessine les Z de sommeil
      */
-    drawZzz(x, y) {
-        this.ctx.font = 'bold 20px Arial';
-        this.ctx.fillStyle = SPRITE_CONFIG.colors.zzz;
-        this.ctx.fillText('Z', x, y);
-        this.ctx.font = 'bold 16px Arial';
-        this.ctx.fillText('Z', x + 10, y - 10);
-        this.ctx.font = 'bold 12px Arial';
-        this.ctx.fillText('Z', x + 18, y - 18);
+    drawSleepZ(frame, totalFrames, color) {
+        const progress = frame / totalFrames;
+        
+        for (let i = 0; i < 3; i++) {
+            const offset = (progress + i * 0.3) % 1;
+            const y = -50 - offset * 30;
+            const x = 30 + i * 5;
+            const alpha = 1 - offset;
+            
+            this.ctx.save();
+            this.ctx.translate(x, y);
+            this.ctx.globalAlpha = alpha;
+            this.ctx.fillStyle = color;
+            this.ctx.font = 'bold 20px Arial';
+            this.ctx.strokeStyle = SPRITE_ART_CONFIG.colors.outline;
+            this.ctx.lineWidth = 3;
+            this.ctx.strokeText('Z', 0, 0);
+            this.ctx.fillText('Z', 0, 0);
+            this.ctx.restore();
+        }
     }
     
     /**
-     * Dessine une étincelle
+     * Dessine des particules de nourriture
      */
-    drawSparkle(x, y) {
-        this.ctx.fillStyle = SPRITE_CONFIG.colors.sparkle;
-        this.ctx.beginPath();
-        this.ctx.moveTo(x, y - 6);
-        this.ctx.lineTo(x + 2, y);
-        this.ctx.lineTo(x + 6, y);
-        this.ctx.lineTo(x + 2, y + 2);
-        this.ctx.lineTo(x + 2, y + 6);
-        this.ctx.lineTo(x, y + 2);
-        this.ctx.lineTo(x - 2, y + 6);
-        this.ctx.lineTo(x - 2, y + 2);
-        this.ctx.lineTo(x - 6, y);
-        this.ctx.lineTo(x - 2, y);
-        this.ctx.closePath();
-        this.ctx.fill();
+    drawFoodParticles(frame, totalFrames, color) {
+        const progress = frame / totalFrames;
+        
+        // Petits cercles qui montent
+        for (let i = 0; i < 5; i++) {
+            const offset = (progress + i * 0.2) % 1;
+            const y = -20 - offset * 25;
+            const x = -10 + i * 5 + Math.sin(offset * Math.PI * 2) * 5;
+            const alpha = 1 - offset;
+            
+            this.ctx.save();
+            this.ctx.translate(x, y);
+            this.ctx.globalAlpha = alpha;
+            this.ctx.fillStyle = color;
+            this.ctx.beginPath();
+            this.ctx.arc(0, 0, 3, 0, Math.PI * 2);
+            this.ctx.fill();
+            this.ctx.restore();
+        }
+    }
+    
+    /**
+     * Dessine des larmes
+     */
+    drawTears(frame, totalFrames, color) {
+        const progress = frame / totalFrames;
+        
+        // Larme gauche
+        if (progress > 0.3) {
+            const tearY = (progress - 0.3) * 40;
+            this.ctx.save();
+            this.ctx.translate(-8, -30 + tearY);
+            this.ctx.fillStyle = color;
+            this.ctx.strokeStyle = SPRITE_ART_CONFIG.colors.outline;
+            this.ctx.lineWidth = 1.5;
+            this.ctx.beginPath();
+            this.ctx.arc(0, 0, 3, 0, Math.PI * 2);
+            this.ctx.fill();
+            this.ctx.stroke();
+            this.ctx.restore();
+        }
+        
+        // Larme droite (décalée)
+        if (progress > 0.5) {
+            const tearY = (progress - 0.5) * 40;
+            this.ctx.save();
+            this.ctx.translate(8, -30 + tearY);
+            this.ctx.fillStyle = color;
+            this.ctx.strokeStyle = SPRITE_ART_CONFIG.colors.outline;
+            this.ctx.lineWidth = 1.5;
+            this.ctx.beginPath();
+            this.ctx.arc(0, 0, 3, 0, Math.PI * 2);
+            this.ctx.fill();
+            this.ctx.stroke();
+            this.ctx.restore();
+        }
     }
 }
 
 // ============================================
-// FONCTION PRINCIPALE
+// FONCTION D'EXPORT PRINCIPALE
 // ============================================
 
 /**
- * Génère le sprite sheet isométrique complet
+ * Génère et retourne le sprite sheet complet
  */
 async function generateIsometricSpriteSheet() {
     const generator = new IsometricSpriteGenerator();
@@ -653,5 +693,6 @@ async function generateIsometricSpriteSheet() {
 
 window.generateIsometricSpriteSheet = generateIsometricSpriteSheet;
 window.IsometricSpriteGenerator = IsometricSpriteGenerator;
+window.SPRITE_ART_CONFIG = SPRITE_ART_CONFIG;
 
-console.log('✅ Eric Isometric Sprites Generator chargé');
+console.log('✅ Eric Isometric Sprite Generator chargé');

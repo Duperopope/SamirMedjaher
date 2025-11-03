@@ -374,7 +374,10 @@ class EricCompleteGame {
                 </div>
                 
                 <!-- Eric au centre (rendu isométrique) -->
-                <div class="eric-character" id="ericCharacter">
+                <div class="eric-character isometric-character-container" id="ericCharacter">
+                    <div class="isometric-floor"></div>
+                    <div class="interaction-overlay"></div>
+                    <div class="state-indicator state-${this.getCurrentState()}">${this.getStateLabel()}</div>
                     <!-- Le canvas isométrique sera inséré ici -->
                 </div>
                 
@@ -393,6 +396,94 @@ class EricCompleteGame {
                 this.petEric();
             });
         }
+    }
+    
+    /**
+     * Initialise le renderer isométrique professionnel
+     */
+    initIsometricRenderer() {
+        const container = document.getElementById('ericCharacter');
+        if (!container) return;
+        
+        // Créer le renderer isométrique
+        if (window.IsometricRenderer) {
+            this.isometricRenderer = new IsometricRenderer(container);
+            
+            // Insérer le canvas dans le container
+            container.appendChild(this.isometricRenderer.getCanvas());
+            
+            // Synchroniser l'état initial
+            this.updateIsometricState();
+            
+            console.log('✅ Renderer isométrique initialisé');
+        } else {
+            console.warn('⚠️ IsometricRenderer non disponible, fallback sur images PNG');
+            this.fallbackToImages(container);
+        }
+    }
+    
+    /**
+     * Met à jour l'état du renderer isométrique
+     */
+    updateIsometricState() {
+        if (!this.isometricRenderer) return;
+        
+        const state = this.getCurrentState();
+        this.isometricRenderer.setState(state);
+        
+        // Mettre à jour l'indicateur d'état
+        const indicator = document.querySelector('.state-indicator');
+        if (indicator) {
+            indicator.className = `state-indicator state-${state}`;
+            indicator.textContent = this.getStateLabel();
+        }
+    }
+    
+    /**
+     * Obtient l'état actuel du personnage
+     */
+    getCurrentState() {
+        // Logique pour déterminer l'état actuel
+        if (this.stats.energy.current < 20) return 'sleep';
+        if (this.stats.hunger.current < 30) return 'sad';
+        if (this.stats.mood.current > 80) return 'play';
+        if (this.isPlaying) return 'play';
+        return 'idle';
+    }
+    
+    /**
+     * Obtient le label de l'état
+     */
+    getStateLabel() {
+        const labels = {
+            idle: '😊 Au repos',
+            walk: '🚶 En balade',
+            eat: '🍖 Mange',
+            play: '🎮 Joue',
+            sleep: '😴 Dort',
+            sad: '😢 Triste'
+        };
+        return labels[this.getCurrentState()] || '😊 Au repos';
+    }
+    
+    /**
+     * Fallback sur images PNG si le renderer n'est pas disponible
+     */
+    fallbackToImages(container) {
+        const state = this.getCurrentState();
+        const imageMap = {
+            idle: 'eric-normal.png',
+            walk: 'eric-normal.png',
+            eat: 'eric-fed.png',
+            play: 'eric-happy.png',
+            sleep: 'eric-sleeping.png',
+            sad: 'eric-unhappy.png'
+        };
+        
+        container.innerHTML += `
+            <img src="assets/images/${imageMap[state]}" alt="Eric" class="eric-fallback-image">
+            <div class="eric-shadow"></div>
+        `;
     }
     
     /**
