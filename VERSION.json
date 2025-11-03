@@ -1,7 +1,23 @@
 {
-  "current": "0.46",
+  "current": "0.47",
   "lastUpdate": "2025-11-03",
   "changelog": [
+    {
+      "version": "0.47",
+      "date": "2025-11-03",
+      "changes": [
+        "🐈‍⬛ VRAIES ASSETS HD PROFESSIONNELLES ! Chat noir animé par Carysaurus",
+        "✨ 5 animations HD de qualité : idle, run, eat, sleep, sit (GIF 32x32 upscalés)",
+        "🎨 Rendu ultra-smooth avec anti-aliasing et effets professionnels",
+        "💫 Effets visuels avancés : ombre portée, glow coloré selon l'état, hover effects",
+        "🔄 Système de transition fluide entre les animations (fade in/out)",
+        "📦 Assets téléchargées depuis itch.io - Licence commerciale gratuite",
+        "🎮 Remplacement complet du système procédural par assets réelles",
+        "🚀 Performance optimisée - GIFs légers (1.7KB à 7KB)",
+        "🖼️ Upscale HD intelligent : 32x32 → 256x256 avec qualité préservée",
+        "👆 Interactions améliorées avec scale hover et filtres visuels"
+      ]
+    },
     {
       "version": "0.46",
       "date": "2025-11-03",
@@ -167,6 +183,6 @@
       ]
     }
   ],
-  "nextVersion": "0.46",
+  "nextVersion": "0.48",
   "autoIncrement": 0.01
 }

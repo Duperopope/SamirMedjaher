@@ -399,37 +399,34 @@ class EricCompleteGame {
     }
     
     /**
-     * Initialise le renderer isométrique professionnel
+     * Initialise le renderer HD professionnel avec vraies assets
      */
     initIsometricRenderer() {
         const container = document.getElementById('ericCharacter');
         if (!container) return;
         
-        // Créer le renderer isométrique
-        if (window.IsometricRenderer) {
-            this.isometricRenderer = new IsometricRenderer(container);
-            
-            // Insérer le canvas dans le container
-            container.appendChild(this.isometricRenderer.getCanvas());
+        // Créer le renderer HD avec vraies assets
+        if (window.EricHDRenderer) {
+            this.hdRenderer = new EricHDRenderer('ericCharacter');
             
             // Synchroniser l'état initial
             this.updateIsometricState();
             
-            console.log('✅ Renderer isométrique initialisé');
+            console.log('✅ HD Renderer initialisé avec vraies assets professionnelles');
         } else {
-            console.warn('⚠️ IsometricRenderer non disponible, fallback sur images PNG');
+            console.warn('⚠️ EricHDRenderer non disponible, fallback sur images PNG');
             this.fallbackToImages(container);
         }
     }
     
     /**
-     * Met à jour l'état du renderer isométrique
+     * Met à jour l'état du renderer HD
      */
     updateIsometricState() {
-        if (!this.isometricRenderer) return;
+        if (!this.hdRenderer) return;
         
         const state = this.getCurrentState();
-        this.isometricRenderer.setState(state);
+        this.hdRenderer.setState(state);
         
         // Mettre à jour l'indicateur d'état
         const indicator = document.querySelector('.state-indicator');
