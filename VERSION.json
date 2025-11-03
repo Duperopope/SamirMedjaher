@@ -1,7 +1,18 @@
 {
-  "current": "0.41",
+  "current": "0.42",
   "lastUpdate": "2025-11-03",
   "changelog": [
+    {
+      "version": "0.42",
+      "date": "2025-11-03",
+      "changes": [
+        "🔄 Réorganisation settings - Sections HUD déplacées dans onglet Gaming",
+        "📊 Organisation logique: Stats → Succès → Custom HUD → Position → Actions",
+        "🧹 Nettoyage 21 références obsolètes gameNotification/achievementToast",
+        "🔧 Functions preview nettoyées et mises à jour avec système unifié",
+        "✅ Code plus propre, maintenable, sans références à éléments inexistants"
+      ]
+    },
     {
       "version": "0.41",
       "date": "2025-11-03",
@@ -99,6 +110,6 @@
       ]
     }
   ],
-  "nextVersion": "0.42",
+  "nextVersion": "0.43",
   "autoIncrement": 0.01
 }
