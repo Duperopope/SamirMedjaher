@@ -668,38 +668,293 @@ function updatePlaytime() {
    ============================================ */
 
 function renderEricTab(container) {
+    // Get Eric state
+    const ericState = window.gamingConnector ? window.gamingConnector.getEricState() : null;
+    const icon = ericState?.icon || '🐱';
+    const mood = ericState?.mood || 50;
+    const hunger = ericState?.hunger || 50;
+    const level = ericState?.level || 1;
+    const evolution = ericState?.evolution || 'baby';
+    
     container.innerHTML = `
         <div class="eric-world">
             <h2>🐱 Monde d'Éric</h2>
+            
+            <!-- Eric Display -->
             <div class="eric-stage">
-                <!-- Éric will be rendered here by existing tamagotchi system -->
-                <div id="eric-container"></div>
+                <div class="eric-character">
+                    <div class="eric-icon">${icon}</div>
+                    <div class="eric-level">Niveau ${level}</div>
+                    <div class="eric-evolution">${evolution}</div>
+                </div>
             </div>
+            
+            <!-- Eric Stats -->
+            <div class="eric-stats">
+                <div class="stat-bar">
+                    <div class="stat-label">
+                        <span>😊 Humeur</span>
+                        <span>${mood}%</span>
+                    </div>
+                    <div class="stat-progress">
+                        <div class="stat-fill mood" style="width: ${mood}%"></div>
+                    </div>
+                </div>
+                
+                <div class="stat-bar">
+                    <div class="stat-label">
+                        <span>🍔 Faim</span>
+                        <span>${hunger}%</span>
+                    </div>
+                    <div class="stat-progress">
+                        <div class="stat-fill hunger" style="width: ${hunger}%"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Eric Actions -->
             <div class="eric-actions">
-                <button onclick="feedEricFromDashboard()" class="action-btn">
-                    🍔 Nourrir
+                <button onclick="feedEricFromDashboard()" class="eric-action-btn">
+                    <span class="action-icon">🍔</span>
+                    <span class="action-label">Nourrir</span>
                 </button>
-                <button onclick="playWithEricFromDashboard()" class="action-btn">
-                    🎾 Jouer
+                <button onclick="playWithEricFromDashboard()" class="eric-action-btn">
+                    <span class="action-icon">🎾</span>
+                    <span class="action-label">Jouer</span>
                 </button>
-                <button onclick="cuddleEricFromDashboard()" class="action-btn">
-                    🤗 Câliner
+                <button onclick="cuddleEricFromDashboard()" class="eric-action-btn">
+                    <span class="action-icon">🤗</span>
+                    <span class="action-label">Câliner</span>
                 </button>
+            </div>
+            
+            <!-- Quick Feed Menu -->
+            <div class="quick-feed-menu">
+                <h3>🍽️ Nourriture Rapide</h3>
+                <div class="quick-feed-items">
+                    <button onclick="quickFeed('burger')" class="quick-feed-btn">
+                        🍔 Burger (50🪙)
+                    </button>
+                    <button onclick="quickFeed('pizza')" class="quick-feed-btn">
+                        🍕 Pizza (100🪙)
+                    </button>
+                    <button onclick="quickFeed('sushi')" class="quick-feed-btn">
+                        🍣 Sushi (200🪙)
+                    </button>
+                </div>
             </div>
         </div>
     `;
 }
 
+function quickFeed(foodId) {
+    console.log(`🍔 Quick feeding: ${foodId}`);
+    
+    // Try to buy and use immediately
+    if (typeof buyShopItem === 'function') {
+        buyShopItem('food', foodId);
+        setTimeout(() => {
+            if (typeof useInventoryItem === 'function') {
+                useInventoryItem(foodId, 'food');
+            }
+        }, 100);
+    }
+}
+
 function renderShopTab(container) {
+    // Get player coins
+    const playerCoins = (typeof gameState !== 'undefined' && gameState.coins) ? gameState.coins : 0;
+    const playerLevel = (typeof gameState !== 'undefined' && gameState.level) ? gameState.level : 1;
+    
     container.innerHTML = `
         <div class="shop-dashboard">
-            <h2>🛒 Boutique Gaming</h2>
-            <p>Le shop existant sera intégré ici</p>
-            <button onclick="window.shopSystem?.openShop()" class="action-btn">
-                Ouvrir le Shop Complet
-            </button>
+            <div class="shop-header">
+                <h2>🛒 Boutique Gaming</h2>
+                <div class="player-coins">
+                    <span class="coins-icon">🪙</span>
+                    <span class="coins-amount">${playerCoins.toLocaleString()}</span>
+                    <span class="coins-label">Coins</span>
+                </div>
+            </div>
+            
+            <!-- Shop Categories Tabs -->
+            <div class="shop-categories">
+                <button class="shop-category-btn active" onclick="switchShopCategory('food')">
+                    🍔 Nourriture
+                </button>
+                <button class="shop-category-btn" onclick="switchShopCategory('skins')">
+                    😎 Skins
+                </button>
+                <button class="shop-category-btn" onclick="switchShopCategory('boosters')">
+                    ⚡ Boosters
+                </button>
+                <button class="shop-category-btn" onclick="switchShopCategory('lootboxes')">
+                    🎁 Lootboxes
+                </button>
+                <button class="shop-category-btn" onclick="switchShopCategory('inventory')">
+                    📦 Inventaire
+                </button>
+            </div>
+            
+            <!-- Shop Content Area -->
+            <div id="shop-content-area" class="shop-content-area">
+                <!-- Will be populated by switchShopCategory() -->
+            </div>
         </div>
     `;
+    
+    // Initialize with food category
+    switchShopCategory('food');
+}
+
+function switchShopCategory(category) {
+    // Update active button
+    document.querySelectorAll('.shop-category-btn').forEach(btn => btn.classList.remove('active'));
+    event?.target?.classList?.add('active');
+    
+    const contentArea = document.getElementById('shop-content-area');
+    if (!contentArea) return;
+    
+    const playerCoins = (typeof gameState !== 'undefined' && gameState.coins) ? gameState.coins : 0;
+    const playerLevel = (typeof gameState !== 'undefined' && gameState.level) ? gameState.level : 1;
+    
+    // Get catalog from shop system
+    const catalog = (typeof SHOP_CATALOG !== 'undefined') ? SHOP_CATALOG : {
+        food: [],
+        skins: [],
+        boosters: [],
+        lootboxes: []
+    };
+    
+    let html = '<div class="shop-items-grid">';
+    
+    if (category === 'inventory') {
+        // Show inventory
+        html += renderInventoryInShop();
+    } else {
+        // Show items from catalog
+        const items = catalog[category] || [];
+        
+        items.forEach(item => {
+            const canAfford = playerCoins >= item.price;
+            const levelOk = !item.requiredLevel || playerLevel >= item.requiredLevel;
+            const canBuy = canAfford && levelOk;
+            
+            html += `
+                <div class="shop-item-card ${!canBuy ? 'locked' : ''}">
+                    <div class="shop-item-icon">${item.icon}</div>
+                    <div class="shop-item-info">
+                        <h3>${item.name}</h3>
+                        <p>${item.description}</p>
+                        ${item.requiredLevel ? `<span class="level-requirement ${!levelOk ? 'not-met' : ''}">Niveau ${item.requiredLevel} requis</span>` : ''}
+                    </div>
+                    <div class="shop-item-footer">
+                        <span class="item-price ${!canAfford ? 'cannot-afford' : ''}">
+                            🪙 ${item.price}
+                        </span>
+                        <button 
+                            class="buy-btn ${!canBuy ? 'disabled' : ''}" 
+                            onclick="buyShopItem('${category}', '${item.id}')"
+                            ${!canBuy ? 'disabled' : ''}>
+                            ${!levelOk ? '🔒 Verrouillé' : !canAfford ? '💰 Trop cher' : '✅ Acheter'}
+                        </button>
+                    </div>
+                </div>
+            `;
+        });
+    }
+    
+    html += '</div>';
+    contentArea.innerHTML = html;
+}
+
+function renderInventoryInShop() {
+    const inventory = (typeof gameState !== 'undefined' && gameState.inventory) ? gameState.inventory : {
+        foods: {},
+        boosters: {},
+        skins: []
+    };
+    
+    let html = '<h3>📦 Votre Inventaire</h3>';
+    
+    // Foods
+    html += '<div class="inventory-section"><h4>🍔 Nourriture</h4><div class="inventory-items">';
+    Object.entries(inventory.foods || {}).forEach(([id, count]) => {
+        if (count > 0) {
+            const item = SHOP_CATALOG?.food?.find(f => f.id === id);
+            if (item) {
+                html += `
+                    <div class="inventory-item-card">
+                        <div class="inventory-item-icon">${item.icon}</div>
+                        <div class="inventory-item-name">${item.name}</div>
+                        <div class="inventory-item-count">x${count}</div>
+                        <button class="use-btn" onclick="useInventoryItem('${id}', 'food')">Utiliser</button>
+                    </div>
+                `;
+            }
+        }
+    });
+    html += '</div></div>';
+    
+    // Boosters
+    html += '<div class="inventory-section"><h4>⚡ Boosters</h4><div class="inventory-items">';
+    Object.entries(inventory.boosters || {}).forEach(([id, count]) => {
+        if (count > 0) {
+            const item = SHOP_CATALOG?.boosters?.find(b => b.id === id);
+            if (item) {
+                html += `
+                    <div class="inventory-item-card">
+                        <div class="inventory-item-icon">${item.icon}</div>
+                        <div class="inventory-item-name">${item.name}</div>
+                        <div class="inventory-item-count">x${count}</div>
+                        <button class="use-btn" onclick="useInventoryItem('${id}', 'booster')">Utiliser</button>
+                    </div>
+                `;
+            }
+        }
+    });
+    html += '</div></div>';
+    
+    // Skins
+    html += '<div class="inventory-section"><h4>😎 Skins Débloqués</h4><div class="inventory-items">';
+    (inventory.skins || []).forEach(skinId => {
+        const skin = SHOP_CATALOG?.skins?.find(s => s.id === skinId);
+        if (skin) {
+            html += `
+                <div class="inventory-item-card">
+                    <div class="inventory-item-icon">${skin.icon}</div>
+                    <div class="inventory-item-name">${skin.name}</div>
+                    <button class="equip-btn" onclick="equipSkin('${skinId}')">Équiper</button>
+                </div>
+            `;
+        }
+    });
+    html += '</div></div>';
+    
+    return html;
+}
+
+function buyShopItem(category, itemId) {
+    console.log(`🛒 Buying ${category}/${itemId}`);
+    
+    if (typeof window.shopSystem !== 'undefined' && window.shopSystem.buyItem) {
+        window.shopSystem.buyItem(category, itemId);
+        // Refresh shop display
+        setTimeout(() => renderShopTab(document.getElementById('tab-shop')), 100);
+    } else {
+        showNotification('❌ Shop system not loaded', 'error');
+    }
+}
+
+function equipSkin(skinId) {
+    console.log(`👕 Equipping skin: ${skinId}`);
+    
+    if (typeof window.shopSystem !== 'undefined' && window.shopSystem.equipSkin) {
+        window.shopSystem.equipSkin(skinId);
+        showNotification(`✅ Skin ${skinId} équipé !`, 'success');
+    } else {
+        showNotification('❌ Shop system not loaded', 'error');
+    }
 }
 
 function renderGamesTab(container) {
