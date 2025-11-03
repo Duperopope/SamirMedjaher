@@ -183,6 +183,23 @@ Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
 
 ## 🔄 Changelog
 
+### v0.42 (2025-11-03) - "🔄 Réorganisation Settings + 🧹 Nettoyage Code"
+- 🔄 **Réorganisation complète des settings gaming** : Sections HUD déplacées de l'onglet "Interface" vers "Gaming"
+- 📊 **Organisation logique** : Stats → Succès → Customisation HUD → Positionnement → Actions rapides
+- 🧹 **Nettoyage massif** : Suppression de 21 références obsolètes à `gameNotification` et `achievementToast`
+- 🔧 **Fonctions de prévisualisation nettoyées** : `startHudPreview()`, `stopHudPreview()`, `updateHudPositions()`
+- ✅ **Code 100% propre** : Plus aucune référence à des éléments supprimés en v0.36
+- 🎯 **Meilleure maintenabilité** : Code plus clair, cohérent et sans code mort
+
+**Fichiers modifiés** :
+- `index.html` : Réorganisation complète des onglets de settings + nettoyage références obsolètes
+- `VERSION.json` : Documentation v0.42
+
+**Impact utilisateur** :
+- ✅ Settings gaming mieux organisés et plus intuitifs
+- ✅ Prévisualisation HUD fonctionne sans erreurs console
+- ✅ Code plus propre pour futurs développements
+
 ### v0.41 (2025-11-03) - "🔥 CACHE-BUST CRITIQUE + Fix Positionnement"
 - 🔥 **FIX MAJEUR Cache-Bust** : Tous les scripts JS/CSS mis à jour avec paramètres ?v= synchronisés
 - 🐛 **Bug popup "+31" résolu** : `tamagotchi-gameplay.js` était chargé en v0.34 avec ancien code popup
