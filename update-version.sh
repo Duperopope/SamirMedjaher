@@ -28,10 +28,15 @@ echo "📝 Updating all ?v= parameters in index.html..."
 sed -i "s/\\.js?v=[0-9.]*/\.js?v=${NEW_VERSION}/g" index.html
 sed -i "s/\\.css?v=[0-9.]*/\.css?v=${NEW_VERSION}/g" index.html
 
+# 4. Mettre à jour le fallback HTML du footer
+echo "📝 Updating footer fallback values in index.html..."
+sed -i "s/<span id=\"appVersion\">[^<]*<\/span>/<span id=\"appVersion\">${NEW_VERSION}<\/span>/" index.html
+sed -i "s/<span id=\"lastUpdate\">[^<]*<\/span>/<span id=\"lastUpdate\">${DATE}<\/span>/" index.html
+
 echo "✅ Version mise à jour vers v${NEW_VERSION}"
 echo "📋 Fichiers modifiés:"
 echo "   - VERSION.json (current: ${NEW_VERSION}, date: ${DATE})"
-echo "   - index.html (CURRENT_VERSION + all ?v= parameters)"
+echo "   - index.html (CURRENT_VERSION + ?v= parameters + footer fallback)"
 echo ""
 echo "🔧 Prochaines étapes:"
 echo "   1. git add -A"

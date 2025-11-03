@@ -3800,8 +3800,10 @@ body.hud-preview-active .game-notification {
         // ============================================
         // VERSION AUTO-LOADER
         // ============================================
-        // Charge dynamiquement la version depuis VERSION.json
-        // Plus de hardcoding - toujours synchronisé avec le fichier source
+        // Système hybride intelligent:
+        // 1. Footer HTML a une valeur par défaut (fallback si VERSION.json ne charge pas)
+        // 2. Cette fonction charge VERSION.json et écrase le fallback si succès
+        // 3. Résultat: Version TOUJOURS affichée, même en cas d'erreur réseau
         async function loadVersion() {
             const versionEl = document.getElementById('appVersion');
             const lastUpdateEl = document.getElementById('lastUpdate');
@@ -3845,7 +3847,7 @@ body.hud-preview-active .game-notification {
         // Initialize everything
         document.addEventListener('DOMContentLoaded', () => {
             initializeCV();
-            loadVersion();
+            loadVersion(); // Charge VERSION.json et met à jour le footer
         });
     </script>
     
@@ -4155,9 +4157,9 @@ body.hud-preview-active .game-notification {
     <!-- Footer Version Info -->
     <footer class="cv-footer">
         <div class="version-info">
-            <span class="version-number">v<span id="appVersion">...</span></span>
+            <span class="version-number">v<span id="appVersion">0.42</span></span>
             <span class="version-separator">•</span>
-            <span class="last-update">Dernière mise à jour: <span id="lastUpdate">...</span></span>
+            <span class="last-update">Dernière mise à jour: <span id="lastUpdate">2025-11-03</span></span>
             <span class="version-separator">•</span>
             <span id="debugStatus" style="font-size:0.65rem; color:#64748b;">
                 Gaming: <span id="gamingStatus">⏳</span>
