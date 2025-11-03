@@ -712,8 +712,8 @@ body.hud-preview-active .game-notification {
 
     <script>
         // VERSION CHECK - Clear localStorage if version changes
-        // ⚠️ IMPORTANT: Mettre à jour cette constante quand VERSION.json change
-        // TODO: Charger dynamiquement depuis VERSION.json pour éviter hardcoding
+        // ⚠️ IMPORTANT: Utiliser le script ./update-version.sh pour mettre à jour
+        // Cette constante est synchronisée automatiquement par le script
         const CURRENT_VERSION = '0.42';
         const storedVersion = localStorage.getItem('cv-version');
         if (storedVersion !== CURRENT_VERSION) {
