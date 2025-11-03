@@ -1,0 +1,736 @@
+/**
+ * 🎨 ERIC COMPLETE GAME CSS
+ * Styles pour le jeu tamagotchi complet
+ * Version: 1.0
+ */
+
+/* ============================================
+   CONTENEUR PRINCIPAL DU JEU
+   ============================================ */
+
+.eric-game-container {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    grid-template-columns: 1fr 320px;
+    gap: 1rem;
+    padding: 1rem;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* ============================================
+   HEADER AVEC STATS
+   ============================================ */
+
+.game-header {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(10px);
+    padding: 1rem;
+    border-radius: 12px;
+    border: 1px solid rgba(6, 182, 212, 0.2);
+}
+
+.eric-portrait {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+}
+
+.eric-portrait img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #06B6D4;
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+}
+
+.portrait-frame {
+    position: absolute;
+    inset: -5px;
+    border: 2px solid rgba(6, 182, 212, 0.3);
+    border-radius: 50%;
+    animation: rotate 10s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.stats-panel {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+}
+
+.stat-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(30, 41, 59, 0.5);
+    padding: 0.5rem;
+    border-radius: 8px;
+    border: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.stat-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.stat-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-bar-bg {
+    height: 8px;
+    background: rgba(15, 23, 42, 0.8);
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.stat-bar-fill {
+    height: 100%;
+    transition: width 0.5s ease;
+    border-radius: 4px;
+    box-shadow: 0 0 10px currentColor;
+}
+
+.stat-value {
+    font-size: 0.7rem;
+    color: #e2e8f0;
+    font-weight: 500;
+}
+
+.currency-display {
+    background: linear-gradient(135deg, #F59E0B, #D97706);
+    padding: 0.75rem 1.25rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+}
+
+.coins-count {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: white;
+}
+
+.coin-icon {
+    font-size: 1.5rem;
+    animation: coinRotate 3s ease-in-out infinite;
+}
+
+@keyframes coinRotate {
+    0%, 100% { transform: rotateY(0deg); }
+    50% { transform: rotateY(180deg); }
+}
+
+/* ============================================
+   ZONE DE JEU PRINCIPALE
+   ============================================ */
+
+.game-main {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(10px);
+    padding: 1rem;
+    border-radius: 12px;
+    border: 1px solid rgba(6, 182, 212, 0.2);
+}
+
+.room-selector {
+    display: flex;
+    gap: 0.5rem;
+    background: rgba(30, 41, 59, 0.6);
+    padding: 0.5rem;
+    border-radius: 8px;
+}
+
+.room-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.75rem 0.5rem;
+    background: transparent;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    color: #94a3b8;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.room-btn:hover {
+    background: rgba(6, 182, 212, 0.1);
+    border-color: rgba(6, 182, 212, 0.3);
+    transform: translateY(-2px);
+}
+
+.room-btn.active {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(16, 185, 129, 0.2));
+    border-color: #06B6D4;
+    color: #e2e8f0;
+}
+
+.room-icon {
+    font-size: 1.5rem;
+}
+
+.room-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.game-environment {
+    flex: 1;
+    min-height: 400px;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.room-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.room-floor {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30%;
+    background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.2));
+    border-radius: 0 0 12px 12px;
+}
+
+.room-walls {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    right: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.wall-item {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    padding: 0.5rem;
+    border-radius: 8px;
+    font-size: 1.5rem;
+}
+
+.eric-character {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.eric-character:hover {
+    transform: scale(1.1);
+    filter: brightness(1.2);
+}
+
+.eric-character img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+}
+
+.eric-shadow {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 20px;
+    background: radial-gradient(ellipse, rgba(0, 0, 0, 0.4), transparent);
+    border-radius: 50%;
+}
+
+/* Animations d'Eric */
+.eric-character.anim-happy {
+    animation: bounce 0.6s ease;
+}
+
+.eric-character.anim-hungry {
+    animation: shake 0.5s ease;
+}
+
+.eric-character.anim-sad {
+    animation: sway 2s ease;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: scale(1) translateY(0); }
+    50% { transform: scale(1.1) translateY(-20px); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+
+@keyframes sway {
+    0%, 100% { transform: rotate(-2deg); }
+    50% { transform: rotate(2deg); }
+}
+
+.room-furniture {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.furniture {
+    position: absolute;
+    font-size: 2rem;
+    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.3));
+    transition: all 0.3s ease;
+}
+
+.furniture:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.4));
+}
+
+/* Positions des meubles */
+.furniture.sofa { bottom: 20%; left: 10%; }
+.furniture.tv { top: 30%; left: 20%; }
+.furniture.plant { top: 10%; right: 10%; }
+.furniture.lamp { top: 15%; left: 5%; }
+.furniture.fridge { top: 20%; left: 10%; }
+.furniture.table { bottom: 30%; right: 20%; }
+.furniture.bed { bottom: 20%; right: 15%; }
+.furniture.tree { top: 10%; left: 15%; }
+.furniture.ball { bottom: 25%; left: 25%; cursor: pointer; pointer-events: all; }
+
+.room-effects {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    font-size: 2rem;
+    animation: particleFloat 2s ease-out forwards;
+    left: 50%;
+    top: 50%;
+}
+
+@keyframes particleFloat {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(calc(-50% + var(--tx, 0)), calc(-50% - 60px)) scale(1.2);
+    }
+}
+
+.quick-actions {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background: rgba(30, 41, 59, 0.6);
+    border-radius: 8px;
+}
+
+.quick-action-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.75rem;
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(16, 185, 129, 0.1));
+    border: 1px solid rgba(6, 182, 212, 0.3);
+    border-radius: 8px;
+    color: #e2e8f0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.quick-action-btn:hover {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(16, 185, 129, 0.2));
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(6, 182, 212, 0.3);
+}
+
+.action-icon {
+    font-size: 1.5rem;
+}
+
+.action-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* ============================================
+   SIDEBAR (INVENTAIRE & SHOP)
+   ============================================ */
+
+.game-sidebar {
+    display: flex;
+    flex-direction: column;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    border: 1px solid rgba(6, 182, 212, 0.2);
+    overflow: hidden;
+}
+
+.sidebar-tabs {
+    display: flex;
+    background: rgba(30, 41, 59, 0.6);
+    border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.sidebar-tab {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.75rem 0.5rem;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: #94a3b8;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.75rem;
+}
+
+.sidebar-tab:hover {
+    background: rgba(6, 182, 212, 0.1);
+}
+
+.sidebar-tab.active {
+    color: #06B6D4;
+    border-bottom-color: #06B6D4;
+    background: rgba(6, 182, 212, 0.1);
+}
+
+.sidebar-content {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.sidebar-panel {
+    display: none;
+    padding: 1rem;
+    height: 100%;
+}
+
+.sidebar-panel.active {
+    display: block;
+}
+
+.panel-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #e2e8f0;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid rgba(6, 182, 212, 0.3);
+}
+
+/* Inventaire */
+.inventory-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 0.75rem;
+}
+
+.inventory-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: rgba(30, 41, 59, 0.6);
+    border-radius: 8px;
+    border: 2px solid rgba(148, 163, 184, 0.2);
+    cursor: grab;
+    transition: all 0.3s ease;
+}
+
+.inventory-item:hover {
+    border-color: #06B6D4;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(6, 182, 212, 0.3);
+}
+
+.item-icon {
+    font-size: 2rem;
+}
+
+.item-count {
+    position: absolute;
+    top: 0.25rem;
+    right: 0.25rem;
+    background: #06B6D4;
+    color: white;
+    padding: 0.1rem 0.4rem;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 700;
+}
+
+.item-name {
+    font-size: 0.7rem;
+    color: #e2e8f0;
+    text-align: center;
+}
+
+.empty-message {
+    text-align: center;
+    color: #64748b;
+    padding: 2rem;
+    font-style: italic;
+}
+
+/* Boutique */
+.shop-categories {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.shop-category-btn {
+    flex: 1;
+    padding: 0.5rem;
+    background: rgba(30, 41, 59, 0.6);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 6px;
+    color: #94a3b8;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.75rem;
+}
+
+.shop-category-btn:hover {
+    background: rgba(6, 182, 212, 0.1);
+}
+
+.shop-category-btn.active {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(16, 185, 129, 0.2));
+    border-color: #06B6D4;
+    color: #e2e8f0;
+}
+
+.shop-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.shop-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: rgba(30, 41, 59, 0.6);
+    border-radius: 8px;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    transition: all 0.3s ease;
+}
+
+.shop-item:hover {
+    border-color: #06B6D4;
+    transform: translateX(3px);
+}
+
+.shop-item .item-icon {
+    font-size: 2rem;
+}
+
+.item-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.item-details .item-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #e2e8f0;
+}
+
+.item-price {
+    font-size: 0.75rem;
+    color: #F59E0B;
+    font-weight: 700;
+}
+
+.buy-btn {
+    padding: 0.5rem 1rem;
+    background: linear-gradient(135deg, #06B6D4, #10B981);
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.75rem;
+}
+
+.buy-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(6, 182, 212, 0.4);
+}
+
+/* Mini-jeux */
+.minigames-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.minigame-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(109, 40, 217, 0.1));
+    border: 2px solid rgba(139, 92, 246, 0.3);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.minigame-card:hover {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(109, 40, 217, 0.2));
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px rgba(139, 92, 246, 0.3);
+}
+
+.minigame-icon {
+    font-size: 2rem;
+}
+
+.minigame-name {
+    flex: 1;
+    font-weight: 600;
+    color: #e2e8f0;
+}
+
+.minigame-reward {
+    color: #F59E0B;
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 1200px) {
+    .eric-game-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto 1fr;
+    }
+    
+    .game-sidebar {
+        grid-column: 1;
+        max-height: 400px;
+    }
+    
+    .stats-panel {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .eric-game-container {
+        padding: 0.5rem;
+        gap: 0.5rem;
+    }
+    
+    .game-header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .stats-panel {
+        width: 100%;
+    }
+    
+    .room-btn {
+        padding: 0.5rem 0.25rem;
+    }
+    
+    .room-label {
+        display: none;
+    }
+    
+    .eric-character {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+/* ============================================
+   ANIMATIONS SUPPLÉMENTAIRES
+   ============================================ */
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+@keyframes glow {
+    0%, 100% { box-shadow: 0 0 5px currentColor; }
+    50% { box-shadow: 0 0 20px currentColor; }
+}
+
+.pulsing {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.glowing {
+    animation: glow 2s ease-in-out infinite;
+}

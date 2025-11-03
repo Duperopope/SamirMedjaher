@@ -1,9 +1,24 @@
 {
-  "current": "0.44",
+  "current": "0.45",
   "lastUpdate": "2025-11-03",
   "changelog": [
     {
-      "version": "0.44",
+      "version": "0.45",
+      "date": "2025-11-03",
+      "changes": [
+        "🎮 JEU COMPLET: Transformation de l'onglet Eric en véritable jeu immersif !",
+        "📊 4 barres de stats visuelles : Faim, Humeur, Santé, Énergie",
+        "🏠 4 pièces explorables : Salon, Cuisine, Chambre, Jardin avec décors",
+        "🎒 Système d'inventaire complet avec items draggables",
+        "🛒 Boutique avec 3 catégories : Nourriture, Jouets, Soins",
+        "🎮 Section mini-jeux (Memory, Attrape, Puzzle) pour gagner des pièces",
+        "✨ Animations fluides et effets de particules professionnels",
+        "💾 Sauvegarde automatique de la progression",
+        "🪙 Système monétaire avec 100 pièces de départ"
+      ]
+    },
+    {
+      "version": "0.45",
       "date": "2025-11-03",
       "changes": [
         "🎨 FIX: Utilisation des vraies images PNG d'Eric au lieu des sprites SVG",
@@ -136,6 +151,6 @@
       ]
     }
   ],
-  "nextVersion": "0.44",
+  "nextVersion": "0.45",
   "autoIncrement": 0.01
 }
