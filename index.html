@@ -712,6 +712,8 @@ body.hud-preview-active .game-notification {
 
     <script>
         // VERSION CHECK - Clear localStorage if version changes
+        // ⚠️ IMPORTANT: Mettre à jour cette constante quand VERSION.json change
+        // TODO: Charger dynamiquement depuis VERSION.json pour éviter hardcoding
         const CURRENT_VERSION = '0.42';
         const storedVersion = localStorage.getItem('cv-version');
         if (storedVersion !== CURRENT_VERSION) {
@@ -3798,33 +3800,45 @@ body.hud-preview-active .game-notification {
         // ============================================
         // VERSION AUTO-LOADER
         // ============================================
+        // Charge dynamiquement la version depuis VERSION.json
+        // Plus de hardcoding - toujours synchronisé avec le fichier source
         async function loadVersion() {
+            const versionEl = document.getElementById('appVersion');
+            const lastUpdateEl = document.getElementById('lastUpdate');
+            
             try {
                 // Cache-busting: ajoute timestamp pour forcer rechargement
                 const timestamp = new Date().getTime();
                 const response = await fetch(`VERSION.json?v=${timestamp}`);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                
                 const versionData = await response.json();
                 
                 // Update version number
-                const versionEl = document.getElementById('appVersion');
                 if (versionEl) {
                     versionEl.textContent = versionData.current;
                 }
                 
                 // Update last update date
-                const lastUpdateEl = document.getElementById('lastUpdate');
                 if (lastUpdateEl) {
                     lastUpdateEl.textContent = versionData.lastUpdate;
                 }
                 
                 console.log(`📌 CV Gaming v${versionData.current} - ${versionData.lastUpdate}`);
             } catch (error) {
-                console.warn('⚠️ Version info not loaded:', error);
-                // Fallback to hardcoded values (update manually after each version bump)
-                const versionEl = document.getElementById('appVersion');
-                const lastUpdateEl = document.getElementById('lastUpdate');
-                if (versionEl) versionEl.textContent = '0.42';
-                if (lastUpdateEl) lastUpdateEl.textContent = '2025-11-02';
+                console.error('❌ Erreur chargement VERSION.json:', error);
+                
+                // Afficher message d'erreur au lieu de valeur hardcodée
+                if (versionEl) {
+                    versionEl.textContent = 'N/A';
+                    versionEl.title = 'Erreur de chargement - Vérifiez VERSION.json';
+                }
+                if (lastUpdateEl) {
+                    lastUpdateEl.textContent = 'N/A';
+                }
             }
         }
 
@@ -4141,9 +4155,9 @@ body.hud-preview-active .game-notification {
     <!-- Footer Version Info -->
     <footer class="cv-footer">
         <div class="version-info">
-            <span class="version-number">v<span id="appVersion">0.42</span></span>
+            <span class="version-number">v<span id="appVersion">...</span></span>
             <span class="version-separator">•</span>
-            <span class="last-update">Dernière mise à jour: <span id="lastUpdate">2025-11-03</span></span>
+            <span class="last-update">Dernière mise à jour: <span id="lastUpdate">...</span></span>
             <span class="version-separator">•</span>
             <span id="debugStatus" style="font-size:0.65rem; color:#64748b;">
                 Gaming: <span id="gamingStatus">⏳</span>
