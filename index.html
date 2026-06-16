@@ -93,102 +93,116 @@ body.hud-preview-active .game-notification {
             border-bottom: 1px solid rgba(148, 163, 184, 0.15);
         }
         .portfolio-subtitle i { color: var(--primary); font-size: 1.15rem; }
-        /* Bouton play (UX vidéo) */
-        .video-play {
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%) scale(0.85);
-            width: 54px; height: 54px; border-radius: 50%;
-            background: rgba(6,182,212,0.92);
-            display: flex; align-items: center; justify-content: center;
-            color: #fff; font-size: 1.05rem; padding-left: 3px;
-            opacity: 0; transition: all 0.3s ease; pointer-events: none;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.45);
-        }
-        .portfolio-card:hover .video-play { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .video-card-title {
-            display: flex; align-items: center; gap: 0.5rem;
-            font-size: 1.02rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem;
-        }
-        .card-ic {
-            width: 30px; height: 30px; border-radius: 9px;
-            display: inline-flex; align-items: center; justify-content: center;
-            background: rgba(6,182,212,0.15); border: 1px solid rgba(6,182,212,0.25);
-            color: var(--primary); font-size: 0.85rem; flex-shrink: 0;
-        }
+        /* ============ CARTES IMMERSIVES (tilt 3D + covers génératifs) ============ */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-            gap: 1.25rem;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
             max-width: 1100px;
             margin: 1.5rem auto 0;
+            perspective: 1300px;
         }
-        .project-card {
+        .portfolio-grid { perspective: 1300px; }
+
+        .immersive-card {
+            position: relative;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            background: linear-gradient(145deg, rgba(30,41,59,0.18), rgba(15,23,42,0.25));
-            border: 1px solid rgba(6,182,212,0.15);
-            border-radius: 16px;
-            padding: 1.25rem;
-            backdrop-filter: blur(12px);
-            transition: all 0.3s ease;
+            background: linear-gradient(160deg, rgba(20,30,48,0.6), rgba(8,14,24,0.78));
+            border: 1px solid rgba(148,163,184,0.12);
+            border-radius: 18px;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transform: perspective(1300px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));
+            transition: transform .15s ease, box-shadow .4s ease, border-color .4s ease;
+            will-change: transform;
         }
-        .project-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(6,182,212,0.4);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.25), 0 0 40px rgba(6,182,212,0.12);
+        .immersive-card:hover {
+            border-color: hsla(var(--h,190),85%,60%,0.45);
+            box-shadow: 0 26px 60px rgba(0,0,0,0.45), 0 0 60px hsla(var(--h,190),90%,55%,0.16);
         }
-        .project-card-head {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            margin-bottom: 0.6rem;
+
+        /* Cover */
+        .ic-cover { position: relative; height: 158px; overflow: hidden; background: #0a1018; flex-shrink: 0; }
+        .ic-cover.gen::before {
+            content: ''; position: absolute; inset: -25%;
+            background:
+                radial-gradient(38% 38% at 28% 30%, hsla(var(--h),90%,62%,0.70), transparent 60%),
+                radial-gradient(34% 34% at 72% 36%, hsla(calc(var(--h) + 45),90%,58%,0.55), transparent 60%),
+                radial-gradient(44% 44% at 52% 80%, hsla(calc(var(--h) - 35),90%,55%,0.50), transparent 62%);
+            filter: blur(6px) saturate(1.3);
+            animation: meshFloat 16s ease-in-out infinite alternate;
         }
-        .project-icon {
-            width: 46px; height: 46px; flex-shrink: 0;
-            border-radius: 13px;
+        @keyframes meshFloat {
+            0%   { transform: translate(-3%,-2%) scale(1.05) rotate(0deg); }
+            100% { transform: translate(4%,3%) scale(1.18) rotate(10deg); }
+        }
+        .immersive-card:hover .ic-cover.gen::before { animation-duration: 7s; filter: blur(4px) saturate(1.5); }
+        .ic-grid {
+            position: absolute; inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+            background-size: 24px 24px;
+            -webkit-mask-image: radial-gradient(circle at 50% 45%, #000 25%, transparent 78%);
+            mask-image: radial-gradient(circle at 50% 45%, #000 25%, transparent 78%);
+        }
+        .ic-watermark {
+            position: absolute; right: -6px; bottom: -26px;
+            font-size: 6.4rem; line-height: 1; color: rgba(255,255,255,0.10);
+            transform: translateZ(30px); transition: transform .4s ease, color .4s ease;
+        }
+        .immersive-card:hover .ic-watermark { transform: translateZ(60px) scale(1.06); color: rgba(255,255,255,0.18); }
+
+        /* Cover vidéo */
+        .ic-thumb { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s ease, filter .3s ease; }
+        .immersive-card:hover .ic-thumb { transform: scale(1.07); filter: saturate(1.12); }
+        .ic-frame { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; z-index: 2; pointer-events: none; }
+        .ic-play {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%,-50%) translateZ(45px) scale(0.85);
+            width: 58px; height: 58px; border-radius: 50%;
+            background: hsla(190,90%,50%,0.92);
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 1.15rem; padding-left: 3px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.55);
+            opacity: 0; transition: all .35s ease; pointer-events: none; z-index: 3;
+        }
+        .immersive-card:hover .ic-play { opacity: 1; transform: translate(-50%,-50%) translateZ(70px) scale(1); }
+
+        /* Glare suiveur de curseur */
+        .ic-glare {
+            position: absolute; inset: 0; pointer-events: none; opacity: 0; z-index: 4;
+            transition: opacity .3s ease;
+            background: radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(255,255,255,0.22), transparent 42%);
+            mix-blend-mode: overlay;
+        }
+        .immersive-card:hover .ic-glare { opacity: 1; }
+
+        /* Contenu */
+        .ic-content { padding: 1.1rem 1.15rem 1.25rem; display: flex; flex-direction: column; gap: 0.6rem; flex: 1; }
+        .ic-head { display: flex; align-items: center; gap: 0.6rem; transform: translateZ(28px); }
+        .ic-chip {
+            width: 42px; height: 42px; flex-shrink: 0; border-radius: 12px;
             display: inline-flex; align-items: center; justify-content: center;
-            background: linear-gradient(135deg, rgba(6,182,212,0.18), rgba(16,185,129,0.12));
-            border: 1px solid rgba(6,182,212,0.28);
-            color: var(--primary); font-size: 1.25rem;
+            background: linear-gradient(135deg, hsla(var(--h,190),85%,55%,0.28), hsla(calc(var(--h,190) + 40),85%,50%,0.18));
+            border: 1px solid hsla(var(--h,190),85%,62%,0.42);
+            color: hsl(var(--h,190),92%,74%); font-size: 1.15rem;
         }
-        .project-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin: 0;
-        }
-        .project-desc {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            line-height: 1.5;
-            margin-bottom: 0.8rem;
-        }
-        .project-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.3rem;
-            margin-bottom: 1rem;
-        }
+        .ic-title { font-size: 1.08rem; font-weight: 700; color: #fff; margin: 0; line-height: 1.2; }
+        .ic-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; flex: 1; }
+        .ic-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+
         .project-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            align-self: flex-start;
-            background: rgba(6,182,212,0.12);
-            color: var(--primary);
+            display: inline-flex; align-items: center; gap: 0.5rem; align-self: flex-start;
+            margin-top: 0.3rem; transform: translateZ(20px);
+            background: rgba(6,182,212,0.12); color: var(--primary);
             border: 1px solid rgba(6,182,212,0.25);
-            padding: 0.45rem 0.9rem;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
+            padding: 0.45rem 0.9rem; border-radius: 8px;
+            font-size: 0.8rem; font-weight: 600; text-decoration: none;
+            transition: all 0.25s ease;
         }
-        .project-link:hover {
-            background: rgba(6,182,212,0.22);
-            transform: translateY(-2px);
-        }
+        .project-link:hover { background: rgba(6,182,212,0.22); }
 
         /* Appui long clic-DROIT (reset) : barre de progression en rouge */
         .reset-progress.reset-mode { background: rgba(239,68,68,0.2); }
@@ -2064,25 +2078,28 @@ body.hud-preview-active .game-notification {
             const container = document.getElementById('portfolioGrid');
             
             container.innerHTML = portfolioVideos.map((video, index) => `
-                <div class="portfolio-card" onclick="showTheaterOverlay(${index})" data-index="${index}">
-                    <div class="video-thumbnail">
-                        <img src="https://img.youtube.com/vi/${video.id}/hqdefault.jpg"
-                            alt="${video.title[currentLang]}"
-                            loading="lazy"
-                            style="width: 100%; height: 100%; object-fit: cover;">
-                        <span class="video-play"><i class="fas fa-play"></i></span>
+                <article class="portfolio-card immersive-card" onclick="showTheaterOverlay(${index})" data-index="${index}" data-vid="${video.id}" style="--h:190">
+                    <div class="ic-cover">
+                        <img class="ic-thumb" src="https://img.youtube.com/vi/${video.id}/hqdefault.jpg" alt="${video.title[currentLang]}" loading="lazy">
+                        <span class="ic-play"><i class="fas fa-play"></i></span>
+                        <div class="ic-glare"></div>
                     </div>
-                    <div class="video-description">
-                        <h4 class="video-card-title"><span class="card-ic"><i class="${video.icon}"></i></span>${video.title[currentLang]}</h4>
-                        <p class="text-gray-300 text-sm">${video.description[currentLang]}</p>
-                        <div class="flex flex-wrap gap-2 mt-3">
+                    <div class="ic-content">
+                        <div class="ic-head">
+                            <span class="ic-chip"><i class="${video.icon}"></i></span>
+                            <h4 class="ic-title">${video.title[currentLang]}</h4>
+                        </div>
+                        <p class="ic-desc">${video.description[currentLang]}</p>
+                        <div class="ic-tags">
                             <span class="tech-tag">Unreal Engine</span>
                             <span class="tech-tag">Blueprint</span>
                             <span class="tech-tag">Level Design</span>
                         </div>
                     </div>
-                </div>
+                </article>
             `).join('');
+            initTiltCards(container);
+            initVideoHoverPlay(container);
         }
 
 
@@ -2099,33 +2116,83 @@ body.hud-preview-active .game-notification {
             window.print();
         }
 
+        // ===== Cartes immersives : tilt 3D + glare + lecture vidéo au survol =====
+        function initTiltCards(scope) {
+            (scope || document).querySelectorAll('.immersive-card').forEach(card => {
+                if (card.dataset.tiltInit) return;
+                card.dataset.tiltInit = '1';
+                const MAX = 9;
+                card.addEventListener('mousemove', e => {
+                    const r = card.getBoundingClientRect();
+                    const px = (e.clientX - r.left) / r.width;
+                    const py = (e.clientY - r.top) / r.height;
+                    card.style.transform = `perspective(1300px) rotateX(${((0.5 - py) * MAX).toFixed(2)}deg) rotateY(${((px - 0.5) * MAX).toFixed(2)}deg)`;
+                    card.style.setProperty('--mx', (px * 100).toFixed(1) + '%');
+                    card.style.setProperty('--my', (py * 100).toFixed(1) + '%');
+                });
+                card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+            });
+        }
+
+        function initVideoHoverPlay(scope) {
+            (scope || document).querySelectorAll('.immersive-card[data-vid]').forEach(card => {
+                if (card.dataset.hoverInit) return;
+                card.dataset.hoverInit = '1';
+                const id = card.getAttribute('data-vid');
+                let timer = null;
+                card.addEventListener('mouseenter', () => {
+                    timer = setTimeout(() => {
+                        const cover = card.querySelector('.ic-cover');
+                        if (cover && !cover.querySelector('.ic-frame')) {
+                            const f = document.createElement('iframe');
+                            f.className = 'ic-frame';
+                            f.allow = 'autoplay; encrypted-media';
+                            f.src = `https://www.youtube.com/embed/${id}?autoplay=1&mute=1&controls=0&modestbranding=1&playsinline=1&rel=0&loop=1&playlist=${id}`;
+                            cover.appendChild(f);
+                        }
+                    }, 350);
+                });
+                card.addEventListener('mouseleave', () => {
+                    clearTimeout(timer);
+                    const f = card.querySelector('.ic-frame');
+                    if (f) f.remove();
+                });
+            });
+        }
+
         function updateGithubProjects() {
             const container = document.getElementById('githubProjectsGrid');
             if (!container) return;
             const t = translations[currentLang];
-            container.innerHTML = githubProjects.map(p => {
+            const HUES = [195, 265, 35, 150, 315, 185];
+            container.innerHTML = githubProjects.map((p, i) => {
                 const isLive = !!p.url;
                 const link = p.url || `https://github.com/${GITHUB_USER}/${p.repo}`;
                 const linkLabel = isLive
                     ? (currentLang === 'fr' ? 'Voir le site' : 'Visit site')
                     : (t.viewOnGithub || 'Voir sur GitHub');
                 const iconClass = isLive ? 'fas fa-arrow-up-right-from-square' : 'fab fa-github';
+                const hue = HUES[i % HUES.length];
                 const tags = p.tags.map(tag => `<span class="tech-tag">${tag}</span>`).join('');
                 return `
-                <div class="project-card">
-                    <div class="project-card-body">
-                        <div class="project-card-head">
-                            <span class="project-icon"><i class="${p.icon}"></i></span>
-                            <h4 class="project-title">${p.title}</h4>
-                        </div>
-                        <p class="project-desc">${p.description[currentLang]}</p>
-                        <div class="project-tags">${tags}</div>
+                <article class="immersive-card" style="--h:${hue}">
+                    <div class="ic-cover gen">
+                        <div class="ic-grid"></div>
+                        <span class="ic-watermark"><i class="${p.icon}"></i></span>
+                        <div class="ic-glare"></div>
                     </div>
-                    <a class="project-link" href="${link}" target="_blank" rel="noopener">
-                        <i class="${iconClass}"></i><span>${linkLabel}</span>
-                    </a>
-                </div>`;
+                    <div class="ic-content">
+                        <div class="ic-head">
+                            <span class="ic-chip"><i class="${p.icon}"></i></span>
+                            <h4 class="ic-title">${p.title}</h4>
+                        </div>
+                        <p class="ic-desc">${p.description[currentLang]}</p>
+                        <div class="ic-tags">${tags}</div>
+                        <a class="project-link" href="${link}" target="_blank" rel="noopener"><i class="${iconClass}"></i><span>${linkLabel}</span></a>
+                    </div>
+                </article>`;
             }).join('');
+            initTiltCards(container);
         }
 
         // Theater Functions
