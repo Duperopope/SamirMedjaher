@@ -204,6 +204,94 @@ body.hud-preview-active .game-notification {
         }
         .project-link:hover { background: rgba(6,182,212,0.22); }
 
+        /* ============ CARROUSEL 3D COVERFLOW (vidéos + projets réunis) ============ */
+        .coverflow { position: relative; max-width: 1080px; margin: 1.5rem auto 0; padding-bottom: 26px; }
+        .cf-stage { position: relative; height: 580px; perspective: 1500px; transform-style: preserve-3d; }
+        .cf-item {
+            position: absolute; top: 46%; left: 50%;
+            width: 290px; height: 400px; margin-left: -145px; margin-top: -200px;
+            transform-style: preserve-3d;
+            transition: transform .6s cubic-bezier(.22,.68,.2,1), opacity .5s ease, filter .5s ease;
+            cursor: pointer; will-change: transform;
+        }
+        .cf-card {
+            position: relative; width: 100%; height: 100%;
+            border-radius: 14px; overflow: hidden; background: #0a1018;
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 26px 50px rgba(0,0,0,0.6);
+            -webkit-box-reflect: below 8px linear-gradient(transparent 60%, rgba(255,255,255,0.15));
+        }
+        .cf-item.active .cf-card {
+            box-shadow: 0 30px 70px rgba(0,0,0,0.7), 0 0 70px hsla(var(--h,190),90%,55%,0.35);
+            border-color: hsla(var(--h,190),85%,60%,0.5);
+        }
+        .cf-cover { position: absolute; inset: 0; }
+        .cf-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .cf-cover.gen::before {
+            content: ''; position: absolute; inset: -25%;
+            background:
+                radial-gradient(38% 38% at 28% 30%, hsla(var(--h),90%,62%,0.78), transparent 60%),
+                radial-gradient(34% 34% at 72% 36%, hsla(calc(var(--h) + 45),90%,58%,0.62), transparent 60%),
+                radial-gradient(44% 44% at 52% 80%, hsla(calc(var(--h) - 35),90%,55%,0.55), transparent 62%);
+            filter: blur(6px) saturate(1.35);
+            animation: meshFloat 16s ease-in-out infinite alternate;
+        }
+        .cf-item.active .cf-cover.gen::before { animation-duration: 8s; }
+        .cf-grid {
+            position: absolute; inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+            background-size: 26px 26px;
+            -webkit-mask-image: radial-gradient(circle at 50% 38%, #000 22%, transparent 80%);
+            mask-image: radial-gradient(circle at 50% 38%, #000 22%, transparent 80%);
+        }
+        .cf-watermark { position: absolute; right: -10px; bottom: 4px; font-size: 9rem; line-height: 1; color: rgba(255,255,255,0.12); }
+        .cf-play {
+            position: absolute; top: 42%; left: 50%; transform: translate(-50%,-50%) scale(0.9);
+            width: 64px; height: 64px; border-radius: 50%;
+            background: hsla(190,90%,50%,0.92); color: #fff; font-size: 1.3rem; padding-left: 4px;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6); opacity: 0; transition: opacity .4s ease, transform .4s ease;
+        }
+        .cf-item.active .cf-play { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+        .cf-cover::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(5,8,14,0.92) 2%, transparent 36%); }
+        .cf-cardlabel { position: absolute; left: 0; right: 0; bottom: 0; padding: 13px 14px 15px; display: flex; align-items: center; gap: 9px; color: #fff; z-index: 2; }
+        .cf-cardchip {
+            width: 34px; height: 34px; border-radius: 9px; flex-shrink: 0;
+            display: inline-flex; align-items: center; justify-content: center;
+            background: hsla(var(--h,190),85%,55%,0.30); border: 1px solid hsla(var(--h,190),85%,62%,0.48);
+            color: hsl(var(--h,190),92%,80%); font-size: 0.9rem;
+        }
+        .cf-cardlabel b { font-size: 0.92rem; font-weight: 700; line-height: 1.15; }
+        .cf-arrow {
+            position: absolute; top: 40%; transform: translateY(-50%);
+            width: 48px; height: 48px; border-radius: 50%; z-index: 50;
+            background: rgba(15,23,42,0.55); border: 1px solid rgba(148,163,184,0.25); color: #fff; font-size: 1.05rem;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            backdrop-filter: blur(6px); transition: all .25s ease;
+        }
+        .cf-arrow:hover { background: rgba(6,182,212,0.25); border-color: var(--primary); transform: translateY(-50%) scale(1.08); }
+        .cf-prev { left: 2px; } .cf-next { right: 2px; }
+        .cf-caption { text-align: center; margin-top: 0.25rem; min-height: 96px; }
+        .cf-kind { display: inline-block; font-size: 0.68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--primary); border: 1px solid rgba(6,182,212,0.3); border-radius: 20px; padding: 3px 12px; margin-bottom: 8px; }
+        .cf-title { font-size: 1.4rem; font-weight: 700; color: #fff; }
+        .cf-desc { color: var(--text-secondary); max-width: 600px; margin: 0.5rem auto 0; font-size: 0.9rem; line-height: 1.5; }
+        .cf-cta {
+            display: inline-flex; align-items: center; gap: 8px; margin-top: 12px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #fff;
+            padding: 0.55rem 1.2rem; border-radius: 10px; font-size: 0.85rem; font-weight: 600; text-decoration: none; cursor: pointer; transition: all .25s ease;
+        }
+        .cf-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(6,182,212,0.35); }
+        .cf-dots { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 1.3rem; }
+        .cf-dot { width: 9px; height: 9px; border-radius: 50%; background: rgba(148,163,184,0.35); cursor: pointer; transition: all .3s ease; border: 0; padding: 0; }
+        .cf-dot.active { background: var(--primary); transform: scale(1.3); box-shadow: 0 0 10px rgba(6,182,212,0.6); }
+        @media (max-width: 640px) {
+            .cf-stage { height: 430px; }
+            .cf-item { width: 210px; height: 300px; margin-left: -105px; margin-top: -160px; }
+            .cf-watermark { font-size: 6.5rem; }
+        }
+
         /* Appui long clic-DROIT (reset) : barre de progression en rouge */
         .reset-progress.reset-mode { background: rgba(239,68,68,0.2); }
         .reset-progress.reset-mode::before { background: linear-gradient(90deg, #ef4444, #dc2626); }
@@ -915,24 +1003,19 @@ body.hud-preview-active .game-notification {
             </p>
         </div>
 
-        <!-- Sous-section : Vidéos -->
-        <h3 class="portfolio-subtitle"><i class="fas fa-clapperboard"></i><span data-lang="videosSectionTitle">Vidéos — Game Development</span></h3>
-        <div style="position: relative;">
-            <button class="carousel-nav carousel-prev" onclick="slideCarousel(-1)">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-            <button class="carousel-nav carousel-next" onclick="slideCarousel(1)">
-                <i class="fas fa-chevron-right"></i>
-            </button>
-            <div class="portfolio-grid" id="portfolioGrid"></div>
+        <!-- Carrousel 3D coverflow : vidéos + projets réunis -->
+        <div class="coverflow" id="coverflow">
+            <button class="cf-arrow cf-prev" onclick="cfMove(-1)" aria-label="Précédent"><i class="fas fa-chevron-left"></i></button>
+            <div class="cf-stage" id="cfStage"></div>
+            <button class="cf-arrow cf-next" onclick="cfMove(1)" aria-label="Suivant"><i class="fas fa-chevron-right"></i></button>
         </div>
-
-        <!-- Sous-section : Projets GitHub -->
-        <div class="text-center" style="margin-top: 3.5rem;">
-            <h3 class="portfolio-subtitle" style="justify-content:center;"><i class="fab fa-github"></i><span data-lang="githubSectionTitle">Projets GitHub</span></h3>
-            <p class="text-gray-300" data-lang="githubSectionSubtitle">Code open-source — dev, IA, transport & réseau</p>
+        <div class="cf-caption">
+            <span class="cf-kind" id="cfKind"></span>
+            <h3 class="cf-title" id="cfTitle"></h3>
+            <p class="cf-desc" id="cfDesc"></p>
+            <a class="cf-cta" id="cfCta" target="_blank" rel="noopener"></a>
         </div>
-        <div class="projects-grid" id="githubProjectsGrid"></div>
+        <div class="cf-dots" id="cfDots"></div>
     </div>
 
     <!-- Theater Overlay -->
@@ -1975,8 +2058,7 @@ body.hud-preview-active .game-notification {
             updateInternational();
             updateSkills();
             updateLanguages();
-            updatePortfolio();
-            updateGithubProjects();
+            renderCoverflow();
         }
 
         function updateExperience() {
@@ -2159,6 +2241,116 @@ body.hud-preview-active .game-notification {
                 });
             });
         }
+
+        // ===== Carrousel 3D coverflow : vidéos + projets réunis =====
+        let cfItems = [];
+        let cfEls = [];
+        let cfDotsEls = [];
+        let cfActive = 0;
+
+        function buildCoverflowData() {
+            const vids = portfolioVideos.map(v => ({
+                kind: 'video', vid: v.id, icon: v.icon, hue: 190,
+                title: v.title[currentLang], desc: v.description[currentLang]
+            }));
+            const HUES = [195, 265, 35, 150, 315, 185];
+            const projs = githubProjects.map((p, i) => ({
+                kind: 'project', repo: p.repo, url: p.url, icon: p.icon, hue: HUES[i % HUES.length],
+                title: p.title, desc: p.description[currentLang]
+            }));
+            return vids.concat(projs);
+        }
+
+        function renderCoverflow() {
+            const stage = document.getElementById('cfStage');
+            if (!stage) return;
+            cfItems = buildCoverflowData();
+            stage.innerHTML = cfItems.map((it, i) => {
+                const cover = it.kind === 'video'
+                    ? `<div class="cf-cover">
+                           <img src="https://img.youtube.com/vi/${it.vid}/hqdefault.jpg" alt="" loading="lazy">
+                           <span class="cf-play"><i class="fas fa-play"></i></span>
+                       </div>`
+                    : `<div class="cf-cover gen">
+                           <div class="cf-grid"></div>
+                           <span class="cf-watermark"><i class="${it.icon}"></i></span>
+                       </div>`;
+                return `<div class="cf-item" data-i="${i}" onclick="cfClick(${i})">
+                            <div class="cf-card" style="--h:${it.hue}">
+                                ${cover}
+                                <div class="cf-cardlabel"><span class="cf-cardchip"><i class="${it.icon}"></i></span><b>${it.title}</b></div>
+                            </div>
+                        </div>`;
+            }).join('');
+            cfEls = Array.from(stage.querySelectorAll('.cf-item'));
+            const dots = document.getElementById('cfDots');
+            dots.innerHTML = cfItems.map((_, i) => `<button class="cf-dot" data-i="${i}" onclick="cfGoTo(${i})" aria-label="Élément ${i + 1}"></button>`).join('');
+            cfDotsEls = Array.from(dots.querySelectorAll('.cf-dot'));
+            if (cfActive >= cfItems.length) cfActive = 0;
+            cfLayout();
+        }
+
+        function cfLayout() {
+            cfEls.forEach((el, i) => {
+                const off = i - cfActive;
+                const abs = Math.abs(off);
+                const sign = Math.sign(off);
+                const visible = abs <= 4;
+                const x = off * 200;
+                const z = -abs * 230;
+                const ry = off === 0 ? 0 : -sign * 50;
+                const sc = off === 0 ? 1 : Math.max(0.6, 0.82 - (abs - 1) * 0.05);
+                el.style.transform = `translateX(${x}px) translateZ(${z}px) rotateY(${ry}deg) scale(${sc})`;
+                el.style.zIndex = String(100 - abs);
+                el.style.opacity = visible ? '1' : '0';
+                el.style.pointerEvents = visible ? 'auto' : 'none';
+                el.style.filter = off === 0 ? 'none' : `brightness(${Math.max(0.4, 0.72 - (abs - 1) * 0.12)})`;
+                el.classList.toggle('active', off === 0);
+            });
+            cfDotsEls.forEach((d, i) => d.classList.toggle('active', i === cfActive));
+            cfUpdateCaption();
+        }
+
+        function cfUpdateCaption() {
+            const it = cfItems[cfActive];
+            if (!it) return;
+            document.getElementById('cfKind').textContent = it.kind === 'video'
+                ? (currentLang === 'fr' ? 'Vidéo' : 'Video')
+                : (currentLang === 'fr' ? 'Projet' : 'Project');
+            document.getElementById('cfTitle').textContent = it.title;
+            document.getElementById('cfDesc').textContent = it.desc;
+            const cta = document.getElementById('cfCta');
+            if (it.kind === 'video') {
+                cta.innerHTML = `<i class="fas fa-play"></i>${currentLang === 'fr' ? 'Regarder la vidéo' : 'Watch video'}`;
+                cta.removeAttribute('href');
+                cta.onclick = function (e) { e.preventDefault(); cfOpen(cfActive); };
+            } else {
+                const isLive = !!it.url;
+                const link = it.url || `https://github.com/${GITHUB_USER}/${it.repo}`;
+                cta.innerHTML = `<i class="${isLive ? 'fas fa-arrow-up-right-from-square' : 'fab fa-github'}"></i>${isLive ? (currentLang === 'fr' ? 'Voir le site' : 'Visit site') : (currentLang === 'fr' ? 'Voir sur GitHub' : 'View on GitHub')}`;
+                cta.href = link;
+                cta.onclick = null;
+            }
+        }
+
+        function cfOpen(i) {
+            const it = cfItems[i];
+            if (!it) return;
+            if (it.kind === 'video') {
+                const idx = portfolioVideos.findIndex(v => v.id === it.vid);
+                if (idx >= 0) showTheaterOverlay(idx);
+            } else {
+                window.open(it.url || `https://github.com/${GITHUB_USER}/${it.repo}`, '_blank', 'noopener');
+            }
+        }
+
+        function cfMove(dir) {
+            if (!cfItems.length) return;
+            cfActive = (cfActive + dir + cfItems.length) % cfItems.length;
+            cfLayout();
+        }
+        function cfGoTo(i) { cfActive = i; cfLayout(); }
+        function cfClick(i) { if (i === cfActive) { cfOpen(i); } else { cfGoTo(i); } }
 
         function updateGithubProjects() {
             const container = document.getElementById('githubProjectsGrid');
