@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="CV professionnel de Samir Medjaher - Technicien IT & Développeur Junior avec portfolio interactif gamifié">
+    <meta name="description" content="CV professionnel de Samir Medjaher - Technicien IT & Développeur avec portfolio interactif gamifié">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -292,9 +292,22 @@ body.hud-preview-active .game-notification {
             .cf-watermark { font-size: 6.5rem; }
         }
 
-        /* Appui long clic-DROIT (reset) : barre de progression en rouge */
-        .reset-progress.reset-mode { background: rgba(239,68,68,0.2); }
-        .reset-progress.reset-mode::before { background: linear-gradient(90deg, #ef4444, #dc2626); }
+        /* Footer version masqué */
+        .cv-footer { display: none !important; }
+
+        /* Appui long = ANNEAU de progression autour du portrait (au lieu d'une barre) */
+        #resetProgress.reset-progress {
+            position: absolute; top: -6px; left: 50%; bottom: auto;
+            transform: translateX(-50%);
+            width: 152px; height: 152px; border-radius: 50%;
+            background: conic-gradient(from -90deg, var(--ring, #06b6d4) var(--progress, 0%), rgba(148,163,184,0.18) 0) !important;
+            -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 6px), #000 calc(100% - 5px));
+            mask: radial-gradient(farthest-side, transparent calc(100% - 6px), #000 calc(100% - 5px));
+            z-index: 6;
+        }
+        #resetProgress.reset-progress::before { content: none !important; display: none !important; }
+        #resetProgress.reset-mode { --ring: #ef4444; }
+        #resetProgress.complete { --ring: #10b981; opacity: 1 !important; }
 
         /* === CV imprimable -> PDF fidèle (Ctrl+P / bouton Télécharger PDF) === */
         @media print {
@@ -832,7 +845,7 @@ body.hud-preview-active .game-notification {
                     Samir Medjaher
                 </h1>
                 <h2 class="text-lg text-gray-300 mb-4 font-medium" data-lang="jobTitle">
-                    Technicien IT & Développeur Junior
+                    Technicien IT & Développeur
                 </h2>
                 <p class="text-sm text-gray-400" data-lang="age">
                     38 ans • Recherche stabilité et évolution
@@ -854,6 +867,10 @@ body.hud-preview-active .game-notification {
                         <i class="fas fa-phone"></i>
                         <span>+33.7.80.75.75.76</span>
                     </div>
+                    <a class="contact-item" href="https://wa.me/33780757576" target="_blank" rel="noopener" style="text-decoration:none;" data-action="contact-whatsapp">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>Me contacter sur WhatsApp</span>
+                    </a>
                     <div class="contact-item" onclick="openMaps()">
                         <i class="fas fa-map-marker-alt"></i>
                         <span>69140 Rillieux-la-Pape, France</span>
@@ -950,7 +967,7 @@ body.hud-preview-active .game-notification {
                     <span data-lang="objectiveTitle">Objectif Professionnel</span>
                 </h3>
                 <p class="text-gray-300 text-sm leading-relaxed" data-lang="objectiveText">
-                    Professionnel de 38 ans en reconversion tech depuis 3 ans, avec des bases solides en réseau et en développement logiciel. Mon parcours atypique m'apporte une vision globale et une forte adaptabilité. Je recherche un poste de Technicien IT ou Développeur Junior dans un environnement stimulant où mes compétences seront un vrai atout.
+                    Professionnel de 38 ans en reconversion tech depuis 3 ans, avec des bases solides en réseau et en développement logiciel. Mon parcours atypique m'apporte une vision globale et une forte adaptabilité. Je recherche un poste de Technicien IT ou Développeur dans un environnement stimulant où mes compétences seront un vrai atout.
                 </p>
             </div>
 
@@ -1209,7 +1226,7 @@ body.hud-preview-active .game-notification {
         // Translations
         const translations = {
             fr: {
-                jobTitle: "Technicien IT & Développeur Junior",
+                jobTitle: "Technicien IT & Développeur",
                 age: "38 ans • Recherche stabilité et évolution",
                 contactTitle: "Contact",
                 skillsTitle: "Compétences Techniques",
@@ -1221,7 +1238,7 @@ body.hud-preview-active .game-notification {
                 hobbiesTitle: "Centres d'Intérêt",
                 downloadPdf: "Télécharger PDF",
                 objectiveTitle: "Objectif Professionnel",
-                objectiveText: "Professionnel de 38 ans en reconversion tech depuis 3 ans, avec des bases solides en réseau et en développement logiciel. Mon parcours atypique m'apporte une vision globale et une forte adaptabilité. Je recherche un poste de Technicien IT ou Développeur Junior dans un environnement stimulant où mes compétences seront un vrai atout.",
+                objectiveText: "Professionnel de 38 ans en reconversion tech depuis 3 ans, avec des bases solides en réseau et en développement logiciel. Mon parcours atypique m'apporte une vision globale et une forte adaptabilité. Je recherche un poste de Technicien IT ou Développeur dans un environnement stimulant où mes compétences seront un vrai atout.",
                 experienceTitle: "Expérience Professionnelle",
                 educationTitle: "Formation",
                 projectsTitle: "Projets Personnels",
@@ -1264,7 +1281,7 @@ body.hud-preview-active .game-notification {
                 ]
             },
             en: {
-                jobTitle: "IT Technician & Junior Developer",
+                jobTitle: "IT Technician & Developer",
                 age: "38 years old • Seeking stability and growth",
                 contactTitle: "Contact",
                 skillsTitle: "Technical Skills",
@@ -1276,7 +1293,7 @@ body.hud-preview-active .game-notification {
                 hobbiesTitle: "Hobbies",
                 downloadPdf: "Download PDF",
                 objectiveTitle: "Professional Objective",
-                objectiveText: "38-year-old professional in a 3-year tech transition, with solid foundations in networking and software development. My atypical background brings a broad perspective and strong adaptability. Seeking an IT Technician or Junior Developer position in a stimulating environment where my skills make a real difference.",
+                objectiveText: "38-year-old professional in a 3-year tech transition, with solid foundations in networking and software development. My atypical background brings a broad perspective and strong adaptability. Seeking an IT Technician or Developer position in a stimulating environment where my skills make a real difference.",
                 experienceTitle: "Professional Experience",
                 educationTitle: "Education",
                 projectsTitle: "Personal Projects",
@@ -1455,7 +1472,18 @@ body.hud-preview-active .game-notification {
                 "Entre deux lignes de code, je modélise des mondes en 3D",
                 "Ma définition du multitâche : compiler en regardant YouTube",
                 "Je traduis 'ça marche sur ma machine' en anglais couramment",
-                "Les réunions sont mes boss fights les plus difficiles 🎮"
+                "Les réunions sont mes boss fights les plus difficiles 🎮",
+                "Conduire un bus ou un projet : dans les deux cas, la rigueur prime",
+                "La cybersécurité m'a appris à me méfier... même de mon propre code",
+                "Reconversion à 38 ans : la meilleure décision de ma vie",
+                "Je préfère un ticket bien résolu à un café encore chaud",
+                "Mon réseau préféré ? Un VLAN bien segmenté",
+                "J'apprends une nouvelle techno comme on visite un nouveau pays",
+                "Le meilleur debug, c'est souvent une bonne nuit de sommeil",
+                "De la comptabilité au code : les chiffres mènent à tout",
+                "Un incident réseau ne me fait plus peur, juste réfléchir",
+                "Ce que j'aime en IT : transformer un problème en solution propre",
+                "Patience, méthode, curiosité : mon kit de survie au quotidien"
             ],
             en: [
                 "I've been turning coffee into code since 2023!",
@@ -1477,7 +1505,18 @@ body.hud-preview-active .game-notification {
                 "Between two lines of code, I model 3D worlds",
                 "My definition of multitasking: compiling while watching YouTube",
                 "I fluently translate 'it works on my machine' into English",
-                "Meetings are my most difficult boss fights 🎮"
+                "Meetings are my most difficult boss fights 🎮",
+                "Driving a bus or a project: in both cases, rigor comes first",
+                "Cybersecurity taught me to be wary... even of my own code",
+                "Career change at 38: the best decision of my life",
+                "I'd rather have a well-solved ticket than a still-warm coffee",
+                "My favorite network? A well-segmented VLAN",
+                "I learn a new tech like I'd visit a new country",
+                "The best debug is often a good night's sleep",
+                "From accounting to code: numbers lead everywhere",
+                "A network incident no longer scares me, it just makes me think",
+                "What I love in IT: turning a problem into a clean solution",
+                "Patience, method, curiosity: my daily survival kit"
             ]
         };
 
@@ -2268,7 +2307,7 @@ body.hud-preview-active .game-notification {
             stage.innerHTML = cfItems.map((it, i) => {
                 const cover = it.kind === 'video'
                     ? `<div class="cf-cover">
-                           <img src="https://img.youtube.com/vi/${it.vid}/hqdefault.jpg" alt="" loading="lazy">
+                           <img src="https://img.youtube.com/vi/${it.vid}/maxresdefault.jpg" alt="" loading="lazy" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/${it.vid}/hqdefault.jpg'">
                            <span class="cf-play"><i class="fas fa-play"></i></span>
                        </div>`
                     : `<div class="cf-cover gen">
@@ -3839,10 +3878,9 @@ body.hud-preview-active .game-notification {
                 typewriterInstances.delete('portrait');
             }
             
-            // Gestion du timer pour la bulle portrait
-            if (window.portraitDialogueTimeout) {
-                clearTimeout(window.portraitDialogueTimeout);
-            }
+            // Annule les timers de la bulle précédente (sinon un ancien masquage coupe le nouveau message)
+            if (window.portraitDialogueTimeout) clearTimeout(window.portraitDialogueTimeout);
+            if (window.portraitHideTimeout) clearTimeout(window.portraitHideTimeout);
 
             document.getElementById('portraitText').textContent = '';
             dialogue.className = 'portrait-dialogue';
@@ -3943,15 +3981,17 @@ body.hud-preview-active .game-notification {
                 }, 1000);
             }
 
-            // Fade starts at 8s, remove at 10s
+            // Durée d'affichage proportionnelle à la longueur du message (jamais coupé)
+            const readMs = Math.min(14000, Math.max(6000, randomMessage.length * 30 + 4500));
             window.portraitDialogueTimeout = setTimeout(() => {
                 dialogue.classList.add('fade');
-            }, 8000);
-            setTimeout(() => {
+            }, readMs);
+            window.portraitHideTimeout = setTimeout(() => {
                 dialogue.classList.remove('show');
                 dialogue.classList.remove('fade');
                 window.portraitDialogueTimeout = null;
-            }, 10000);
+                window.portraitHideTimeout = null;
+            }, readMs + 2000);
 
             if (gamingMode) {
                 triggerAction('portrait-click');
@@ -4155,9 +4195,8 @@ body.hud-preview-active .game-notification {
                 }
                 
                 // Clear any existing timeout
-                if (window.portraitDialogueTimeout) {
-                    clearTimeout(window.portraitDialogueTimeout);
-                }
+                if (window.portraitDialogueTimeout) clearTimeout(window.portraitDialogueTimeout);
+                if (window.portraitHideTimeout) clearTimeout(window.portraitHideTimeout);
 
                 document.getElementById('portraitText').textContent = '';
                 dialogue.className = 'portrait-dialogue welcome-message';
@@ -4177,11 +4216,12 @@ body.hud-preview-active .game-notification {
                 window.portraitDialogueTimeout = setTimeout(() => {
                     dialogue.classList.add('fade');
                 }, 12000);
-                setTimeout(() => {
+                window.portraitHideTimeout = setTimeout(() => {
                     dialogue.classList.remove('show');
                     dialogue.classList.remove('fade');
                     dialogue.classList.remove('welcome-message');
                     window.portraitDialogueTimeout = null;
+                    window.portraitHideTimeout = null;
                 }, 15000);
             }, 1500); // 1.5s delay after page load
         }
