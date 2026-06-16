@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>CV - Samir Medjaher</title>
+<style>
+    @page { size: A4; margin: 0; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --accent: #0e7490; --accent2: #0891b2; --ink: #1f2937; --muted: #4b5563; --line: #cbd5e1; }
+    html, body { background: #fff; }
+    body {
+        font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+        color: var(--ink);
+        font-size: 9.2px;
+        line-height: 1.4;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    .sheet {
+        width: 210mm; min-height: 297mm;
+        padding: 12mm 13mm;
+        margin: 0 auto;
+    }
+    /* Header */
+    header { text-align: center; border-bottom: 2px solid var(--accent); padding-bottom: 8px; margin-bottom: 10px; }
+    header h1 { font-size: 23px; font-weight: 700; letter-spacing: .5px; color: var(--ink); }
+    header .role { font-size: 12px; color: var(--accent); font-weight: 600; margin-top: 2px; }
+    header .contact { font-size: 9px; color: var(--muted); margin-top: 5px; }
+    header .contact span { white-space: nowrap; }
+    header .sep { color: var(--line); margin: 0 6px; }
+    /* Sections */
+    h2.sec {
+        font-size: 11px; font-weight: 700; color: var(--accent);
+        text-transform: uppercase; letter-spacing: .6px;
+        border-bottom: 1px solid var(--line); padding-bottom: 2px; margin-bottom: 6px;
+    }
+    .profil { margin-bottom: 10px; }
+    .profil p { color: var(--muted); text-align: justify; }
+    .cols { display: grid; grid-template-columns: 1fr 1.55fr; gap: 16px; }
+    section { margin-bottom: 11px; }
+    /* Left column */
+    .skillgroup { margin-bottom: 6px; }
+    .skillgroup h3 { font-size: 9px; font-weight: 700; color: var(--ink); margin-bottom: 1px; }
+    .skillgroup p { color: var(--muted); }
+    .lang-line { display: flex; justify-content: space-between; padding: 1px 0; }
+    .lang-line b { color: var(--ink); font-weight: 600; }
+    .lang-line span { color: var(--accent); font-weight: 600; }
+    .intl-item { margin-bottom: 5px; }
+    .intl-item b { color: var(--ink); }
+    .intl-item .d { color: var(--muted); }
+    /* Right column items */
+    .item { margin-bottom: 8px; padding-left: 9px; border-left: 2px solid var(--accent2); }
+    .item .head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+    .item .title { font-size: 10px; font-weight: 700; color: var(--ink); }
+    .item .date { font-size: 8.5px; color: var(--accent); font-weight: 600; white-space: nowrap; }
+    .item .sub { font-size: 9px; color: var(--accent); font-weight: 500; margin-bottom: 1px; }
+    .item .desc { color: var(--muted); }
+    footer { margin-top: 8px; text-align: center; font-size: 7.5px; color: #9ca3af; }
+</style>
+</head>
+<body>
+<div class="sheet" id="sheet"></div>
+<script>
+const DATA = {
+  fr: {
+    name: "Samir Medjaher",
+    role: "Technicien IT & Développeur Junior",
+    contact: ["s.medjaher@gmail.com", "+33 7 80 75 75 76", "69140 Rillieux-la-Pape", "github.com/Duperopope"],
+    profilTitle: "Profil Professionnel",
+    profil: "Professionnel de 38 ans en reconversion tech depuis 3 ans, avec des bases solides en réseau et en développement logiciel. Mon parcours atypique m'apporte une vision globale et une forte adaptabilité. Je recherche un poste de Technicien IT ou Développeur Junior dans un environnement stimulant où mes compétences seront un vrai atout.",
+    skillsTitle: "Compétences Techniques",
+    skills: [
+      {h: "Développement", v: "Python, JavaScript, C#, HTML/CSS, React.js, Node.js, Git/GitHub, VS Code, APIs REST"},
+      {h: "Systèmes & Réseau", v: "Linux, Windows, Réseau (VLAN/LAN/WAN), Montage & dépannage PC, Troubleshooting, VM, Docker"},
+      {h: "Game Dev & 3D", v: "Unity, Unreal Engine, Blender, PCG, Level Design, Blueprint, Motion Matching"},
+      {h: "Outils", v: "Cursor IDE, Automatisation, Optimisation, Documentation technique"}
+    ],
+    langTitle: "Langues",
+    langs: [{n: "Français", l: "Natif (C2)"}, {n: "Anglais", l: "Courant (C1)"}],
+    intlTitle: "Expérience Internationale",
+    intl: [
+      {t: "Pays de Galles", p: "2019-2022", d: "Immersion culturelle, anglais professionnel, adaptabilité."},
+      {t: "Kyoto, Japon", p: "2015", d: "Découverte de la culture technologique japonaise."}
+    ],
+    expTitle: "Expérience Professionnelle",
+    exp: [
+      {title: "Travailleur Indépendant / Freelance", date: "2024 - Présent", sub: "Missions Tech", desc: "Développement de projets personnels, veille technologique, prototypage Unreal Engine et systèmes automatisés."},
+      {title: "Technicien Supervision Réseau", date: "2024", sub: "Rhône Telecom", desc: "Supervision d'infrastructures réseau SFR, coordination d'équipes terrain, résolution d'incidents niveau 1-2."},
+      {title: "Consultant Wi-Fi & Support Réseau", date: "2023", sub: "Collège au Carré, Villeurbanne", desc: "Diagnostic réseau Wi-Fi, configuration matériel, documentation technique, formation utilisateurs."},
+      {title: "Co-gérant Commercial", date: "2021-2022", sub: "Entreprise de vente", desc: "Gestion commerciale marchés/salons, sourcing international, coordination logistique, relation client."}
+    ],
+    eduTitle: "Formation",
+    edu: [
+      {title: "Titre Professionnel – Conducteur de Transport en Commun sur Route", date: "Nov 2025 - Mar 2026", sub: "Ministère du Travail", desc: "Certification nationale niveau 3 (311u). Rigueur, gestion du stress et responsabilité en environnement opérationnel."},
+      {title: "Bachelor Cybersécurité", date: "2023", sub: "CSB School, Lyon", desc: "Sécurité des systèmes et réseaux, développement sécurisé."},
+      {title: "Formation Autodidacte", date: "2023-2025", sub: "Développement personnel", desc: "Python, JavaScript, Unity, Unreal Engine, Linux – Projets GitHub, veille active."},
+      {title: "DCG – Comptabilité Gestion", date: "2012", sub: "Académie de Lyon", desc: "Diplôme de Comptabilité et Gestion – base solide en gestion administrative."}
+    ]
+  },
+  en: {
+    name: "Samir Medjaher",
+    role: "IT Technician & Junior Developer",
+    contact: ["s.medjaher@gmail.com", "+33 7 80 75 75 76", "69140 Rillieux-la-Pape, France", "github.com/Duperopope"],
+    profilTitle: "Professional Profile",
+    profil: "38-year-old professional in a 3-year tech transition, with solid foundations in networking and software development. My atypical background brings a broad perspective and strong adaptability. Seeking an IT Technician or Junior Developer position in a stimulating environment where my skills make a real difference.",
+    skillsTitle: "Technical Skills",
+    skills: [
+      {h: "Development", v: "Python, JavaScript, C#, HTML/CSS, React.js, Node.js, Git/GitHub, VS Code, REST APIs"},
+      {h: "Systems & Network", v: "Linux, Windows, Networking (VLAN/LAN/WAN), PC build & repair, Troubleshooting, VM, Docker"},
+      {h: "Game Dev & 3D", v: "Unity, Unreal Engine, Blender, PCG, Level Design, Blueprint, Motion Matching"},
+      {h: "Tools", v: "Cursor IDE, Automation, Optimization, Technical documentation"}
+    ],
+    langTitle: "Languages",
+    langs: [{n: "French", l: "Native (C2)"}, {n: "English", l: "Fluent (C1)"}],
+    intlTitle: "International Experience",
+    intl: [
+      {t: "Wales", p: "2019-2022", d: "Cultural immersion, professional English, adaptability."},
+      {t: "Kyoto, Japan", p: "2015", d: "Discovery of Japanese technology culture."}
+    ],
+    expTitle: "Professional Experience",
+    exp: [
+      {title: "Independent / Freelance", date: "2024 - Present", sub: "Tech Missions", desc: "Personal project development, technology watch, Unreal Engine prototyping and automated systems."},
+      {title: "Network Supervision Technician", date: "2024", sub: "Rhône Telecom", desc: "SFR network infrastructure supervision, field-team coordination, level 1-2 incident resolution."},
+      {title: "Wi-Fi Consultant & Network Support", date: "2023", sub: "Collège au Carré, Villeurbanne", desc: "Wi-Fi network diagnostics, hardware configuration, technical documentation, user training."},
+      {title: "Commercial Co-Manager", date: "2021-2022", sub: "Sales company", desc: "Commercial management at markets/trade shows, international sourcing, logistics, client relations."}
+    ],
+    eduTitle: "Education",
+    edu: [
+      {title: "Professional Certificate – Road Passenger Transport Driver", date: "Nov 2025 - Mar 2026", sub: "French Ministry of Labour", desc: "National level-3 certification (311u). Rigour, stress management and responsibility in operational settings."},
+      {title: "Bachelor in Cybersecurity", date: "2023", sub: "CSB School, Lyon", desc: "Systems and network security, secure development."},
+      {title: "Self-Taught Training", date: "2023-2025", sub: "Personal development", desc: "Python, JavaScript, Unity, Unreal Engine, Linux – GitHub projects, active tech watch."},
+      {title: "DCG – Accounting & Management", date: "2012", sub: "Académie de Lyon", desc: "Accounting and Management diploma – solid administrative foundation."}
+    ]
+  }
+};
+
+const lang = new URLSearchParams(location.search).get('lang') === 'en' ? 'en' : 'fr';
+const d = DATA[lang];
+document.documentElement.lang = lang;
+
+const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const itemHtml = it => `
+  <div class="item">
+    <div class="head"><span class="title">${esc(it.title)}</span><span class="date">${esc(it.date)}</span></div>
+    <div class="sub">${esc(it.sub)}</div>
+    <div class="desc">${esc(it.desc)}</div>
+  </div>`;
+
+document.getElementById('sheet').innerHTML = `
+  <header>
+    <h1>${esc(d.name)}</h1>
+    <div class="role">${esc(d.role)}</div>
+    <div class="contact">${d.contact.map(c => `<span>${esc(c)}</span>`).join('<span class="sep">|</span>')}</div>
+  </header>
+
+  <section class="profil">
+    <h2 class="sec">${esc(d.profilTitle)}</h2>
+    <p>${esc(d.profil)}</p>
+  </section>
+
+  <div class="cols">
+    <aside>
+      <section>
+        <h2 class="sec">${esc(d.skillsTitle)}</h2>
+        ${d.skills.map(s => `<div class="skillgroup"><h3>${esc(s.h)}</h3><p>${esc(s.v)}</p></div>`).join('')}
+      </section>
+      <section>
+        <h2 class="sec">${esc(d.langTitle)}</h2>
+        ${d.langs.map(l => `<div class="lang-line"><b>${esc(l.n)}</b><span>${esc(l.l)}</span></div>`).join('')}
+      </section>
+      <section>
+        <h2 class="sec">${esc(d.intlTitle)}</h2>
+        ${d.intl.map(i => `<div class="intl-item"><b>${esc(i.t)}</b> (${esc(i.p)})<div class="d">${esc(i.d)}</div></div>`).join('')}
+      </section>
+    </aside>
+    <main>
+      <section>
+        <h2 class="sec">${esc(d.expTitle)}</h2>
+        ${d.exp.map(itemHtml).join('')}
+      </section>
+      <section>
+        <h2 class="sec">${esc(d.eduTitle)}</h2>
+        ${d.edu.map(itemHtml).join('')}
+      </section>
+    </main>
+  </div>
+`;
+document.title = 'CV - Samir Medjaher' + (lang === 'en' ? ' (EN)' : '');
+</script>
+</body>
+</html>

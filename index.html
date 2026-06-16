@@ -92,6 +92,29 @@ body.hud-preview-active .game-notification {
             padding-bottom: 0.5rem;
             border-bottom: 1px solid rgba(148, 163, 184, 0.15);
         }
+        .portfolio-subtitle i { color: var(--primary); font-size: 1.15rem; }
+        /* Bouton play (UX vidéo) */
+        .video-play {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0.85);
+            width: 54px; height: 54px; border-radius: 50%;
+            background: rgba(6,182,212,0.92);
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 1.05rem; padding-left: 3px;
+            opacity: 0; transition: all 0.3s ease; pointer-events: none;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+        }
+        .portfolio-card:hover .video-play { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        .video-card-title {
+            display: flex; align-items: center; gap: 0.5rem;
+            font-size: 1.02rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem;
+        }
+        .card-ic {
+            width: 30px; height: 30px; border-radius: 9px;
+            display: inline-flex; align-items: center; justify-content: center;
+            background: rgba(6,182,212,0.15); border: 1px solid rgba(6,182,212,0.25);
+            color: var(--primary); font-size: 0.85rem; flex-shrink: 0;
+        }
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
@@ -121,7 +144,14 @@ body.hud-preview-active .game-notification {
             gap: 0.6rem;
             margin-bottom: 0.6rem;
         }
-        .project-icon { font-size: 1.6rem; line-height: 1; }
+        .project-icon {
+            width: 46px; height: 46px; flex-shrink: 0;
+            border-radius: 13px;
+            display: inline-flex; align-items: center; justify-content: center;
+            background: linear-gradient(135deg, rgba(6,182,212,0.18), rgba(16,185,129,0.12));
+            border: 1px solid rgba(6,182,212,0.28);
+            color: var(--primary); font-size: 1.25rem;
+        }
         .project-title {
             font-size: 1.1rem;
             font-weight: 700;
@@ -802,10 +832,10 @@ body.hud-preview-active .game-notification {
 
             <!-- Download -->
             <div class="text-center fade-in">
-                <button id="downloadLink" type="button" class="download-btn" onclick="printCV()">
+                <a id="downloadLink" href="CV-Samir-Medjaher-FR.pdf" download class="download-btn" onclick="triggerAction('download-pdf')">
                     <i class="fas fa-download"></i>
                     <span data-lang="downloadPdf">Télécharger PDF</span>
-                </button>
+                </a>
             </div>
         </div>
 
@@ -872,7 +902,7 @@ body.hud-preview-active .game-notification {
         </div>
 
         <!-- Sous-section : Vidéos -->
-        <h3 class="portfolio-subtitle" data-lang="videosSectionTitle">🎬 Vidéos — Game Development</h3>
+        <h3 class="portfolio-subtitle"><i class="fas fa-clapperboard"></i><span data-lang="videosSectionTitle">Vidéos — Game Development</span></h3>
         <div style="position: relative;">
             <button class="carousel-nav carousel-prev" onclick="slideCarousel(-1)">
                 <i class="fas fa-chevron-left"></i>
@@ -885,7 +915,7 @@ body.hud-preview-active .game-notification {
 
         <!-- Sous-section : Projets GitHub -->
         <div class="text-center" style="margin-top: 3.5rem;">
-            <h3 class="portfolio-subtitle" data-lang="githubSectionTitle" style="justify-content:center;">💻 Projets GitHub</h3>
+            <h3 class="portfolio-subtitle" style="justify-content:center;"><i class="fab fa-github"></i><span data-lang="githubSectionTitle">Projets GitHub</span></h3>
             <p class="text-gray-300" data-lang="githubSectionSubtitle">Code open-source — dev, IA, transport & réseau</p>
         </div>
         <div class="projects-grid" id="githubProjectsGrid"></div>
@@ -1102,8 +1132,8 @@ body.hud-preview-active .game-notification {
                 portfolioTitle: "Portfolio",
                 portfolioSubtitle: "Mes réalisations techniques : vidéos & projets open-source",
                 scrollText: "Voir le portfolio",
-                videosSectionTitle: "🎬 Vidéos — Game Development",
-                githubSectionTitle: "💻 Projets GitHub",
+                videosSectionTitle: "Vidéos — Game Development",
+                githubSectionTitle: "Projets GitHub",
                 githubSectionSubtitle: "Code open-source — dev, IA, transport & réseau",
                 viewOnGithub: "Voir sur GitHub",
                 quizTitle: "Tech Quest - Défi Code",
@@ -1157,8 +1187,8 @@ body.hud-preview-active .game-notification {
                 portfolioTitle: "Portfolio",
                 portfolioSubtitle: "My technical work: videos & open-source projects",
                 scrollText: "View portfolio",
-                videosSectionTitle: "🎬 Videos — Game Development",
-                githubSectionTitle: "💻 GitHub Projects",
+                videosSectionTitle: "Videos — Game Development",
+                githubSectionTitle: "GitHub Projects",
                 githubSectionSubtitle: "Open-source code — dev, AI, transport & networking",
                 viewOnGithub: "View on GitHub",
                 quizTitle: "Tech Quest - Code Challenge",
@@ -1235,17 +1265,17 @@ body.hud-preview-active .game-notification {
 
         // Portfolio Videos
         const portfolioVideos = [
-            {id: 'DulgCFivmik', title: {fr: '🎮 FPS Unreal Engine', en: '🎮 FPS Unreal Engine'}, description: {fr: 'Proof of concept style Call of Duty', en: 'Call of Duty style proof of concept'}, explanation: {fr: 'Prototype FPS - Système de gameplay complet avec level design tactique, mécaniques de tir avancées et interface utilisateur intégrée. Technologies: Unreal Engine 5, Blueprint, C++', en: 'FPS Prototype - Complete gameplay system with tactical level design, advanced shooting mechanics and integrated user interface. Technologies: Unreal Engine 5, Blueprint, C++'}},
-            {id: 'YJgE9vukbUM', title: {fr: '🏗️ Blockout Level Design', en: '🏗️ Blockout Level Design'}, description: {fr: 'Demo blockout avec tests personnage', en: 'Blockout demo with character testing'}, explanation: {fr: 'Level Design - Processus de blockout complet, tests de gameplay et mécaniques de saut, optimisation du player movement avec validation concepts.', en: 'Level Design - Complete blockout process, gameplay testing and jump mechanics, player movement optimization with concept validation.'}},
-            {id: 'mncmCi8ENxE', title: {fr: '🌍 Planète Procédurale PCG', en: '🌍 Procedural Planet PCG'}, description: {fr: 'Génération planète taille réelle UE5', en: 'Real-size planet generation UE5'}, explanation: {fr: 'Planète Procédurale PCG - Génération automatique planète explorable taille réelle. Algorithmes procéduraux avancés, optimisation LOD et streaming de contenu massif.', en: 'Procedural Planet PCG - Automatic generation of explorable real-size planet. Advanced procedural algorithms, LOD optimization and massive content streaming.'}},
-            {id: 'o3Xi7jtjKeY', title: {fr: '🤖 Motion Matching IA', en: '🤖 AI Motion Matching'}, description: {fr: 'Animation fluide et moderne', en: 'Fluid and modern animation'}, explanation: {fr: 'Motion Matching IA - Système animation révolutionnaire avec transition automatique entre poses, IA pour sélection optimale et réactivité temps réel aux inputs.', en: 'AI Motion Matching - Revolutionary animation system with automatic transition between poses, AI for optimal selection and real-time input responsiveness.'}},
-            {id: 'vDkBvCrSWCA', title: {fr: '🎮 Plateformer 3D', en: '🎮 3D Platformer'}, description: {fr: 'Jeu plateforme avec animation blending', en: 'Platform game with animation blending'}, explanation: {fr: 'Plateformer 3D - Jeu de plateforme avec animation blending fluide, character controller premium et mécaniques de gameplay polies. Focus sur game feel et accessibilité.', en: '3D Platformer - Platform game with fluid animation blending, premium character controller and polished gameplay mechanics. Focus on game feel and accessibility.'}}
+            {id: 'DulgCFivmik', icon: 'fas fa-crosshairs', title: {fr: 'FPS Unreal Engine', en: 'FPS Unreal Engine'}, description: {fr: 'Proof of concept style Call of Duty', en: 'Call of Duty style proof of concept'}, explanation: {fr: 'Prototype FPS - Système de gameplay complet avec level design tactique, mécaniques de tir avancées et interface utilisateur intégrée. Technologies: Unreal Engine 5, Blueprint, C++', en: 'FPS Prototype - Complete gameplay system with tactical level design, advanced shooting mechanics and integrated user interface. Technologies: Unreal Engine 5, Blueprint, C++'}},
+            {id: 'YJgE9vukbUM', icon: 'fas fa-cubes', title: {fr: 'Blockout Level Design', en: 'Blockout Level Design'}, description: {fr: 'Demo blockout avec tests personnage', en: 'Blockout demo with character testing'}, explanation: {fr: 'Level Design - Processus de blockout complet, tests de gameplay et mécaniques de saut, optimisation du player movement avec validation concepts.', en: 'Level Design - Complete blockout process, gameplay testing and jump mechanics, player movement optimization with concept validation.'}},
+            {id: 'mncmCi8ENxE', icon: 'fas fa-earth-americas', title: {fr: 'Planète Procédurale PCG', en: 'Procedural Planet PCG'}, description: {fr: 'Génération planète taille réelle UE5', en: 'Real-size planet generation UE5'}, explanation: {fr: 'Planète Procédurale PCG - Génération automatique planète explorable taille réelle. Algorithmes procéduraux avancés, optimisation LOD et streaming de contenu massif.', en: 'Procedural Planet PCG - Automatic generation of explorable real-size planet. Advanced procedural algorithms, LOD optimization and massive content streaming.'}},
+            {id: 'o3Xi7jtjKeY', icon: 'fas fa-person-running', title: {fr: 'Motion Matching IA', en: 'AI Motion Matching'}, description: {fr: 'Animation fluide et moderne', en: 'Fluid and modern animation'}, explanation: {fr: 'Motion Matching IA - Système animation révolutionnaire avec transition automatique entre poses, IA pour sélection optimale et réactivité temps réel aux inputs.', en: 'AI Motion Matching - Revolutionary animation system with automatic transition between poses, AI for optimal selection and real-time input responsiveness.'}},
+            {id: 'vDkBvCrSWCA', icon: 'fas fa-gamepad', title: {fr: 'Plateformer 3D', en: '3D Platformer'}, description: {fr: 'Jeu plateforme avec animation blending', en: 'Platform game with animation blending'}, explanation: {fr: 'Plateformer 3D - Jeu de plateforme avec animation blending fluide, character controller premium et mécaniques de gameplay polies. Focus sur game feel et accessibilité.', en: '3D Platformer - Platform game with fluid animation blending, premium character controller and polished gameplay mechanics. Focus on game feel and accessibility.'}}
         ];
 
         // GitHub Projects (curated)
         const githubProjects = [
             {
-                repo: 'rse-rsn-calculator', icon: '🚌', title: 'FIMO Check',
+                repo: 'rse-rsn-calculator', icon: 'fas fa-bus', title: 'FIMO Check',
                 tags: ['JavaScript', 'Transport', 'Réglementation'],
                 description: {
                     fr: "Outil de conformité des temps de conduite et de repos (transport routier). Implémente le règlement européen CE 561/2006 et le Code des transports français.",
@@ -1253,7 +1283,7 @@ body.hud-preview-active .game-notification {
                 }
             },
             {
-                repo: 'cortex-living', icon: '🧠', title: 'Cortex',
+                repo: 'cortex-living', icon: 'fas fa-brain', title: 'Cortex',
                 tags: ['Python', 'IA', 'Cognition'],
                 description: {
                     fr: "Prototype de boucle cognitive locale : capture webcam/audio, mémoire épisodique & sémantique, propagation d'activation et score d'action inspiré de l'Active Inference.",
@@ -1261,7 +1291,7 @@ body.hud-preview-active .game-notification {
                 }
             },
             {
-                repo: 'artisans-comores', icon: '🏗️', title: 'Construction Comores',
+                repo: 'artisans-comores', icon: 'fas fa-helmet-safety', title: 'Construction Comores',
                 tags: ['TypeScript', 'Web', 'SEO', 'Client livré'],
                 url: 'https://constructioncomores.com',
                 description: {
@@ -1270,7 +1300,7 @@ body.hud-preview-active .game-notification {
                 }
             },
             {
-                repo: 'Wakfuassistant', icon: '📊', title: 'Wakfu Assistant',
+                repo: 'Wakfuassistant', icon: 'fas fa-chart-line', title: 'Wakfu Assistant',
                 tags: ['Rust', 'Tauri', 'Réseau'],
                 description: {
                     fr: "Overlay temps réel pour le MMORPG Wakfu : interception des données réseau, statistiques de session, marché HDV et rentabilité des crafts.",
@@ -1278,7 +1308,7 @@ body.hud-preview-active .game-notification {
                 }
             },
             {
-                repo: 'Rimwork', icon: '🌌', title: 'Rimwork',
+                repo: 'Rimwork', icon: 'fas fa-dna', title: 'Rimwork',
                 tags: ['C#', 'Game R&D', 'Génératif'],
                 description: {
                     fr: "Jeu R&D « du vivant aux étoiles » : progression de la cellule à l'exploration spatiale, comportements émergents et histoires auto-générées.",
@@ -1286,7 +1316,7 @@ body.hud-preview-active .game-notification {
                 }
             },
             {
-                repo: 'ConcatCode', icon: '🗂️', title: 'ConcatCode',
+                repo: 'ConcatCode', icon: 'fas fa-file-code', title: 'ConcatCode',
                 tags: ['JavaScript', 'DevTool', 'Outil'],
                 description: {
                     fr: "Utilitaire regroupant tout le code d'un projet dans un seul fichier .txt (partage / analyse), avec gestion de versions.",
@@ -1916,7 +1946,15 @@ body.hud-preview-active .game-notification {
                     el.textContent = t[key];
                 }
             });
-            
+
+            // Vrai PDF (1 page) selon la langue
+            const downloadLink = document.getElementById('downloadLink');
+            if (downloadLink) {
+                const pdf = currentLang === 'fr' ? 'CV-Samir-Medjaher-FR.pdf' : 'CV-Samir-Medjaher-EN.pdf';
+                downloadLink.href = pdf;
+                downloadLink.setAttribute('download', pdf);
+            }
+
             updateExperience();
             updateEducation();
             updateProjects();
@@ -2028,12 +2066,14 @@ body.hud-preview-active .game-notification {
             container.innerHTML = portfolioVideos.map((video, index) => `
                 <div class="portfolio-card" onclick="showTheaterOverlay(${index})" data-index="${index}">
                     <div class="video-thumbnail">
-                        <img src="https://img.youtube.com/vi/${video.id}/hqdefault.jpg" 
-                            alt="${video.title[currentLang]}" 
+                        <img src="https://img.youtube.com/vi/${video.id}/hqdefault.jpg"
+                            alt="${video.title[currentLang]}"
+                            loading="lazy"
                             style="width: 100%; height: 100%; object-fit: cover;">
+                        <span class="video-play"><i class="fas fa-play"></i></span>
                     </div>
                     <div class="video-description">
-                        <h4 class="text-xl font-bold text-white mb-2">${video.title[currentLang]}</h4>
+                        <h4 class="video-card-title"><span class="card-ic"><i class="${video.icon}"></i></span>${video.title[currentLang]}</h4>
                         <p class="text-gray-300 text-sm">${video.description[currentLang]}</p>
                         <div class="flex flex-wrap gap-2 mt-3">
                             <span class="tech-tag">Unreal Engine</span>
@@ -2075,7 +2115,7 @@ body.hud-preview-active .game-notification {
                 <div class="project-card">
                     <div class="project-card-body">
                         <div class="project-card-head">
-                            <span class="project-icon">${p.icon}</span>
+                            <span class="project-icon"><i class="${p.icon}"></i></span>
                             <h4 class="project-title">${p.title}</h4>
                         </div>
                         <p class="project-desc">${p.description[currentLang]}</p>
