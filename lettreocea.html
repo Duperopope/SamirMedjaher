@@ -143,10 +143,14 @@
 
         .footer-nav {
             margin-top: 30px;
-            text-align: center;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
         }
 
         .back-btn {
+            cursor: pointer;
             display: inline-flex;
             align-items: center;
             gap: 8px;
@@ -243,10 +247,19 @@
     </div>
 
     <div class="footer-nav">
-        <a class="back-btn" href="index.html">
-            ← Retour au CV interactif
-        </a>
+        <a class="back-btn" href="lettres.html">← Toutes les lettres</a>
+        <button class="back-btn" type="button" onclick="window.print()">⬇ Télécharger en PDF</button>
+        <a class="back-btn" href="index.html">CV interactif →</a>
     </div>
+
+    <script>
+        // Ouverture depuis l'index avec ?print=1 -> lance l'export PDF (boîte d'impression)
+        if (location.search.indexOf('print') !== -1) {
+            window.addEventListener('load', function () {
+                setTimeout(function () { window.print(); }, 500);
+            });
+        }
+    </script>
 
 </body>
 </html>

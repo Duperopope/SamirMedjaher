@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lettres de motivation | Samir Medjaher</title>
+    <meta name="description" content="Lettres de motivation de Samir Medjaher — consultables et téléchargeables en PDF.">
+    <style>
+        :root { --primary:#06b6d4; --secondary:#10b981; --text:#e2e8f0; --muted:#94a3b8; }
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Inter','Segoe UI',sans-serif; }
+        body {
+            background: linear-gradient(135deg,#0f172a 0%,#1e293b 55%,#334155 100%);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 48px 20px;
+        }
+        .wrap { max-width: 920px; margin: 0 auto; }
+        .top {
+            display:flex; justify-content:space-between; align-items:center;
+            flex-wrap:wrap; gap:12px; margin-bottom: 8px;
+        }
+        h1 {
+            font-size: 2rem; font-weight: 800;
+            background: linear-gradient(135deg,var(--primary),var(--secondary));
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .back {
+            color: var(--muted); text-decoration: none; font-size: 0.9rem;
+            border: 1px solid rgba(148,163,184,0.2); padding: 8px 16px;
+            border-radius: 8px; transition: .2s;
+        }
+        .back:hover { color:#fff; border-color: var(--primary); }
+        .subtitle { color: var(--muted); margin: 0 0 36px; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: rgba(30,41,59,0.35);
+            border: 1px solid rgba(6,182,212,0.18);
+            border-radius: 16px; padding: 24px;
+            backdrop-filter: blur(12px);
+            display: flex; flex-direction: column;
+            transition: .3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(6,182,212,0.45);
+            box-shadow: 0 14px 34px rgba(0,0,0,0.3);
+        }
+        .card .role { font-size: 1.2rem; font-weight: 700; color:#fff; margin-bottom: 4px; }
+        .card .company { color: var(--primary); font-weight: 600; margin-bottom: 10px; }
+        .card .meta { font-size: 0.78rem; color: var(--muted); margin-bottom: 12px; letter-spacing: .02em; }
+        .card .excerpt { font-size: 0.9rem; color: var(--muted); line-height: 1.6; flex: 1; margin-bottom: 18px; }
+        .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+        .btn {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 9px 16px; border-radius: 8px;
+            font-size: 0.85rem; font-weight: 600;
+            text-decoration: none; cursor: pointer;
+            border: 1px solid transparent; transition: .2s;
+        }
+        .btn-primary { background: linear-gradient(135deg,var(--primary),var(--secondary)); color:#fff; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(6,182,212,0.3); }
+        .btn-ghost { background: rgba(6,182,212,0.1); color: var(--primary); border-color: rgba(6,182,212,0.25); }
+        .btn-ghost:hover { background: rgba(6,182,212,0.2); }
+        footer { margin-top: 48px; text-align: center; color:#64748b; font-size: 0.8rem; }
+        footer a { color: var(--primary); text-decoration: none; }
+        @media (max-width: 560px) { body { padding: 32px 16px; } h1 { font-size: 1.6rem; } }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="top">
+            <h1>📨 Lettres de motivation</h1>
+            <a class="back" href="index.html">← Retour au CV</a>
+        </div>
+        <p class="subtitle">Mes candidatures — chaque lettre est consultable en ligne et téléchargeable en PDF.</p>
+
+        <div class="grid">
+
+            <!-- OCEA -->
+            <div class="card">
+                <div class="role">Technicien Support IT</div>
+                <div class="company">OCEA Smart Building</div>
+                <div class="meta">Lyon · Juin 2026</div>
+                <p class="excerpt">Candidature articulée autour du contact utilisateur, de la gestion d'infrastructures réseau et de l'IoT au service de l'intelligence des bâtiments.</p>
+                <div class="actions">
+                    <a class="btn btn-primary" href="lettreocea.html">Lire la lettre</a>
+                    <a class="btn btn-ghost" href="lettreocea.html?print=1">⬇ Télécharger PDF</a>
+                </div>
+            </div>
+
+        </div>
+
+        <footer>Samir Medjaher · <a href="index.html">CV interactif</a></footer>
+    </div>
+</body>
+</html>
