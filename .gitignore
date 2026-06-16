@@ -41,3 +41,6 @@ build/
 # Backup files
 *.bak
 *.backup
+assets/thumbnails/*.png
+_resize.html
+_resize_out.txt

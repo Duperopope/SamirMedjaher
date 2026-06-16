@@ -238,6 +238,7 @@ body.hud-preview-active .game-notification {
         }
         .cf-item.active .cf-cover.gen::before { animation-duration: 8s; }
         .cf-grid {
+            display: none;
             position: absolute; inset: 0;
             background-image:
                 linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
@@ -246,7 +247,8 @@ body.hud-preview-active .game-notification {
             -webkit-mask-image: radial-gradient(circle at 50% 38%, #000 22%, transparent 80%);
             mask-image: radial-gradient(circle at 50% 38%, #000 22%, transparent 80%);
         }
-        .cf-watermark { position: absolute; right: -10px; bottom: 4px; font-size: 9rem; line-height: 1; color: rgba(255,255,255,0.12); }
+        .cf-watermark { display: none; position: absolute; right: -10px; bottom: 4px; font-size: 9rem; line-height: 1; color: rgba(255,255,255,0.12); }
+        .cf-cover.gen .cf-grid, .cf-cover.gen .cf-watermark { display: block; }
         .cf-play {
             position: absolute; top: 42%; left: 50%; transform: translate(-50%,-50%) scale(0.9);
             width: 64px; height: 64px; border-radius: 50%;
@@ -1379,17 +1381,17 @@ body.hud-preview-active .game-notification {
 
         // Portfolio Videos
         const portfolioVideos = [
-            {id: 'DulgCFivmik', icon: 'fas fa-crosshairs', title: {fr: 'FPS Unreal Engine', en: 'FPS Unreal Engine'}, description: {fr: 'Proof of concept style Call of Duty', en: 'Call of Duty style proof of concept'}, explanation: {fr: 'Prototype FPS - Système de gameplay complet avec level design tactique, mécaniques de tir avancées et interface utilisateur intégrée. Technologies: Unreal Engine 5, Blueprint, C++', en: 'FPS Prototype - Complete gameplay system with tactical level design, advanced shooting mechanics and integrated user interface. Technologies: Unreal Engine 5, Blueprint, C++'}},
-            {id: 'YJgE9vukbUM', icon: 'fas fa-cubes', title: {fr: 'Blockout Level Design', en: 'Blockout Level Design'}, description: {fr: 'Demo blockout avec tests personnage', en: 'Blockout demo with character testing'}, explanation: {fr: 'Level Design - Processus de blockout complet, tests de gameplay et mécaniques de saut, optimisation du player movement avec validation concepts.', en: 'Level Design - Complete blockout process, gameplay testing and jump mechanics, player movement optimization with concept validation.'}},
-            {id: 'mncmCi8ENxE', icon: 'fas fa-earth-americas', title: {fr: 'Planète Procédurale PCG', en: 'Procedural Planet PCG'}, description: {fr: 'Génération planète taille réelle UE5', en: 'Real-size planet generation UE5'}, explanation: {fr: 'Planète Procédurale PCG - Génération automatique planète explorable taille réelle. Algorithmes procéduraux avancés, optimisation LOD et streaming de contenu massif.', en: 'Procedural Planet PCG - Automatic generation of explorable real-size planet. Advanced procedural algorithms, LOD optimization and massive content streaming.'}},
-            {id: 'o3Xi7jtjKeY', icon: 'fas fa-person-running', title: {fr: 'Motion Matching IA', en: 'AI Motion Matching'}, description: {fr: 'Animation fluide et moderne', en: 'Fluid and modern animation'}, explanation: {fr: 'Motion Matching IA - Système animation révolutionnaire avec transition automatique entre poses, IA pour sélection optimale et réactivité temps réel aux inputs.', en: 'AI Motion Matching - Revolutionary animation system with automatic transition between poses, AI for optimal selection and real-time input responsiveness.'}},
-            {id: 'vDkBvCrSWCA', icon: 'fas fa-gamepad', title: {fr: 'Plateformer 3D', en: '3D Platformer'}, description: {fr: 'Jeu plateforme avec animation blending', en: 'Platform game with animation blending'}, explanation: {fr: 'Plateformer 3D - Jeu de plateforme avec animation blending fluide, character controller premium et mécaniques de gameplay polies. Focus sur game feel et accessibilité.', en: '3D Platformer - Platform game with fluid animation blending, premium character controller and polished gameplay mechanics. Focus on game feel and accessibility.'}}
+            {id: 'DulgCFivmik', thumb: 'assets/thumbnails/FPS_Cover.jpg', icon: 'fas fa-crosshairs', title: {fr: 'FPS Unreal Engine', en: 'FPS Unreal Engine'}, description: {fr: 'Proof of concept style Call of Duty', en: 'Call of Duty style proof of concept'}, explanation: {fr: 'Prototype FPS - Système de gameplay complet avec level design tactique, mécaniques de tir avancées et interface utilisateur intégrée. Technologies: Unreal Engine 5, Blueprint, C++', en: 'FPS Prototype - Complete gameplay system with tactical level design, advanced shooting mechanics and integrated user interface. Technologies: Unreal Engine 5, Blueprint, C++'}},
+            {id: 'YJgE9vukbUM', thumb: 'assets/thumbnails/Blockoutlvldesign.jpg', icon: 'fas fa-cubes', title: {fr: 'Blockout Level Design', en: 'Blockout Level Design'}, description: {fr: 'Demo blockout avec tests personnage', en: 'Blockout demo with character testing'}, explanation: {fr: 'Level Design - Processus de blockout complet, tests de gameplay et mécaniques de saut, optimisation du player movement avec validation concepts.', en: 'Level Design - Complete blockout process, gameplay testing and jump mechanics, player movement optimization with concept validation.'}},
+            {id: 'mncmCi8ENxE', thumb: 'assets/thumbnails/ProceduralplanetgenerationPCG.jpg', icon: 'fas fa-earth-americas', title: {fr: 'Planète Procédurale PCG', en: 'Procedural Planet PCG'}, description: {fr: 'Génération planète taille réelle UE5', en: 'Real-size planet generation UE5'}, explanation: {fr: 'Planète Procédurale PCG - Génération automatique planète explorable taille réelle. Algorithmes procéduraux avancés, optimisation LOD et streaming de contenu massif.', en: 'Procedural Planet PCG - Automatic generation of explorable real-size planet. Advanced procedural algorithms, LOD optimization and massive content streaming.'}},
+            {id: 'o3Xi7jtjKeY', thumb: 'assets/thumbnails/MotionMatchingIA.jpg', icon: 'fas fa-person-running', title: {fr: 'Motion Matching IA', en: 'AI Motion Matching'}, description: {fr: 'Animation fluide et moderne', en: 'Fluid and modern animation'}, explanation: {fr: 'Motion Matching IA - Système animation révolutionnaire avec transition automatique entre poses, IA pour sélection optimale et réactivité temps réel aux inputs.', en: 'AI Motion Matching - Revolutionary animation system with automatic transition between poses, AI for optimal selection and real-time input responsiveness.'}},
+            {id: 'vDkBvCrSWCA', thumb: 'assets/thumbnails/3DPlateformer.jpg', icon: 'fas fa-gamepad', title: {fr: 'Plateformer 3D', en: '3D Platformer'}, description: {fr: 'Jeu plateforme avec animation blending', en: 'Platform game with animation blending'}, explanation: {fr: 'Plateformer 3D - Jeu de plateforme avec animation blending fluide, character controller premium et mécaniques de gameplay polies. Focus sur game feel et accessibilité.', en: '3D Platformer - Platform game with fluid animation blending, premium character controller and polished gameplay mechanics. Focus on game feel and accessibility.'}}
         ];
 
         // GitHub Projects (curated)
         const githubProjects = [
             {
-                repo: 'rse-rsn-calculator', icon: 'fas fa-bus', title: 'FIMO Check',
+                repo: 'rse-rsn-calculator', thumb: 'assets/thumbnails/Fimocheck.jpg', icon: 'fas fa-bus', title: 'FIMO Check',
                 tags: ['JavaScript', 'Transport', 'Réglementation'],
                 description: {
                     fr: "Outil de conformité des temps de conduite et de repos (transport routier). Implémente le règlement européen CE 561/2006 et le Code des transports français.",
@@ -1397,7 +1399,7 @@ body.hud-preview-active .game-notification {
                 }
             },
             {
-                repo: 'cortex-living', icon: 'fas fa-brain', title: 'Cortex',
+                repo: 'cortex-living', thumb: 'assets/thumbnails/cortex.jpg', icon: 'fas fa-brain', title: 'Cortex',
                 tags: ['Python', 'IA', 'Cognition'],
                 description: {
                     fr: "Prototype de boucle cognitive locale : capture webcam/audio, mémoire épisodique & sémantique, propagation d'activation et score d'action inspiré de l'Active Inference.",
@@ -1405,7 +1407,7 @@ body.hud-preview-active .game-notification {
                 }
             },
             {
-                repo: 'artisans-comores', icon: 'fas fa-helmet-safety', title: 'Construction Comores',
+                repo: 'artisans-comores', thumb: 'assets/thumbnails/constructioncomores.jpg', icon: 'fas fa-helmet-safety', title: 'Construction Comores',
                 tags: ['TypeScript', 'Web', 'SEO', 'Client livré'],
                 url: 'https://constructioncomores.com',
                 description: {
@@ -1414,7 +1416,7 @@ body.hud-preview-active .game-notification {
                 }
             },
             {
-                repo: 'Wakfuassistant', icon: 'fas fa-chart-line', title: 'Wakfu Assistant',
+                repo: 'Wakfuassistant', thumb: 'assets/thumbnails/wakfusassistant.jpg', icon: 'fas fa-chart-line', title: 'Wakfu Assistant',
                 tags: ['Rust', 'Tauri', 'Réseau'],
                 description: {
                     fr: "Overlay temps réel pour le MMORPG Wakfu : interception des données réseau, statistiques de session, marché HDV et rentabilité des crafts.",
@@ -1422,7 +1424,7 @@ body.hud-preview-active .game-notification {
                 }
             },
             {
-                repo: 'Rimwork', icon: 'fas fa-dna', title: 'Rimwork',
+                repo: 'Rimwork', thumb: 'assets/thumbnails/Rimwork.jpg', icon: 'fas fa-dna', title: 'Rimwork',
                 tags: ['C#', 'Game R&D', 'Génératif'],
                 description: {
                     fr: "Jeu R&D « du vivant aux étoiles » : progression de la cellule à l'exploration spatiale, comportements émergents et histoires auto-générées.",
@@ -1430,7 +1432,7 @@ body.hud-preview-active .game-notification {
                 }
             },
             {
-                repo: 'ConcatCode', icon: 'fas fa-file-code', title: 'ConcatCode',
+                repo: 'ConcatCode', thumb: 'assets/thumbnails/Concatcode.jpg', icon: 'fas fa-file-code', title: 'ConcatCode',
                 tags: ['JavaScript', 'DevTool', 'Outil'],
                 description: {
                     fr: "Utilitaire regroupant tout le code d'un projet dans un seul fichier .txt (partage / analyse), avec gestion de versions.",
@@ -2289,12 +2291,12 @@ body.hud-preview-active .game-notification {
 
         function buildCoverflowData() {
             const vids = portfolioVideos.map(v => ({
-                kind: 'video', vid: v.id, icon: v.icon, hue: 190,
+                kind: 'video', vid: v.id, icon: v.icon, hue: 190, thumb: v.thumb,
                 title: v.title[currentLang], desc: v.description[currentLang]
             }));
             const HUES = [195, 265, 35, 150, 315, 185];
             const projs = githubProjects.map((p, i) => ({
-                kind: 'project', repo: p.repo, url: p.url, icon: p.icon, hue: HUES[i % HUES.length],
+                kind: 'project', repo: p.repo, url: p.url, icon: p.icon, hue: HUES[i % HUES.length], thumb: p.thumb,
                 title: p.title, desc: p.description[currentLang]
             }));
             return vids.concat(projs);
@@ -2305,14 +2307,15 @@ body.hud-preview-active .game-notification {
             if (!stage) return;
             cfItems = buildCoverflowData();
             stage.innerHTML = cfItems.map((it, i) => {
-                const cover = it.kind === 'video'
-                    ? `<div class="cf-cover">
-                           <img src="https://img.youtube.com/vi/${it.vid}/maxresdefault.jpg" alt="" loading="lazy" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/${it.vid}/hqdefault.jpg'">
-                           <span class="cf-play"><i class="fas fa-play"></i></span>
-                       </div>`
-                    : `<div class="cf-cover gen">
+                const fallback = it.kind === 'video'
+                    ? `this.onerror=null;this.src='https://img.youtube.com/vi/${it.vid}/hqdefault.jpg'`
+                    : `this.onerror=null;this.closest('.cf-cover').classList.add('gen');this.remove()`;
+                const playBadge = it.kind === 'video' ? `<span class="cf-play"><i class="fas fa-play"></i></span>` : '';
+                const cover = `<div class="cf-cover">
+                           <img src="${it.thumb}" alt="" loading="lazy" onerror="${fallback}">
                            <div class="cf-grid"></div>
                            <span class="cf-watermark"><i class="${it.icon}"></i></span>
+                           ${playBadge}
                        </div>`;
                 return `<div class="cf-item" data-i="${i}" onclick="cfClick(${i})">
                             <div class="cf-card" style="--h:${it.hue}">
