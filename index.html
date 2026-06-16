@@ -78,6 +78,19 @@ body.hud-preview-active .game-notification {
             transform: translateY(-2px);
             box-shadow: 0 8px 24px rgba(239, 68, 68, 0.5);
         }
+
+        /* === Gamification masquée par défaut — révélée UNIQUEMENT après 23 clics sur le portrait === */
+        body:not(.gaming-on) #gameHUD,
+        body:not(.gaming-on) #tamagotchi,
+        body:not(.gaming-on) #gameToggle,
+        body:not(.gaming-on) #unifiedNotificationsZone,
+        body:not(.gaming-on) #notificationsToggle,
+        body:not(.gaming-on) #xpbarToggle,
+        body:not(.gaming-on) #gamingDashboard,
+        body:not(.gaming-on) #gamingSep,
+        body:not(.gaming-on) #debugStatus {
+            display: none !important;
+        }
     </style>
 </head>
 <body>
@@ -2360,9 +2373,10 @@ body.hud-preview-active .game-notification {
         function restoreGamingState() {
             // Restore gaming state after page reload (no animation, no dashboard auto-open)
             console.log('🔄 Restoring gaming state from localStorage...');
-            
+
             gamingUnlocked = true;
             gamingMode = true;
+            document.body.classList.add('gaming-on'); // Révèle les éléments de gamification
             
             // Show game toggle button
             const gameToggle = document.getElementById('gameToggle');
@@ -2393,6 +2407,7 @@ body.hud-preview-active .game-notification {
             // 1. Set flags
             gamingUnlocked = true;
             gamingMode = true;
+            document.body.classList.add('gaming-on'); // Révèle les éléments de gamification
             localStorage.setItem('gamingUnlocked', 'true');
             localStorage.setItem('gamingMode', 'true');
             updateGamingStatus('Flags set', '📝');
@@ -3162,8 +3177,9 @@ body.hud-preview-active .game-notification {
                 lastClickTime = 0;
             }, QUICK_CLICK_TIMEOUT);
             
-            // Check if 10 quick clicks reached
-            if (quickClickCount >= QUICK_CLICK_THRESHOLD) {
+            // Check if 10 quick clicks reached (reset rapide réservé au mode gaming déjà débloqué,
+            // pour ne pas interrompre la séquence de 23 clics)
+            if (quickClickCount >= QUICK_CLICK_THRESHOLD && gamingUnlocked) {
                 clearTimeout(quickClickTimer);
                 quickClickCount = 0;
                 
@@ -3182,7 +3198,7 @@ body.hud-preview-active .game-notification {
             }
             
             // Show click counter feedback if getting close
-            if (quickClickCount >= 5 && quickClickCount < QUICK_CLICK_THRESHOLD) {
+            if (quickClickCount >= 5 && quickClickCount < QUICK_CLICK_THRESHOLD && gamingUnlocked) {
                 const remaining = QUICK_CLICK_THRESHOLD - quickClickCount;
                 const feedbackDiv = document.createElement('div');
                 feedbackDiv.style.cssText = `
@@ -3240,11 +3256,11 @@ body.hud-preview-active .game-notification {
             typewriterInstances.set('portrait', typewriter);
             typewriter.type();
 
-            // Unlock gaming mode after 3 clicks - ULTRA VISIBLE
+            // Unlock gaming mode after exactly 23 clicks (easter egg)
             console.log('🎮 Portrait clicks:', portraitClicks, 'gamingUnlocked:', gamingUnlocked);
             
-            // Show click counter visually
-            if (portraitClicks < 3 && !gamingUnlocked) {
+            // Show click counter visually (seulement dans la dernière ligne droite)
+            if (portraitClicks >= 18 && portraitClicks < 23 && !gamingUnlocked) {
                 const clickCounter = document.createElement('div');
                 clickCounter.style.cssText = `
                     position: fixed;
@@ -3261,7 +3277,7 @@ body.hud-preview-active .game-notification {
                     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
                     animation: popIn 0.3s ease;
                 `;
-                clickCounter.textContent = `${portraitClicks}/3 🎮`;
+                clickCounter.textContent = `${portraitClicks}/23 🎮`;
                 document.body.appendChild(clickCounter);
                 
                 setTimeout(() => {
@@ -3272,7 +3288,7 @@ body.hud-preview-active .game-notification {
                 }, 1000);
             }
             
-            if (portraitClicks >= 3 && !gamingUnlocked) {
+            if (portraitClicks >= 23 && !gamingUnlocked) {
                 console.log('🎉 UNLOCKING GAMING MODE NOW!');
                 
                 // Show big unlock animation
@@ -3454,6 +3470,7 @@ body.hud-preview-active .game-notification {
             // Reset gaming mode state
             gamingUnlocked = false;
             gamingMode = false;
+            document.body.classList.remove('gaming-on'); // Re-masque la gamification
             
             // Update displays
             updateGameDisplay();
@@ -4174,7 +4191,7 @@ body.hud-preview-active .game-notification {
             <span class="version-number">v<span id="appVersion">0.48</span></span>
             <span class="version-separator">•</span>
             <span class="last-update">Dernière mise à jour: <span id="lastUpdate">2025-11-03</span></span>
-            <span class="version-separator">•</span>
+            <span class="version-separator" id="gamingSep">•</span>
             <span id="debugStatus" style="font-size:0.65rem; color:#64748b;">
                 Gaming: <span id="gamingStatus">⏳</span>
             </span>
