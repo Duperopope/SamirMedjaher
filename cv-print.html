@@ -3,16 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <title>CV - Samir Medjaher</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <style>
     @page { size: A4; margin: 0; }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    :root { --accent: #0e7490; --accent2: #0891b2; --ink: #1f2937; --muted: #4b5563; --line: #cbd5e1; }
+    :root {
+        --ink: #1f2a37;
+        --blue: #2274b8;
+        --blue-bright: #2b8fd0;
+        --green: #2f9e44;
+        --muted: #4b5563;
+        --soft: #6b7280;
+        --line: #d8dee6;
+        --line-soft: #e8edf2;
+    }
     html, body { background: #fff; }
     body {
         font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
         color: var(--ink);
-        font-size: 9.2px;
-        line-height: 1.4;
+        font-size: 9.4px;
+        line-height: 1.45;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
     }
@@ -21,46 +33,87 @@
         padding: 12mm 13mm;
         margin: 0 auto;
     }
-    /* Header */
-    header { text-align: center; border-bottom: 2px solid var(--accent); padding-bottom: 8px; margin-bottom: 10px; }
-    header h1 { font-size: 23px; font-weight: 700; letter-spacing: .5px; color: var(--ink); }
-    header .role { font-size: 12px; color: var(--accent); font-weight: 600; margin-top: 2px; }
-    header .contact { font-size: 9px; color: var(--muted); margin-top: 5px; }
-    header .contact span { white-space: nowrap; }
-    header .sep { color: var(--line); margin: 0 6px; }
-    /* Sections */
-    h2.sec {
-        font-size: 11px; font-weight: 700; color: var(--accent);
-        text-transform: uppercase; letter-spacing: .6px;
-        border-bottom: 1px solid var(--line); padding-bottom: 2px; margin-bottom: 6px;
+
+    /* ---------- Header ---------- */
+    .header {
+        display: flex; align-items: center; gap: 20px;
+        border-bottom: 3px solid var(--blue);
+        padding-bottom: 12px; margin-bottom: 12px;
     }
-    .profil { margin-bottom: 10px; }
-    .profil p { color: var(--muted); text-align: justify; }
-    .cols { display: grid; grid-template-columns: 1fr 1.55fr; gap: 16px; }
-    section { margin-bottom: 11px; }
-    /* Left column */
+    .photo-ring {
+        flex: 0 0 auto;
+        width: 104px; height: 104px; border-radius: 50%;
+        padding: 3px;
+        background: linear-gradient(135deg, var(--blue-bright) 0%, var(--green) 100%);
+        display: flex;
+    }
+    .photo-ring img {
+        width: 100%; height: 100%; border-radius: 50%;
+        object-fit: cover; border: 2.5px solid #fff;
+    }
+    .header-text { flex: 1; text-align: center; }
+    .header-text h1 { font-size: 27px; font-weight: 700; color: var(--ink); letter-spacing: .3px; }
+    .header-text .role { font-size: 14px; color: var(--blue-bright); font-weight: 600; margin-top: 2px; }
+    .contact {
+        margin-top: 8px;
+        display: flex; flex-wrap: wrap; justify-content: center;
+        gap: 4px 16px; font-size: 9.4px; color: var(--muted);
+    }
+    .contact .ci { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
+    .contact svg { width: 12px; height: 12px; stroke: var(--blue); fill: none; flex: 0 0 auto; }
+
+    /* ---------- Sections ---------- */
+    .sec-title {
+        font-size: 14px; font-weight: 700; color: var(--ink);
+        padding-bottom: 3px; border-bottom: 1px solid var(--line);
+        margin-bottom: 7px;
+    }
+    section { margin-bottom: 12px; }
+    .profil { margin-bottom: 13px; }
+    .profil p { color: var(--muted); text-align: justify; font-size: 9.6px; line-height: 1.55; }
+
+    .cols { display: grid; grid-template-columns: 0.92fr 1.32fr; gap: 24px; }
+
+    /* ---------- Left column ---------- */
     .skillgroup { margin-bottom: 6px; }
-    .skillgroup h3 { font-size: 9px; font-weight: 700; color: var(--ink); margin-bottom: 1px; }
+    .skillgroup h3 { font-size: 10px; font-weight: 700; color: var(--green); margin-bottom: 1px; }
     .skillgroup p { color: var(--muted); }
-    .lang-line { display: flex; justify-content: space-between; padding: 1px 0; }
+
+    .lang-line {
+        display: flex; justify-content: space-between; align-items: baseline;
+        padding: 3px 0; border-bottom: 1px solid var(--line-soft);
+    }
     .lang-line b { color: var(--ink); font-weight: 600; }
-    .lang-line span { color: var(--accent); font-weight: 600; }
-    .intl-item { margin-bottom: 5px; }
-    .intl-item b { color: var(--ink); }
+    .lang-line span { color: var(--blue); font-weight: 600; }
+
+    .intl-item { margin-bottom: 6px; }
+    .intl-item b { color: var(--ink); font-weight: 700; }
+    .intl-item .y { color: var(--blue); font-weight: 600; font-size: 8.8px; }
     .intl-item .d { color: var(--muted); }
-    /* Right column items */
-    .item { margin-bottom: 8px; padding-left: 9px; border-left: 2px solid var(--accent2); }
+
+    /* ---------- Right column items ---------- */
+    .item { margin-bottom: 9px; padding-left: 11px; border-left: 2.5px solid var(--blue); }
     .item .head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
-    .item .title { font-size: 10px; font-weight: 700; color: var(--ink); }
-    .item .date { font-size: 8.5px; color: var(--accent); font-weight: 600; white-space: nowrap; }
-    .item .sub { font-size: 9px; color: var(--accent); font-weight: 500; margin-bottom: 1px; }
+    .item .title { font-size: 10.6px; font-weight: 700; color: var(--ink); }
+    .item .date { font-size: 8.8px; color: var(--blue); font-weight: 600; white-space: nowrap; }
+    .item .sub { font-size: 9.4px; color: var(--blue); font-weight: 500; margin: 1px 0 2px; }
     .item .desc { color: var(--muted); }
-    footer { margin-top: 8px; text-align: center; font-size: 7.5px; color: #9ca3af; }
+
+    /* ---------- Project cards ---------- */
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 11px; }
+    .card { border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; }
+    .card h4 { font-size: 10px; font-weight: 700; color: var(--ink); margin-bottom: 3px; line-height: 1.25; }
+    .card p { font-size: 8.9px; color: var(--muted); line-height: 1.4; }
+    .card .tags { font-size: 8.6px; color: var(--blue); font-weight: 600; margin-top: 5px; }
+
+    footer { margin-top: 12px; text-align: center; font-size: 7.6px; color: #9ca3af; }
 </style>
 </head>
 <body>
 <div class="sheet" id="sheet"></div>
 <script>
+const PHOTO = "assets/portrait.jpg";
+
 const DATA = {
   fr: {
     name: "Samir Medjaher",
@@ -95,6 +148,12 @@ const DATA = {
       {title: "Bachelor Cybersécurité", date: "2023", sub: "CSB School, Lyon", desc: "Sécurité des systèmes et réseaux, développement sécurisé."},
       {title: "Formation Autodidacte", date: "2023-2025", sub: "Développement personnel", desc: "Python, JavaScript, Unity, Unreal Engine, Linux – Projets GitHub, veille active."},
       {title: "DCG – Comptabilité Gestion", date: "2012", sub: "Académie de Lyon", desc: "Diplôme de Comptabilité et Gestion – base solide en gestion administrative."}
+    ],
+    projTitle: "Projets Personnels",
+    proj: [
+      {h: "Expérimentation Game Dev", d: "Prototypes Unity/Unreal, exploration PCG, animation systems, level design.", tags: "Unity • Unreal • PCG"},
+      {h: "Scripts d'Automatisation", d: "Outils Python personnels, gestion fichiers, APIs, workflow optimization.", tags: "Python • APIs • Workflow"},
+      {h: "Assemblage Hardware", d: "Montage PC custom, dépannage, optimisation performance, support technique.", tags: "PC Custom • Support"}
     ]
   },
   en: {
@@ -130,9 +189,22 @@ const DATA = {
       {title: "Bachelor in Cybersecurity", date: "2023", sub: "CSB School, Lyon", desc: "Systems and network security, secure development."},
       {title: "Self-Taught Training", date: "2023-2025", sub: "Personal development", desc: "Python, JavaScript, Unity, Unreal Engine, Linux – GitHub projects, active tech watch."},
       {title: "DCG – Accounting & Management", date: "2012", sub: "Académie de Lyon", desc: "Accounting and Management diploma – solid administrative foundation."}
+    ],
+    projTitle: "Personal Projects",
+    proj: [
+      {h: "Game Dev Experimentation", d: "Unity/Unreal prototypes, PCG exploration, animation systems, level design.", tags: "Unity • Unreal • PCG"},
+      {h: "Automation Scripts", d: "Personal Python tools, file management, APIs, workflow optimization.", tags: "Python • APIs • Workflow"},
+      {h: "Hardware Assembly", d: "Custom PC building, troubleshooting, performance optimization, technical support.", tags: "PC Custom • Support"}
     ]
   }
 };
+
+const ICONS = [
+  '<svg viewBox="0 0 24 24" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 6 10-6"/></svg>',
+  '<svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
+  '<svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+  '<svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>'
+];
 
 const lang = new URLSearchParams(location.search).get('lang') === 'en' ? 'en' : 'fr';
 const d = DATA[lang];
@@ -147,43 +219,53 @@ const itemHtml = it => `
   </div>`;
 
 document.getElementById('sheet').innerHTML = `
-  <header>
-    <h1>${esc(d.name)}</h1>
-    <div class="role">${esc(d.role)}</div>
-    <div class="contact">${d.contact.map(c => `<span>${esc(c)}</span>`).join('<span class="sep">|</span>')}</div>
+  <header class="header">
+    <div class="photo-ring"><img src="${PHOTO}" alt="${esc(d.name)}"></div>
+    <div class="header-text">
+      <h1>${esc(d.name)}</h1>
+      <div class="role">${esc(d.role)}</div>
+      <div class="contact">${d.contact.map((c, i) => `<span class="ci">${ICONS[i] || ''}${esc(c)}</span>`).join('')}</div>
+    </div>
   </header>
 
   <section class="profil">
-    <h2 class="sec">${esc(d.profilTitle)}</h2>
+    <div class="sec-title">${esc(d.profilTitle)}</div>
     <p>${esc(d.profil)}</p>
   </section>
 
   <div class="cols">
     <aside>
       <section>
-        <h2 class="sec">${esc(d.skillsTitle)}</h2>
+        <div class="sec-title">${esc(d.skillsTitle)}</div>
         ${d.skills.map(s => `<div class="skillgroup"><h3>${esc(s.h)}</h3><p>${esc(s.v)}</p></div>`).join('')}
       </section>
       <section>
-        <h2 class="sec">${esc(d.langTitle)}</h2>
+        <div class="sec-title">${esc(d.langTitle)}</div>
         ${d.langs.map(l => `<div class="lang-line"><b>${esc(l.n)}</b><span>${esc(l.l)}</span></div>`).join('')}
       </section>
       <section>
-        <h2 class="sec">${esc(d.intlTitle)}</h2>
-        ${d.intl.map(i => `<div class="intl-item"><b>${esc(i.t)}</b> (${esc(i.p)})<div class="d">${esc(i.d)}</div></div>`).join('')}
+        <div class="sec-title">${esc(d.intlTitle)}</div>
+        ${d.intl.map(i => `<div class="intl-item"><b>${esc(i.t)}</b> <span class="y">(${esc(i.p)})</span><div class="d">${esc(i.d)}</div></div>`).join('')}
       </section>
     </aside>
     <main>
       <section>
-        <h2 class="sec">${esc(d.expTitle)}</h2>
+        <div class="sec-title">${esc(d.expTitle)}</div>
         ${d.exp.map(itemHtml).join('')}
       </section>
       <section>
-        <h2 class="sec">${esc(d.eduTitle)}</h2>
+        <div class="sec-title">${esc(d.eduTitle)}</div>
         ${d.edu.map(itemHtml).join('')}
       </section>
     </main>
   </div>
+
+  <section>
+    <div class="sec-title">${esc(d.projTitle)}</div>
+    <div class="cards">
+      ${d.proj.map(p => `<div class="card"><h4>${esc(p.h)}</h4><p>${esc(p.d)}</p><div class="tags">${esc(p.tags)}</div></div>`).join('')}
+    </div>
+  </section>
 `;
 document.title = 'CV - Samir Medjaher' + (lang === 'en' ? ' (EN)' : '');
 </script>

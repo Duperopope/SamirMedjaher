@@ -1,30 +1,204 @@
 {
-  "version": "1.1.0",
-  "codename": "Achievement Revolution",
-  "release_date": "2025-01-22",
-  "major_features": [
-    "Centralized achievement system",
-    "18+ unique achievements",
-    "Advanced skill and video tracking",
-    "Unified unlockAchievement() function",
-    "Enhanced persistence with Sets/Arrays"
+  "current": "0.48",
+  "lastUpdate": "2025-11-03",
+  "changelog": [
+    {
+      "version": "0.48",
+      "date": "2025-11-03",
+      "changes": [
+        "🎮 JEU PHASER 3 COMPLET ! Vrai moteur de jeu professionnel style Waven 2.5D",
+        "🎨 Graphismes 2.5D avec parallax multi-couches et profondeur visuelle",
+        "✨ Effets visuels modernes : particules (étoiles, cœurs, sparkles), glow, ombres",
+        "🐈‍⬛ Chat noir généré programmatiquement avec détails HD (yeux verts, moustaches)",
+        "📊 Système de stats complet avec barres animées (faim, humeur, santé, énergie)",
+        "🎯 Interactions fluides : caresser, nourrir, jouer avec animations tweens",
+        "💫 Animations 60 FPS hardware-accelerated avec Phaser 3",
+        "🌈 Backgrounds colorés style Waven avec effet de profondeur",
+        "🎬 Tweens professionnels : respiration, bounce, rotation, scale",
+        "⚡ Performance optimisée - Physique Arcade intégrée, game loop fluide"
+      ]
+    },
+    {
+      "version": "0.47",
+      "date": "2025-11-03",
+      "changes": [
+        "🐈‍⬛ VRAIES ASSETS HD PROFESSIONNELLES ! Chat noir animé par Carysaurus",
+        "✨ 5 animations HD de qualité : idle, run, eat, sleep, sit (GIF 32x32 upscalés)",
+        "🎨 Rendu ultra-smooth avec anti-aliasing et effets professionnels",
+        "💫 Effets visuels avancés : ombre portée, glow coloré selon l'état, hover effects",
+        "🔄 Système de transition fluide entre les animations (fade in/out)",
+        "📦 Assets téléchargées depuis itch.io - Licence commerciale gratuite",
+        "🎮 Remplacement complet du système procédural par assets réelles",
+        "🚀 Performance optimisée - GIFs légers (1.7KB à 7KB)",
+        "🖼️ Upscale HD intelligent : 32x32 → 256x256 avec qualité préservée",
+        "👆 Interactions améliorées avec scale hover et filtres visuels"
+      ]
+    },
+    {
+      "version": "0.46",
+      "date": "2025-11-03",
+      "changes": [
+        "🎨 RENDU ISOMÉTRIQUE PROFESSIONNEL ! Eric transformé style Dofus/Wakfu",
+        "🖼️ Générateur de sprites isométriques procédural avec 8 directions × 6 états",
+        "📐 Moteur de projection isométrique 2:1 avec formules mathématiques exactes",
+        "🎬 Animations frame-by-frame fluides avec transitions état/direction",
+        "✨ Effets visuels avancés : ombres dynamiques, highlights, particules",
+        "🎭 États animés: idle, walk, eat, play, sleep, sad avec sprites stylisés",
+        "🧭 8 directions cardinales : N, NE, E, SE, S, SW, W, NW",
+        "🔧 Fallback intelligent vers PNG si renderer non disponible",
+        "🎮 Intégration complète dans eric-complete-game.js",
+        "🌈 Palette colorée style RPG tactique français avec effets professionnels"
+      ]
+    },
+    {
+      "version": "0.45",
+      "date": "2025-11-03",
+      "changes": [
+        "🎮 JEU COMPLET: Transformation de l'onglet Eric en véritable jeu immersif !",
+        "📊 4 barres de stats visuelles : Faim, Humeur, Santé, Énergie",
+        "🏠 4 pièces explorables : Salon, Cuisine, Chambre, Jardin avec décors",
+        "🎒 Système d'inventaire complet avec items draggables",
+        "🛒 Boutique avec 3 catégories : Nourriture, Jouets, Soins",
+        "🎮 Section mini-jeux (Memory, Attrape, Puzzle) pour gagner des pièces",
+        "✨ Animations fluides et effets de particules professionnels",
+        "💾 Sauvegarde automatique de la progression",
+        "🪙 Système monétaire avec 100 pièces de départ"
+      ]
+    },
+    {
+      "version": "0.44",
+      "date": "2025-11-03",
+      "changes": [
+        "🎨 FIX: Utilisation des vraies images PNG d'Eric au lieu des sprites SVG",
+        "🐱 Plus de 'hibou' - Eric s'affiche avec ses vraies images (normal, happy, hungry, etc.)",
+        "🎮 Intégration unifiée dans le dashboard gaming - onglet 'Éric'",
+        "📦 eric-sprites.js désactivé - mapping vers assets/images/eric-*.png",
+        "✅ Interface simplifiée: Chat rond → Dashboard → Onglet Eric avec scène 3D"
+      ]
+    },
+    {
+      "version": "0.43",
+      "date": "2025-11-03",
+      "changes": [
+        "🐱 ERIC ENHANCED SYSTEM v1.0 - Tamagotchi interactif professionnel !",
+        "🎨 Sprites SVG animés avec 8 états : idle, happy, hungry, sad, eating, playing, sleeping, love",
+        "🎬 Scène 3D/isométrique interactive avec décor (sol, murs, objets)",
+        "🎮 5 boutons d'interaction : Feed, Play, Pet, Sleep, Clean avec animations",
+        "✨ Système de particules avancé : coeurs, étoiles, nourriture, sparkles",
+        "🌍 Cycle jour/nuit automatique avec changement de thème",
+        "🎯 Drag & drop des objets de décor (balle, bol, coussin)",
+        "🔗 Intégration complète avec système de gameplay existant",
+        "💾 Sauvegarde automatique de l'état d'Eric"
+      ]
+    },
+    {
+      "version": "0.42",
+      "date": "2025-11-03",
+      "changes": [
+        "🔄 Réorganisation settings - Sections HUD déplacées dans onglet Gaming",
+        "📊 Organisation logique: Stats → Succès → Custom HUD → Position → Actions",
+        "🧹 Nettoyage 21 références obsolètes gameNotification/achievementToast",
+        "🔧 Functions preview nettoyées et mises à jour avec système unifié",
+        "✅ Code plus propre, maintenable, sans références à éléments inexistants"
+      ]
+    },
+    {
+      "version": "0.41",
+      "date": "2025-11-03",
+      "changes": [
+        "🔥 FIX CACHE-BUST CRITIQUE - Tous les ?v= mis à jour à v0.40 !",
+        "📦 tamagotchi-gameplay.js était en v0.34 avec ANCIEN code popup",
+        "🎯 Cache navigateur chargeait ancienne showCoinGain() avec popup centre écran",
+        "✅ TOUS les scripts maintenant synchronisés à v0.40 - Hard refresh forcé",
+        "🚀 Le popup '+31' sous le doigt devrait ENFIN disparaître complètement"
+      ]
+    },
+    {
+      "version": "0.40",
+      "date": "2025-11-03",
+      "changes": [
+        "✅ FIX FINAL popups sous le doigt ! Redirection showGameNotification() + showAchievement()",
+        "📍 Tous les +XP/+Coins dans zone unifiée - Plus AUCUNE popup à l'endroit du clic",
+        "🔄 Fallback intelligent vers console si système unifié pas chargé",
+        "🎯 Fonctions index.html maintenant connectées au système unifié"
+      ]
+    },
+    {
+      "version": "0.39",
+      "date": "2025-11-03",
+      "changes": [
+        "✅ Suppression totale popups centre écran - showCoinGain() complètement désactivé",
+        "📍 TOUS les gains XP/Coins dans zone notifications unifiée - Plus de chevauchement",
+        "📊 Fallback intelligent - Si système unifié disponible, l'utilise automatiquement",
+        "🔧 Fonction showCoinGain() marquée DEPRECATED avec warning console"
+      ]
+    },
+    {
+      "version": "0.38",
+      "date": "2025-11-03",
+      "changes": [
+        "❌ Suppression bouton manette (game-toggle) obsolète - Ne sert plus à rien",
+        "🔧 Fix gains XP/Coins - Suppression du fallback showCoinGain(), tout passe par notifications unifiées",
+        "📊 Plus de popups centre écran - Tous les gains apparaîssent dans la zone unifiée",
+        "🐞 Debug nourriture - Ajout logs détaillés pour diagnostiquer problème inventaire",
+        "🥫 Fix inventaire foods - Vérification gameState.inventory.foods correctement"
+      ]
+    },
+    {
+      "version": "0.37",
+      "date": "2025-11-03",
+      "changes": [
+        "📊 Gains XP/Coins affichés dans zone notifications unifiée - Plus de popups centre écran",
+        "🎮 Bouton toggle XP bar - Afficher/masquer la barre avec préférence sauvegardée",
+        "🛒 Fix shop system - Ajout buyItem() et useItem() génériques pour achats dashboard",
+        "📦 Exposition SHOP_CATALOG + activateBoost + renderShopContent dans window.shopSystem",
+        "🔔 Notifications level-up utilisent le système unifié avec rewards affichés"
+      ]
+    },
+    {
+      "version": "0.36",
+      "date": "2025-11-03",
+      "changes": [
+        "🔔 Système de notifications unifié - Remplace achievement toast + game notification",
+        "📍 Zone unique de notifications avec 5 types (achievement, success, info, error, epic)",
+        "🎚️ Bouton toggle pour afficher/masquer les notifications avec badge de compteur",
+        "📜 File d'attente intelligente - Max 5 notifications visibles simultanément",
+        "🎨 Animations fluides avec stack vertical et auto-hide après durée",
+        "💾 Historique des 50 dernières notifications avec préférence sauvegardée"
+      ]
+    },
+    {
+      "version": "0.35",
+      "date": "2025-11-03",
+      "changes": [
+        "🍔 Vérification d'inventaire avant de nourrir Éric - Empêche feed sans nourriture",
+        "📦 Utilisation automatique du premier food disponible dans l'inventaire",
+        "📊 Notifications détaillées avec nom de l'item + quantité restante",
+        "⚡ Application correcte des effets (hunger, mood, XP, boost spécial gâteau)",
+        "💾 Décrémentation automatique de l'inventaire + sauvegarde"
+      ]
+    },
+    {
+      "version": "0.30",
+      "date": "2025-11-02",
+      "changes": [
+        "🛒 Shop complet intégré au dashboard avec 5 catégories",
+        "📦 Inventaire visuel avec gestion items/skins",
+        "🐱 Portrait Éric animé avec stats et actions",
+        "⚡ Quick Feed Menu pour achats rapides",
+        "🎨 Interface moderne avec grid responsive"
+      ]
+    },
+    {
+      "version": "0.29",
+      "date": "2025-11-02",
+      "changes": [
+        "🎮 Gaming Connector créé",
+        "⚙️ Onglet Settings ajouté",
+        "🎯 Modal système mini-jeux"
+      ]
+    }
   ],
-  "bug_fixes": [
-    "Fixed dialogue bubble timer losses",
-    "Resolved missing achievement messages",
-    "Eliminated achievement inconsistencies",
-    "Standardized achievement keys"
-  ],
-  "files_added": [
-    "README.md",
-    "CHANGELOG.md", 
-    "CONTRIBUTING.md",
-    "LICENSE",
-    "RELEASE_NOTES.md",
-    ".gitignore"
-  ],
-  "achievements_count": 18,
-  "lines_of_code": 2600,
-  "compatibility": "All modern browsers",
-  "license": "MIT"
+  "nextVersion": "0.49",
+  "autoIncrement": 0.01
 }
