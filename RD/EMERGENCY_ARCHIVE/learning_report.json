@@ -1,0 +1,52 @@
+{
+  "totalMistakes": 1,
+  "mistakesByType": {
+    "destructiveChanges": 1
+  },
+  "commonPatterns": {
+    "Massive size reduction: 67.89%": 1,
+    "Code replaced with TODO comments": 1
+  },
+  "preventionRules": [
+    "🚨 CRITICAL: Preview URL is file:///G:/Code/CV/RD/main_project_copy/index.html",
+    "🚨 CRITICAL: Work ONLY on g:/Code/CV/RD/main_project_copy/index.html",
+    "🚨 CRITICAL: Main branch files are PROTECTED - violation = SYSTEM HALT",
+    "🚨 CRITICAL: Preview URL is file:///G:/Code/CV/RD/main_project_copy/indexRD.html",
+    "🚨 CRITICAL: Work ONLY on g:/Code/CV/RD/main_project_copy/indexRD.html",
+    "🚨 CRITICAL: Main index.html is READ-ONLY - NEVER TOUCH",
+    "🚨 CRITICAL: NEVER modify files outside RD folder",
+    "NEVER replace functional code with placeholder text",
+    "ALWAYS preserve existing function definitions",
+    "ALWAYS backup code before major changes",
+    "VALIDATE function count before and after changes",
+    "REJECT changes that reduce code size by more than 50%",
+    "NEVER use innerHTML without sanitization - XSS risk",
+    "ALWAYS prefer textContent over innerHTML when possible",
+    "NEVER modify CSS classes or animations without user approval",
+    "ALWAYS preserve HTML structure and layout elements",
+    "NEVER change color themes or custom properties automatically",
+    "ALWAYS create design reference before major changes",
+    "NEVER apply security fixes that alter visual appearance"
+  ],
+  "overhaulNeeded": false,
+  "recommendations": {},
+  "generatedAt": "2025-07-23T03:07:47.768Z",
+  "securityIssuesLearned": 1,
+  "lastSecurityScan": "2025-07-23T03:07:47.768Z",
+  "designProtection": {
+    "enabled": true,
+    "lastUpdate": "2025-07-23T03:11:59.562Z",
+    "rulesCount": 5
+  },
+  "fileProtection": {
+    "enabled": true,
+    "protectedFiles": [
+      "g:/Code/CV/index.html",
+      "g:/Code/CV/README.md",
+      "g:/Code/CV/CHANGELOG.md"
+    ],
+    "workFile": "g:\\Code\\CV\\RD\\main_project_copy\\indexRD.html",
+    "lastUpdate": "2025-07-23T03:21:50.087Z",
+    "violationPolicy": "IMMEDIATE_HALT"
+  }
+}
