@@ -1278,6 +1278,7 @@ body.hud-preview-active .game-notification {
                     {title: "DCG - Comptabilité Gestion", period: "2012 • Académie de Lyon", description: "Diplôme de Comptabilité et Gestion - Base solide gestion administrative."}
                 ],
                 projects: [
+                    {title: "Atelier Web", description: "Création de sites pour commerces locaux : vitrines faites main, SEO, client livré en ligne (constructioncomores.com).", icon: "fas fa-store"},
                     {title: "Expérimentation Game Dev", description: "Prototypes Unity/Unreal, exploration PCG, animation systems, level design.", icon: "fas fa-gamepad"},
                     {title: "Scripts d'Automatisation", description: "Outils Python personnels, gestion fichiers, APIs, workflow optimization.", icon: "fas fa-robot"},
                     {title: "Assemblage Hardware", description: "Montage PC custom, dépannage, optimisation performance, support technique.", icon: "fas fa-microchip"}
@@ -1333,6 +1334,7 @@ body.hud-preview-active .game-notification {
                     {title: "DCG - Accounting Management", period: "2012 • Academy of Lyon", description: "Accounting and Management Diploma - Solid administrative management foundation."}
                 ],
                 projects: [
+                    {title: "Atelier Web", description: "Website creation for local businesses: handcrafted showcase sites, SEO, delivered client site live (constructioncomores.com).", icon: "fas fa-store"},
                     {title: "Game Dev Experimentation", description: "Unity/Unreal prototypes, PCG exploration, animation systems, level design.", icon: "fas fa-gamepad"},
                     {title: "Automation Scripts", description: "Personal Python tools, file management, APIs, workflow optimization.", icon: "fas fa-robot"},
                     {title: "Hardware Assembly", description: "Custom PC building, troubleshooting, performance optimization, technical support.", icon: "fas fa-microchip"}
@@ -1393,8 +1395,26 @@ body.hud-preview-active .game-notification {
             {id: 'vDkBvCrSWCA', thumb: 'assets/thumbnails/3DPlateformer.jpg', icon: 'fas fa-gamepad', title: {fr: 'Plateformer 3D', en: '3D Platformer'}, description: {fr: 'Jeu plateforme avec animation blending', en: 'Platform game with animation blending'}, explanation: {fr: 'Plateformer 3D - Jeu de plateforme avec animation blending fluide, character controller premium et mécaniques de gameplay polies. Focus sur game feel et accessibilité.', en: '3D Platformer - Platform game with fluid animation blending, premium character controller and polished gameplay mechanics. Focus on game feel and accessibility.'}}
         ];
 
-        // GitHub Projects (curated)
+        // GitHub Projects (curated) — ordre : projets professionnels d'abord
         const githubProjects = [
+            {
+                repo: 'artisans-comores', thumb: 'assets/thumbnails/constructioncomores.jpg', icon: 'fas fa-helmet-safety', title: 'Construction Comores',
+                tags: ['TypeScript', 'Web', 'SEO', 'Client livré'],
+                url: 'https://constructioncomores.com',
+                description: {
+                    fr: "Site web livré à un client, en ligne et référencé en tête des résultats Google : vitrine BTP / mise en relation aux Comores. Le dépôt GitHub en est la maquette initiale.",
+                    en: "Client website delivered and live, ranking at the top of Google results: construction showcase / business directory in the Comoros. The GitHub repo is the initial mockup."
+                }
+            },
+            {
+                repo: 'duperopope.github.io', thumb: 'assets/thumbnails/atelierweb.jpg', icon: 'fas fa-store', title: 'Atelier Web',
+                tags: ['Web', 'Freelance', 'SEO', 'En ligne'],
+                url: 'https://duperopope.github.io',
+                description: {
+                    fr: "Mon activité de création de sites pour commerces locaux : vitrines faites main, rapides et sécurisées, avec maquette gratuite. Page de service en ligne + démo client (salon de coiffure).",
+                    en: "My freelance web studio for local businesses: handcrafted, fast and secure showcase sites, with a free mockup. Live service page + client demo (hair salon)."
+                }
+            },
             {
                 repo: 'rse-rsn-calculator', thumb: 'assets/thumbnails/Fimocheck.jpg', icon: 'fas fa-bus', title: 'FIMO Check',
                 tags: ['JavaScript', 'Transport', 'Réglementation'],
@@ -1409,15 +1429,6 @@ body.hud-preview-active .game-notification {
                 description: {
                     fr: "Prototype de boucle cognitive locale : capture webcam/audio, mémoire épisodique & sémantique, propagation d'activation et score d'action inspiré de l'Active Inference.",
                     en: "Local cognitive-loop prototype: webcam/audio capture, episodic & semantic memory, activation spreading and an Active-Inference-inspired action score."
-                }
-            },
-            {
-                repo: 'artisans-comores', thumb: 'assets/thumbnails/constructioncomores.jpg', icon: 'fas fa-helmet-safety', title: 'Construction Comores',
-                tags: ['TypeScript', 'Web', 'SEO', 'Client livré'],
-                url: 'https://constructioncomores.com',
-                description: {
-                    fr: "Site web livré à un client, en ligne et référencé en tête des résultats Google : vitrine BTP / mise en relation aux Comores. Le dépôt GitHub en est la maquette initiale.",
-                    en: "Client website delivered and live, ranking at the top of Google results: construction showcase / business directory in the Comoros. The GitHub repo is the initial mockup."
                 }
             },
             {
@@ -2304,7 +2315,8 @@ body.hud-preview-active .game-notification {
                 kind: 'project', repo: p.repo, url: p.url, icon: p.icon, hue: HUES[i % HUES.length], thumb: p.thumb,
                 title: p.title, desc: p.description[currentLang]
             }));
-            return vids.concat(projs);
+            // Projets professionnels d'abord, vidéos game dev ensuite
+            return projs.concat(vids);
         }
 
         function renderCoverflow() {
