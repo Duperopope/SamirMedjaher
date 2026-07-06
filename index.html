@@ -211,7 +211,7 @@ body.hud-preview-active .game-notification {
 
         /* ============ CARROUSEL 3D COVERFLOW (vidéos + projets réunis) ============ */
         .coverflow { position: relative; max-width: 1080px; margin: 1.5rem auto 0; padding-bottom: 26px; }
-        .cf-stage { position: relative; height: 580px; perspective: 1500px; transform-style: preserve-3d; }
+        .cf-stage { position: relative; height: 580px; perspective: 1500px; transform-style: preserve-3d; cursor: pointer; }
         .cf-item {
             position: absolute; top: 46%; left: 50%;
             width: 290px; height: 400px; margin-left: -145px; margin-top: -200px;
@@ -2334,7 +2334,7 @@ body.hud-preview-active .game-notification {
                            <span class="cf-watermark"><i class="${it.icon}"></i></span>
                            ${playBadge}
                        </div>`;
-                return `<div class="cf-item" data-i="${i}" onclick="cfClick(${i})">
+                return `<div class="cf-item" data-i="${i}">
                             <div class="cf-card" style="--h:${it.hue}">
                                 ${cover}
                                 <div class="cf-cardlabel"><span class="cf-cardchip"><i class="${it.icon}"></i></span><b>${it.title}</b></div>
@@ -2409,7 +2409,26 @@ body.hud-preview-active .game-notification {
             cfLayout();
         }
         function cfGoTo(i) { cfActive = i; cfLayout(); }
-        function cfClick(i) { if (i === cfActive) { cfOpen(i); } else { cfGoTo(i); } }
+
+        // Clic sur les tuiles : hit-test géométrique au niveau de la scène,
+        // car le hit-testing natif est peu fiable sur des éléments en 3D (preserve-3d + rotateY).
+        // Clic sur la carte centrale = ouvrir ; clic sur une carte latérale = la centrer.
+        function cfStageClick(e) {
+            if (!cfEls.length) return;
+            const rect = e.currentTarget.getBoundingClientRect();
+            const dx = e.clientX - (rect.left + rect.width / 2);
+            const half = (cfEls[0].offsetWidth || 290) / 2;
+            if (Math.abs(dx) <= half) { cfOpen(cfActive); return; }
+            // Centres projetés des cartes latérales : x = 200·k atténué par la perspective (1500px, z = -230·k)
+            let steps = 1, best = Infinity;
+            for (let k = 1; k <= 4; k++) {
+                const cx = 200 * k * 1500 / (1500 + 230 * k);
+                const d = Math.abs(Math.abs(dx) - cx);
+                if (d < best) { best = d; steps = k; }
+            }
+            cfGoTo((cfActive + Math.sign(dx) * steps + cfItems.length) % cfItems.length);
+        }
+        document.getElementById('cfStage').addEventListener('click', cfStageClick);
 
         function updateGithubProjects() {
             const container = document.getElementById('githubProjectsGrid');
