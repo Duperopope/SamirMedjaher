@@ -1,0 +1,3335 @@
+{
+  "cssStyles": [
+    {
+      "type": "inline",
+      "content": "<style>\r\n        :root{--primary:#06b6d4;--secondary:#10b981;--accent:#8b5cf6;--dark:#0f172a;--dark-light:#1e293b;--dark-medium:#334155;--text-primary:#e2e8f0;--text-secondary:#94a3b8;--text-muted:#64748b;--game-gold:#fbbf24;--game-xp:#10b981}*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}body{background:linear-gradient(135deg,var(--dark) 0%,var(--dark-light) 50%,var(--dark-medium) 100%);color:var(--text-primary);line-height:1.5;min-height:100vh;position:relative;overflow-x:hidden}#particleCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}.glass-subtle{background:rgba(30,41,59,0.1);backdrop-filter:blur(15px);border-radius:16px;border:1px solid rgba(148,163,184,0.08);box-shadow:0 8px 32px rgba(0,0,0,0.12);position:relative;z-index:1}.glass-card{background:rgba(15,23,42,0.15);backdrop-filter:blur(12px);border-radius:12px;border:1px solid rgba(148,163,184,0.06);transition:all 0.3s ease;position:relative;z-index:1}.glass-card:hover{background:rgba(15,23,42,0.2);border-color:rgba(6,182,212,0.15);transform:translateY(-2px)}.profile-img{width:140px;height:140px;border-radius:50%;border:2px solid var(--primary);box-shadow:0 0 20px rgba(6,182,212,0.15);object-fit:cover;transition:all 0.3s ease;cursor:pointer}.profile-img:hover{transform:scale(1.03);box-shadow:0 0 30px rgba(6,182,212,0.25)}.section-title{font-size:1.25rem;font-weight:600;color:var(--primary);margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem;padding-bottom:0.5rem;border-bottom:1px solid var(--dark-medium)}.contact-item{display:flex;align-items:center;gap:0.5rem;color:var(--text-secondary);padding:0.3rem;border-radius:6px;transition:all 0.3s ease;cursor:pointer}.contact-item:hover{color:var(--text-primary);background:rgba(6,182,212,0.1);transform:translateX(3px)}.contact-item i{color:var(--primary);width:16px;text-align:center;font-size:0.9rem}.skill-bubble{position:relative;background:linear-gradient(135deg,rgba(6,182,212,0.1),rgba(16,185,129,0.08));border:1px solid rgba(6,182,212,0.2);border-radius:20px;padding:0.5rem 0.8rem;text-align:center;cursor:pointer;transition:all 0.3s ease;font-size:0.8rem;margin:0.2rem;display:inline-block}.skill-bubble:hover{transform:translateY(-3px) scale(1.05);background:linear-gradient(135deg,rgba(6,182,212,0.2),rgba(16,185,129,0.15));border-color:rgba(6,182,212,0.4);box-shadow:0 8px 25px rgba(6,182,212,0.3)}.skill-tooltip{position:absolute;bottom:120%;left:50%;transform:translateX(-50%);background:rgba(15,23,42,0.95);backdrop-filter:blur(15px);border:1px solid rgba(6,182,212,0.3);border-radius:8px;padding:0.75rem;font-size:0.7rem;white-space:nowrap;opacity:0;pointer-events:none;transition:all 0.3s ease;z-index:10001;max-width:280px;white-space:normal}.skill-tooltip.show{opacity:1}.typewriter-cursor{display:inline-block;background:var(--primary);width:2px;height:1.2em;margin-left:2px;animation:blink 1s infinite}@keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}.experience-item{position:relative;padding-left:1rem;margin-bottom:1rem}.experience-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--primary),var(--secondary));border-radius:1px}.lang-switch{position:fixed;top:1.5rem;right:1.5rem;background:rgba(30,41,59,0.15);backdrop-filter:blur(15px);border-radius:20px;padding:0.3rem;display:flex;gap:0.3rem;border:1px solid rgba(148,163,184,0.1);z-index:1000}.lang-btn{background:transparent;border:none;color:var(--text-secondary);padding:0.4rem 0.8rem;border-radius:15px;cursor:pointer;font-weight:500;transition:all 0.3s ease;font-size:0.8rem}.lang-btn.active{background:rgba(6,182,212,0.2);color:var(--primary)}.color-picker-trigger{position:fixed;top:1.5rem;right:8rem;width:40px;height:40px;background:rgba(30,41,59,0.15);backdrop-filter:blur(15px);border:1px solid rgba(148,163,184,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:1000;transition:all 0.3s ease}.color-picker-trigger:hover{background:rgba(30,41,59,0.25);border-color:var(--primary);transform:scale(1.1)}.game-toggle{position:fixed;top:1.5rem;right:13rem;background:rgba(139,92,246,0.1);backdrop-filter:blur(15px);border:1px solid rgba(139,92,246,0.2);border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;color:var(--accent);cursor:pointer;font-size:1.2rem;transition:all 0.3s ease;z-index:1000;display:none;opacity:0;transform:scale(0.8);overflow:hidden;white-space:nowrap}.game-toggle.unlocked{display:flex;animation:unlockAnimation 0.8s ease forwards}.game-toggle:hover{background:rgba(139,92,246,0.2);transform:scale(1.05);width:auto;border-radius:20px;padding:0.3rem 0.8rem;font-size:0.8rem;min-width:120px}@keyframes unlockAnimation{0%{opacity:0;transform:scale(0.8) translateY(-10px)}100%{opacity:1;transform:scale(1) translateY(0)}}.game-hud{position:fixed;bottom:10rem;right:2rem;z-index:1000;background:var(--hud-bg, rgba(15,23,42,0.9));backdrop-filter:blur(15px);border-radius:12px;padding:0.75rem 1rem;border:1px solid rgba(6,182,212,0.2);display:none;align-items:center;gap:1rem;opacity:var(--hud-opacity, 0.9);transition:all 0.3s ease;box-shadow:0 8px 25px rgba(6,182,212,0.2)}.game-hud.show{display:flex}        .game-stat{display:flex;align-items:center;gap:0.3rem;font-size:0.8rem;color:var(--text-secondary)}.game-stat i{color:var(--game-gold)}.xp-bar{width:60px;height:4px;background:rgba(148,163,184,0.2);border-radius:2px;overflow:hidden}.xp-progress{height:100%;background:linear-gradient(90deg,var(--game-xp),var(--primary));border-radius:2px;transition:width 0.5s ease;width:0%}.achievement-toast{position:fixed;bottom:12rem;right:1rem;background:linear-gradient(135deg,var(--game-gold),#f59e0b);color:white;padding:0.8rem 1rem;border-radius:12px;box-shadow:0 10px 30px rgba(251,191,36,0.3);z-index:10002;transform:translateX(100%);transition:transform 0.5s cubic-bezier(0.4,0,0.2,1);max-width:280px;border:1px solid rgba(255,255,255,0.1);font-size:0.85rem}.achievement-toast.show{transform:translateX(0)}.achievement-toast::before{content:'🏆';position:absolute;top:-8px;left:8px;background:var(--dark);border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:10px;border:1px solid var(--game-gold)}.achievement-toast.show{transform:translateX(0)}.tamagotchi{position:fixed;bottom:2rem;right:2rem;width:80px;height:80px;background:rgba(15,23,42,0.9);border-radius:50%;border:2px solid var(--primary);display:none;align-items:center;justify-content:center;font-size:2rem;cursor:pointer;z-index:1000;transition:all 0.3s ease;box-shadow:0 8px 25px rgba(6,182,212,0.3)}.tamagotchi.show{display:flex;animation:gamingPulse 3s infinite}.tamagotchi:hover{transform:scale(1.1);box-shadow:0 12px 35px rgba(6,182,212,0.4)}\r\n\r\n/* Z-index élevé en mode preview */\r\nbody.hud-preview-active .tamagotchi {\r\n    z-index:10500;\r\n}\r\nbody.hud-preview-active .game-hud {\r\n    z-index:10500;\r\n}\r\nbody.hud-preview-active .achievement-toast {\r\n    z-index:10500;\r\n}\r\nbody.hud-preview-active .game-notification {\r\n    z-index:10500;\r\n}.color-picker-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(15,23,42,0.9);backdrop-filter:blur(20px);z-index:10000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:all 0.4s ease}.color-picker-overlay.active{opacity:1;pointer-events:all}\r\n\r\n/* Mode preview: overlay en arrière-plan et panel repositionné à gauche */\r\n.color-picker-overlay.hud-preview-mode {\r\n    z-index:500;\r\n    background:rgba(15,23,42,0.7);\r\n    justify-content:flex-start;\r\n    padding-left:2rem;\r\n}\r\n\r\n.color-picker-panel{background:rgba(30,41,59,0.2);backdrop-filter:blur(25px);border:1px solid rgba(148,163,184,0.2);border-radius:24px;padding:2rem;max-width:600px;width:90vw;max-height:80vh;overflow-y:auto;box-shadow:0 25px 50px rgba(0,0,0,0.3)}\r\n\r\n/* Panel repositionné en mode preview */\r\n.color-picker-overlay.hud-preview-mode .color-picker-panel {\r\n    max-width:450px;\r\n    width:450px;\r\n    margin-right:auto;\r\n}.tabs{display:flex;gap:1rem;margin-bottom:2rem;border-bottom:1px solid rgba(148,163,184,0.2)}.tab-btn{background:transparent;border:none;color:var(--text-secondary);padding:0.5rem 1rem;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.3s ease}.tab-btn.active{color:var(--primary);border-bottom-color:var(--primary)}.tab-content{display:none}.tab-content.active{display:block}.theme-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:1rem;margin:1rem 0}.theme-preview{width:100px;height:60px;border-radius:12px;border:2px solid transparent;cursor:pointer;transition:all 0.3s ease;position:relative;overflow:hidden}.theme-preview:hover{transform:scale(1.05);border-color:white}.theme-preview.active{border-color:var(--primary)}.language-item{display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,rgba(15,23,42,0.3),rgba(30,41,59,0.2));border-radius:15px;padding:1rem;border:1px solid rgba(6,182,212,0.15);margin-bottom:0.8rem}.cecrl-badge{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:0.2rem 0.6rem;border-radius:12px;font-size:0.75rem;font-weight:600}.download-btn{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:0.8rem 1.5rem;border-radius:8px;border:none;cursor:pointer;font-weight:600;transition:all 0.3s ease;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem}.download-btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(6,182,212,0.3)}.main-grid{display:grid;grid-template-columns:1fr 2fr;gap:2rem;max-width:1100px;margin:0 auto;padding:2rem;position:relative;z-index:1}.portfolio-section{width:100%;max-width:1400px;margin:2rem auto 0;padding:0 2rem;position:relative;z-index:1}.portfolio-grid{display:flex;gap:1rem;overflow-x:auto;padding:1rem 0;scroll-behavior:smooth}.portfolio-card{background:linear-gradient(145deg,rgba(30,41,59,0.08),rgba(15,23,42,0.12));border:1px solid rgba(6,182,212,0.15);border-radius:24px;overflow:hidden;position:relative;backdrop-filter:blur(20px);transition:all 0.6s ease;cursor:pointer;min-width:300px;max-width:350px;flex-shrink:0}.portfolio-card:hover{transform:translateY(-8px) scale(1.02);border-color:rgba(6,182,212,0.4);box-shadow:0 20px 40px rgba(0,0,0,0.2),0 0 60px rgba(6,182,212,0.15)}.video-thumbnail{width:100%;height:180px;background:var(--dark-medium);position:relative;overflow:hidden}.video-thumbnail img{width:100%;height:100%;object-fit:cover}.video-description{padding:1.5rem}.carousel-nav{position:absolute;top:50%;background:rgba(15,23,42,0.8);border:none;color:var(--primary);width:40px;height:40px;border-radius:50%;cursor:pointer;z-index:10;transform:translateY(-50%);transition:all 0.3s ease}.carousel-nav:hover{background:rgba(6,182,212,0.2)}.carousel-prev{left:10px}.carousel-next{right:10px}.theater-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(15,23,42,0.95);backdrop-filter:blur(20px);z-index:10000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:all 0.4s ease}.theater-overlay.active{opacity:1;pointer-events:all}.theater-content{display:grid;grid-template-columns:2fr 1fr;gap:2rem;max-width:90vw;max-height:80vh}.theater-video{width:100%;height:60vh;border-radius:15px;border:none}.video-explanation{background:rgba(15,23,42,0.8);backdrop-filter:blur(15px);border-radius:15px;padding:1.5rem;border:1px solid rgba(6,182,212,0.2);max-height:60vh;overflow-y:auto;font-family:'Fira Code',monospace;font-size:13px;line-height:1.5}.close-theater{position:absolute;top:2rem;right:2rem;background:rgba(220,38,38,0.8);border:none;border-radius:50%;width:50px;height:50px;color:white;font-size:24px;cursor:pointer;transition:all 0.3s ease}.close-theater:hover{background:rgba(220,38,38,1);transform:scale(1.1)}.scroll-indicator{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:rgba(6,182,212,0.1);backdrop-filter:blur(15px);border:1px solid rgba(6,182,212,0.2);border-radius:30px;padding:1rem 1.5rem;display:flex;align-items:center;gap:0.5rem;color:var(--primary);cursor:pointer;transition:all 0.3s ease;z-index:1000;animation:pulseGlow 3s infinite}.scroll-indicator:hover{transform:translateX(-50%) translateY(-5px);background:rgba(6,182,212,0.15)}.scroll-arrow{animation:bounceDown 2s infinite}@keyframes bounceDown{0%,20%,50%,80%,100%{transform:translateY(0)}40%{transform:translateY(-10px)}60%{transform:translateY(-5px)}}@keyframes pulseGlow{0%,100%{box-shadow:0 0 5px rgba(6,182,212,0.2)}50%{box-shadow:0 0 20px rgba(6,182,212,0.4)}}@keyframes gamingPulse{0%,100%{box-shadow:0 8px 25px rgba(6,182,212,0.3)}50%{box-shadow:0 12px 35px rgba(6,182,212,0.5)}}@keyframes achievementGlow{0%,100%{box-shadow:0 10px 30px rgba(251,191,36,0.3)}50%{box-shadow:0 15px 40px rgba(251,191,36,0.5)}}.hud-preview-mode .game-hud,.hud-preview-mode .tamagotchi,.hud-preview-mode .game-notification,.hud-preview-mode .achievement-toast{border:2px dashed var(--primary);animation:previewPulse 2s ease-in-out infinite}@keyframes previewPulse{0%,100%{border-color:var(--primary);opacity:0.9}50%{border-color:var(--secondary);opacity:1}}.hud-preview-mode .game-hud::after,.hud-preview-mode .tamagotchi::after,.hud-preview-mode .game-notification::after,.hud-preview-mode .achievement-toast::after{content:'PREVIEW';position:absolute;top:-20px;left:50%;transform:translateX(-50%);background:var(--primary);color:white;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600;z-index:10001}.particle-controls{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0}.control-group{display:flex;flex-direction:column;gap:0.5rem}.control-group label{font-size:0.8rem;color:var(--text-secondary)}.control-input{background:rgba(15,23,42,0.5);border:1px solid rgba(148,163,184,0.2);border-radius:6px;padding:0.5rem;color:var(--text-primary)}.preset-buttons{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:0.5rem;margin:1rem 0}.preset-btn{background:rgba(6,182,212,0.1);border:1px solid rgba(6,182,212,0.2);border-radius:8px;padding:0.5rem;color:var(--primary);cursor:pointer;transition:all 0.3s ease}.preset-btn:hover,.preset-btn.active{background:rgba(6,182,212,0.2);border-color:rgba(6,182,212,0.4)}@media (max-width:968px){.main-grid{grid-template-columns:1fr;padding:1rem}.lang-switch{top:1rem;right:1rem}.color-picker-trigger{top:1rem;right:6rem}.game-toggle{top:1rem;right:11rem}.game-hud{bottom:7rem;right:1.5rem;padding:0.5rem 0.8rem;font-size:0.75rem;gap:0.8rem}.achievement-toast{bottom:12rem;right:0.5rem;max-width:250px}.game-notification{bottom:8rem;right:1rem;max-width:220px}.tamagotchi{bottom:1.5rem;right:1.5rem;width:70px;height:70px}#gamingController{bottom:1.5rem;right:1.5rem;width:70px;height:70px}.theater-content{grid-template-columns:1fr;padding:1rem}.theater-video{height:40vh}}.fade-in{animation:fadeIn 0.6s ease}@keyframes fadeIn{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}.documentation-section{background:rgba(15,23,42,0.3);border-radius:12px;padding:1.5rem;margin:1rem 0}.faq-item{border-bottom:1px solid rgba(148,163,184,0.1);padding:1rem 0}.faq-question{cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:500}.faq-answer{margin-top:0.5rem;color:var(--text-secondary);display:none}.faq-item.open .faq-answer{display:block}.mini-game-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(15,23,42,0.95);backdrop-filter:blur(20px);z-index:10000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:all 0.5s ease}.mini-game-overlay.active{opacity:1;pointer-events:all}.mini-game{background:rgba(30,41,59,0.2);backdrop-filter:blur(25px);border-radius:24px;padding:2rem;max-width:600px;width:90vw;border:1px solid rgba(148,163,184,0.2)}.code-puzzle{background:rgba(15,23,42,0.8);border-radius:12px;padding:1.5rem;margin:1rem 0;font-family:'Fira Code',monospace;border:1px solid rgba(6,182,212,0.2)}.qcm-options{display:grid;gap:0.5rem;margin:1rem 0}.qcm-option{background:rgba(15,23,42,0.3);border:1px solid rgba(148,163,184,0.3);border-radius:8px;padding:0.75rem;color:var(--text-primary);cursor:pointer;transition:all 0.3s ease;text-align:left}.qcm-option:hover:not(:disabled){background:rgba(6,182,212,0.1);border-color:rgba(6,182,212,0.3)}.qcm-option:disabled{cursor:not-allowed;opacity:0.7}.game-button{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;border:none;padding:0.75rem 1.5rem;border-radius:8px;cursor:pointer;font-weight:600;transition:all 0.3s ease;margin:0.5rem}.game-button:hover{transform:translateY(-2px);box-shadow:0 5px 15px rgba(6,182,212,0.3)}.portrait-dialogue{position:fixed;background:rgba(15,23,42,0.98);border:2px solid var(--primary);border-radius:15px;padding:1rem;max-width:280px;min-height:60px;font-size:0.8rem;opacity:0;pointer-events:none;transition:all 0.3s ease;z-index:10005;box-shadow:0 15px 40px rgba(0,0,0,0.5);backdrop-filter:blur(15px);display:flex;align-items:center}.portrait-dialogue.show{opacity:1;pointer-events:all}.portrait-dialogue::after{content:'';position:absolute;border:10px solid transparent;z-index:-1}.portrait-dialogue.arrow-bottom::after{top:100%;left:var(--arrow-offset, 50%);transform:translateX(-50%);border-top-color:var(--primary)}.portrait-dialogue.arrow-top::after{bottom:100%;left:var(--arrow-offset, 50%);transform:translateX(-50%);border-bottom-color:var(--primary)}.portrait-dialogue.arrow-left::after{top:var(--arrow-offset, 50%);right:100%;transform:translateY(-50%);border-right-color:var(--primary)}.portrait-dialogue.arrow-right::after{top:var(--arrow-offset, 50%);left:100%;transform:translateY(-50%);border-left-color:var(--primary)}.game-notification{position:fixed;bottom:8rem;right:2rem;background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:0.8rem 1rem;border-radius:12px;max-width:250px;opacity:0;transform:translateX(100%);transition:all 0.5s ease;z-index:10001;font-size:0.85rem;box-shadow:0 8px 25px rgba(6,182,212,0.3);border:1px solid rgba(255,255,255,0.1)}.game-notification.show{opacity:1;transform:translateX(0)}.game-notification::before{content:'🎮';position:absolute;top:-8px;left:8px;background:var(--dark);border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:10px;border:1px solid var(--primary)}.game-notification.show{opacity:1;transform:translateX(0)}.tech-tag{background:rgba(6,182,212,0.1);color:var(--primary);padding:0.2rem 0.6rem;border-radius:12px;font-size:0.7rem;border:1px solid rgba(6,182,212,0.2);margin:0.2rem}\r\n    </style>",
+      "line": 0
+    },
+    {
+      "type": "variable",
+      "content": "--primary:#06b6d4",
+      "category": "custom-property"
+    },
+    {
+      "type": "variable",
+      "content": "--secondary:#10b981",
+      "category": "custom-property"
+    },
+    {
+      "type": "variable",
+      "content": "--accent:#8b5cf6",
+      "category": "custom-property"
+    },
+    {
+      "type": "variable",
+      "content": "--dark:#0f172a",
+      "category": "custom-property"
+    },
+    {
+      "type": "variable",
+      "content": "--dark-light:#1e293b",
+      "category": "custom-property"
+    },
+    {
+      "type": "variable",
+      "content": "--dark-medium:#334155",
+      "category": "custom-property"
+    },
+    {
+      "type": "variable",
+      "content": "--text-primary:#e2e8f0",
+      "category": "custom-property"
+    },
+    {
+      "type": "variable",
+      "content": "--text-secondary:#94a3b8",
+      "category": "custom-property"
+    },
+    {
+      "type": "variable",
+      "content": "--text-muted:#64748b",
+      "category": "custom-property"
+    },
+    {
+      "type": "variable",
+      "content": "--game-gold:#fbbf24",
+      "category": "custom-property"
+    },
+    {
+      "type": "variable",
+      "content": "--game-xp:#10b981}*{margin:0",
+      "category": "custom-property"
+    }
+  ],
+  "htmlStructure": [
+    {
+      "element": "<div class=\"lang-switch\">",
+      "tag": "div",
+      "classes": "lang-switch"
+    },
+    {
+      "element": "<button class=\"lang-btn active\" onclick=\"switchLanguage('fr')\" data-lang-key=\"fr\">",
+      "tag": "button",
+      "classes": "lang-btn active"
+    },
+    {
+      "element": "<button class=\"lang-btn\" onclick=\"switchLanguage('en')\" data-lang-key=\"en\">",
+      "tag": "button",
+      "classes": "lang-btn"
+    },
+    {
+      "element": "<div class=\"game-toggle\" id=\"gameToggle\" onclick=\"toggleGaming()\" title=\"Mode Gaming\">",
+      "tag": "div",
+      "classes": "game-toggle"
+    },
+    {
+      "element": "<div class=\"color-picker-trigger\" onclick=\"openColorPicker()\" title=\"Personnaliser\">",
+      "tag": "div",
+      "classes": "color-picker-trigger"
+    },
+    {
+      "element": "<i class=\"fas fa-palette\">",
+      "tag": "i",
+      "classes": "fas fa-palette"
+    },
+    {
+      "element": "<div class=\"game-hud\" id=\"gameHUD\">",
+      "tag": "div",
+      "classes": "game-hud"
+    },
+    {
+      "element": "<div class=\"game-stat\">",
+      "tag": "div",
+      "classes": "game-stat"
+    },
+    {
+      "element": "<i class=\"fas fa-trophy\">",
+      "tag": "i",
+      "classes": "fas fa-trophy"
+    },
+    {
+      "element": "<div class=\"game-stat\">",
+      "tag": "div",
+      "classes": "game-stat"
+    },
+    {
+      "element": "<i class=\"fas fa-star\">",
+      "tag": "i",
+      "classes": "fas fa-star"
+    },
+    {
+      "element": "<div class=\"game-stat\">",
+      "tag": "div",
+      "classes": "game-stat"
+    },
+    {
+      "element": "<i class=\"fas fa-medal\">",
+      "tag": "i",
+      "classes": "fas fa-medal"
+    },
+    {
+      "element": "<div class=\"xp-bar\">",
+      "tag": "div",
+      "classes": "xp-bar"
+    },
+    {
+      "element": "<div class=\"xp-progress\" id=\"xpProgress\">",
+      "tag": "div",
+      "classes": "xp-progress"
+    },
+    {
+      "element": "<div class=\"achievement-toast\" id=\"achievementToast\">",
+      "tag": "div",
+      "classes": "achievement-toast"
+    },
+    {
+      "element": "<div class=\"achievement-icon\">",
+      "tag": "div",
+      "classes": "achievement-icon"
+    },
+    {
+      "element": "<div class=\"game-notification\" id=\"gameNotification\">",
+      "tag": "div",
+      "classes": "game-notification"
+    },
+    {
+      "element": "<div class=\"tamagotchi\" id=\"tamagotchi\" onclick=\"feedTamagotchi()\" oncontextmenu=\"toggleGamingFromEric(event)\">",
+      "tag": "div",
+      "classes": "tamagotchi"
+    },
+    {
+      "element": "<div class=\"tamagotchi\" id=\"gamingController\" onclick=\"reactivateGaming()\" style=\"display:none;background:rgba(139,92,246,0.2);border-color:var(--accent);\">",
+      "tag": "div",
+      "classes": "tamagotchi"
+    },
+    {
+      "element": "<i class=\"fas fa-gamepad\" style=\"font-size:2rem;color:var(--accent);\">",
+      "tag": "i",
+      "classes": "fas fa-gamepad"
+    },
+    {
+      "element": "<div class=\"color-picker-overlay\" id=\"colorPickerOverlay\" onclick=\"closeColorPicker(event)\">",
+      "tag": "div",
+      "classes": "color-picker-overlay"
+    },
+    {
+      "element": "<div class=\"color-picker-panel\" onclick=\"event.stopPropagation()\">",
+      "tag": "div",
+      "classes": "color-picker-panel"
+    },
+    {
+      "element": "<div class=\"flex justify-between items-center mb-4\">",
+      "tag": "div",
+      "classes": "flex justify-between items-center mb-4"
+    },
+    {
+      "element": "<h3 class=\"text-xl font-bold text-white\">",
+      "tag": "h3",
+      "classes": "text-xl font-bold text-white"
+    },
+    {
+      "element": "<button onclick=\"closeColorPicker()\" class=\"text-gray-400 hover:text-white\">",
+      "tag": "button",
+      "classes": "text-gray-400 hover:text-white"
+    },
+    {
+      "element": "<i class=\"fas fa-times\">",
+      "tag": "i",
+      "classes": "fas fa-times"
+    },
+    {
+      "element": "<div class=\"tabs\">",
+      "tag": "div",
+      "classes": "tabs"
+    },
+    {
+      "element": "<button class=\"tab-btn active\" onclick=\"switchTab('colors')\">",
+      "tag": "button",
+      "classes": "tab-btn active"
+    },
+    {
+      "element": "<i class=\"fas fa-desktop mr-2\">",
+      "tag": "i",
+      "classes": "fas fa-desktop mr-2"
+    },
+    {
+      "element": "<button class=\"tab-btn\" onclick=\"switchTab('particles')\">",
+      "tag": "button",
+      "classes": "tab-btn"
+    },
+    {
+      "element": "<i class=\"fas fa-sparkles mr-2\">",
+      "tag": "i",
+      "classes": "fas fa-sparkles mr-2"
+    },
+    {
+      "element": "<button class=\"tab-btn\" onclick=\"switchTab('gaming')\">",
+      "tag": "button",
+      "classes": "tab-btn"
+    },
+    {
+      "element": "<i class=\"fas fa-gamepad mr-2\">",
+      "tag": "i",
+      "classes": "fas fa-gamepad mr-2"
+    },
+    {
+      "element": "<button class=\"tab-btn\" onclick=\"switchTab('documentation')\">",
+      "tag": "button",
+      "classes": "tab-btn"
+    },
+    {
+      "element": "<i class=\"fas fa-book mr-2\">",
+      "tag": "i",
+      "classes": "fas fa-book mr-2"
+    },
+    {
+      "element": "<div id=\"colorsTab\" class=\"tab-content active\">",
+      "tag": "div",
+      "classes": "tab-content active"
+    },
+    {
+      "element": "<div class=\"documentation-section\">",
+      "tag": "div",
+      "classes": "documentation-section"
+    },
+    {
+      "element": "<h4 class=\"text-lg font-semibold mb-2 text-white\">",
+      "tag": "h4",
+      "classes": "text-lg font-semibold mb-2 text-white"
+    },
+    {
+      "element": "<div class=\"theme-grid\" id=\"themeGrid\">",
+      "tag": "div",
+      "classes": "theme-grid"
+    },
+    {
+      "element": "<div class=\"documentation-section\">",
+      "tag": "div",
+      "classes": "documentation-section"
+    },
+    {
+      "element": "<h4 class=\"text-lg font-semibold mb-2 text-white\">",
+      "tag": "h4",
+      "classes": "text-lg font-semibold mb-2 text-white"
+    },
+    {
+      "element": "<div class=\"grid grid-cols-2 gap-4\">",
+      "tag": "div",
+      "classes": "grid grid-cols-2 gap-4"
+    },
+    {
+      "element": "<div class=\"control-group\">",
+      "tag": "div",
+      "classes": "control-group"
+    },
+    {
+      "element": "<input type=\"color\" id=\"primaryColor\" class=\"control-input\" value=\"#06b6d4\" onchange=\"updateCustomColors()\">",
+      "tag": "input",
+      "classes": "control-input"
+    },
+    {
+      "element": "<div class=\"control-group\">",
+      "tag": "div",
+      "classes": "control-group"
+    },
+    {
+      "element": "<input type=\"color\" id=\"secondaryColor\" class=\"control-input\" value=\"#10b981\" onchange=\"updateCustomColors()\">",
+      "tag": "input",
+      "classes": "control-input"
+    },
+    {
+      "element": "<div class=\"documentation-section\">",
+      "tag": "div",
+      "classes": "documentation-section"
+    },
+    {
+      "element": "<h4 class=\"text-lg font-semibold mb-2 text-white\">",
+      "tag": "h4",
+      "classes": "text-lg font-semibold mb-2 text-white"
+    },
+    {
+      "element": "<div class=\"grid grid-cols-1 gap-4\">",
+      "tag": "div",
+      "classes": "grid grid-cols-1 gap-4"
+    },
+    {
+      "element": "<div class=\"control-group\">",
+      "tag": "div",
+      "classes": "control-group"
+    },
+    {
+      "element": "<input type=\"color\" id=\"hudBgColor\" class=\"control-input\" value=\"#0f172a\" onchange=\"updateHudStyles()\">",
+      "tag": "input",
+      "classes": "control-input"
+    },
+    {
+      "element": "<div class=\"control-group\">",
+      "tag": "div",
+      "classes": "control-group"
+    },
+    {
+      "element": "<input type=\"range\" id=\"hudOpacity\" class=\"control-input\" min=\"10\" max=\"100\" value=\"90\" onchange=\"updateHudStyles()\">",
+      "tag": "input",
+      "classes": "control-input"
+    },
+    {
+      "element": "<div class=\"control-group\">",
+      "tag": "div",
+      "classes": "control-group"
+    },
+    {
+      "element": "<input type=\"range\" id=\"hudBgOpacity\" class=\"control-input\" min=\"10\" max=\"100\" value=\"90\" onchange=\"updateHudStyles()\">",
+      "tag": "input",
+      "classes": "control-input"
+    },
+    {
+      "element": "<div class=\"flex gap-2 mt-4\">",
+      "tag": "div",
+      "classes": "flex gap-2 mt-4"
+    },
+    {
+      "element": "<button class=\"preset-btn\" onclick=\"resetHudStyles()\">",
+      "tag": "button",
+      "classes": "preset-btn"
+    },
+    {
+      "element": "<div class=\"documentation-section\">",
+      "tag": "div",
+      "classes": "documentation-section"
+    },
+    {
+      "element": "<h4 class=\"text-lg font-semibold mb-2 text-white\">",
+      "tag": "h4",
+      "classes": "text-lg font-semibold mb-2 text-white"
+    },
+    {
+      "element": "<div class=\"grid grid-cols-2 gap-4\">",
+      "tag": "div",
+      "classes": "grid grid-cols-2 gap-4"
+    },
+    {
+      "element": "<div class=\"control-group\">",
+      "tag": "div",
+      "classes": "control-group"
+    },
+    {
+      "element": "<input type=\"range\" id=\"ericBottom\" class=\"control-input\" min=\"1\" max=\"10\" value=\"3.5\" step=\"0.5\" onchange=\"updateHudPositions()\">",
+      "tag": "input",
+      "classes": "control-input"
+    },
+    {
+      "element": "<div class=\"control-group\">",
+      "tag": "div",
+      "classes": "control-group"
+    },
+    {
+      "element": "<input type=\"range\" id=\"ericRight\" class=\"control-input\" min=\"1\" max=\"10\" value=\"2\" step=\"0.5\" onchange=\"updateHudPositions()\">",
+      "tag": "input",
+      "classes": "control-input"
+    },
+    {
+      "element": "<div class=\"control-group\">",
+      "tag": "div",
+      "classes": "control-group"
+    },
+    {
+      "element": "<input type=\"range\" id=\"ericSize\" class=\"control-input\" min=\"60\" max=\"120\" value=\"88\" onchange=\"updateHudPositions()\">",
+      "tag": "input",
+      "classes": "control-input"
+    },
+    {
+      "element": "<div class=\"control-group\">",
+      "tag": "div",
+      "classes": "control-group"
+    },
+    {
+      "element": "<input type=\"range\" id=\"hudBottom\" class=\"control-input\" min=\"5\" max=\"20\" value=\"5\" step=\"0.5\" onchange=\"updateHudPositions()\">",
+      "tag": "input",
+      "classes": "control-input"
+    },
+    {
+      "element": "<div class=\"control-group\">",
+      "tag": "div",
+      "classes": "control-group"
+    },
+    {
+      "element": "<input type=\"range\" id=\"hudRight\" class=\"control-input\" min=\"1\" max=\"10\" value=\"2\" step=\"0.5\" onchange=\"updateHudPositions()\">",
+      "tag": "input",
+      "classes": "control-input"
+    },
+    {
+      "element": "<div class=\"control-group\">",
+      "tag": "div",
+      "classes": "control-group"
+    },
+    {
+      "element": "<input type=\"range\" id=\"hudScale\" class=\"control-input\" min=\"70\" max=\"130\" value=\"100\" onchange=\"updateHudPositions()\">",
+      "tag": "input",
+      "classes": "control-input"
+    },
+    {
+      "element": "<div class=\"control-group\">",
+      "tag": "div",
+      "classes": "control-group"
+    },
+    {
+      "element": "<input type=\"range\" id=\"notifBottom\" class=\"control-input\" min=\"3\" max=\"15\" value=\"11\" step=\"0.5\" onchange=\"updateHudPositions()\">",
+      "tag": "input",
+      "classes": "control-input"
+    },
+    {
+      "element": "<div class=\"control-group\">",
+      "tag": "div",
+      "classes": "control-group"
+    },
+    {
+      "element": "<input type=\"range\" id=\"notifRight\" class=\"control-input\" min=\"1\" max=\"10\" value=\"2\" step=\"0.5\" onchange=\"updateHudPositions()\">",
+      "tag": "input",
+      "classes": "control-input"
+    },
+    {
+      "element": "<div class=\"control-group\">",
+      "tag": "div",
+      "classes": "control-group"
+    },
+    {
+      "element": "<input type=\"range\" id=\"achievBottom\" class=\"control-input\" min=\"8\" max=\"20\" value=\"15.5\" step=\"0.5\" onchange=\"updateHudPositions()\">",
+      "tag": "input",
+      "classes": "control-input"
+    },
+    {
+      "element": "<div class=\"control-group\">",
+      "tag": "div",
+      "classes": "control-group"
+    },
+    {
+      "element": "<input type=\"range\" id=\"achievRight\" class=\"control-input\" min=\"0\" max=\"8\" value=\"1\" step=\"0.5\" onchange=\"updateHudPositions()\">",
+      "tag": "input",
+      "classes": "control-input"
+    },
+    {
+      "element": "<div class=\"flex gap-2 mt-4\">",
+      "tag": "div",
+      "classes": "flex gap-2 mt-4"
+    },
+    {
+      "element": "<button class=\"preset-btn\" onclick=\"resetHudPositions()\">",
+      "tag": "button",
+      "classes": "preset-btn"
+    },
+    {
+      "element": "<button class=\"preset-btn\" onclick=\"applyPresetLayout('compact')\">",
+      "tag": "button",
+      "classes": "preset-btn"
+    },
+    {
+      "element": "<button class=\"preset-btn\" onclick=\"applyPresetLayout('spacious')\">",
+      "tag": "button",
+      "classes": "preset-btn"
+    },
+    {
+      "element": "<button class=\"preset-btn\" id=\"previewToggle\" onclick=\"toggleHudPreview()\">",
+      "tag": "button",
+      "classes": "preset-btn"
+    },
+    {
+      "element": "<i class=\"fas fa-eye mr-1\">",
+      "tag": "i",
+      "classes": "fas fa-eye mr-1"
+    },
+    {
+      "element": "<div id=\"particlesTab\" class=\"tab-content\">",
+      "tag": "div",
+      "classes": "tab-content"
+    },
+    {
+      "element": "<div class=\"documentation-section\">",
+      "tag": "div",
+      "classes": "documentation-section"
+    },
+    {
+      "element": "<h4 class=\"text-lg font-semibold mb-2 text-white\">",
+      "tag": "h4",
+      "classes": "text-lg font-semibold mb-2 text-white"
+    },
+    {
+      "element": "<div class=\"preset-buttons\">",
+      "tag": "div",
+      "classes": "preset-buttons"
+    },
+    {
+      "element": "<button class=\"preset-btn\" onclick=\"applyParticlePreset('minimal')\">",
+      "tag": "button",
+      "classes": "preset-btn"
+    },
+    {
+      "element": "<button class=\"preset-btn active\" onclick=\"applyParticlePreset('classic')\">",
+      "tag": "button",
+      "classes": "preset-btn active"
+    },
+    {
+      "element": "<button class=\"preset-btn\" onclick=\"applyParticlePreset('dynamic')\">",
+      "tag": "button",
+      "classes": "preset-btn"
+    },
+    {
+      "element": "<button class=\"preset-btn\" onclick=\"applyParticlePreset('cosmic')\">",
+      "tag": "button",
+      "classes": "preset-btn"
+    },
+    {
+      "element": "<div class=\"particle-controls\">",
+      "tag": "div",
+      "classes": "particle-controls"
+    },
+    {
+      "element": "<div class=\"control-group\">",
+      "tag": "div",
+      "classes": "control-group"
+    },
+    {
+      "element": "<select id=\"particleType\" class=\"control-input\" onchange=\"updateParticles()\">",
+      "tag": "select",
+      "classes": "control-input"
+    },
+    {
+      "element": "<div class=\"control-group\">",
+      "tag": "div",
+      "classes": "control-group"
+    },
+    {
+      "element": "<select id=\"particleMovement\" class=\"control-input\" onchange=\"updateParticles()\">",
+      "tag": "select",
+      "classes": "control-input"
+    },
+    {
+      "element": "<div class=\"control-group\">",
+      "tag": "div",
+      "classes": "control-group"
+    },
+    {
+      "element": "<input type=\"range\" id=\"particleIntensity\" class=\"control-input\" min=\"20\" max=\"200\" value=\"50\" onchange=\"updateParticles()\">",
+      "tag": "input",
+      "classes": "control-input"
+    },
+    {
+      "element": "<div class=\"control-group\">",
+      "tag": "div",
+      "classes": "control-group"
+    },
+    {
+      "element": "<select id=\"particleSpeed\" class=\"control-input\" onchange=\"updateParticles()\">",
+      "tag": "select",
+      "classes": "control-input"
+    },
+    {
+      "element": "<div class=\"control-group\">",
+      "tag": "div",
+      "classes": "control-group"
+    },
+    {
+      "element": "<select id=\"particleSize\" class=\"control-input\" onchange=\"updateParticles()\">",
+      "tag": "select",
+      "classes": "control-input"
+    },
+    {
+      "element": "<div class=\"control-group\">",
+      "tag": "div",
+      "classes": "control-group"
+    },
+    {
+      "element": "<select id=\"particleOpacity\" class=\"control-input\" onchange=\"updateParticles()\">",
+      "tag": "select",
+      "classes": "control-input"
+    },
+    {
+      "element": "<div class=\"flex gap-2 mt-4\">",
+      "tag": "div",
+      "classes": "flex gap-2 mt-4"
+    },
+    {
+      "element": "<button class=\"download-btn\" onclick=\"resetParticles()\">",
+      "tag": "button",
+      "classes": "download-btn"
+    },
+    {
+      "element": "<i class=\"fas fa-undo mr-2\">",
+      "tag": "i",
+      "classes": "fas fa-undo mr-2"
+    },
+    {
+      "element": "<button class=\"download-btn\" onclick=\"saveParticleSettings()\">",
+      "tag": "button",
+      "classes": "download-btn"
+    },
+    {
+      "element": "<i class=\"fas fa-save mr-2\">",
+      "tag": "i",
+      "classes": "fas fa-save mr-2"
+    },
+    {
+      "element": "<div id=\"gamingTab\" class=\"tab-content\">",
+      "tag": "div",
+      "classes": "tab-content"
+    },
+    {
+      "element": "<div class=\"documentation-section\">",
+      "tag": "div",
+      "classes": "documentation-section"
+    },
+    {
+      "element": "<h4 class=\"text-lg font-semibold mb-4 text-white\">",
+      "tag": "h4",
+      "classes": "text-lg font-semibold mb-4 text-white"
+    },
+    {
+      "element": "<div class=\"space-y-6\">",
+      "tag": "div",
+      "classes": "space-y-6"
+    },
+    {
+      "element": "<div class=\"bg-gray-800 bg-opacity-30 rounded-lg p-4\">",
+      "tag": "div",
+      "classes": "bg-gray-800 bg-opacity-30 rounded-lg p-4"
+    },
+    {
+      "element": "<h5 class=\"text-md font-medium mb-3 text-white\">",
+      "tag": "h5",
+      "classes": "text-md font-medium mb-3 text-white"
+    },
+    {
+      "element": "<div class=\"space-y-2\">",
+      "tag": "div",
+      "classes": "space-y-2"
+    },
+    {
+      "element": "<p class=\"text-sm text-gray-300\">",
+      "tag": "p",
+      "classes": "text-sm text-gray-300"
+    },
+    {
+      "element": "<span id=\"totalScore\" class=\"text-primary font-bold\">",
+      "tag": "span",
+      "classes": "text-primary font-bold"
+    },
+    {
+      "element": "<p class=\"text-sm text-gray-300\">",
+      "tag": "p",
+      "classes": "text-sm text-gray-300"
+    },
+    {
+      "element": "<span id=\"totalAchievements\" class=\"text-primary font-bold\">",
+      "tag": "span",
+      "classes": "text-primary font-bold"
+    },
+    {
+      "element": "<span id=\"maxAchievements\" class=\"text-secondary font-bold\">",
+      "tag": "span",
+      "classes": "text-secondary font-bold"
+    },
+    {
+      "element": "<p class=\"text-sm text-gray-300\">",
+      "tag": "p",
+      "classes": "text-sm text-gray-300"
+    },
+    {
+      "element": "<span id=\"tamaLevel\" class=\"text-primary font-bold\">",
+      "tag": "span",
+      "classes": "text-primary font-bold"
+    },
+    {
+      "element": "<div class=\"bg-gray-800 bg-opacity-30 rounded-lg p-4\">",
+      "tag": "div",
+      "classes": "bg-gray-800 bg-opacity-30 rounded-lg p-4"
+    },
+    {
+      "element": "<h5 class=\"text-md font-medium mb-3 text-white\">",
+      "tag": "h5",
+      "classes": "text-md font-medium mb-3 text-white"
+    },
+    {
+      "element": "<div id=\"achievementsList\" class=\"space-y-2 max-h-40 overflow-y-auto\">",
+      "tag": "div",
+      "classes": "space-y-2 max-h-40 overflow-y-auto"
+    },
+    {
+      "element": "<p class=\"text-xs text-gray-400 italic\">",
+      "tag": "p",
+      "classes": "text-xs text-gray-400 italic"
+    },
+    {
+      "element": "<div class=\"space-y-2\">",
+      "tag": "div",
+      "classes": "space-y-2"
+    },
+    {
+      "element": "<button class=\"game-button w-full\" onclick=\"startMiniGame()\">",
+      "tag": "button",
+      "classes": "game-button w-full"
+    },
+    {
+      "element": "<button class=\"game-button w-full bg-red-600 hover:bg-red-700\" onclick=\"resetProfile()\">",
+      "tag": "button",
+      "classes": "game-button w-full bg-red-600 hover:bg-red-700"
+    },
+    {
+      "element": "<div id=\"documentationTab\" class=\"tab-content\">",
+      "tag": "div",
+      "classes": "tab-content"
+    },
+    {
+      "element": "<div class=\"documentation-section\">",
+      "tag": "div",
+      "classes": "documentation-section"
+    },
+    {
+      "element": "<h4 class=\"text-lg font-semibold mb-2 text-white\">",
+      "tag": "h4",
+      "classes": "text-lg font-semibold mb-2 text-white"
+    },
+    {
+      "element": "<div class=\"text-sm text-gray-300 space-y-2\">",
+      "tag": "div",
+      "classes": "text-sm text-gray-300 space-y-2"
+    },
+    {
+      "element": "<ul class=\"list-disc list-inside space-y-1 ml-4\">",
+      "tag": "ul",
+      "classes": "list-disc list-inside space-y-1 ml-4"
+    },
+    {
+      "element": "<ul class=\"list-disc list-inside space-y-1 ml-4\">",
+      "tag": "ul",
+      "classes": "list-disc list-inside space-y-1 ml-4"
+    },
+    {
+      "element": "<div class=\"mini-game-overlay\" id=\"miniGameOverlay\" onclick=\"closeMiniGame(event)\">",
+      "tag": "div",
+      "classes": "mini-game-overlay"
+    },
+    {
+      "element": "<div class=\"mini-game\" onclick=\"event.stopPropagation()\">",
+      "tag": "div",
+      "classes": "mini-game"
+    },
+    {
+      "element": "<button class=\"close-theater\" onclick=\"closeMiniGame()\" style=\"position: absolute; top: 1rem; right: 1rem;\">",
+      "tag": "button",
+      "classes": "close-theater"
+    },
+    {
+      "element": "<div class=\"code-puzzle\">",
+      "tag": "div",
+      "classes": "code-puzzle"
+    },
+    {
+      "element": "<div class=\"qcm-options\" id=\"qcmOptions\">",
+      "tag": "div",
+      "classes": "qcm-options"
+    },
+    {
+      "element": "<button class=\"game-button\" onclick=\"generateNewPuzzle()\" data-lang=\"newQuestion\">",
+      "tag": "button",
+      "classes": "game-button"
+    },
+    {
+      "element": "<div class=\"main-grid\">",
+      "tag": "div",
+      "classes": "main-grid"
+    },
+    {
+      "element": "<div class=\"space-y-6\">",
+      "tag": "div",
+      "classes": "space-y-6"
+    },
+    {
+      "element": "<div class=\"glass-subtle p-6 text-center fade-in\" data-action=\"profile-view\">",
+      "tag": "div",
+      "classes": "glass-subtle p-6 text-center fade-in"
+    },
+    {
+      "element": "<img src=\"https://page.gensparksite.com/v1/base64_upload/8459e20749ce811147057016f8c7cf5c\" \r\n                         alt=\"Samir Medjaher\" \r\n                         class=\"profile-img mx-auto mb-4\"\r\n                         id=\"profileImage\"\r\n                         onclick=\"triggerPortraitDialogue()\"\r\n                         onerror=\"this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22 viewBox=%220 0 140 140%22%3E%3Ccircle cx=%2270%22 cy=%2270%22 r=%2270%22 fill=%22%23334155%22/%3E%3Ctext x=%2270%22 y=%2280%22 text-anchor=%22middle%22 fill=%22%236b21f8%22 font-size=%2248%22 font-family=%22Inter%22 font-weight=%22600%22%3ESM%3C/text%3E%3C/svg%3E'\">",
+      "tag": "img",
+      "classes": "profile-img mx-auto mb-4"
+    },
+    {
+      "element": "<h1 class=\"text-2xl font-bold text-white mb-2\" style=\"color: var(--primary);\">",
+      "tag": "h1",
+      "classes": "text-2xl font-bold text-white mb-2"
+    },
+    {
+      "element": "<h2 class=\"text-lg text-gray-300 mb-4 font-medium\" data-lang=\"jobTitle\">",
+      "tag": "h2",
+      "classes": "text-lg text-gray-300 mb-4 font-medium"
+    },
+    {
+      "element": "<p class=\"text-sm text-gray-400\" data-lang=\"age\">",
+      "tag": "p",
+      "classes": "text-sm text-gray-400"
+    },
+    {
+      "element": "<div class=\"glass-card p-4 fade-in\">",
+      "tag": "div",
+      "classes": "glass-card p-4 fade-in"
+    },
+    {
+      "element": "<h3 class=\"section-title\">",
+      "tag": "h3",
+      "classes": "section-title"
+    },
+    {
+      "element": "<i class=\"fas fa-address-card\">",
+      "tag": "i",
+      "classes": "fas fa-address-card"
+    },
+    {
+      "element": "<div class=\"space-y-2\">",
+      "tag": "div",
+      "classes": "space-y-2"
+    },
+    {
+      "element": "<div class=\"contact-item\" onclick=\"openMail()\" data-action=\"contact-email\">",
+      "tag": "div",
+      "classes": "contact-item"
+    },
+    {
+      "element": "<i class=\"fas fa-envelope\">",
+      "tag": "i",
+      "classes": "fas fa-envelope"
+    },
+    {
+      "element": "<div class=\"contact-item\" onclick=\"callPhone()\">",
+      "tag": "div",
+      "classes": "contact-item"
+    },
+    {
+      "element": "<i class=\"fas fa-phone\">",
+      "tag": "i",
+      "classes": "fas fa-phone"
+    },
+    {
+      "element": "<div class=\"contact-item\" onclick=\"openMaps()\">",
+      "tag": "div",
+      "classes": "contact-item"
+    },
+    {
+      "element": "<i class=\"fas fa-map-marker-alt\">",
+      "tag": "i",
+      "classes": "fas fa-map-marker-alt"
+    },
+    {
+      "element": "<div class=\"contact-item\" onclick=\"openGitHub()\" data-action=\"contact-github\">",
+      "tag": "div",
+      "classes": "contact-item"
+    },
+    {
+      "element": "<i class=\"fab fa-github\">",
+      "tag": "i",
+      "classes": "fab fa-github"
+    },
+    {
+      "element": "<div class=\"glass-card p-4 fade-in\">",
+      "tag": "div",
+      "classes": "glass-card p-4 fade-in"
+    },
+    {
+      "element": "<h3 class=\"section-title\">",
+      "tag": "h3",
+      "classes": "section-title"
+    },
+    {
+      "element": "<i class=\"fas fa-cogs\">",
+      "tag": "i",
+      "classes": "fas fa-cogs"
+    },
+    {
+      "element": "<div class=\"space-y-4\">",
+      "tag": "div",
+      "classes": "space-y-4"
+    },
+    {
+      "element": "<h4 class=\"text-sm font-medium text-gray-300 mb-2\" data-lang=\"programmingTitle\">",
+      "tag": "h4",
+      "classes": "text-sm font-medium text-gray-300 mb-2"
+    },
+    {
+      "element": "<div class=\"flex flex-wrap\" id=\"developmentSkills\">",
+      "tag": "div",
+      "classes": "flex flex-wrap"
+    },
+    {
+      "element": "<h4 class=\"text-sm font-medium text-gray-300 mb-2\" data-lang=\"gamedevTitle\">",
+      "tag": "h4",
+      "classes": "text-sm font-medium text-gray-300 mb-2"
+    },
+    {
+      "element": "<div class=\"flex flex-wrap\" id=\"gamedevSkills\">",
+      "tag": "div",
+      "classes": "flex flex-wrap"
+    },
+    {
+      "element": "<h4 class=\"text-sm font-medium text-gray-300 mb-2\" data-lang=\"systemsTitle\">",
+      "tag": "h4",
+      "classes": "text-sm font-medium text-gray-300 mb-2"
+    },
+    {
+      "element": "<div class=\"flex flex-wrap\" id=\"systemsSkills\">",
+      "tag": "div",
+      "classes": "flex flex-wrap"
+    },
+    {
+      "element": "<h4 class=\"text-sm font-medium text-gray-300 mb-2\" data-lang=\"toolsTitle\">",
+      "tag": "h4",
+      "classes": "text-sm font-medium text-gray-300 mb-2"
+    },
+    {
+      "element": "<div class=\"flex flex-wrap\" id=\"toolsSkills\">",
+      "tag": "div",
+      "classes": "flex flex-wrap"
+    },
+    {
+      "element": "<div class=\"glass-card p-4 fade-in\">",
+      "tag": "div",
+      "classes": "glass-card p-4 fade-in"
+    },
+    {
+      "element": "<h3 class=\"section-title\">",
+      "tag": "h3",
+      "classes": "section-title"
+    },
+    {
+      "element": "<i class=\"fas fa-heart\">",
+      "tag": "i",
+      "classes": "fas fa-heart"
+    },
+    {
+      "element": "<div class=\"space-y-3\">",
+      "tag": "div",
+      "classes": "space-y-3"
+    },
+    {
+      "element": "<div class=\"flex items-start gap-3 p-3 bg-gray-800 bg-opacity-20 rounded-lg\">",
+      "tag": "div",
+      "classes": "flex items-start gap-3 p-3 bg-gray-800 bg-opacity-20 rounded-lg"
+    },
+    {
+      "element": "<i class=\"fas fa-guitar text-blue-400 mt-1\">",
+      "tag": "i",
+      "classes": "fas fa-guitar text-blue-400 mt-1"
+    },
+    {
+      "element": "<h4 class=\"text-white font-medium text-sm mb-1\" data-lang=\"hobby1Title\">",
+      "tag": "h4",
+      "classes": "text-white font-medium text-sm mb-1"
+    },
+    {
+      "element": "<p class=\"text-gray-300 text-xs leading-relaxed\" data-lang=\"hobby1Desc\">",
+      "tag": "p",
+      "classes": "text-gray-300 text-xs leading-relaxed"
+    },
+    {
+      "element": "<div class=\"flex items-start gap-3 p-3 bg-gray-800 bg-opacity-20 rounded-lg\">",
+      "tag": "div",
+      "classes": "flex items-start gap-3 p-3 bg-gray-800 bg-opacity-20 rounded-lg"
+    },
+    {
+      "element": "<i class=\"fas fa-microphone text-green-400 mt-1\">",
+      "tag": "i",
+      "classes": "fas fa-microphone text-green-400 mt-1"
+    },
+    {
+      "element": "<h4 class=\"text-white font-medium text-sm mb-1\">",
+      "tag": "h4",
+      "classes": "text-white font-medium text-sm mb-1"
+    },
+    {
+      "element": "<h4 class=\"text-white font-medium text-sm mb-1\" data-lang=\"hobby2Title\">",
+      "tag": "h4",
+      "classes": "text-white font-medium text-sm mb-1"
+    },
+    {
+      "element": "<div class=\"flex items-start gap-3 p-3 bg-gray-800 bg-opacity-20 rounded-lg\">",
+      "tag": "div",
+      "classes": "flex items-start gap-3 p-3 bg-gray-800 bg-opacity-20 rounded-lg"
+    },
+    {
+      "element": "<i class=\"fas fa-book text-purple-400 mt-1\">",
+      "tag": "i",
+      "classes": "fas fa-book text-purple-400 mt-1"
+    },
+    {
+      "element": "<h4 class=\"text-white font-medium text-sm mb-1\" data-lang=\"hobby3Title\">",
+      "tag": "h4",
+      "classes": "text-white font-medium text-sm mb-1"
+    },
+    {
+      "element": "<p class=\"text-gray-300 text-xs leading-relaxed\" data-lang=\"hobby3Desc\">",
+      "tag": "p",
+      "classes": "text-gray-300 text-xs leading-relaxed"
+    },
+    {
+      "element": "<div class=\"glass-card p-4 fade-in\">",
+      "tag": "div",
+      "classes": "glass-card p-4 fade-in"
+    },
+    {
+      "element": "<h3 class=\"section-title\">",
+      "tag": "h3",
+      "classes": "section-title"
+    },
+    {
+      "element": "<i class=\"fas fa-language\">",
+      "tag": "i",
+      "classes": "fas fa-language"
+    },
+    {
+      "element": "<div class=\"space-y-3\" id=\"languagesContent\">",
+      "tag": "div",
+      "classes": "space-y-3"
+    },
+    {
+      "element": "<div class=\"text-center fade-in\">",
+      "tag": "div",
+      "classes": "text-center fade-in"
+    },
+    {
+      "element": "<a id=\"downloadLink\" href=\"#\" class=\"download-btn\" target=\"_blank\" rel=\"noopener\" onclick=\"triggerAction('download-pdf')\">",
+      "tag": "a",
+      "classes": "download-btn"
+    },
+    {
+      "element": "<i class=\"fas fa-download\">",
+      "tag": "i",
+      "classes": "fas fa-download"
+    },
+    {
+      "element": "<div class=\"space-y-6\">",
+      "tag": "div",
+      "classes": "space-y-6"
+    },
+    {
+      "element": "<div class=\"glass-card p-6 fade-in\">",
+      "tag": "div",
+      "classes": "glass-card p-6 fade-in"
+    },
+    {
+      "element": "<h3 class=\"section-title\">",
+      "tag": "h3",
+      "classes": "section-title"
+    },
+    {
+      "element": "<i class=\"fas fa-target\">",
+      "tag": "i",
+      "classes": "fas fa-target"
+    },
+    {
+      "element": "<p class=\"text-gray-300 text-sm leading-relaxed\" data-lang=\"objectiveText\">",
+      "tag": "p",
+      "classes": "text-gray-300 text-sm leading-relaxed"
+    },
+    {
+      "element": "<div class=\"glass-card p-5 fade-in\">",
+      "tag": "div",
+      "classes": "glass-card p-5 fade-in"
+    },
+    {
+      "element": "<h3 class=\"section-title\">",
+      "tag": "h3",
+      "classes": "section-title"
+    },
+    {
+      "element": "<i class=\"fas fa-briefcase\">",
+      "tag": "i",
+      "classes": "fas fa-briefcase"
+    },
+    {
+      "element": "<div class=\"space-y-4\" id=\"experienceContent\">",
+      "tag": "div",
+      "classes": "space-y-4"
+    },
+    {
+      "element": "<div class=\"glass-card p-5 fade-in\">",
+      "tag": "div",
+      "classes": "glass-card p-5 fade-in"
+    },
+    {
+      "element": "<h3 class=\"section-title\">",
+      "tag": "h3",
+      "classes": "section-title"
+    },
+    {
+      "element": "<i class=\"fas fa-graduation-cap\">",
+      "tag": "i",
+      "classes": "fas fa-graduation-cap"
+    },
+    {
+      "element": "<div class=\"space-y-4\" id=\"educationContent\">",
+      "tag": "div",
+      "classes": "space-y-4"
+    },
+    {
+      "element": "<div class=\"glass-card p-5 fade-in\">",
+      "tag": "div",
+      "classes": "glass-card p-5 fade-in"
+    },
+    {
+      "element": "<h3 class=\"section-title\">",
+      "tag": "h3",
+      "classes": "section-title"
+    },
+    {
+      "element": "<i class=\"fas fa-code-branch\">",
+      "tag": "i",
+      "classes": "fas fa-code-branch"
+    },
+    {
+      "element": "<div class=\"space-y-3\" id=\"projectsContent\">",
+      "tag": "div",
+      "classes": "space-y-3"
+    },
+    {
+      "element": "<div class=\"glass-card p-5 fade-in\">",
+      "tag": "div",
+      "classes": "glass-card p-5 fade-in"
+    },
+    {
+      "element": "<h3 class=\"section-title\">",
+      "tag": "h3",
+      "classes": "section-title"
+    },
+    {
+      "element": "<i class=\"fas fa-globe\">",
+      "tag": "i",
+      "classes": "fas fa-globe"
+    },
+    {
+      "element": "<div class=\"space-y-3\" id=\"internationalContent\">",
+      "tag": "div",
+      "classes": "space-y-3"
+    },
+    {
+      "element": "<div class=\"portfolio-section\">",
+      "tag": "div",
+      "classes": "portfolio-section"
+    },
+    {
+      "element": "<div class=\"text-center mb-8\">",
+      "tag": "div",
+      "classes": "text-center mb-8"
+    },
+    {
+      "element": "<h2 class=\"text-3xl font-bold text-white mb-4\" data-lang=\"portfolioTitle\" style=\"color: var(--primary);\">",
+      "tag": "h2",
+      "classes": "text-3xl font-bold text-white mb-4"
+    },
+    {
+      "element": "<p class=\"text-gray-300\" data-lang=\"portfolioSubtitle\">",
+      "tag": "p",
+      "classes": "text-gray-300"
+    },
+    {
+      "element": "<button class=\"carousel-nav carousel-prev\" onclick=\"slideCarousel(-1)\">",
+      "tag": "button",
+      "classes": "carousel-nav carousel-prev"
+    },
+    {
+      "element": "<i class=\"fas fa-chevron-left\">",
+      "tag": "i",
+      "classes": "fas fa-chevron-left"
+    },
+    {
+      "element": "<button class=\"carousel-nav carousel-next\" onclick=\"slideCarousel(1)\">",
+      "tag": "button",
+      "classes": "carousel-nav carousel-next"
+    },
+    {
+      "element": "<i class=\"fas fa-chevron-right\">",
+      "tag": "i",
+      "classes": "fas fa-chevron-right"
+    },
+    {
+      "element": "<div class=\"portfolio-grid\" id=\"portfolioGrid\">",
+      "tag": "div",
+      "classes": "portfolio-grid"
+    },
+    {
+      "element": "<div id=\"theaterOverlay\" class=\"theater-overlay\" onclick=\"closeTheater(event)\">",
+      "tag": "div",
+      "classes": "theater-overlay"
+    },
+    {
+      "element": "<button class=\"close-theater\" onclick=\"closeTheater()\">",
+      "tag": "button",
+      "classes": "close-theater"
+    },
+    {
+      "element": "<div class=\"theater-content\" onclick=\"event.stopPropagation()\">",
+      "tag": "div",
+      "classes": "theater-content"
+    },
+    {
+      "element": "<iframe id=\"theaterVideo\" class=\"theater-video\" src=\"\" frameborder=\"0\" allow=\"autoplay; encrypted-media\" allowfullscreen>",
+      "tag": "iframe",
+      "classes": "theater-video"
+    },
+    {
+      "element": "<div class=\"video-explanation\" id=\"videoExplanation\">",
+      "tag": "div",
+      "classes": "video-explanation"
+    },
+    {
+      "element": "<div class=\"scroll-indicator\" id=\"scrollIndicator\" onclick=\"scrollToPortfolio()\">",
+      "tag": "div",
+      "classes": "scroll-indicator"
+    },
+    {
+      "element": "<i class=\"fas fa-chevron-down scroll-arrow\">",
+      "tag": "i",
+      "classes": "fas fa-chevron-down scroll-arrow"
+    },
+    {
+      "element": "<div class=\"portrait-dialogue\" id=\"portraitDialogue\">",
+      "tag": "div",
+      "classes": "portrait-dialogue"
+    },
+    {
+      "element": "<span class=\"typewriter-cursor\">",
+      "tag": "span",
+      "classes": "typewriter-cursor"
+    },
+    {
+      "element": "<div class=\"experience-item\">",
+      "tag": "div",
+      "classes": "experience-item"
+    },
+    {
+      "element": "<h4 class=\"text-white font-medium text-sm mb-1\">",
+      "tag": "h4",
+      "classes": "text-white font-medium text-sm mb-1"
+    },
+    {
+      "element": "<p class=\"text-blue-400 text-xs mb-2 font-medium\">",
+      "tag": "p",
+      "classes": "text-blue-400 text-xs mb-2 font-medium"
+    },
+    {
+      "element": "<p class=\"text-gray-300 text-xs leading-relaxed\">",
+      "tag": "p",
+      "classes": "text-gray-300 text-xs leading-relaxed"
+    },
+    {
+      "element": "<div class=\"experience-item\">",
+      "tag": "div",
+      "classes": "experience-item"
+    },
+    {
+      "element": "<h4 class=\"text-white font-medium text-sm mb-1\">",
+      "tag": "h4",
+      "classes": "text-white font-medium text-sm mb-1"
+    },
+    {
+      "element": "<p class=\"text-green-400 text-xs mb-2 font-medium\">",
+      "tag": "p",
+      "classes": "text-green-400 text-xs mb-2 font-medium"
+    },
+    {
+      "element": "<p class=\"text-gray-300 text-xs leading-relaxed\">",
+      "tag": "p",
+      "classes": "text-gray-300 text-xs leading-relaxed"
+    },
+    {
+      "element": "<div class=\"flex items-start gap-3 p-3 bg-gray-800 bg-opacity-20 rounded-lg\">",
+      "tag": "div",
+      "classes": "flex items-start gap-3 p-3 bg-gray-800 bg-opacity-20 rounded-lg"
+    },
+    {
+      "element": "<i class=\"${project.icon} text-blue-400 mt-1\">",
+      "tag": "i",
+      "classes": "${project.icon} text-blue-400 mt-1"
+    },
+    {
+      "element": "<h4 class=\"text-white font-medium text-sm mb-1\">",
+      "tag": "h4",
+      "classes": "text-white font-medium text-sm mb-1"
+    },
+    {
+      "element": "<p class=\"text-gray-300 text-xs leading-relaxed\">",
+      "tag": "p",
+      "classes": "text-gray-300 text-xs leading-relaxed"
+    },
+    {
+      "element": "<div class=\"experience-item\">",
+      "tag": "div",
+      "classes": "experience-item"
+    },
+    {
+      "element": "<h4 class=\"text-white font-medium text-sm mb-1\">",
+      "tag": "h4",
+      "classes": "text-white font-medium text-sm mb-1"
+    },
+    {
+      "element": "<p class=\"text-blue-400 text-xs mb-2 font-medium\">",
+      "tag": "p",
+      "classes": "text-blue-400 text-xs mb-2 font-medium"
+    },
+    {
+      "element": "<p class=\"text-gray-300 text-xs leading-relaxed\">",
+      "tag": "p",
+      "classes": "text-gray-300 text-xs leading-relaxed"
+    },
+    {
+      "element": "<span class=\"skill-bubble\">",
+      "tag": "span",
+      "classes": "skill-bubble"
+    },
+    {
+      "element": "<div class=\"skill-tooltip\">",
+      "tag": "div",
+      "classes": "skill-tooltip"
+    },
+    {
+      "element": "<div class=\"language-item\">",
+      "tag": "div",
+      "classes": "language-item"
+    },
+    {
+      "element": "<div class=\"flex items-center gap-3\">",
+      "tag": "div",
+      "classes": "flex items-center gap-3"
+    },
+    {
+      "element": "<span class=\"text-white font-medium\">",
+      "tag": "span",
+      "classes": "text-white font-medium"
+    },
+    {
+      "element": "<span class=\"cecrl-badge\">",
+      "tag": "span",
+      "classes": "cecrl-badge"
+    },
+    {
+      "element": "<div class=\"level-progress\">",
+      "tag": "div",
+      "classes": "level-progress"
+    },
+    {
+      "element": "<div class=\"level-fill\" style=\"width: ${lang.progress}%\">",
+      "tag": "div",
+      "classes": "level-fill"
+    },
+    {
+      "element": "<div class=\"portfolio-card\" onclick=\"showTheaterOverlay(${index})\" data-index=\"${index}\">",
+      "tag": "div",
+      "classes": "portfolio-card"
+    },
+    {
+      "element": "<div class=\"video-thumbnail\">",
+      "tag": "div",
+      "classes": "video-thumbnail"
+    },
+    {
+      "element": "<div class=\"video-description\">",
+      "tag": "div",
+      "classes": "video-description"
+    },
+    {
+      "element": "<h4 class=\"text-xl font-bold text-white mb-2\">",
+      "tag": "h4",
+      "classes": "text-xl font-bold text-white mb-2"
+    },
+    {
+      "element": "<p class=\"text-gray-300 text-sm\">",
+      "tag": "p",
+      "classes": "text-gray-300 text-sm"
+    },
+    {
+      "element": "<div class=\"flex flex-wrap gap-2 mt-3\">",
+      "tag": "div",
+      "classes": "flex flex-wrap gap-2 mt-3"
+    },
+    {
+      "element": "<span class=\"tech-tag\">",
+      "tag": "span",
+      "classes": "tech-tag"
+    },
+    {
+      "element": "<span class=\"tech-tag\">",
+      "tag": "span",
+      "classes": "tech-tag"
+    },
+    {
+      "element": "<span class=\"tech-tag\">",
+      "tag": "span",
+      "classes": "tech-tag"
+    },
+    {
+      "element": "<div class=\"theme-preview ${key === currentTheme.name.toLowerCase() ? 'active' : ''}\" \r\n                     style=\"background: ${theme.preview}\" \r\n                     onclick=\"applyTheme(colorThemes.${key})\"\r\n                     title=\"${theme.name}\">",
+      "tag": "div",
+      "classes": "theme-preview ${key === currentTheme.name.toLowerCase() ? 'active' : ''}"
+    },
+    {
+      "element": "<i class=\"fas fa-eye-slash mr-1\">",
+      "tag": "i",
+      "classes": "fas fa-eye-slash mr-1"
+    },
+    {
+      "element": "<i class=\"fas fa-eye mr-1\">",
+      "tag": "i",
+      "classes": "fas fa-eye mr-1"
+    },
+    {
+      "element": "<i class=\"fas fa-check mr-2\">",
+      "tag": "i",
+      "classes": "fas fa-check mr-2"
+    },
+    {
+      "element": "<p class=\"text-xs text-gray-400 italic\">",
+      "tag": "p",
+      "classes": "text-xs text-gray-400 italic"
+    },
+    {
+      "element": "<div class=\"flex items-center gap-2 p-2 bg-gray-700 bg-opacity-50 rounded text-xs\">",
+      "tag": "div",
+      "classes": "flex items-center gap-2 p-2 bg-gray-700 bg-opacity-50 rounded text-xs"
+    },
+    {
+      "element": "<span class=\"text-yellow-400\">",
+      "tag": "span",
+      "classes": "text-yellow-400"
+    },
+    {
+      "element": "<button class=\"qcm-option\" onclick=\"selectAnswer(${index})\" data-index=\"${index}\">",
+      "tag": "button",
+      "classes": "qcm-option"
+    }
+  ],
+  "animations": [
+    {
+      "type": "css-animation",
+      "content": "transition:all 0.3s ease;"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform:translateY(-2px)}.profile-img{"
+    },
+    {
+      "type": "css-animation",
+      "content": "transition:all 0.3s ease;"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform:scale(1.03);"
+    },
+    {
+      "type": "css-animation",
+      "content": "transition:all 0.3s ease;"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform:translateX(3px)}.contact-item i{"
+    },
+    {
+      "type": "css-animation",
+      "content": "transition:all 0.3s ease;"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform:translateY(-3px) scale(1.05);"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform:translateX(-50%);"
+    },
+    {
+      "type": "css-animation",
+      "content": "transition:all 0.3s ease;"
+    },
+    {
+      "type": "css-animation",
+      "content": "animation:blink 1s infinite}@keyframes blink{"
+    },
+    {
+      "type": "css-animation",
+      "content": "transition:all 0.3s ease;"
+    },
+    {
+      "type": "css-animation",
+      "content": "transition:all 0.3s ease}.color-picker-trigger:hover{"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform:scale(1.1)}.game-toggle{"
+    },
+    {
+      "type": "css-animation",
+      "content": "transition:all 0.3s ease;"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform:scale(0.8);"
+    },
+    {
+      "type": "css-animation",
+      "content": "animation:unlockAnimation 0.8s ease forwards}.game-toggle:hover{"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform:scale(1.05);"
+    },
+    {
+      "type": "css-animation",
+      "content": "@keyframes unlockAnimation{"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform:scale(0.8) translateY(-10px)}100%{"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform:scale(1) translateY(0)}}.game-hud{"
+    },
+    {
+      "type": "css-animation",
+      "content": "transition:all 0.3s ease;"
+    },
+    {
+      "type": "css-animation",
+      "content": "transition:width 0.5s ease;"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform:translateX(100%);"
+    },
+    {
+      "type": "css-animation",
+      "content": "transition:transform 0.5s cubic-bezier(0.4,0,0.2,1);"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform:translateX(0)}.achievement-toast::before{"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform:translateX(0)}.tamagotchi{"
+    },
+    {
+      "type": "css-animation",
+      "content": "transition:all 0.3s ease;"
+    },
+    {
+      "type": "css-animation",
+      "content": "animation:gamingPulse 3s infinite}.tamagotchi:hover{"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform:scale(1.1);"
+    },
+    {
+      "type": "css-animation",
+      "content": "transition:all 0.4s ease}.color-picker-overlay.active{"
+    },
+    {
+      "type": "css-animation",
+      "content": "transition:all 0.3s ease}.tab-btn.active{"
+    },
+    {
+      "type": "css-animation",
+      "content": "transition:all 0.3s ease;"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform:scale(1.05);"
+    },
+    {
+      "type": "css-animation",
+      "content": "transition:all 0.3s ease;"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform:translateY(-2px);"
+    },
+    {
+      "type": "css-animation",
+      "content": "transition:all 0.6s ease;"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform:translateY(-8px) scale(1.02);"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform:translateY(-50%);"
+    },
+    {
+      "type": "css-animation",
+      "content": "transition:all 0.3s ease}.carousel-nav:hover{"
+    },
+    {
+      "type": "css-animation",
+      "content": "transition:all 0.4s ease}.theater-overlay.active{"
+    },
+    {
+      "type": "css-animation",
+      "content": "transition:all 0.3s ease}.close-theater:hover{"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform:scale(1.1)}.scroll-indicator{"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform:translateX(-50%);"
+    },
+    {
+      "type": "css-animation",
+      "content": "transition:all 0.3s ease;"
+    },
+    {
+      "type": "css-animation",
+      "content": "animation:pulseGlow 3s infinite}.scroll-indicator:hover{"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform:translateX(-50%) translateY(-5px);"
+    },
+    {
+      "type": "css-animation",
+      "content": "animation:bounceDown 2s infinite}@keyframes bounceDown{"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform:translateY(0)}40%{"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform:translateY(-10px)}60%{"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform:translateY(-5px)}}@keyframes pulseGlow{"
+    },
+    {
+      "type": "css-animation",
+      "content": "@keyframes gamingPulse{"
+    },
+    {
+      "type": "css-animation",
+      "content": "@keyframes achievementGlow{"
+    },
+    {
+      "type": "css-animation",
+      "content": "animation:previewPulse 2s ease-in-out infinite}@keyframes previewPulse{"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform:translateX(-50%);"
+    },
+    {
+      "type": "css-animation",
+      "content": "transition:all 0.3s ease}.preset-btn:hover,.preset-btn.active{"
+    },
+    {
+      "type": "css-animation",
+      "content": "animation:fadeIn 0.6s ease}@keyframes fadeIn{"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform:translateY(15px)}to{"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform:translateY(0)}}.documentation-section{"
+    },
+    {
+      "type": "css-animation",
+      "content": "transition:all 0.5s ease}.mini-game-overlay.active{"
+    },
+    {
+      "type": "css-animation",
+      "content": "transition:all 0.3s ease;"
+    },
+    {
+      "type": "css-animation",
+      "content": "transition:all 0.3s ease;"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform:translateY(-2px);"
+    },
+    {
+      "type": "css-animation",
+      "content": "transition:all 0.3s ease;"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform:translateX(-50%);"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform:translateX(-50%);"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform:translateY(-50%);"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform:translateY(-50%);"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform:translateX(100%);"
+    },
+    {
+      "type": "css-animation",
+      "content": "transition:all 0.5s ease;"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform:translateX(0)}.game-notification::before{"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform:translateX(0)}.tech-tag{"
+    },
+    {
+      "type": "css-animation",
+      "content": "animation systems, level design.\", icon: \"fas fa-gamepad\"},\r\n                    {"
+    },
+    {
+      "type": "css-animation",
+      "content": "transition into information technology. At 38, I'm seeking a stable environment to develop my self-taught technical skills and contribute effectively to concrete projects. My varied life experience and international openness are assets I want to put at the service of a dynamic team.\",\r\n                experienceTitle: \"Professional Experience\",\r\n                educationTitle: \"Education\",\r\n                projectsTitle: \"Personal Projects\",\r\n                internationalTitle: \"International Experience\",\r\n                portfolioTitle: \"Video Portfolio\",\r\n                portfolioSubtitle: \"My technical achievements in Game Development\",\r\n                scrollText: \"View portfolio\",\r\n                quizTitle: \"Tech Quest - Code Challenge\",\r\n                newQuestion: \"New Question\",\r\n                hobby1Title: \"Guitar\",\r\n                hobby1Desc:  \"Musical passion, artistic creativity\",\r\n                hobby2Title: \"Singing\",\r\n                hobby2Desc:  \"Artistic expression, performance\",\r\n                hobby3Title: \"Philosophy\",\r\n                hobby3Desc:  \"Reflection, critical analysis\",\r\n                experiences: [\r\n                    {"
+    },
+    {
+      "type": "css-animation",
+      "content": "animation systems, level design.\", icon: \"fas fa-gamepad\"},\r\n                    {"
+    },
+    {
+      "type": "css-animation",
+      "content": "animation et rendu pour projets visuels.\", en: \"Professional 3D content creation. Modeling, animation and rendering for visual projects.\"},\r\n                'PCG': {"
+    },
+    {
+      "type": "css-animation",
+      "content": "animation. Revolutionizes natural human-machine interaction.\"}\r\n            },\r\n            systems: {"
+    },
+    {
+      "type": "css-animation",
+      "content": "animation'}, explanation: {"
+    },
+    {
+      "type": "css-animation",
+      "content": "animation révolutionnaire avec transition automatique entre poses, IA pour sélection optimale et réactivité temps réel aux inputs.', en: 'AI Motion Matching - Revolutionary animation system with automatic transition between poses, AI for optimal selection and real-time input responsiveness.'}},\r\n            {"
+    },
+    {
+      "type": "css-animation",
+      "content": "animation blending', en: 'Platform game with animation blending'}, explanation: {"
+    },
+    {
+      "type": "css-animation",
+      "content": "animation blending fluide, character controller premium et mécaniques de gameplay polies. Focus sur game feel et accessibilité.', en: '3D Platformer - Platform game with fluid animation blending, premium character controller and polished gameplay mechanics. Focus on game feel and accessibility.'}}\r\n        ];"
+    },
+    {
+      "type": "css-animation",
+      "content": "transforme le café en code depuis 2023 !\",\r\n                \"Mes bugs sont des features non documentées 😏\",\r\n                \"Level design IRL : j'optimise tout, même ma routine café\",\r\n                \"Python et moi, c'est une histoire d'amour... compliquée\",\r\n                \"Je debug le hardware comme je debug le code : avec patience\",\r\n                \"Unreal Engine m'a appris que les rêves peuvent être procéduraux\",\r\n                \"Mon GitHub, c'est mon jardin secret... mais public\",\r\n                \"Entre Wales et Lyon, mon anglais a survécu aux accents 🏴󠁧󠁢󠁷󠁬󠁳󠁿\",\r\n                \"Je fais du Blender sans mixeur, ça vous épate ?\",\r\n                \"38 ans, reconversion assumée, passion intacte !\",\r\n                \"Mes algorithmes de pathfinding marchent mieux que mon GPS 🗺️\",\r\n                \"Je code en C++ mais je rêve en Blueprint\",\r\n                \"Stack Overflow est mon meilleur ami... et parfois mon pire ennemi\",\r\n                \"Je collecte les erreurs de compilation comme d'autres les timbres\",\r\n                \"Mon IDE préféré ? Celui qui ne crash pas le lundi matin ☕\",\r\n                \"Je pense que les gens normaux n'ont pas 47 onglets ouverts\",\r\n                \"Entre deux lignes de code, je modélise des mondes en 3D\",\r\n                \"Ma définition du multitâche : compiler en regardant YouTube\",\r\n                \"Je traduis 'ça marche sur ma machine' en anglais couramment\",\r\n                \"Les réunions sont mes boss fights les plus difficiles 🎮\"\r\n            ],\r\n            en: [\r\n                \"I've been turning coffee into code since 2023!\",\r\n                \"My bugs are undocumented features 😏\",\r\n                \"Level design IRL: I optimize everything, even my coffee routine\",\r\n                \"Python and I have a complicated love story\",\r\n                \"I debug hardware like I debug code: with patience\",\r\n                \"Unreal Engine taught me that dreams can be procedural\",\r\n                \"My GitHub is my secret garden... but public\",\r\n                \"Between Wales and Lyon, my English survived the accents 🏴󠁧󠁢󠁷󠁬󠁳󠁿\",\r\n                \"I do Blender without a blender, impressed?\",\r\n                \"38 years old, career change assumed, passion intact!\",\r\n                \"My pathfinding algorithms work better than my GPS 🗺️\",\r\n                \"I code in C++ but dream in Blueprint\",\r\n                \"Stack Overflow is my best friend... and sometimes my worst enemy\",\r\n                \"I collect compilation errors like others collect stamps\",\r\n                \"My favorite IDE? The one that doesn't crash on Monday morning ☕\",\r\n                \"I think normal people don't have 47 tabs open\",\r\n                \"Between two lines of code, I model 3D worlds\",\r\n                \"My definition of multitasking: compiling while watching YouTube\",\r\n                \"I fluently translate 'it works on my machine' into English\",\r\n                \"Meetings are my most difficult boss fights 🎮\"\r\n            ]\r\n        };"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform = 'translateX(0)';"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform = 'translateX(0)';"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform = 'translateX(-50%)';"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform = `scale(${"
+    },
+    {
+      "type": "css-animation",
+      "content": "transformOrigin = 'bottom right';"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform += ' scale(' + (pulseCount % 2 === 0 ? '1.05' : '1') + ')';"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform) {"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform = el.style.transform.replace(/scale\\([^)]*\\)/g, '');"
+    },
+    {
+      "type": "css-animation",
+      "content": "transformations\r\n            document.querySelectorAll('.game-hud, .tamagotchi, .game-notification, .achievement-toast').forEach(el => {"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform) {"
+    },
+    {
+      "type": "css-animation",
+      "content": "transform = el.style.transform.replace(/scale\\([^)]*\\)/g, '');"
+    }
+  ],
+  "positioning": [
+    {
+      "property": "margin:0;"
+    },
+    {
+      "property": "padding:0;"
+    },
+    {
+      "property": "position:relative;"
+    },
+    {
+      "property": "position:fixed;"
+    },
+    {
+      "property": "top:0;"
+    },
+    {
+      "property": "left:0;"
+    },
+    {
+      "property": "position:relative;"
+    },
+    {
+      "property": "position:relative;"
+    },
+    {
+      "property": "margin-bottom:1rem;"
+    },
+    {
+      "property": "padding-bottom:0.5rem;"
+    },
+    {
+      "property": "bottom:1px solid var(--dark-medium)}.contact-item{display:flex;"
+    },
+    {
+      "property": "padding:0.3rem;"
+    },
+    {
+      "property": "position:relative;"
+    },
+    {
+      "property": "padding:0.5rem 0.8rem;"
+    },
+    {
+      "property": "margin:0.2rem;"
+    },
+    {
+      "property": "position:absolute;"
+    },
+    {
+      "property": "bottom:120%;"
+    },
+    {
+      "property": "left:50%;"
+    },
+    {
+      "property": "padding:0.75rem;"
+    },
+    {
+      "property": "margin-left:2px;"
+    },
+    {
+      "property": "position:relative;"
+    },
+    {
+      "property": "padding-left:1rem;"
+    },
+    {
+      "property": "margin-bottom:1rem}.experience-item::before{content:'';"
+    },
+    {
+      "property": "position:absolute;"
+    },
+    {
+      "property": "left:0;"
+    },
+    {
+      "property": "top:0;"
+    },
+    {
+      "property": "bottom:0;"
+    },
+    {
+      "property": "position:fixed;"
+    },
+    {
+      "property": "top:1.5rem;"
+    },
+    {
+      "property": "right:1.5rem;"
+    },
+    {
+      "property": "padding:0.3rem;"
+    },
+    {
+      "property": "padding:0.4rem 0.8rem;"
+    },
+    {
+      "property": "position:fixed;"
+    },
+    {
+      "property": "top:1.5rem;"
+    },
+    {
+      "property": "right:8rem;"
+    },
+    {
+      "property": "position:fixed;"
+    },
+    {
+      "property": "top:1.5rem;"
+    },
+    {
+      "property": "right:13rem;"
+    },
+    {
+      "property": "padding:0.3rem 0.8rem;"
+    },
+    {
+      "property": "position:fixed;"
+    },
+    {
+      "property": "bottom:10rem;"
+    },
+    {
+      "property": "right:2rem;"
+    },
+    {
+      "property": "padding:0.75rem 1rem;"
+    },
+    {
+      "property": "position:fixed;"
+    },
+    {
+      "property": "bottom:12rem;"
+    },
+    {
+      "property": "right:1rem;"
+    },
+    {
+      "property": "padding:0.8rem 1rem;"
+    },
+    {
+      "property": "position:absolute;"
+    },
+    {
+      "property": "top:-8px;"
+    },
+    {
+      "property": "left:8px;"
+    },
+    {
+      "property": "position:fixed;"
+    },
+    {
+      "property": "bottom:2rem;"
+    },
+    {
+      "property": "right:2rem;"
+    },
+    {
+      "property": "position:fixed;"
+    },
+    {
+      "property": "top:0;"
+    },
+    {
+      "property": "left:0;"
+    },
+    {
+      "property": "positionné à gauche */\r\n.color-picker-overlay.hud-preview-mode {\r\n    z-index:500;"
+    },
+    {
+      "property": "padding-left:2rem;"
+    },
+    {
+      "property": "padding:2rem;"
+    },
+    {
+      "property": "positionné en mode preview */\r\n.color-picker-overlay.hud-preview-mode .color-picker-panel {\r\n    max-width:450px;"
+    },
+    {
+      "property": "margin-right:auto;"
+    },
+    {
+      "property": "margin-bottom:2rem;"
+    },
+    {
+      "property": "bottom:1px solid rgba(148,163,184,0.2)}.tab-btn{background:transparent;"
+    },
+    {
+      "property": "padding:0.5rem 1rem;"
+    },
+    {
+      "property": "bottom:2px solid transparent;"
+    },
+    {
+      "property": "bottom-color:var(--primary)}.tab-content{display:none}.tab-content.active{display:block}.theme-grid{display:grid;"
+    },
+    {
+      "property": "margin:1rem 0}.theme-preview{width:100px;"
+    },
+    {
+      "property": "position:relative;"
+    },
+    {
+      "property": "padding:1rem;"
+    },
+    {
+      "property": "margin-bottom:0.8rem}.cecrl-badge{background:linear-gradient(135deg,var(--primary),var(--secondary));"
+    },
+    {
+      "property": "padding:0.2rem 0.6rem;"
+    },
+    {
+      "property": "padding:0.8rem 1.5rem;"
+    },
+    {
+      "property": "margin:0 auto;"
+    },
+    {
+      "property": "padding:2rem;"
+    },
+    {
+      "property": "position:relative;"
+    },
+    {
+      "property": "margin:2rem auto 0;"
+    },
+    {
+      "property": "padding:0 2rem;"
+    },
+    {
+      "property": "position:relative;"
+    },
+    {
+      "property": "padding:1rem 0;"
+    },
+    {
+      "property": "position:relative;"
+    },
+    {
+      "property": "position:relative;"
+    },
+    {
+      "property": "padding:1.5rem}.carousel-nav{position:absolute;"
+    },
+    {
+      "property": "top:50%;"
+    },
+    {
+      "property": "left:10px}.carousel-next{right:10px}.theater-overlay{position:fixed;"
+    },
+    {
+      "property": "top:0;"
+    },
+    {
+      "property": "left:0;"
+    },
+    {
+      "property": "padding:1.5rem;"
+    },
+    {
+      "property": "position:absolute;"
+    },
+    {
+      "property": "top:2rem;"
+    },
+    {
+      "property": "right:2rem;"
+    },
+    {
+      "property": "position:fixed;"
+    },
+    {
+      "property": "bottom:2rem;"
+    },
+    {
+      "property": "left:50%;"
+    },
+    {
+      "property": "padding:1rem 1.5rem;"
+    },
+    {
+      "property": "position:absolute;"
+    },
+    {
+      "property": "top:-20px;"
+    },
+    {
+      "property": "left:50%;"
+    },
+    {
+      "property": "padding:2px 8px;"
+    },
+    {
+      "property": "margin:1rem 0}.control-group{display:flex;"
+    },
+    {
+      "property": "padding:0.5rem;"
+    },
+    {
+      "property": "margin:1rem 0}.preset-btn{background:rgba(6,182,212,0.1);"
+    },
+    {
+      "property": "padding:0.5rem;"
+    },
+    {
+      "property": "padding:1rem}.lang-switch{top:1rem;"
+    },
+    {
+      "property": "right:1rem}.color-picker-trigger{top:1rem;"
+    },
+    {
+      "property": "right:6rem}.game-toggle{top:1rem;"
+    },
+    {
+      "property": "right:11rem}.game-hud{bottom:7rem;"
+    },
+    {
+      "property": "right:1.5rem;"
+    },
+    {
+      "property": "padding:0.5rem 0.8rem;"
+    },
+    {
+      "property": "bottom:12rem;"
+    },
+    {
+      "property": "right:0.5rem;"
+    },
+    {
+      "property": "bottom:8rem;"
+    },
+    {
+      "property": "right:1rem;"
+    },
+    {
+      "property": "bottom:1.5rem;"
+    },
+    {
+      "property": "right:1.5rem;"
+    },
+    {
+      "property": "bottom:1.5rem;"
+    },
+    {
+      "property": "right:1.5rem;"
+    },
+    {
+      "property": "padding:1rem}.theater-video{height:40vh}}.fade-in{animation:fadeIn 0.6s ease}@keyframes fadeIn{from{opacity:0;"
+    },
+    {
+      "property": "padding:1.5rem;"
+    },
+    {
+      "property": "margin:1rem 0}.faq-item{border-bottom:1px solid rgba(148,163,184,0.1);"
+    },
+    {
+      "property": "padding:1rem 0}.faq-question{cursor:pointer;"
+    },
+    {
+      "property": "margin-top:0.5rem;"
+    },
+    {
+      "property": "position:fixed;"
+    },
+    {
+      "property": "top:0;"
+    },
+    {
+      "property": "left:0;"
+    },
+    {
+      "property": "padding:2rem;"
+    },
+    {
+      "property": "padding:1.5rem;"
+    },
+    {
+      "property": "margin:1rem 0;"
+    },
+    {
+      "property": "margin:1rem 0}.qcm-option{background:rgba(15,23,42,0.3);"
+    },
+    {
+      "property": "padding:0.75rem;"
+    },
+    {
+      "property": "left}.qcm-option:hover:not(:disabled){background:rgba(6,182,212,0.1);"
+    },
+    {
+      "property": "padding:0.75rem 1.5rem;"
+    },
+    {
+      "property": "margin:0.5rem}.game-button:hover{transform:translateY(-2px);"
+    },
+    {
+      "property": "position:fixed;"
+    },
+    {
+      "property": "padding:1rem;"
+    },
+    {
+      "property": "position:absolute;"
+    },
+    {
+      "property": "bottom::after{top:100%;"
+    },
+    {
+      "property": "left:var(--arrow-offset, 50%);"
+    },
+    {
+      "property": "top-color:var(--primary)}.portrait-dialogue.arrow-top::after{bottom:100%;"
+    },
+    {
+      "property": "left:var(--arrow-offset, 50%);"
+    },
+    {
+      "property": "bottom-color:var(--primary)}.portrait-dialogue.arrow-left::after{top:var(--arrow-offset, 50%);"
+    },
+    {
+      "property": "right:100%;"
+    },
+    {
+      "property": "right-color:var(--primary)}.portrait-dialogue.arrow-right::after{top:var(--arrow-offset, 50%);"
+    },
+    {
+      "property": "left:100%;"
+    },
+    {
+      "property": "left-color:var(--primary)}.game-notification{position:fixed;"
+    },
+    {
+      "property": "bottom:8rem;"
+    },
+    {
+      "property": "right:2rem;"
+    },
+    {
+      "property": "padding:0.8rem 1rem;"
+    },
+    {
+      "property": "position:absolute;"
+    },
+    {
+      "property": "top:-8px;"
+    },
+    {
+      "property": "left:8px;"
+    },
+    {
+      "property": "padding:0.2rem 0.6rem;"
+    },
+    {
+      "property": "margin:0.2rem}\r\n    </style>\r\n</head>\r\n<body>\r\n    <canvas id=\"particleCanvas\"></canvas>\r\n    \r\n    <!-- Language Switch -->\r\n    <div class=\"lang-switch\">\r\n        <button class=\"lang-btn active\" onclick=\"switchLanguage('fr')\" data-lang-key=\"fr\">FR</button>\r\n        <button class=\"lang-btn\" onclick=\"switchLanguage('en')\" data-lang-key=\"en\">EN</button>\r\n    </div>\r\n\r\n    <!-- Game Toggle (Hidden by default) -->\r\n    <div class=\"game-toggle\" id=\"gameToggle\" onclick=\"toggleGaming()\" title=\"Mode Gaming\">\r\n        🎮\r\n    </div>\r\n\r\n    <!-- Color Picker Trigger -->\r\n    <div class=\"color-picker-trigger\" onclick=\"openColorPicker()\" title=\"Personnaliser\">\r\n        <i class=\"fas fa-palette\"></i>\r\n    </div>\r\n\r\n    <!-- Gaming HUD (removed from top-left, now in Gaming Zone) -->\r\n\r\n    <!-- Gaming Zone (Bottom Right) -->\r\n    \r\n    <!-- Gaming HUD Stats -->\r\n    <div class=\"game-hud\" id=\"gameHUD\">\r\n        <div class=\"game-stat\">\r\n            <i class=\"fas fa-trophy\"></i>\r\n            <span id=\"scoreDisplay\">0</span>\r\n        </div>\r\n        <div class=\"game-stat\">\r\n            <i class=\"fas fa-star\"></i>\r\n            <span id=\"xpDisplay\">0</span> XP\r\n        </div>\r\n        <div class=\"game-stat\">\r\n            <i class=\"fas fa-medal\"></i>\r\n            <span id=\"levelDisplay\">1</span>\r\n        </div>\r\n        <div class=\"xp-bar\">\r\n            <div class=\"xp-progress\" id=\"xpProgress\"></div>\r\n        </div>\r\n    </div>\r\n    \r\n    <!-- Achievement Toast -->\r\n    <div class=\"achievement-toast\" id=\"achievementToast\">\r\n        <div class=\"achievement-icon\">🏆</div>\r\n        <h4 id=\"achievementTitle\">Achievement Unlocked!</h4>\r\n        <p id=\"achievementDesc\">Description</p>\r\n    </div>\r\n\r\n    <!-- Game Notification -->\r\n    <div class=\"game-notification\" id=\"gameNotification\">\r\n        <div id=\"notificationText\"></div>\r\n    </div>\r\n\r\n    <!-- Tamagotchi (Éric le chat) -->\r\n    <div class=\"tamagotchi\" id=\"tamagotchi\" onclick=\"feedTamagotchi()\" oncontextmenu=\"toggleGamingFromEric(event)\">\r\n    <img\r\n    id=\"tamagotchiIcon\"\r\n    src=\"https://drive.google.com/uc?export=view&id=1J7Wgb9A6TOLLjGM5410RGXrE5CCftY23\"\r\n    style=\"width:100%;"
+    },
+    {
+      "property": "rightness(1.2);"
+    },
+    {
+      "property": "topPropagation()\">\r\n            <div class=\"flex justify-between items-center mb-4\">\r\n                <h3 class=\"text-xl font-bold text-white\">🎨 Personnalisation</h3>\r\n                <button onclick=\"closeColorPicker()\" class=\"text-gray-400 hover:text-white\">\r\n                    <i class=\"fas fa-times\"></i>\r\n                </button>\r\n            </div>\r\n\r\n            <div class=\"tabs\">\r\n                <button class=\"tab-btn active\" onclick=\"switchTab('colors')\">\r\n                    <i class=\"fas fa-desktop mr-2\"></i>Interface\r\n                </button>\r\n                <button class=\"tab-btn\" onclick=\"switchTab('particles')\">\r\n                    <i class=\"fas fa-sparkles mr-2\"></i>Particules\r\n                </button>\r\n                <button class=\"tab-btn\" onclick=\"switchTab('gaming')\">\r\n                    <i class=\"fas fa-gamepad mr-2\"></i>Gaming\r\n                </button>\r\n                <button class=\"tab-btn\" onclick=\"switchTab('documentation')\">\r\n                    <i class=\"fas fa-book mr-2\"></i>Guide\r\n                </button>\r\n            </div>\r\n\r\n            <!-- Colors Tab -->\r\n            <div id=\"colorsTab\" class=\"tab-content active\">\r\n                <div class=\"documentation-section\">\r\n                    <h4 class=\"text-lg font-semibold mb-2 text-white\">Thèmes Prédéfinis</h4>\r\n                    <div class=\"theme-grid\" id=\"themeGrid\"></div>\r\n                </div>\r\n\r\n                <div class=\"documentation-section\">\r\n                    <h4 class=\"text-lg font-semibold mb-2 text-white\">Couleurs Personnalisées</h4>\r\n                    <div class=\"grid grid-cols-2 gap-4\">\r\n                        <div class=\"control-group\">\r\n                            <label>Couleur Principale</label>\r\n                            <input type=\"color\" id=\"primaryColor\" class=\"control-input\" value=\"#06b6d4\" onchange=\"updateCustomColors()\">\r\n                        </div>\r\n                        <div class=\"control-group\">\r\n                            <label>Couleur Secondaire</label>\r\n                            <input type=\"color\" id=\"secondaryColor\" class=\"control-input\" value=\"#10b981\" onchange=\"updateCustomColors()\">\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n\r\n                <div class=\"documentation-section\">\r\n                    <h4 class=\"text-lg font-semibold mb-2 text-white\">🎮 Personnalisation HUD Gaming</h4>\r\n                    <div class=\"grid grid-cols-1 gap-4\">\r\n                        <div class=\"control-group\">\r\n                            <label>Couleur de fond du HUD</label>\r\n                            <input type=\"color\" id=\"hudBgColor\" class=\"control-input\" value=\"#0f172a\" onchange=\"updateHudStyles()\">\r\n                        </div>\r\n                        <div class=\"control-group\">\r\n                            <label>Transparence du HUD: <span id=\"hudOpacityValue\">90%</span></label>\r\n                            <input type=\"range\" id=\"hudOpacity\" class=\"control-input\" min=\"10\" max=\"100\" value=\"90\" onchange=\"updateHudStyles()\">\r\n                        </div>\r\n                        <div class=\"control-group\">\r\n                            <label>Transparence du fond: <span id=\"hudBgOpacityValue\">90%</span></label>\r\n                            <input type=\"range\" id=\"hudBgOpacity\" class=\"control-input\" min=\"10\" max=\"100\" value=\"90\" onchange=\"updateHudStyles()\">\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"flex gap-2 mt-4\">\r\n                        <button class=\"preset-btn\" onclick=\"resetHudStyles()\">Reset HUD</button>\r\n                    </div>\r\n                </div>\r\n\r\n                <div class=\"documentation-section\">\r\n                    <h4 class=\"text-lg font-semibold mb-2 text-white\">📐 Positionnement du HUD Gaming</h4>\r\n                    <div class=\"grid grid-cols-2 gap-4\">\r\n                        <div class=\"control-group\">\r\n                            <label>Position Éric - Bas: <span id=\"ericBottomValue\">3.5rem</span></label>\r\n                            <input type=\"range\" id=\"ericBottom\" class=\"control-input\" min=\"1\" max=\"10\" value=\"3.5\" step=\"0.5\" onchange=\"updateHudPositions()\">\r\n                        </div>\r\n                        <div class=\"control-group\">\r\n                            <label>Position Éric - Droite: <span id=\"ericRightValue\">2rem</span></label>\r\n                            <input type=\"range\" id=\"ericRight\" class=\"control-input\" min=\"1\" max=\"10\" value=\"2\" step=\"0.5\" onchange=\"updateHudPositions()\">\r\n                        </div>\r\n                        <div class=\"control-group\">\r\n                            <label>Taille d'Éric: <span id=\"ericSizeValue\">88px</span></label>\r\n                            <input type=\"range\" id=\"ericSize\" class=\"control-input\" min=\"60\" max=\"120\" value=\"88\" onchange=\"updateHudPositions()\">\r\n                        </div>\r\n                        <div class=\"control-group\">\r\n                            <label>Position HUD - Bas: <span id=\"hudBottomValue\">5rem</span></label>\r\n                            <input type=\"range\" id=\"hudBottom\" class=\"control-input\" min=\"5\" max=\"20\" value=\"5\" step=\"0.5\" onchange=\"updateHudPositions()\">\r\n                        </div>\r\n                        <div class=\"control-group\">\r\n                            <label>Position HUD - Droite: <span id=\"hudRightValue\">2rem</span></label>\r\n                            <input type=\"range\" id=\"hudRight\" class=\"control-input\" min=\"1\" max=\"10\" value=\"2\" step=\"0.5\" onchange=\"updateHudPositions()\">\r\n                        </div>\r\n                        <div class=\"control-group\">\r\n                            <label>Taille HUD: <span id=\"hudScaleValue\">100%</span></label>\r\n                            <input type=\"range\" id=\"hudScale\" class=\"control-input\" min=\"70\" max=\"130\" value=\"100\" onchange=\"updateHudPositions()\">\r\n                        </div>\r\n                        <div class=\"control-group\">\r\n                            <label>Position Notif - Bas: <span id=\"notifBottomValue\">11rem</span></label>\r\n                            <input type=\"range\" id=\"notifBottom\" class=\"control-input\" min=\"3\" max=\"15\" value=\"11\" step=\"0.5\" onchange=\"updateHudPositions()\">\r\n                        </div>\r\n                        <div class=\"control-group\">\r\n                            <label>Position Notif - Droite: <span id=\"notifRightValue\">2rem</span></label>\r\n                            <input type=\"range\" id=\"notifRight\" class=\"control-input\" min=\"1\" max=\"10\" value=\"2\" step=\"0.5\" onchange=\"updateHudPositions()\">\r\n                        </div>\r\n                        <div class=\"control-group\">\r\n                            <label>Position Achievements - Bas: <span id=\"achievBottomValue\">15.5rem</span></label>\r\n                            <input type=\"range\" id=\"achievBottom\" class=\"control-input\" min=\"8\" max=\"20\" value=\"15.5\" step=\"0.5\" onchange=\"updateHudPositions()\">\r\n                        </div>\r\n                        <div class=\"control-group\">\r\n                            <label>Position Achievements - Droite: <span id=\"achievRightValue\">1rem</span></label>\r\n                            <input type=\"range\" id=\"achievRight\" class=\"control-input\" min=\"0\" max=\"8\" value=\"1\" step=\"0.5\" onchange=\"updateHudPositions()\">\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"flex gap-2 mt-4\">\r\n                        <button class=\"preset-btn\" onclick=\"resetHudPositions()\">Reset Positions</button>\r\n                        <button class=\"preset-btn\" onclick=\"applyPresetLayout('compact')\">Layout Compact</button>\r\n                        <button class=\"preset-btn\" onclick=\"applyPresetLayout('spacious')\">Layout Spacieux</button>\r\n                        <button class=\"preset-btn\" id=\"previewToggle\" onclick=\"toggleHudPreview()\">\r\n                            <i class=\"fas fa-eye mr-1\"></i>Prévisualiser\r\n                        </button>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n\r\n            <!-- Particles Tab -->\r\n            <div id=\"particlesTab\" class=\"tab-content\">\r\n                <div class=\"documentation-section\">\r\n                    <h4 class=\"text-lg font-semibold mb-2 text-white\">Presets Particules</h4>\r\n                    <div class=\"preset-buttons\">\r\n                        <button class=\"preset-btn\" onclick=\"applyParticlePreset('minimal')\">Minimal</button>\r\n                        <button class=\"preset-btn active\" onclick=\"applyParticlePreset('classic')\">Classic</button>\r\n                        <button class=\"preset-btn\" onclick=\"applyParticlePreset('dynamic')\">Dynamic</button>\r\n                        <button class=\"preset-btn\" onclick=\"applyParticlePreset('cosmic')\">Cosmic</button>\r\n                    </div>\r\n                </div>\r\n\r\n                <div class=\"particle-controls\">\r\n                    <div class=\"control-group\">\r\n                        <label>Type</label>\r\n                        <select id=\"particleType\" class=\"control-input\" onchange=\"updateParticles()\">\r\n                            <option value=\"circle\">Cercles</option>\r\n                            <option value=\"star\">Étoiles</option>\r\n                            <option value=\"triangle\">Triangles</option>\r\n                            <option value=\"line\">Lignes</option>\r\n                            <option value=\"pixel\">Pixels</option>\r\n                        </select>\r\n                    </div>\r\n                    <div class=\"control-group\">\r\n                        <label>Mouvement</label>\r\n                        <select id=\"particleMovement\" class=\"control-input\" onchange=\"updateParticles()\">\r\n                            <option value=\"float\">Flottant</option>\r\n                            <option value=\"spiral\">Spirale</option>\r\n                            <option value=\"wave\">Vagues</option>\r\n                            <option value=\"magnetic\">Magnétique</option>\r\n                            <option value=\"orbital\">Orbital</option>\r\n                        </select>\r\n                    </div>\r\n                    <div class=\"control-group\">\r\n                        <label>Intensité: <span id=\"intensityValue\">50</span></label>\r\n                        <input type=\"range\" id=\"particleIntensity\" class=\"control-input\" min=\"20\" max=\"200\" value=\"50\" onchange=\"updateParticles()\">\r\n                    </div>\r\n                    <div class=\"control-group\">\r\n                        <label>Vitesse</label>\r\n                        <select id=\"particleSpeed\" class=\"control-input\" onchange=\"updateParticles()\">\r\n                            <option value=\"slow\">Lente</option>\r\n                            <option value=\"normal\" selected>Normale</option>\r\n                            <option value=\"fast\">Rapide</option>\r\n                            <option value=\"ultra\">Ultra-rapide</option>\r\n                        </select>\r\n                    </div>\r\n                    <div class=\"control-group\">\r\n                        <label>Taille</label>\r\n                        <select id=\"particleSize\" class=\"control-input\" onchange=\"updateParticles()\">\r\n                            <option value=\"micro\">Micro</option>\r\n                            <option value=\"small\" selected>Petite</option>\r\n                            <option value=\"medium\">Moyenne</option>\r\n                            <option value=\"large\">Grande</option>\r\n                        </select>\r\n                    </div>\r\n                    <div class=\"control-group\">\r\n                        <label>Opacité</label>\r\n                        <select id=\"particleOpacity\" class=\"control-input\" onchange=\"updateParticles()\">\r\n                            <option value=\"subtle\" selected>Subtile</option>\r\n                            <option value=\"visible\">Visible</option>\r\n                            <option value=\"intense\">Intense</option>\r\n                        </select>\r\n                    </div>\r\n                </div>\r\n\r\n                <div class=\"flex gap-2 mt-4\">\r\n                    <button class=\"download-btn\" onclick=\"resetParticles()\">\r\n                        <i class=\"fas fa-undo mr-2\"></i>Reset\r\n                    </button>\r\n                    <button class=\"download-btn\" onclick=\"saveParticleSettings()\">\r\n                        <i class=\"fas fa-save mr-2\"></i>Sauvegarder\r\n                    </button>\r\n                </div>\r\n            </div>\r\n\r\n            <!-- Gaming Tab -->\r\n            <div id=\"gamingTab\" class=\"tab-content\">\r\n                <div class=\"documentation-section\">\r\n                    <h4 class=\"text-lg font-semibold mb-4 text-white\">🎮 Mode Gaming</h4>\r\n                    <div class=\"space-y-6\">\r\n                        <!-- Stats Section -->\r\n                        <div class=\"bg-gray-800 bg-opacity-30 rounded-lg p-4\">\r\n                            <h5 class=\"text-md font-medium mb-3 text-white\">📊 Statistiques</h5>\r\n                            <div class=\"space-y-2\">\r\n                                <p class=\"text-sm text-gray-300\">Score Total: <span id=\"totalScore\" class=\"text-primary font-bold\">0</span></p>\r\n                                <p class=\"text-sm text-gray-300\">Succès: <span id=\"totalAchievements\" class=\"text-primary font-bold\">0</span>/<span id=\"maxAchievements\" class=\"text-secondary font-bold\">0</span></p>\r\n                                <p class=\"text-sm text-gray-300\">Niveau d'éric: <span id=\"tamaLevel\" class=\"text-primary font-bold\">1</span></p>\r\n                            </div>\r\n                        </div>\r\n\r\n                        <!-- Achievements Section -->\r\n                        <div class=\"bg-gray-800 bg-opacity-30 rounded-lg p-4\">\r\n                            <h5 class=\"text-md font-medium mb-3 text-white\">🏆 Succès Débloqués</h5>\r\n                            <div id=\"achievementsList\" class=\"space-y-2 max-h-40 overflow-y-auto\">\r\n                                <p class=\"text-xs text-gray-400 italic\">Aucun succès débloqué pour le moment</p>\r\n                            </div>\r\n                        </div>\r\n\r\n                        <!-- Actions Section -->\r\n                        <div class=\"space-y-2\">\r\n                            <button class=\"game-button w-full\" onclick=\"startMiniGame()\">🧩 Mini-Jeu</button>\r\n                            <button class=\"game-button w-full bg-red-600 hover:bg-red-700\" onclick=\"resetProfile()\">🔄 Reset Profile</button>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n\r\n            <!-- Documentation Tab -->\r\n            <div id=\"documentationTab\" class=\"tab-content\">\r\n                <div class=\"documentation-section\">\r\n                    <h4 class=\"text-lg font-semibold mb-2 text-white\">🚀 Guide d'Utilisation</h4>\r\n                    <div class=\"text-sm text-gray-300 space-y-2\">\r\n                        <p><strong>Navigation :</strong></p>\r\n                        <ul class=\"list-disc list-inside space-y-1 ml-4\">\r\n                            <li>Switch FR/EN en haut à droite</li>\r\n                            <li>Mode Gaming avec le bouton 🎮 (cliquez 3x sur portrait)</li>\r\n                            <li>Portfolio vidéo : clic pour théâtre</li>\r\n                            <li>Particules interactives personnalisables</li>\r\n                        </ul>\r\n                        \r\n                        <p><strong>Gaming :</strong></p>\r\n                        <ul class=\"list-disc list-inside space-y-1 ml-4\">\r\n                            <li>Cliquez sur ma photo pour dialogues rigolos</li>\r\n                            <li>Explorez les compétences pour gagner XP</li>\r\n                            <li>Tamagotchi évolue selon vos actions</li>\r\n                        </ul>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <!-- Mini Game Overlay -->\r\n    <div class=\"mini-game-overlay\" id=\"miniGameOverlay\" onclick=\"closeMiniGame(event)\">\r\n        <div class=\"mini-game\" onclick=\"event.stopPropagation()\">\r\n            <h2 style=\"text-align: center;"
+    },
+    {
+      "property": "margin-bottom: 1rem;"
+    },
+    {
+      "property": "position: absolute;"
+    },
+    {
+      "property": "top: 1rem;"
+    },
+    {
+      "property": "right: 1rem;"
+    },
+    {
+      "property": "margin-top: 1rem;"
+    },
+    {
+      "property": "margin-top: 1rem;"
+    },
+    {
+      "property": "position: relative;"
+    },
+    {
+      "property": "position: relative;"
+    },
+    {
+      "property": "left\"></i>\r\n            </button>\r\n            <button class=\"carousel-nav carousel-next\" onclick=\"slideCarousel(1)\">\r\n                <i class=\"fas fa-chevron-right\"></i>\r\n            </button>\r\n            <div class=\"portfolio-grid\" id=\"portfolioGrid\"></div>\r\n        </div>\r\n    </div>\r\n\r\n    <!-- Theater Overlay -->\r\n    <div id=\"theaterOverlay\" class=\"theater-overlay\" onclick=\"closeTheater(event)\">\r\n        <button class=\"close-theater\" onclick=\"closeTheater()\">×</button>\r\n        <div class=\"theater-content\" onclick=\"event.stopPropagation()\">\r\n            <div>\r\n                <iframe id=\"theaterVideo\" class=\"theater-video\" src=\"\" frameborder=\"0\" allow=\"autoplay;"
+    },
+    {
+      "property": "topped = false;"
+    },
+    {
+      "property": "topped) return;"
+    },
+    {
+      "property": "topped) {\r\n                    this.isTyping = false;"
+    },
+    {
+      "property": "topped) {\r\n                        setTimeout(() => {\r\n                            const cursor = this.element.querySelector('.typewriter-cursor');"
+    },
+    {
+      "property": "position as it grows (for portrait dialogue)\r\n                if (this.dialogue && this.dialogue.id === 'portraitDialogue') {\r\n                    this.adjustDialoguePosition();"
+    },
+    {
+      "property": "top or bottom)\r\n                if (arrowClass === 'arrow-bottom') {\r\n                    // Dialogue is above the image, adjust upward as it grows\r\n                    const currentHeight = rect.height;"
+    },
+    {
+      "property": "top = (initialTop - heightDiff) + 'px';"
+    },
+    {
+      "property": "top') {\r\n                    // Dialogue is below the image, position stays the same (grows downward naturally)\r\n                    this.dialogue.style.top = initialTop + 'px';"
+    },
+    {
+      "property": "position consistent\r\n                this.dialogue.style.left = initialLeft + 'px';"
+    },
+    {
+      "property": "top() {\r\n                this.isStopped = true;"
+    },
+    {
+      "property": "positions du HUD\r\n            \r\n            // Initialize gaming unlock state\r\n            if (gamingUnlocked) {\r\n                unlockGamingMode();"
+    },
+    {
+      "property": "top <= window.innerHeight * 0.8) {\r\n                    indicator.style.opacity = '0';"
+    },
+    {
+      "property": "top any existing typewriter for this skill\r\n            if (typewriterInstances.has(key)) {\r\n                typewriterInstances.get(key).stop();"
+    },
+    {
+      "property": "left + 280 > window.innerWidth) {\r\n                tooltip.style.left = 'auto';"
+    },
+    {
+      "property": "right = '0';"
+    },
+    {
+      "property": "left - 140 < 0) {\r\n                tooltip.style.left = '0';"
+    },
+    {
+      "property": "right = 'auto';"
+    },
+    {
+      "property": "left = '50%';"
+    },
+    {
+      "property": "right = 'auto';"
+    },
+    {
+      "property": "top();"
+    },
+    {
+      "property": "toplay=1&mute=1`;"
+    },
+    {
+      "property": "left: newScroll, behavior: 'smooth'});"
+    },
+    {
+      "property": "positions CSS via variables CSS\r\n            document.documentElement.style.setProperty('--eric-bottom', ericBottom + 'rem');"
+    },
+    {
+      "property": "right', ericRight + 'rem');"
+    },
+    {
+      "property": "bottom', hudBottom + 'rem');"
+    },
+    {
+      "property": "right', hudRight + 'rem');"
+    },
+    {
+      "property": "bottom', notifBottom + 'rem');"
+    },
+    {
+      "property": "right', notifRight + 'rem');"
+    },
+    {
+      "property": "bottom', achievBottom + 'rem');"
+    },
+    {
+      "property": "right', achievRight + 'rem');"
+    },
+    {
+      "property": "positions CSS directement (fallback)\r\n            const tamagotchi = document.getElementById('tamagotchi');"
+    },
+    {
+      "property": "bottom = ericBottom + 'rem';"
+    },
+    {
+      "property": "right = ericRight + 'rem';"
+    },
+    {
+      "property": "bottom = ericBottom + 'rem';"
+    },
+    {
+      "property": "right = ericRight + 'rem';"
+    },
+    {
+      "property": "bottom = hudBottom + 'rem';"
+    },
+    {
+      "property": "right = hudRight + 'rem';"
+    },
+    {
+      "property": "bottom right';"
+    },
+    {
+      "property": "bottom = notifBottom + 'rem';"
+    },
+    {
+      "property": "right = notifRight + 'rem';"
+    },
+    {
+      "property": "bottom = achievBottom + 'rem';"
+    },
+    {
+      "property": "right = achievRight + 'rem';"
+    },
+    {
+      "property": "positions\r\n            const positionSettings = {\r\n                ericBottom, ericRight, ericSize,\r\n                hudBottom, hudRight, hudScale,\r\n                notifBottom, notifRight, achievBottom, achievRight\r\n            };"
+    },
+    {
+      "property": "positions', JSON.stringify(positionSettings));"
+    },
+    {
+      "property": "positions');"
+    },
+    {
+      "property": "positions = JSON.parse(savedPositions);"
+    },
+    {
+      "property": "positions.ericBottom || '3.5';"
+    },
+    {
+      "property": "positions.ericRight || '2';"
+    },
+    {
+      "property": "positions.ericSize || '88';"
+    },
+    {
+      "property": "positions.hudBottom || '5';"
+    },
+    {
+      "property": "positions.hudRight || '2';"
+    },
+    {
+      "property": "positions.hudScale || '100';"
+    },
+    {
+      "property": "positions.notifBottom || '11';"
+    },
+    {
+      "property": "positions.notifRight || '2';"
+    },
+    {
+      "property": "positions.achievBottom || '15.5';"
+    },
+    {
+      "property": "positions.achievRight || '1';"
+    },
+    {
+      "property": "topHudPreview();"
+    },
+    {
+      "property": "position: fixed;"
+    },
+    {
+      "property": "bottom: calc(${document.getElementById('hudBottom').value}rem + 60px);"
+    },
+    {
+      "property": "right: ${document.getElementById('hudRight').value}rem;"
+    },
+    {
+      "property": "padding: 4px 8px;"
+    },
+    {
+      "property": "position: fixed;"
+    },
+    {
+      "property": "bottom: calc(${document.getElementById('ericBottom').value}rem + ${parseInt(document.getElementById('ericSize').value) + 10}px);"
+    },
+    {
+      "property": "right: ${document.getElementById('ericRight').value}rem;"
+    },
+    {
+      "property": "padding: 4px 8px;"
+    },
+    {
+      "property": "topHudPreview() {\r\n            // Nettoyer les intervalles\r\n            previewIntervals.forEach(interval => clearInterval(interval));"
+    },
+    {
+      "property": "top previous portrait typewriter\r\n            if (typewriterInstances.has('portrait')) {\r\n                typewriterInstances.get('portrait').stop();"
+    },
+    {
+      "property": "positioning\r\n            positionPortraitDialogue(dialogue, profileImg);"
+    },
+    {
+      "property": "position adjustment\r\n            });"
+    },
+    {
+      "property": "positionPortraitDialogue(dialogue, profileImg) {\r\n            const imgRect = profileImg.getBoundingClientRect();"
+    },
+    {
+      "property": "margin = 15;"
+    },
+    {
+      "property": "margin from viewport edges\r\n            const offset = 15;"
+    },
+    {
+      "property": "top, left, arrowClass, arrowPosition;"
+    },
+    {
+      "property": "positioning\r\n            const imgCenterX = imgRect.left + (imgRect.width / 2);"
+    },
+    {
+      "property": "top + (imgRect.height / 2);"
+    },
+    {
+      "property": "position: above the image, centered\r\n            const centerLeft = imgRect.left + (imgRect.width / 2) - (dialogueWidth / 2);"
+    },
+    {
+      "property": "top - dialogueHeight - offset;"
+    },
+    {
+      "property": "position above\r\n            if (aboveTop >= margin && \r\n                centerLeft >= margin && \r\n                centerLeft + dialogueWidth <= viewportWidth - margin) {\r\n                // Position above, centered on image\r\n                top = aboveTop;"
+    },
+    {
+      "property": "left = centerLeft;"
+    },
+    {
+      "property": "bottom';"
+    },
+    {
+      "property": "left;"
+    },
+    {
+      "property": "position relative to dialogue left edge\r\n            } else if (imgRect.bottom + dialogueHeight + offset <= viewportHeight - margin) {\r\n                // Position below, centered on image\r\n                top = imgRect.bottom + offset;"
+    },
+    {
+      "property": "left = Math.max(margin, Math.min(centerLeft, viewportWidth - dialogueWidth - margin));"
+    },
+    {
+      "property": "top';"
+    },
+    {
+      "property": "left;"
+    },
+    {
+      "property": "position relative to dialogue left edge\r\n            } else if (imgRect.left - dialogueWidth - offset >= margin) {\r\n                // Position to the left\r\n                top = Math.max(margin, imgRect.top + (imgRect.height / 2) - (dialogueHeight / 2));"
+    },
+    {
+      "property": "left = imgRect.left - dialogueWidth - offset;"
+    },
+    {
+      "property": "right';"
+    },
+    {
+      "property": "top;"
+    },
+    {
+      "property": "position relative to dialogue top edge\r\n            } else if (imgRect.right + dialogueWidth + offset <= viewportWidth - margin) {\r\n                // Position to the right\r\n                top = Math.max(margin, imgRect.top + (imgRect.height / 2) - (dialogueHeight / 2));"
+    },
+    {
+      "property": "left = imgRect.right + offset;"
+    },
+    {
+      "property": "left';"
+    },
+    {
+      "property": "top;"
+    },
+    {
+      "property": "position relative to dialogue top edge\r\n            } else {\r\n                // Emergency fallback: above image but adjust horizontally to fit\r\n                top = Math.max(margin, imgRect.top - dialogueHeight - offset);"
+    },
+    {
+      "property": "margin) {\r\n                    left = margin;"
+    },
+    {
+      "property": "margin) {\r\n                    left = viewportWidth - dialogueWidth - margin;"
+    },
+    {
+      "property": "left = centerLeft;"
+    },
+    {
+      "property": "bottom';"
+    },
+    {
+      "property": "left;"
+    },
+    {
+      "property": "position relative to dialogue left edge\r\n            }\r\n            \r\n            // Store initial positioning for dynamic growth\r\n            dialogue.dataset.initialTop = Math.max(margin, top);"
+    },
+    {
+      "property": "margin, left);"
+    },
+    {
+      "property": "positioning\r\n            dialogue.style.top = dialogue.dataset.initialTop + 'px';"
+    },
+    {
+      "property": "left = dialogue.dataset.initialLeft + 'px';"
+    },
+    {
+      "property": "position using CSS custom property\r\n            dialogue.style.setProperty('--arrow-offset', arrowPosition + 'px');"
+    },
+    {
+      "property": "top any existing portrait typewriter\r\n                if (typewriterInstances.has('portrait')) {\r\n                    typewriterInstances.get('portrait').stop();"
+    },
+    {
+      "property": "positioning\r\n                positionPortraitDialogue(dialogue, profileImg);"
+    },
+    {
+      "property": "top any existing portrait typewriter\r\n            if (typewriterInstances.has('portrait')) {\r\n                typewriterInstances.get('portrait').stop();"
+    },
+    {
+      "property": "positioning\r\n            positionPortraitDialogue(dialogue, profileImg);"
+    },
+    {
+      "property": "margin-top: 0.5rem;"
+    },
+    {
+      "property": "margin-top: 0.5rem;"
+    },
+    {
+      "property": "position) => {\r\n                    const {latitude, longitude} = position.coords;"
+    }
+  ],
+  "themes": [
+    {
+      "color": "#06b6d4",
+      "type": "color-value"
+    },
+    {
+      "color": "#10b981",
+      "type": "color-value"
+    },
+    {
+      "color": "#8b5cf6",
+      "type": "color-value"
+    },
+    {
+      "color": "#0f172a",
+      "type": "color-value"
+    },
+    {
+      "color": "#1e293b",
+      "type": "color-value"
+    },
+    {
+      "color": "#334155",
+      "type": "color-value"
+    },
+    {
+      "color": "#e2e8f0",
+      "type": "color-value"
+    },
+    {
+      "color": "#94a3b8",
+      "type": "color-value"
+    },
+    {
+      "color": "#64748b",
+      "type": "color-value"
+    },
+    {
+      "color": "#fbbf24",
+      "type": "color-value"
+    },
+    {
+      "color": "#10b981",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(30,41,59,0.1)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(148,163,184,0.08)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(0,0,0,0.12)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(15,23,42,0.15)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(148,163,184,0.06)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(15,23,42,0.2)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.15)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.15)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.25)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.1)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.1)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(16,185,129,0.08)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.2)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.2)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(16,185,129,0.15)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.4)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.3)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(15,23,42,0.95)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.3)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(30,41,59,0.15)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(148,163,184,0.1)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.2)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(30,41,59,0.15)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(148,163,184,0.1)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(30,41,59,0.25)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(139,92,246,0.1)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(139,92,246,0.2)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(139,92,246,0.2)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(15,23,42,0.9)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.2)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.2)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(148,163,184,0.2)",
+      "type": "color-value"
+    },
+    {
+      "color": "#f59e0b",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(251,191,36,0.3)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(255,255,255,0.1)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(15,23,42,0.9)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.3)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.4)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(15,23,42,0.9)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(15,23,42,0.7)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(30,41,59,0.2)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(148,163,184,0.2)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(0,0,0,0.3)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(148,163,184,0.2)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(15,23,42,0.3)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(30,41,59,0.2)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.15)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.3)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(30,41,59,0.08)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(15,23,42,0.12)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.15)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.4)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(0,0,0,0.2)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.15)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(15,23,42,0.8)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.2)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(15,23,42,0.95)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(15,23,42,0.8)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.2)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(220,38,38,0.8)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(220,38,38,1)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.1)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.2)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.15)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.2)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.4)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.3)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.5)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(251,191,36,0.3)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(251,191,36,0.5)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(15,23,42,0.5)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(148,163,184,0.2)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.1)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.2)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.2)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.4)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(15,23,42,0.3)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(148,163,184,0.1)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(15,23,42,0.95)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(30,41,59,0.2)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(148,163,184,0.2)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(15,23,42,0.8)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.2)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(15,23,42,0.3)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(148,163,184,0.3)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.1)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.3)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.3)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(15,23,42,0.98)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(0,0,0,0.5)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.3)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(255,255,255,0.1)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.1)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.2)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(139,92,246,0.2)",
+      "type": "color-value"
+    },
+    {
+      "color": "#06b6d4",
+      "type": "color-value"
+    },
+    {
+      "color": "#10b981",
+      "type": "color-value"
+    },
+    {
+      "color": "#0f172a",
+      "type": "color-value"
+    },
+    {
+      "color": "#06b6d4",
+      "type": "color-value"
+    },
+    {
+      "color": "#10b981",
+      "type": "color-value"
+    },
+    {
+      "color": "#8b5cf6",
+      "type": "color-value"
+    },
+    {
+      "color": "#06b6d4",
+      "type": "color-value"
+    },
+    {
+      "color": "#10b981",
+      "type": "color-value"
+    },
+    {
+      "color": "#8b5cf6",
+      "type": "color-value"
+    },
+    {
+      "color": "#06b6d4",
+      "type": "color-value"
+    },
+    {
+      "color": "#10b981",
+      "type": "color-value"
+    },
+    {
+      "color": "#f59e0b",
+      "type": "color-value"
+    },
+    {
+      "color": "#ef4444",
+      "type": "color-value"
+    },
+    {
+      "color": "#f97316",
+      "type": "color-value"
+    },
+    {
+      "color": "#f59e0b",
+      "type": "color-value"
+    },
+    {
+      "color": "#ef4444",
+      "type": "color-value"
+    },
+    {
+      "color": "#10b981",
+      "type": "color-value"
+    },
+    {
+      "color": "#059669",
+      "type": "color-value"
+    },
+    {
+      "color": "#047857",
+      "type": "color-value"
+    },
+    {
+      "color": "#10b981",
+      "type": "color-value"
+    },
+    {
+      "color": "#059669",
+      "type": "color-value"
+    },
+    {
+      "color": "#8b5cf6",
+      "type": "color-value"
+    },
+    {
+      "color": "#a855f7",
+      "type": "color-value"
+    },
+    {
+      "color": "#7c3aed",
+      "type": "color-value"
+    },
+    {
+      "color": "#8b5cf6",
+      "type": "color-value"
+    },
+    {
+      "color": "#a855f7",
+      "type": "color-value"
+    },
+    {
+      "color": "#64748b",
+      "type": "color-value"
+    },
+    {
+      "color": "#475569",
+      "type": "color-value"
+    },
+    {
+      "color": "#334155",
+      "type": "color-value"
+    },
+    {
+      "color": "#64748b",
+      "type": "color-value"
+    },
+    {
+      "color": "#475569",
+      "type": "color-value"
+    },
+    {
+      "color": "#0ea5e9",
+      "type": "color-value"
+    },
+    {
+      "color": "#06b6d4",
+      "type": "color-value"
+    },
+    {
+      "color": "#0284c7",
+      "type": "color-value"
+    },
+    {
+      "color": "#0ea5e9",
+      "type": "color-value"
+    },
+    {
+      "color": "#06b6d4",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(${this.hexToRgb(currentTheme.primary)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(${this.hexToRgb(currentTheme.secondary)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(${this.hexToRgb(currentTheme.accent)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(${rgbColor}, ${bgOpacityDecimal})",
+      "type": "color-value"
+    },
+    {
+      "color": "#0f172a",
+      "type": "color-value"
+    },
+    {
+      "color": "#0f172a",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(239, 68, 68, 0.2)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(239, 68, 68, 0.4)",
+      "type": "color-value"
+    },
+    {
+      "color": "#ef4444",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.1)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.2)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(6,182,212,0.9)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(0,0,0,0.3)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(139,92,246,0.9)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(0,0,0,0.3)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(139, 92, 246, 0.2)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(148, 163, 184, 0.1)",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(148, 163, 184, 0.1)",
+      "type": "color-value"
+    },
+    {
+      "color": "#10b981",
+      "type": "color-value"
+    },
+    {
+      "color": "#ef4444",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(16, 185, 129, 0.2)",
+      "type": "color-value"
+    },
+    {
+      "color": "#10b981",
+      "type": "color-value"
+    },
+    {
+      "color": "rgba(239, 68, 68, 0.2)",
+      "type": "color-value"
+    },
+    {
+      "color": "#ef4444",
+      "type": "color-value"
+    }
+  ],
+  "metadata": {
+    "totalLines": 3204,
+    "fileSize": 178211,
+    "timestamp": "2025-07-23T03:11:49.136Z"
+  }
+}
