@@ -1266,7 +1266,7 @@ body.hud-preview-active .game-notification {
                 hobby3Title: "Veille Technologique & IA",
                 hobby3Desc:  "Suivi des innovations tech, expérimentation IA générative",
                 experiences: [
-                    {title: "Créateur d’outils numériques / missions client", company: "2025-2026 • Projets livrés et valorisés", description: "Livraison d’un site web client, développement de FIMO Check et cession d’un outil d’aide pour Path of Exile à une plateforme spécialisée."},
+                    {title: "Créateur d’outils numériques / missions client", company: "2025-2026 • Projets livrés et valorisés", description: "Livraison d’un site web client, développement de FIMO Check et conception d’un outil d’aide pour Path of Exile."},
                     {title: "Technicien Supervision Réseau", company: "2024 • Rhône Telecom", description: "Supervision infrastructures réseau SFR, coordination équipes terrain, résolution incidents niveau 1-2."},
                     {title: "Consultant Wi-Fi & Support Réseau", company: "2023 • Collège au Carré, Villeurbanne", description: "Diagnostic réseau Wi-Fi, configuration matériel, documentation technique, formation utilisateurs."},
                     {title: "Co-gérant Commercial", company: "2021-2022 • La Poire Verte", description: "Gestion commerciale marchés/salons, sourcing international, coordination logistique, relation client."}
@@ -1280,7 +1280,7 @@ body.hud-preview-active .game-notification {
                 projects: [
                     {title: "FIMO Check", description: "Application d’aide au contrôle des temps de conduite et de repos, développée pendant la formation transport.", icon: "fas fa-bus"},
                     {title: "Construction Comores", description: "Site vitrine et de mise en relation livré à un client, mis en ligne et optimisé pour le référencement.", icon: "fas fa-store"},
-                    {title: "Outil Path of Exile", description: "Conception d’un outil d’aide au jeu ensuite cédé intégralement à une plateforme spécialisée.", icon: "fas fa-coins"},
+                    {title: "Outil Path of Exile", description: "Conception d’un outil d’aide au jeu répondant à un besoin utilisateur concret.", icon: "fas fa-coins"},
                     {title: "Portfolio bilingue", description: "Conception, documentation et déploiement de ce CV interactif avec versions papier téléchargeables.", icon: "fas fa-address-card"}
                 ],
                 international: [
@@ -1322,7 +1322,7 @@ body.hud-preview-active .game-notification {
                 hobby3Title: "Tech & AI Watch",
                 hobby3Desc:  "Following tech innovations, generative AI experimentation",
                 experiences: [
-                    {title: "Digital Tool Builder / Client Projects", company: "2025-2026 • Delivered and monetised projects", description: "Delivered a client website, built FIMO Check and transferred a Path of Exile support tool to a specialist platform."},
+                    {title: "Digital Tool Builder / Client Projects", company: "2025-2026 • Delivered projects", description: "Delivered a client website, built FIMO Check and designed a Path of Exile support tool."},
                     {title: "Network Supervision Technician", company: "2024 • Rhône Telecom", description: "SFR network infrastructure supervision, field team coordination, level 1-2 incident resolution."},
                     {title: "Wi-Fi Consultant & Network Support", company: "2023 • Collège au Carré, Villeurbanne", description: "Wi-Fi network diagnosis, hardware configuration, technical documentation, user training."},
                     {title: "Commercial Co-Manager", company: "2021-2022 • La Poire Verte", description: "Commercial management markets/trade shows, international sourcing, logistics coordination, customer relations."}
@@ -1336,7 +1336,7 @@ body.hud-preview-active .game-notification {
                 projects: [
                     {title: "FIMO Check", description: "Web application supporting driving-time and rest-period compliance, built during passenger transport training.", icon: "fas fa-bus"},
                     {title: "Construction Comores", description: "Client showcase and business-directory website delivered live and optimised for search visibility.", icon: "fas fa-store"},
-                    {title: "Path of Exile Tool", description: "Designed a player-support tool that was later fully transferred to a specialist platform.", icon: "fas fa-coins"},
+                    {title: "Path of Exile Tool", description: "Designed a player-support tool addressing a concrete user need.", icon: "fas fa-coins"},
                     {title: "Bilingual Portfolio", description: "Designed, documented and deployed this interactive CV with downloadable print versions.", icon: "fas fa-address-card"}
                 ],
                 international: [
@@ -3717,7 +3717,7 @@ body.hud-preview-active .game-notification {
                 }
                 
                 if (elapsed >= 10000) {
-                    // Appui long complet (10s) : clic droit -> reset, gauche/tactile -> lettres
+                    // Appui long complet (10s) : clic droit -> reset, gauche/tactile -> espace professionnel discret
                     if (resetAnimationFrame) { cancelAnimationFrame(resetAnimationFrame); resetAnimationFrame = null; }
                     resetStartTime = 0;
                     if (action === 'reset') { resetLocalStorage(); } else { openLettersIndex(); }
@@ -3750,14 +3750,14 @@ body.hud-preview-active .game-notification {
         }
         
         function openLettersIndex() {
-            // Appui long de 10s sur le portrait -> page d'index des lettres de motivation
+            // Appui long de 10s sur le portrait -> espace professionnel discret
             const progress = document.getElementById('resetProgress');
             if (progress) {
                 progress.classList.remove('active');
                 progress.classList.add('complete');
             }
             if (navigator.vibrate) navigator.vibrate([60, 40, 60]);
-            setTimeout(() => { window.location.href = 'lettres.html'; }, 250);
+            setTimeout(() => { window.location.href = 'coulisses.html'; }, 250);
         }
 
         async function resetLocalStorage() {
