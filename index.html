@@ -1206,7 +1206,7 @@ body.hud-preview-active .game-notification {
 
         function updateTamaIcon() {
         const iconEl = document.getElementById('tamagotchiIcon');
-        if (!gamingMode) return;
+        if (!gamingMode || !iconEl) return;
         // Exemples de conditions ; adapte selon tes stats réelles
         if (gameStats.tamaLevel === 1 && !gameStats.interacted) {
             iconEl.src = tamaIcons.boxed;
@@ -1923,14 +1923,14 @@ body.hud-preview-active .game-notification {
 
             // Setup gaming toggle hover events
             const gameToggle = document.getElementById('gameToggle');
-            gameToggle.addEventListener('mouseenter', function() {
+            if (gameToggle) gameToggle.addEventListener('mouseenter', function() {
                 if (gamingUnlocked) {
                     const text = this.getAttribute('data-text') || 'Gaming';
                     this.innerHTML = `🎮 ${text}`;
                 }
             });
             
-            gameToggle.addEventListener('mouseleave', function() {
+            if (gameToggle) gameToggle.addEventListener('mouseleave', function() {
                 if (gamingUnlocked) {
                     this.innerHTML = '🎮';
                 }
@@ -3246,17 +3246,21 @@ body.hud-preview-active .game-notification {
 
         function updateGameDisplay() {
             if (!gamingMode) return;
-            
-            document.getElementById('scoreDisplay').textContent = gameStats.score.toLocaleString();
-            document.getElementById('xpDisplay').textContent = gameStats.xp;
-            document.getElementById('levelDisplay').textContent = gameStats.level;
-            document.getElementById('totalScore').textContent = gameStats.score.toLocaleString();
-            document.getElementById('totalAchievements').textContent = gameStats.achievements.length;
-            document.getElementById('tamaLevel').textContent = gameStats.tamaLevel;
+
+            const setGameText = (id, value) => {
+                const element = document.getElementById(id);
+                if (element) element.textContent = value;
+            };
+            setGameText('scoreDisplay', gameStats.score.toLocaleString());
+            setGameText('xpDisplay', gameStats.xp);
+            setGameText('levelDisplay', gameStats.level);
+            setGameText('totalScore', gameStats.score.toLocaleString());
+            setGameText('totalAchievements', gameStats.achievements.length);
+            setGameText('tamaLevel', gameStats.tamaLevel);
             
             // Calculate and display max achievements
             const maxAchievements = calculateMaxAchievements();
-            document.getElementById('maxAchievements').textContent = maxAchievements;
+            setGameText('maxAchievements', maxAchievements);
             
             // Update achievements list
             updateAchievementsList();
@@ -3935,11 +3939,11 @@ body.hud-preview-active .game-notification {
             typewriterInstances.set('portrait', typewriter);
             typewriter.type();
 
-            // Unlock gaming mode after exactly 23 clicks (easter egg)
+            // Easter egg découvrable : trois clics sur le portrait.
             console.log('🎮 Portrait clicks:', portraitClicks, 'gamingUnlocked:', gamingUnlocked);
             
             // Show click counter visually (seulement dans la dernière ligne droite)
-            if (portraitClicks >= 18 && portraitClicks < 23 && !gamingUnlocked) {
+            if (portraitClicks >= 1 && portraitClicks < 3 && !gamingUnlocked) {
                 const clickCounter = document.createElement('div');
                 clickCounter.style.cssText = `
                     position: fixed;
@@ -3948,15 +3952,15 @@ body.hud-preview-active .game-notification {
                     transform: translate(-50%, -50%);
                     background: linear-gradient(135deg, #8b5cf6, #06b6d4);
                     color: white;
-                    padding: 2rem 3rem;
-                    border-radius: 24px;
-                    font-size: 3rem;
+                    padding: 0.75rem 1.25rem;
+                    border-radius: 999px;
+                    font-size: 1rem;
                     font-weight: bold;
                     z-index: 10000;
                     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
                     animation: popIn 0.3s ease;
                 `;
-                clickCounter.textContent = `${portraitClicks}/23 🎮`;
+                clickCounter.textContent = portraitClicks === 1 ? 'Ce portrait cache quelque chose… 👀' : 'Encore un clic ✨';
                 document.body.appendChild(clickCounter);
                 
                 setTimeout(() => {
@@ -3967,7 +3971,7 @@ body.hud-preview-active .game-notification {
                 }, 1000);
             }
             
-            if (portraitClicks >= 23 && !gamingUnlocked) {
+            if (portraitClicks >= 3 && !gamingUnlocked) {
                 console.log('🎉 UNLOCKING GAMING MODE NOW!');
                 
                 // Show big unlock animation
