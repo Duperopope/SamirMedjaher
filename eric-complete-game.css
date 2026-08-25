@@ -131,6 +131,31 @@
     box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
 }
 
+.level-count {
+    min-width: 92px;
+    margin-bottom: 0.55rem;
+    color: white;
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.xp-track {
+    height: 5px;
+    margin-top: 0.3rem;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.35);
+}
+
+.xp-track span {
+    display: block;
+    width: 0;
+    height: 100%;
+    border-radius: inherit;
+    background: #fef08a;
+    transition: width 0.4s ease;
+}
+
 .coins-count {
     display: flex;
     align-items: center;
@@ -377,6 +402,28 @@
     border-radius: 8px;
 }
 
+.eric-status {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    min-height: 38px;
+    padding: 0.55rem 0.8rem;
+    border: 1px solid rgba(6, 182, 212, 0.22);
+    border-radius: 9px;
+    background: rgba(15, 23, 42, 0.68);
+    color: #e2e8f0;
+    font-size: 0.82rem;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background: #10b981;
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.8);
+}
+
 .quick-action-btn {
     flex: 1;
     display: flex;
@@ -485,6 +532,7 @@
 }
 
 .inventory-item {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -495,6 +543,17 @@
     border: 2px solid rgba(148, 163, 184, 0.2);
     cursor: grab;
     transition: all 0.3s ease;
+}
+
+.inventory-item:active { cursor: grabbing; transform: translateY(0) scale(0.97); }
+
+.quick-action-btn:focus-visible,
+.room-btn:focus-visible,
+.sidebar-tab:focus-visible,
+.buy-btn:focus-visible,
+.inventory-item:focus-visible {
+    outline: 3px solid #67e8f9;
+    outline-offset: 2px;
 }
 
 .inventory-item:hover {
@@ -691,12 +750,16 @@
     }
     
     .game-header {
-        flex-direction: column;
+        align-items: stretch;
+        flex-direction: row;
+        flex-wrap: wrap;
         gap: 1rem;
     }
     
     .stats-panel {
         width: 100%;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        order: 3;
     }
     
     .room-btn {
@@ -711,6 +774,10 @@
         width: 120px;
         height: 120px;
     }
+
+    .game-environment { min-height: 310px; }
+    .quick-action-btn { padding: 0.65rem 0.25rem; }
+    .currency-display { margin-left: auto; }
 }
 
 /* ============================================
