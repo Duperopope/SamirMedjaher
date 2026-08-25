@@ -408,11 +408,9 @@ class EricCompleteGame {
                     <span>${roomMeta.label}</span>
                     <small>${roomMeta.note}</small>
                 </div>
-                <button class="eric-character" id="ericCharacter" type="button" aria-label="Caresser Éric">
-                    <span class="eric-aura"></span>
-                    <img src="assets/images/game/eric-guardian.webp" alt="Éric, chat noir aux yeux verts">
-                    <span class="eric-ground-shadow"></span>
-                </button>
+                <div class="eric-3d-stage" id="eric3dStage" aria-label="Éric, personnage 3D animé"></div>
+                <aside class="adventure-card" id="adventureCard" aria-live="polite"></aside>
+                <button class="adventure-hotspot" id="adventureHotspot" type="button" hidden></button>
                 <div class="ambient-dust" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
                 <div class="room-effects" id="roomEffects"></div>
             </div>
@@ -424,6 +422,11 @@ class EricCompleteGame {
             ericContainer.addEventListener('click', () => {
                 this.petEric();
             });
+        }
+
+        if (window.ericAdventure) window.ericAdventure.destroy();
+        if (window.EricAdventure && window.THREE) {
+            window.ericAdventure = new window.EricAdventure(this, env);
         }
     }
     
@@ -690,6 +693,7 @@ class EricCompleteGame {
      */
     updateEricState(state) {
         this.currentEricState = state;
+        if (window.ericAdventure) window.ericAdventure.setMotion(state === 'play' || state === 'eat' ? 'happy' : state, 1.8);
 
         // Mettre à jour les classes CSS
         const ericChar = document.getElementById('ericCharacter');
