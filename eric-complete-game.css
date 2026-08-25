@@ -866,10 +866,12 @@
 .room-btn { flex-direction: row; justify-content: center; gap: .5rem; padding: .78rem .5rem; border: 0; border-right: 1px solid var(--line); border-radius: 0; color: #728993; }
 .room-btn:hover { transform: none; border-color: var(--line); background: rgba(121,216,180,.05); }
 .room-btn.active { color: #ecf4f3; border: 0; border-right: 1px solid var(--line); box-shadow: inset 0 -2px var(--copper); background: linear-gradient(180deg, rgba(200,121,65,.12), transparent); }
+.room-btn.is-locked { opacity: .36; cursor: not-allowed; filter: saturate(.25); }
+.room-btn.is-locked .room-index::before { content: "\f023"; margin-right: .35rem; font-family: "Font Awesome 6 Free", "Font Awesome 5 Free"; font-weight: 900; }
 .room-index { color: var(--copper); font: 600 .58rem/1 "IBM Plex Mono", monospace; }
 .room-label { font-size: .65rem; letter-spacing: .06em; text-transform: uppercase; }
 
-.game-environment { --scene-position: 7% center; min-height: 510px; border-radius: 0; background-image: url("assets/images/game/eric-night-workshop.webp"); background-size: cover; background-position: var(--scene-position); transition: background-position 900ms cubic-bezier(.2,.8,.2,1); box-shadow: none; }
+.game-environment { --scene-image: url("assets/images/game/eric-night-workshop.webp"); --scene-position: center; min-height: 510px; border-radius: 0; background-image: var(--scene-image); background-size: cover; background-position: var(--scene-position); transition: background-image .35s ease, background-position 700ms cubic-bezier(.2,.8,.2,1); box-shadow: none; }
 .room-container { overflow: hidden; align-items: flex-end; background: linear-gradient(90deg, rgba(4,10,14,.18), transparent 40%, rgba(4,10,14,.18)); }
 .scene-vignette { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 55% 55%, transparent 15%, rgba(4,9,12,.12) 65%, rgba(4,9,12,.64) 115%); }
 .scene-caption { position: absolute; z-index: 4; top: 1rem; left: 1rem; display: grid; gap: .2rem; padding: .65rem .8rem; border-left: 2px solid var(--copper); background: rgba(7,15,20,.68); backdrop-filter: blur(9px); color: #f1f6f5; }
@@ -878,6 +880,14 @@
 
 .eric-3d-stage { position: absolute; z-index: 3; left: 35%; bottom: 1%; width: 29%; height: 68%; cursor: pointer; filter: drop-shadow(0 18px 12px rgba(0,0,0,.35)); }
 .eric-3d-stage canvas { display: block; width: 100% !important; height: 100% !important; outline: none; }
+
+.eric-illustrated-stage { --eric-x: 42%; --eric-y: 7%; --eric-scale: .62; --eric-facing: 1; position: absolute; z-index: 4; left: var(--eric-x); bottom: var(--eric-y); width: 290px; height: 310px; padding: 0; border: 0; background: transparent; transform: translateX(-50%) scaleX(var(--eric-facing)) scale(var(--eric-scale)); transform-origin: 50% 100%; cursor: pointer; transition: left 1.25s cubic-bezier(.2,.72,.22,1), bottom .8s ease, transform .8s ease; }
+.eric-sprite { --sprite-x: 0%; --sprite-y: 0%; position: relative; z-index: 2; display: block; width: 100%; height: 100%; background-image: url("assets/images/game/eric-sprites/eric-atlas.webp"); background-repeat: no-repeat; background-size: 400% 400%; background-position: var(--sprite-x) var(--sprite-y); filter: drop-shadow(0 14px 8px rgba(0,0,0,.48)); animation: illustratedBreathe 3.2s ease-in-out infinite; will-change: background-position, transform; }
+.illustrated-shadow { position: absolute; z-index: 1; left: 18%; right: 18%; bottom: 2%; height: 9%; border-radius: 50%; background: rgba(0,0,0,.48); filter: blur(8px); }
+.eric-illustrated-stage.is-entering .eric-sprite { animation: illustratedWalk .42s ease-in-out infinite alternate; }
+.eric-illustrated-stage[data-pose="happy"] .eric-sprite { animation: illustratedHappy .42s ease-in-out 2; }
+.eric-illustrated-stage[data-pose="sleep"] .eric-sprite { animation: illustratedSleep 4s ease-in-out infinite; }
+.eric-illustrated-stage:focus-visible { outline: 2px solid var(--amber); outline-offset: 4px; }
 
 .adventure-card { position: absolute; z-index: 6; right: 1rem; bottom: 1rem; width: min(290px, 36%); padding: 1rem 1.05rem; border: 1px solid rgba(200,121,65,.38); border-top: 2px solid var(--copper); background: linear-gradient(145deg, rgba(8,17,22,.94), rgba(18,32,38,.91)); box-shadow: 0 18px 38px rgba(0,0,0,.35); backdrop-filter: blur(12px); color: #dfe9e9; }
 .story-eyebrow { display: block; margin-bottom: .45rem; color: var(--copper); font: 700 .52rem/1 "IBM Plex Mono", monospace; letter-spacing: .15em; text-transform: uppercase; }
@@ -933,6 +943,35 @@
 @keyframes ericJoy { 0%,100%{transform:translateY(0) rotate(0)} 45%{transform:translateY(-14px) rotate(-2deg)} }
 @keyframes dustFloat { from{transform:translateY(25px);opacity:0} 30%{opacity:.35} to{transform:translateY(-120px);opacity:0} }
 @keyframes hotspotPulse { 0%{box-shadow:0 0 0 0 rgba(242,185,95,.3)} 70%{box-shadow:0 0 0 12px rgba(242,185,95,0)} 100%{box-shadow:0 0 0 0 rgba(242,185,95,0)} }
+@keyframes illustratedBreathe { 0%,100%{transform:translateY(0) rotate(0)} 50%{transform:translateY(-3px) rotate(.35deg)} }
+@keyframes illustratedWalk { from{transform:translateY(0) rotate(-1deg)} to{transform:translateY(-9px) rotate(1deg)} }
+@keyframes illustratedHappy { 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-12px) scale(1.025)} }
+@keyframes illustratedSleep { 0%,100%{transform:scale(1)} 50%{transform:scale(1.015)} }
+
+/* Le dashboard est une scène complète : aucun widget flottant du CV ne doit la recouvrir. */
+.notifications-toggle,
+#xpbarToggle,
+#gamingController,
+.unified-notifications-zone { display: none !important; }
+
+/* Accès au jeu et navigation : pictogrammes sobres, aucun badge emoji flottant. */
+.tamagotchi { width: 62px !important; height: 62px !important; border-radius: 14px !important; border: 1px solid rgba(200,121,65,.58) !important; background: linear-gradient(145deg,#17262d,#0b151a) !important; box-shadow: 0 12px 32px rgba(0,0,0,.38), inset 0 1px rgba(255,255,255,.04) !important; color: #d08b55; font-size: 1.35rem !important; }
+.tamagotchi.show { animation: launcherBreath 3.5s ease-in-out infinite !important; }
+.tamagotchi:hover { transform: translateY(-3px) !important; border-color: #e2a56f !important; }
+#tamagotchiIcon { width: auto !important; height: auto !important; border-radius: 0 !important; }
+.dashboard-tab-btn > div:first-child { color: #718995; font-size: 1rem; }
+.dashboard-tab-btn.active > div:first-child { color: var(--copper); }
+.quick-action-btn .action-icon { color: var(--copper); }
+@keyframes launcherBreath { 0%,100%{box-shadow:0 12px 32px rgba(0,0,0,.38),0 0 0 0 rgba(200,121,65,.2)} 50%{box-shadow:0 12px 32px rgba(0,0,0,.38),0 0 0 7px rgba(200,121,65,0)} }
+
+body:has(#gamingDashboard:not(.hidden)) #gamingController,
+body:has(#gamingDashboard:not(.hidden)) #notificationsToggle,
+body:has(#gamingDashboard:not(.hidden)) #unifiedNotificationsZone,
+body:has(#gamingDashboard:not(.hidden)) #gameHUD,
+body:has(#gamingDashboard:not(.hidden)) #tamagotchi,
+body:has(#gamingDashboard:not(.hidden)) .game-notification,
+body:has(#gamingDashboard:not(.hidden)) .achievement-toast,
+body:has(#gamingDashboard:not(.hidden)) .portrait-dialogue { display: none !important; }
 
 @media (max-width: 1100px) {
     .game-identity p { display: none; }
@@ -947,11 +986,13 @@
     .game-sidebar { border-left: 0; border-top: 1px solid var(--line); max-height: 380px; }
     .game-environment { min-height: 400px; }
     .eric-3d-stage { left: 18%; width: 48%; height: 66%; }
+    .eric-illustrated-stage { width: 240px; height: 250px; }
     .adventure-card { width: calc(100% - 2rem); right: 1rem; bottom: 1rem; }
     .adventure-card p { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .eric-character, .ambient-dust i, .portrait-frame, .coin-icon { animation: none !important; }
+    .eric-illustrated-stage, .eric-illustrated-stage img { animation: none !important; transition: none !important; }
     .game-environment { transition: none; }
 }

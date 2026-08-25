@@ -126,7 +126,7 @@ class EricCompleteGame {
                 <!-- Header avec stats -->
                 <div class="game-header">
                     <div class="eric-portrait">
-                        <img src="assets/images/game/eric-guardian.webp" alt="Portrait d'Éric" id="ericPortrait">
+                        <img src="assets/images/game/eric-poses/alert.webp" alt="Portrait d'Éric" id="ericPortrait">
                         <div class="portrait-frame"></div>
                     </div>
 
@@ -201,19 +201,19 @@ class EricCompleteGame {
                 <div class="game-main">
                     <!-- Sélecteur de pièces -->
                     <div class="room-selector">
-                        <button class="room-btn active" data-room="living" title="Salon">
+                        <button class="room-btn active" data-room="living" title="Atelier musical — niveau 1">
                             <span class="room-index">01</span>
                             <span class="room-label">Musique</span>
                         </button>
-                        <button class="room-btn" data-room="kitchen" title="Cuisine">
+                        <button class="room-btn" data-room="kitchen" title="Cuisine — progression requise">
                             <span class="room-index">02</span>
                             <span class="room-label">Cuisine</span>
                         </button>
-                        <button class="room-btn" data-room="bedroom" title="Chambre">
+                        <button class="room-btn" data-room="bedroom" title="Refuge — niveau 2 requis">
                             <span class="room-index">03</span>
                             <span class="room-label">Repos</span>
                         </button>
-                        <button class="room-btn" data-room="garden" title="Jardin">
+                        <button class="room-btn" data-room="garden" title="Serre des toits — progression requise">
                             <span class="room-index">04</span>
                             <span class="room-label">Terrasse</span>
                         </button>
@@ -232,19 +232,19 @@ class EricCompleteGame {
                     <!-- Panel d'actions rapides -->
                     <div class="quick-actions">
                         <button class="quick-action-btn" data-action="feed" title="Nourrir">
-                            <span class="action-icon">🍖</span>
+                            <span class="action-icon"><i class="fas fa-utensils"></i></span>
                             <span class="action-label">Nourrir</span>
                         </button>
                         <button class="quick-action-btn" data-action="play" title="Jouer">
-                            <span class="action-icon">🎾</span>
+                            <span class="action-icon"><i class="fas fa-feather-alt"></i></span>
                             <span class="action-label">Jouer</span>
                         </button>
                         <button class="quick-action-btn" data-action="care" title="Soigner">
-                            <span class="action-icon">💊</span>
+                            <span class="action-icon"><i class="fas fa-heart"></i></span>
                             <span class="action-label">Soigner</span>
                         </button>
                         <button class="quick-action-btn" data-action="sleep" title="Dormir">
-                            <span class="action-icon">😴</span>
+                            <span class="action-icon"><i class="fas fa-moon"></i></span>
                             <span class="action-label">Dormir</span>
                         </button>
                     </div>
@@ -322,6 +322,10 @@ class EricCompleteGame {
         `;
         
         this.setupEventListeners();
+        this.refreshRoomLocks();
+        if (document.querySelector(`.room-btn[data-room="${this.currentRoom}"]`)?.disabled) {
+            this.currentRoom = 'living';
+        }
         this.renderEnvironment();
         this.renderInventory();
         this.renderShop('foods');
@@ -377,6 +381,12 @@ class EricCompleteGame {
      * Change de pièce
      */
     changeRoom(roomId) {
+        const roomButton = document.querySelector(`.room-btn[data-room="${roomId}"]`);
+        if (roomButton?.disabled) {
+            this.setStatus(roomButton.title, '◆');
+            return;
+        }
+        this.previousRoom = this.currentRoom;
         this.currentRoom = roomId;
         
         // Mettre à jour les boutons
@@ -394,12 +404,13 @@ class EricCompleteGame {
     renderEnvironment() {
         const env = document.getElementById('gameEnvironment');
         const roomMeta = {
-            living: { position: '7% center', label: 'Le coin musique', note: 'Éric écoute la ville respirer.' },
-            kitchen: { position: '38% center', label: 'La cuisine', note: 'L’heure de refaire le plein.' },
-            bedroom: { position: '70% center', label: 'Le refuge', note: 'Ici, le réseau peut attendre.' },
-            garden: { position: '96% center', label: 'La terrasse', note: 'Un peu d’air au-dessus de Lyon.' }
+            living: { image: 'assets/images/game/eric-night-workshop.webp', position: 'center', label: 'Atelier musical', note: 'Niveau 1 — Le signal sous les toits.' },
+            kitchen: { image: 'assets/images/game/eric-kitchen.webp', position: 'center', label: 'Cuisine & réserve', note: 'Niveau 2 — La piste lumineuse.' },
+            bedroom: { image: 'assets/images/game/eric-refuge.webp', position: 'center', label: 'Le refuge cartographe', note: 'Niveau 3 — La fréquence perdue.' },
+            garden: { image: 'assets/images/game/eric-rooftop.webp', position: 'center', label: 'Serre des toits', note: 'Niveau 4 — La balise endormie.' }
         }[this.currentRoom];
 
+        env.style.setProperty('--scene-image', `url("${roomMeta.image}")`);
         env.style.setProperty('--scene-position', roomMeta.position);
         env.innerHTML = `
             <div class="room-container" data-room="${this.currentRoom}">
@@ -408,7 +419,10 @@ class EricCompleteGame {
                     <span>${roomMeta.label}</span>
                     <small>${roomMeta.note}</small>
                 </div>
-                <div class="eric-3d-stage" id="eric3dStage" aria-label="Éric, personnage 3D animé"></div>
+                <button class="eric-illustrated-stage" id="ericIllustratedStage" type="button" aria-label="Éric, personnage illustré animé">
+                    <span id="ericAnimatedSprite" class="eric-sprite" role="img" aria-label="Éric, chat noir animé"></span>
+                    <span class="illustrated-shadow"></span>
+                </button>
                 <aside class="adventure-card" id="adventureCard" aria-live="polite"></aside>
                 <button class="adventure-hotspot" id="adventureHotspot" type="button" hidden></button>
                 <div class="ambient-dust" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
@@ -425,9 +439,24 @@ class EricCompleteGame {
         }
 
         if (window.ericAdventure) window.ericAdventure.destroy();
-        if (window.EricAdventure && window.THREE) {
+        if (window.EricAdventure) {
             window.ericAdventure = new window.EricAdventure(this, env);
         }
+    }
+
+    refreshRoomLocks() {
+        const storyStep = Number(localStorage.getItem('ericAdventureStep') || 0);
+        const unlocked = {
+            living: true,
+            kitchen: storyStep >= 2,
+            bedroom: this.level >= 2,
+            garden: storyStep >= 3
+        };
+        document.querySelectorAll('.room-btn').forEach(button => {
+            const locked = !unlocked[button.dataset.room];
+            button.disabled = locked;
+            button.classList.toggle('is-locked', locked);
+        });
     }
     
     /**
@@ -600,7 +629,7 @@ class EricCompleteGame {
         this.setStatus(action.message, action.icon);
         this.registerDailyAction(action.id);
         this.saveGameState();
-        setTimeout(() => this.checkCriticalConditions(), 1800);
+        setTimeout(() => this.checkCriticalConditions(), action.state === 'sleep' ? 6500 : 1800);
     }
 
     registerDailyAction(actionId) {
@@ -632,6 +661,7 @@ class EricCompleteGame {
             this.setStatus(`Niveau ${this.level} atteint ! Bonus de 25 pièces.`, '🏆');
         }
         this.updateStatsDisplay();
+        this.refreshRoomLocks();
     }
     
     /**
@@ -693,7 +723,15 @@ class EricCompleteGame {
      */
     updateEricState(state) {
         this.currentEricState = state;
-        if (window.ericAdventure) window.ericAdventure.setMotion(state === 'play' || state === 'eat' ? 'happy' : state, 1.8);
+        if (window.ericAdventure) {
+            const pose = state === 'play' || state === 'eat'
+                ? 'happy'
+                : state === 'sleep'
+                    ? 'sleep'
+                    : 'idle';
+            const duration = pose === 'happy' ? 1600 : 0;
+            window.ericAdventure.setPose(pose, duration);
+        }
 
         // Mettre à jour les classes CSS
         const ericChar = document.getElementById('ericCharacter');

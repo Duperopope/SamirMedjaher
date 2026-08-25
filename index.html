@@ -485,12 +485,7 @@ body.hud-preview-active .game-notification {
 
     <!-- Tamagotchi (Éric le chat) - Click to open dashboard -->
     <div class="tamagotchi" id="tamagotchi" onclick="openGamingDashboard()">
-    <img
-    id="tamagotchiIcon"
-    src="assets/images/eric-cat.png"
-    style="width:100%;height:100%;object-fit:cover;border-radius:50%;cursor:pointer;"
-    alt="Éric le chat"
-    />
+    <i id="tamagotchiIcon" class="fas fa-cat" aria-label="Ouvrir les aventures d’Éric"></i>
     <!-- Tooltip interactif -->
     <div class="tama-tooltip" id="tamaTooltip">
         <div style="font-weight:600;margin-bottom:2px;">🐱 Éric - Niveau <span id="tamaLevelDisplay">1</span></div>
@@ -4584,7 +4579,6 @@ body.hud-preview-active .game-notification {
     
     <!-- 🎮 Jeu complet Eric (interface wrapper) -->
     <link rel="stylesheet" href="eric-complete-game.css?v=0.48">
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
     <script src="eric-adventure.js?v=0.49"></script>
     <script src="eric-complete-game.js?v=0.48"></script>
     
@@ -4809,36 +4803,36 @@ body.hud-preview-active .game-notification {
         <!-- Vertical Tab Navigation -->
         <div class="dashboard-tabs">
             <button class="dashboard-tab-btn active" data-tab="eric" onclick="window.gamingDashboard.switchTab('eric')">
-                <div>🐱</div>
+                <div><i class="fas fa-cat"></i></div>
                 <span class="tab-label">Éric</span>
             </button>
             <button class="dashboard-tab-btn" data-tab="shop" onclick="window.gamingDashboard.switchTab('shop')">
-                <div>🛒</div>
+                <div><i class="fas fa-briefcase"></i></div>
                 <span class="tab-label">Shop</span>
             </button>
             <button class="dashboard-tab-btn" data-tab="games" onclick="window.gamingDashboard.switchTab('games')">
-                <div>🎮</div>
+                <div><i class="fas fa-gamepad"></i></div>
                 <span class="tab-label">Jeux</span>
                 <div class="tab-badge"></div>
             </button>
             <button class="dashboard-tab-btn" data-tab="stats" onclick="window.gamingDashboard.switchTab('stats')">
-                <div>📊</div>
+                <div><i class="fas fa-chart-line"></i></div>
                 <span class="tab-label">Stats</span>
             </button>
             <button class="dashboard-tab-btn" data-tab="quests" onclick="window.gamingDashboard.switchTab('quests')">
-                <div>⭐</div>
+                <div><i class="fas fa-compass"></i></div>
                 <span class="tab-label">Quêtes</span>
             </button>
             <button class="dashboard-tab-btn" data-tab="events" onclick="window.gamingDashboard.switchTab('events')">
-                <div>🎁</div>
+                <div><i class="fas fa-calendar-alt"></i></div>
                 <span class="tab-label">Events</span>
             </button>
             <button class="dashboard-tab-btn" data-tab="achievements" onclick="window.gamingDashboard.switchTab('achievements')">
-                <div>🏆</div>
+                <div><i class="fas fa-trophy"></i></div>
                 <span class="tab-label">Trophées</span>
             </button>
             <button class="dashboard-tab-btn" data-tab="settings" onclick="window.gamingDashboard.switchTab('settings')">
-                <div>⚙️</div>
+                <div><i class="fas fa-sliders-h"></i></div>
                 <span class="tab-label">Réglages</span>
             </button>
         </div>

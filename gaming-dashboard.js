@@ -681,6 +681,15 @@ function updatePlaytime() {
    ============================================ */
 
 function renderEricTab(container) {
+    // Le jeu illustré est désormais la source de vérité de l'onglet Éric.
+    // L'ancien renderer ne doit jamais réécrire la scène après son montage.
+    if (window.EricCompleteGame) {
+        if (container.querySelector('.eric-game-container')) return;
+        if (window.ericGame?.adventure) window.ericGame.adventure.destroy();
+        window.ericGame = new EricCompleteGame(container.id);
+        return;
+    }
+
     // Get Eric state
     const ericState = window.gamingConnector ? window.gamingConnector.getEricState() : null;
     const icon = ericState?.icon || '🐱';
