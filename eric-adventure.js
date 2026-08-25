@@ -21,8 +21,8 @@ class EricAdventure {
     }
 
     animations = {
-        idle:  { row: 0, frames: [0, 1, 2, 3, 2, 1], fps: 4, loop: true },
-        walk:  { row: 1, frames: [0, 1, 2, 3], fps: 9, loop: true },
+        idle:  { row: 0, frames: [0], fps: 1, loop: false },
+        walk:  { row: 1, frames: [0, 1, 2, 3], fps: 7, loop: true },
         happy: { row: 2, frames: [0, 1, 2, 3], fps: 8, loop: false },
         sit:   { row: 3, frames: [0], fps: 1, loop: false },
         sleep: { row: 3, intro: [0, 1], frames: [2, 3, 2, 3], fps: 2, loop: true }
@@ -37,7 +37,7 @@ class EricAdventure {
 
     worldData = {
         living: {
-            bounds: { x1: 12, x2: 76, y1: 5, y2: 31 },
+            bounds: { x1: 18, x2: 74, y1: 7, y2: 27 },
             obstacles: [{ x1: 12, x2: 38, y1: 5, y2: 17 }],
             objects: [
                 { id:'vinyl', label:'Platine', x:13, y:13, icon:'fa-record-vinyl', message:'Le vinyle tourne sans musique. Éric suit la vibration du regard.' },
@@ -46,7 +46,7 @@ class EricAdventure {
             ]
         },
         kitchen: {
-            bounds: { x1: 10, x2: 82, y1: 5, y2: 37 },
+            bounds: { x1: 17, x2: 78, y1: 7, y2: 30 },
             obstacles: [{ x1: 43, x2: 69, y1: 13, y2: 34 }],
             objects: [
                 { id:'prints', label:'Empreintes', x:77, y:13, icon:'fa-paw', message:'Les traces sont encore tièdes. Elles traversent la porte de service.' },
@@ -55,16 +55,16 @@ class EricAdventure {
             ]
         },
         bedroom: {
-            bounds: { x1: 17, x2: 79, y1: 5, y2: 37 },
+            bounds: { x1: 23, x2: 73, y1: 7, y2: 29 },
             obstacles: [{ x1: 17, x2: 43, y1: 15, y2: 35 }],
             objects: [
-                { id:'radio', label:'Radio', x:71, y:55, icon:'fa-broadcast-tower', message:'La radio capte trois notes, puis le silence. Éric dresse les oreilles.' },
-                { id:'map', label:'Carte', x:68, y:73, icon:'fa-map', message:'Un fil relie l’atelier, la cuisine et la serre des toits.' },
-                { id:'bed', label:'Coussin', x:77, y:15, icon:'fa-circle', message:'Le refuge parfait pour une micro-sieste stratégique.' }
+                { id:'radio', label:'Radio', x:80, y:53, icon:'fa-broadcast-tower', message:'La radio capte trois notes, puis le silence. Éric dresse les oreilles.' },
+                { id:'map', label:'Carte', x:75, y:72, icon:'fa-map', message:'Un fil relie l’atelier, la cuisine et la serre des toits.' },
+                { id:'bed', label:'Coussin', x:82, y:13, icon:'fa-circle', message:'Le refuge parfait pour une micro-sieste stratégique.' }
             ]
         },
         garden: {
-            bounds: { x1: 12, x2: 84, y1: 7, y2: 42 },
+            bounds: { x1: 17, x2: 79, y1: 8, y2: 34 },
             obstacles: [{ x1: 12, x2: 35, y1: 20, y2: 40 }, { x1: 60, x2: 78, y1: 12, y2: 30 }],
             objects: [
                 { id:'beacon', label:'Balise', x:77, y:68, icon:'fa-satellite-dish', message:'La balise pulse faiblement. Le médaillon d’Éric lui répond.' },
@@ -141,16 +141,19 @@ class EricAdventure {
             button.style.setProperty('--object-x', `${object.x}%`);
             button.style.setProperty('--object-y', `${object.y}%`);
             button.setAttribute('aria-label', `Examiner : ${object.label}`);
-            button.innerHTML = `<i class="fas ${object.icon}"></i><span>${object.label}</span>`;
+            button.innerHTML = `<span class="object-focus" aria-hidden="true"></span><span>${object.label}</span>`;
             button.onclick = (event) => {
                 event.stopPropagation();
                 const targetY = Math.max(6, Math.min(38, object.y * .48));
                 const targetX = object.x > 60 && targetY < 32 ? 57 : Math.max(10, Math.min(84, object.x));
                 this.walkTo(targetX, targetY, () => {
-                    this.audio?.playTone(object.id === 'beacon' ? 659.25 : 392, .8, .05);
+                    this.audio?.playTone(object.id === 'beacon' ? 659.25 : 392, .65, .025);
                     this.setPose(object.id === 'bed' ? 'sleep' : 'happy', object.id === 'bed' ? 0 : 1700);
                     this.game.setStatus(object.message, '◆');
                     button.classList.add('is-discovered');
+                    button.classList.add('is-reacting');
+                    setTimeout(() => button.classList.remove('is-reacting'), 1200);
+                    this.showEricLine(object.message, object.label);
                 });
             };
             layer.appendChild(button);
@@ -165,7 +168,7 @@ class EricAdventure {
         const destination = this.resolveDestination(rawX, rawY, world);
         const path = this.buildPath(this.position, destination, world);
         this.setPose('walk');
-        this.audio?.startSteps();
+        if (Math.hypot(destination.x - this.position.x, destination.y - this.position.y) > 5) this.audio?.startSteps();
         this.stage.classList.add('is-entering');
         this.walkPath(path, onArrival);
     }
@@ -244,15 +247,15 @@ class EricAdventure {
         return Math.max(.38, Math.min(.68, base + (18 - y) * .007));
     }
 
-    scheduleBehaviour(delay = 2600 + Math.random() * 3200) {
+    scheduleBehaviour(delay = 7500 + Math.random() * 6500) {
         clearTimeout(this.behaviourTimer);
         if (this.currentPose === 'sleep') return;
         this.behaviourTimer = setTimeout(() => {
             if (this.stage.classList.contains('is-entering')) return this.scheduleBehaviour();
             const roll = Math.random();
-            if (roll < .30) this.setPose('sit', 1500);
-            else if (roll < .52) this.setPose('happy', 1150);
-            else if (roll < .68) {
+            if (roll < .22) this.setPose('sit', 2600);
+            else if (roll < .34) this.setPose('happy', 1450);
+            else if (roll < .42) {
                 const nearbyX = this.position.x + (Math.random() > .5 ? 1 : -1) * (4 + Math.random() * 7);
                 this.walkTo(nearbyX, this.position.y + (Math.random() - .5) * 4);
                 return;
@@ -308,10 +311,14 @@ class EricAdventure {
         const story = this.storyData()[this.step];
         const roomMatches = story.room === this.game.currentRoom;
         const isFinal = this.step === this.storyData().length - 1;
-        card.innerHTML = `<span class="story-eyebrow">${story.eyebrow}</span><strong>${story.title}</strong><p>${story.text}</p><button type="button" id="storyAction">${roomMatches ? story.action : `Rejoindre ${this.roomLabel(story.room)}`}</button>`;
+        card.innerHTML = `<div class="eric-speaker"><span class="speaker-mark">É</span><span><small>Éric</small><b>${story.eyebrow}</b></span></div><p><strong>${story.title}.</strong> ${story.text}</p><button type="button" id="storyAction">${roomMatches ? story.action : `Rejoindre ${this.roomLabel(story.room)}`}</button>`;
         marker.hidden = !roomMatches || this.step === 0 || isFinal;
         marker.textContent = story.action;
-        card.querySelector('#storyAction').onclick = () => {
+        const storyAction = card.querySelector('#storyAction');
+        storyAction.disabled = true;
+        this.storyReadyTimer = setTimeout(() => { storyAction.disabled = false; }, 1400);
+        storyAction.onclick = () => {
+            if (storyAction.disabled) return;
             if (isFinal) return this.resetStory();
             if (this.step === 0) return this.advance();
             if (!roomMatches) this.game.changeRoom(story.room);
@@ -321,6 +328,19 @@ class EricAdventure {
     }
 
     roomLabel(room) { return ({living:'le coin musique',kitchen:'la cuisine',bedroom:'le refuge',garden:'la terrasse'})[room]; }
+
+    showEricLine(text, subject = 'Découverte') {
+        const card = this.container.querySelector('#adventureCard');
+        if (!card) return;
+        card.classList.add('is-speaking');
+        card.querySelector('p').innerHTML = `<strong>${subject}.</strong> ${text}`;
+        clearTimeout(this.dialogueTimer);
+        clearTimeout(this.storyReadyTimer);
+        this.dialogueTimer = setTimeout(() => {
+            card.classList.remove('is-speaking');
+            this.renderStory();
+        }, 5200);
+    }
 
     advance() {
         const finalStep = this.storyData().length - 1;
@@ -350,6 +370,7 @@ class EricAdventure {
         clearTimeout(this.behaviourTimer);
         clearTimeout(this.moveTimer);
         clearInterval(this.frameTimer);
+        clearTimeout(this.dialogueTimer);
         if (this.stage) this.stage.onclick = null;
     }
 }

@@ -83,7 +83,7 @@ class EricAudio {
 
     startSteps() {
         if (!this.enabled || this.stepTimer) return;
-        this.stepTimer = setInterval(() => this.playTone(95 + Math.random() * 18, .07, .025), 235);
+        this.stepTimer = setInterval(() => this.playTone(82 + Math.random() * 12, .055, .012), 330);
     }
 
     stopSteps() {

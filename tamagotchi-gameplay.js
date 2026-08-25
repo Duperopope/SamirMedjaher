@@ -475,12 +475,17 @@ function updateEricVisual() {
         emoji = getSkinEmoji(gameState.skin);
     }
     
-    tamaElement.textContent = emoji;
+    const launcherIcon = tamaElement.querySelector('#tamagotchiIcon');
+    if (launcherIcon) {
+        launcherIcon.dataset.evolution = gameState.evolution;
+        launcherIcon.setAttribute('aria-label', `Éric — ${gameState.evolution}`);
+    }
     
     // Ajouter aura pour légendaire
     if (gameState.evolution === 'legendaire') {
-        tamaElement.style.boxShadow = '0 0 30px rgba(255, 215, 0, 0.8), 0 0 60px rgba(255, 215, 0, 0.4)';
-        tamaElement.style.border = '3px solid gold';
+        tamaElement.classList.add('is-legendary');
+    } else {
+        tamaElement.classList.remove('is-legendary');
     }
 }
 

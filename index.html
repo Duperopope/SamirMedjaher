@@ -484,9 +484,10 @@ body.hud-preview-active .game-notification {
     </button>
 
     <!-- Tamagotchi (Éric le chat) - Click to open dashboard -->
-    <div class="tamagotchi" id="tamagotchi" onclick="openGamingDashboard()">
-    <i id="tamagotchiIcon" class="fas fa-cat" aria-label="Ouvrir les aventures d’Éric"></i>
-    </div>
+    <button class="tamagotchi" id="tamagotchi" type="button" onclick="openGamingDashboard()" aria-label="Ouvrir les aventures d’Éric">
+        <span class="tama-launcher-seal" aria-hidden="true"><i id="tamagotchiIcon" class="fas fa-cat"></i></span>
+        <span class="tama-launcher-copy"><small>Passage secret</small><strong>Les aventures d’Éric</strong></span>
+    </button>
 
     <!-- Gaming Controller and Mini-games buttons removed - Now in dashboard -->
 
@@ -4533,7 +4534,7 @@ body.hud-preview-active .game-notification {
     <script src="tamagotchi-minigames.js?v=0.48"></script>
     
     <!-- Gameplay System v2.0 - Coins, XP, Évolution -->
-    <script src="tamagotchi-gameplay.js?v=0.48"></script>
+    <script src="tamagotchi-gameplay.js?v=0.51"></script>
     
     <!-- Shop System - Boutique complète -->
     <link rel="stylesheet" href="tamagotchi-shop.css?v=0.48">
@@ -4549,10 +4550,10 @@ body.hud-preview-active .game-notification {
     <script src="eric-phaser-game.js?v=0.48"></script>
     
     <!-- 🎮 Jeu complet Eric (interface wrapper) -->
-    <link rel="stylesheet" href="eric-complete-game.css?v=0.48">
-    <script src="eric-audio.js?v=0.50"></script>
-    <script src="eric-adventure.js?v=0.50"></script>
-    <script src="eric-complete-game.js?v=0.48"></script>
+    <link rel="stylesheet" href="eric-complete-game.css?v=0.51">
+    <script src="eric-audio.js?v=0.51"></script>
+    <script src="eric-adventure.js?v=0.51"></script>
+    <script src="eric-complete-game.js?v=0.51"></script>
     
     <script>
     // Fonction pour mettre à jour le HUD avec gameState
@@ -4693,7 +4694,7 @@ body.hud-preview-active .game-notification {
     
     <!-- Dashboard UI Styles -->
     <link rel="stylesheet" href="gaming-ui.css?v=0.48">
-    <link rel="stylesheet" href="eric-ui-world.css?v=0.50">
+    <link rel="stylesheet" href="eric-ui-world.css?v=0.51">
     
     <style>
         /* Dashboard Toggle Button */
