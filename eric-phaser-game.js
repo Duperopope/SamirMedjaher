@@ -207,7 +207,7 @@ function createBackgrounds(scene) {
     const colors = [
         { top: 0x4a5568, bottom: 0x2d3748 },  // Fond
         { top: 0x667eea, bottom: 0x764ba2 },  // Milieu
-        { top: 0x f093fb, bottom: 0xf5576c }   // Premier plan
+        { top: 0xf093fb, bottom: 0xf5576c }   // Premier plan
     ];
     
     colors.forEach((color, index) => {
@@ -227,23 +227,22 @@ function createParticleTextures(scene) {
     // Particule étoile
     const starGraphics = scene.make.graphics({ x: 0, y: 0, add: false });
     starGraphics.fillStyle(0xFFD700, 1);
-    starGraphics.fillStar(8, 8, 5, 8, 4);
+    const starPoints = [];
+    for (let i = 0; i < 10; i++) {
+        const angle = -Math.PI / 2 + i * Math.PI / 5;
+        const radius = i % 2 === 0 ? 8 : 4;
+        starPoints.push(new Phaser.Geom.Point(8 + Math.cos(angle) * radius, 8 + Math.sin(angle) * radius));
+    }
+    starGraphics.fillPoints(starPoints, true);
     starGraphics.generateTexture('star-particle', 16, 16);
     starGraphics.destroy();
     
     // Particule coeur
     const heartGraphics = scene.make.graphics({ x: 0, y: 0, add: false });
     heartGraphics.fillStyle(0xFF69B4, 1);
-    heartGraphics.beginPath();
-    heartGraphics.moveTo(8, 10);
-    heartGraphics.bezierCurveTo(8, 8, 6, 6, 4, 6);
-    heartGraphics.bezierCurveTo(2, 6, 0, 8, 0, 10);
-    heartGraphics.bezierCurveTo(0, 12, 8, 16, 8, 16);
-    heartGraphics.bezierCurveTo(8, 16, 16, 12, 16, 10);
-    heartGraphics.bezierCurveTo(16, 8, 14, 6, 12, 6);
-    heartGraphics.bezierCurveTo(10, 6, 8, 8, 8, 10);
-    heartGraphics.closePath();
-    heartGraphics.fillPath();
+    heartGraphics.fillCircle(5, 6, 4);
+    heartGraphics.fillCircle(11, 6, 4);
+    heartGraphics.fillTriangle(1, 7, 15, 7, 8, 16);
     heartGraphics.generateTexture('heart-particle', 16, 16);
     heartGraphics.destroy();
     
@@ -538,7 +537,9 @@ function initEricPhaserGame() {
     }
     
     // Créer le jeu Phaser
+    if (game && typeof game.destroy === 'function') game.destroy(true);
     game = new Phaser.Game(GAME_CONFIG);
+    window.ericPhaserGame = game;
     
     console.log('✅ Jeu Phaser initialisé');
 }
