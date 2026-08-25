@@ -881,13 +881,21 @@
 .eric-3d-stage { position: absolute; z-index: 3; left: 35%; bottom: 1%; width: 29%; height: 68%; cursor: pointer; filter: drop-shadow(0 18px 12px rgba(0,0,0,.35)); }
 .eric-3d-stage canvas { display: block; width: 100% !important; height: 100% !important; outline: none; }
 
-.eric-illustrated-stage { --eric-x: 42%; --eric-y: 7%; --eric-scale: .62; --eric-facing: 1; position: absolute; z-index: 4; left: var(--eric-x); bottom: var(--eric-y); width: 290px; height: 310px; padding: 0; border: 0; background: transparent; transform: translateX(-50%) scaleX(var(--eric-facing)) scale(var(--eric-scale)); transform-origin: 50% 100%; cursor: pointer; transition: left 1.25s cubic-bezier(.2,.72,.22,1), bottom .8s ease, transform .8s ease; }
+.eric-illustrated-stage { --eric-x: 42%; --eric-y: 7%; --eric-scale: .62; --eric-facing: 1; --walk-duration: 1250ms; position: absolute; z-index: 4; left: var(--eric-x); bottom: var(--eric-y); width: 290px; height: 310px; padding: 0; border: 0; background: transparent; transform: translateX(-50%) scaleX(var(--eric-facing)) scale(var(--eric-scale)); transform-origin: 50% 100%; cursor: pointer; transition: left var(--walk-duration) linear, bottom var(--walk-duration) linear, transform var(--walk-duration) ease; }
 .eric-sprite { --sprite-x: 0%; --sprite-y: 0%; position: relative; z-index: 2; display: block; width: 100%; height: 100%; background-image: url("assets/images/game/eric-sprites/eric-atlas.webp"); background-repeat: no-repeat; background-size: 400% 400%; background-position: var(--sprite-x) var(--sprite-y); filter: drop-shadow(0 14px 8px rgba(0,0,0,.48)); animation: illustratedBreathe 3.2s ease-in-out infinite; will-change: background-position, transform; }
 .illustrated-shadow { position: absolute; z-index: 1; left: 18%; right: 18%; bottom: 2%; height: 9%; border-radius: 50%; background: rgba(0,0,0,.48); filter: blur(8px); }
 .eric-illustrated-stage.is-entering .eric-sprite { animation: illustratedWalk .42s ease-in-out infinite alternate; }
 .eric-illustrated-stage[data-pose="happy"] .eric-sprite { animation: illustratedHappy .42s ease-in-out 2; }
 .eric-illustrated-stage[data-pose="sleep"] .eric-sprite { animation: illustratedSleep 4s ease-in-out infinite; }
 .eric-illustrated-stage:focus-visible { outline: 2px solid var(--amber); outline-offset: 4px; }
+.eric-sprite.ear-twitch { animation: earTwitch .16s ease-in-out 4 alternate; }
+
+.scene-object-layer { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+.scene-object { position: absolute; left: var(--object-x); bottom: var(--object-y); width: 25px; height: 25px; padding: 0; border: 1px solid rgba(226,165,111,.5); border-radius: 50%; background: rgba(7,15,20,.72); color: #dda06c; cursor: pointer; pointer-events: auto; box-shadow: 0 0 0 0 rgba(221,160,108,.25); transition: transform .2s ease, background .2s ease, opacity .2s ease; animation: objectSignal 2.8s ease-out infinite; }
+.scene-object:hover, .scene-object:focus-visible { transform: scale(1.15); background: #c87941; color: #0b1418; outline: none; }
+.scene-object span { position: absolute; left: 50%; bottom: calc(100% + 7px); translate: -50% 3px; padding: .35rem .48rem; border: 1px solid rgba(200,121,65,.34); background: rgba(7,15,20,.9); color: #dce7e7; font: 600 .5rem/1 "IBM Plex Mono", monospace; letter-spacing: .05em; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .18s ease, translate .18s ease; }
+.scene-object:hover span, .scene-object:focus-visible span { translate: -50% 0; opacity: 1; }
+.scene-object.is-discovered { border-color: #79d8b4; color: #79d8b4; animation: none; }
 
 .adventure-card { position: absolute; z-index: 6; right: 1rem; bottom: 1rem; width: min(290px, 36%); padding: 1rem 1.05rem; border: 1px solid rgba(200,121,65,.38); border-top: 2px solid var(--copper); background: linear-gradient(145deg, rgba(8,17,22,.94), rgba(18,32,38,.91)); box-shadow: 0 18px 38px rgba(0,0,0,.35); backdrop-filter: blur(12px); color: #dfe9e9; }
 .story-eyebrow { display: block; margin-bottom: .45rem; color: var(--copper); font: 700 .52rem/1 "IBM Plex Mono", monospace; letter-spacing: .15em; text-transform: uppercase; }
@@ -947,6 +955,8 @@
 @keyframes illustratedWalk { from{transform:translateY(0) rotate(-1deg)} to{transform:translateY(-9px) rotate(1deg)} }
 @keyframes illustratedHappy { 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-12px) scale(1.025)} }
 @keyframes illustratedSleep { 0%,100%{transform:scale(1)} 50%{transform:scale(1.015)} }
+@keyframes earTwitch { from{transform:rotate(-.8deg) translateY(0)} to{transform:rotate(.8deg) translateY(-2px)} }
+@keyframes objectSignal { 0%,100%{box-shadow:0 0 0 0 rgba(221,160,108,.25)} 55%{box-shadow:0 0 0 7px rgba(221,160,108,0)} }
 
 /* Le dashboard est une scène complète : aucun widget flottant du CV ne doit la recouvrir. */
 .notifications-toggle,
