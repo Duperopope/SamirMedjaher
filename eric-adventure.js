@@ -29,7 +29,7 @@ class EricAdventure {
     };
 
     roomPositions = {
-        living: { x: 43, y: 24, scale: .43 },
+        living: { x: 40, y: 28, scale: .41 },
         kitchen: { x: 35, y: 20, scale: .42 },
         bedroom: { x: 52, y: 18, scale: .41 },
         garden: { x: 48, y: 22, scale: .42 }
@@ -38,13 +38,19 @@ class EricAdventure {
     worldData = {
         living: {
             bounds: { x1: 7, x2: 91, y1: 9, y2: 56 },
+            walkable: [
+                { x:8, y:12 }, { x:31, y:10 }, { x:43, y:18 }, { x:55, y:17 },
+                { x:68, y:24 }, { x:78, y:34 }, { x:76, y:46 }, { x:68, y:53 },
+                { x:56, y:52 }, { x:44, y:47 }, { x:34, y:42 }, { x:24, y:36 },
+                { x:14, y:31 }, { x:8, y:23 }
+            ],
             obstacles: [
                 { x1: 5, x2: 26, y1: 27, y2: 45 },
                 { x1: 14, x2: 32, y1: 18, y2: 31 },
                 { x1: 19, x2: 43, y1: 40, y2: 58 },
                 { x1: 46, x2: 72, y1: 48, y2: 68 },
                 { x1: 76, x2: 94, y1: 40, y2: 62 },
-                { x1: 43, x2: 65, y1: 8, y2: 20 }
+                { x1: 43, x2: 65, y1: 8, y2: 29 }
             ],
             objects: [
                 { id:'vinyl', label:'Platine', x:13, y:13, icon:'fa-record-vinyl', message:'Le vinyle tourne sans musique. Éric suit la vibration du regard.' },
@@ -54,6 +60,11 @@ class EricAdventure {
         },
         kitchen: {
             bounds: { x1: 6, x2: 92, y1: 8, y2: 52 },
+            walkable: [
+                { x:7,y:10 }, { x:90,y:10 }, { x:91,y:39 }, { x:82,y:47 },
+                { x:67,y:51 }, { x:49,y:50 }, { x:35,y:46 }, { x:20,y:43 },
+                { x:8,y:34 }
+            ],
             obstacles: [
                 { x1: 3, x2: 25, y1: 15, y2: 39 },
                 { x1: 43, x2: 72, y1: 27, y2: 61 }
@@ -66,6 +77,11 @@ class EricAdventure {
         },
         bedroom: {
             bounds: { x1: 13, x2: 88, y1: 8, y2: 52 },
+            walkable: [
+                { x:14,y:9 }, { x:86,y:9 }, { x:88,y:34 }, { x:81,y:47 },
+                { x:66,y:51 }, { x:49,y:50 }, { x:35,y:46 }, { x:22,y:38 },
+                { x:14,y:27 }
+            ],
             obstacles: [
                 { x1: 7, x2: 43, y1: 34, y2: 67 },
                 { x1: 66, x2: 94, y1: 43, y2: 67 },
@@ -79,6 +95,12 @@ class EricAdventure {
         },
         garden: {
             bounds: { x1: 7, x2: 92, y1: 9, y2: 61 },
+            walkable: [
+                { x:8,y:12 }, { x:31,y:10 }, { x:43,y:15 }, { x:58,y:12 },
+                { x:76,y:16 }, { x:89,y:25 }, { x:90,y:43 }, { x:83,y:55 },
+                { x:70,y:59 }, { x:58,y:56 }, { x:46,y:60 }, { x:34,y:56 },
+                { x:23,y:51 }, { x:13,y:43 }, { x:8,y:29 }
+            ],
             obstacles: [
                 { x1: 5, x2: 37, y1: 44, y2: 78 },
                 { x1: 38, x2: 55, y1: 27, y2: 42 },
@@ -124,6 +146,7 @@ class EricAdventure {
         const room = this.container.querySelector('.room-container');
         if (!room) return;
         this.renderObjects(room);
+        if (new URLSearchParams(window.location.search).has('navdebug')) this.renderNavigationDebug(room);
         room.addEventListener('click', (event) => {
             if (event.target.closest('button, aside')) return;
             const rect = room.getBoundingClientRect();
@@ -131,6 +154,28 @@ class EricAdventure {
             const y = 100 - ((event.clientY - rect.top) / rect.height) * 100;
             this.walkTo(x, y);
         });
+    }
+
+    renderNavigationDebug(room) {
+        const world = this.worldData[this.game.currentRoom];
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.setAttribute('class', 'navigation-debug');
+        svg.setAttribute('viewBox', '0 0 100 100');
+        svg.setAttribute('preserveAspectRatio', 'none');
+        const polygon = document.createElementNS(svg.namespaceURI, 'polygon');
+        polygon.setAttribute('points', world.walkable.map(point => `${point.x},${100 - point.y}`).join(' '));
+        polygon.setAttribute('class', 'navigation-debug__floor');
+        svg.appendChild(polygon);
+        world.obstacles.forEach(obstacle => {
+            const rect = document.createElementNS(svg.namespaceURI, 'rect');
+            rect.setAttribute('x', obstacle.x1);
+            rect.setAttribute('y', 100 - obstacle.y2);
+            rect.setAttribute('width', obstacle.x2 - obstacle.x1);
+            rect.setAttribute('height', obstacle.y2 - obstacle.y1);
+            rect.setAttribute('class', 'navigation-debug__obstacle');
+            svg.appendChild(rect);
+        });
+        room.appendChild(svg);
     }
 
     setupAudio() {
@@ -280,10 +325,23 @@ class EricAdventure {
     isWalkable(point, world) {
         const margin = 1.7;
         if (point.x < world.bounds.x1 || point.x > world.bounds.x2 || point.y < world.bounds.y1 || point.y > world.bounds.y2) return false;
+        if (world.walkable && !this.pointInPolygon(point, world.walkable)) return false;
         return !world.obstacles.some(obstacle =>
             point.x > obstacle.x1 - margin && point.x < obstacle.x2 + margin &&
             point.y > obstacle.y1 - margin && point.y < obstacle.y2 + margin
         );
+    }
+
+    pointInPolygon(point, polygon) {
+        let inside = false;
+        for (let index = 0, previous = polygon.length - 1; index < polygon.length; previous = index++) {
+            const a = polygon[index];
+            const b = polygon[previous];
+            const crosses = ((a.y > point.y) !== (b.y > point.y)) &&
+                point.x < ((b.x - a.x) * (point.y - a.y)) / (b.y - a.y || Number.EPSILON) + a.x;
+            if (crosses) inside = !inside;
+        }
+        return inside;
     }
 
     nearestWalkable(x, y, world, step = 2) {

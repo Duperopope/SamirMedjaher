@@ -72,7 +72,7 @@
 #gamingDashboard .dashboard-close-btn:hover { border-color: var(--eric-copper); color: var(--eric-brass); background: rgba(49,32,23,.92); transform: none; }
 
 #gamingDashboard .dashboard-content { margin-left: 84px; padding:0; background: transparent; }
-#gamingDashboard #tab-eric { height:100%; overflow:hidden; }
+#gamingDashboard #tab-eric { min-height:100%; overflow:auto; }
 #gamingDashboard .dashboard-tab-content:not(#tab-eric) { min-height: 100vh; padding: clamp(2rem,4vw,4.5rem); overflow: auto; }
 #gamingDashboard .dashboard-tab-content:not(#tab-eric) > div { width: min(1160px,100%); margin: 0 auto; }
 
