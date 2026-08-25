@@ -131,6 +131,31 @@
     box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
 }
 
+.level-count {
+    min-width: 92px;
+    margin-bottom: 0.55rem;
+    color: white;
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.xp-track {
+    height: 5px;
+    margin-top: 0.3rem;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.35);
+}
+
+.xp-track span {
+    display: block;
+    width: 0;
+    height: 100%;
+    border-radius: inherit;
+    background: #fef08a;
+    transition: width 0.4s ease;
+}
+
 .coins-count {
     display: flex;
     align-items: center;
@@ -377,6 +402,28 @@
     border-radius: 8px;
 }
 
+.eric-status {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    min-height: 38px;
+    padding: 0.55rem 0.8rem;
+    border: 1px solid rgba(6, 182, 212, 0.22);
+    border-radius: 9px;
+    background: rgba(15, 23, 42, 0.68);
+    color: #e2e8f0;
+    font-size: 0.82rem;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background: #10b981;
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.8);
+}
+
 .quick-action-btn {
     flex: 1;
     display: flex;
@@ -485,6 +532,7 @@
 }
 
 .inventory-item {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -495,6 +543,17 @@
     border: 2px solid rgba(148, 163, 184, 0.2);
     cursor: grab;
     transition: all 0.3s ease;
+}
+
+.inventory-item:active { cursor: grabbing; transform: translateY(0) scale(0.97); }
+
+.quick-action-btn:focus-visible,
+.room-btn:focus-visible,
+.sidebar-tab:focus-visible,
+.buy-btn:focus-visible,
+.inventory-item:focus-visible {
+    outline: 3px solid #67e8f9;
+    outline-offset: 2px;
 }
 
 .inventory-item:hover {
@@ -691,12 +750,16 @@
     }
     
     .game-header {
-        flex-direction: column;
+        align-items: stretch;
+        flex-direction: row;
+        flex-wrap: wrap;
         gap: 1rem;
     }
     
     .stats-panel {
         width: 100%;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        order: 3;
     }
     
     .room-btn {
@@ -711,6 +774,10 @@
         width: 120px;
         height: 120px;
     }
+
+    .game-environment { min-height: 310px; }
+    .quick-action-btn { padding: 0.65rem 0.25rem; }
+    .currency-display { margin-left: auto; }
 }
 
 /* ============================================
@@ -733,4 +800,213 @@
 
 .glowing {
     animation: glow 2s ease-in-out infinite;
+}
+
+/* ==========================================================
+   ERIC — NIGHT WORKSHOP ART DIRECTION (v3)
+   ========================================================== */
+
+.eric-game-container {
+    --ink: #0b1218;
+    --panel: rgba(13, 25, 31, 0.92);
+    --line: rgba(168, 199, 212, 0.16);
+    --copper: #c87941;
+    --amber: #f2b95f;
+    --mint: #79d8b4;
+    --fog: #a8c7d4;
+    min-height: 760px;
+    grid-template-columns: minmax(0, 1fr) 292px;
+    gap: 0;
+    padding: 0;
+    border: 1px solid rgba(168, 199, 212, 0.14);
+    border-radius: 4px;
+    background: var(--ink);
+    box-shadow: 0 32px 90px rgba(0, 0, 0, 0.48), inset 0 1px rgba(255,255,255,.04);
+    font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+}
+
+.game-header {
+    min-height: 112px;
+    gap: 1.1rem;
+    padding: 1.15rem 1.4rem;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    border-radius: 0;
+    background: linear-gradient(90deg, #101d24 0%, #0d171d 100%);
+}
+
+.eric-portrait { width: 62px; height: 62px; }
+.eric-portrait img { border: 0; background: #14242b; object-fit: contain; }
+.portrait-frame { inset: -4px; border-color: var(--copper); animation: none; }
+.portrait-frame::after { content: ""; position: absolute; width: 6px; height: 6px; right: 2px; bottom: 5px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 12px var(--mint); }
+
+.game-identity { min-width: 230px; }
+.game-kicker { color: var(--copper); font: 700 .62rem/1.2 "IBM Plex Mono", monospace; letter-spacing: .16em; text-transform: uppercase; }
+.game-identity h2 { margin: .25rem 0 .2rem; color: #eef5f5; font: 600 1.25rem/1.15 Georgia, serif; letter-spacing: .01em; }
+.game-identity h2 em { color: #7d99a5; font: 500 .7rem/1 "IBM Plex Mono", monospace; letter-spacing: .04em; }
+.game-identity p { margin: 0; color: #78919b; font-size: .7rem; }
+
+.stats-panel { grid-template-columns: repeat(4, minmax(82px, 1fr)); gap: .45rem; }
+.stat-bar { position: relative; display: block; padding: .55rem .6rem .65rem; border: 0; border-left: 1px solid var(--line); border-radius: 0; background: transparent; }
+.stat-icon { position: absolute; right: .5rem; top: .35rem; font-size: .8rem; filter: saturate(.7); }
+.stat-info { gap: .45rem; }
+.stat-label { color: #76909a; font: 600 .56rem/1 "IBM Plex Mono", monospace; letter-spacing: .12em; }
+.stat-value { color: #d9e4e7; font: 500 .62rem/1 "IBM Plex Mono", monospace; }
+.stat-bar-bg { order: 3; height: 3px; border: 0; background: #26343a; }
+.stat-bar-fill { box-shadow: none; }
+
+.currency-display { min-width: 104px; padding: .7rem .8rem; border: 1px solid rgba(200,121,65,.35); border-radius: 2px; background: rgba(200,121,65,.08); box-shadow: none; }
+.coins-count { justify-content: space-between; color: var(--amber); font: 600 .82rem/1 "IBM Plex Mono", monospace; }
+.coin-icon { font-size: .9rem; animation: none; }
+.bond-count { display: flex; gap: .25rem; margin-top: .6rem; padding-top: .55rem; border-top: 1px solid rgba(200,121,65,.24); color: #8299a1; font: 600 .58rem/1 "IBM Plex Mono", monospace; text-transform: uppercase; }
+.bond-count strong { margin-left: auto; color: var(--mint); }
+
+.game-main { gap: 0; padding: 0; border: 0; border-radius: 0; background: #111b21; }
+.room-selector { position: relative; z-index: 5; gap: 0; padding: 0; border-radius: 0; background: #0d171d; border-bottom: 1px solid var(--line); }
+.room-btn { flex-direction: row; justify-content: center; gap: .5rem; padding: .78rem .5rem; border: 0; border-right: 1px solid var(--line); border-radius: 0; color: #728993; }
+.room-btn:hover { transform: none; border-color: var(--line); background: rgba(121,216,180,.05); }
+.room-btn.active { color: #ecf4f3; border: 0; border-right: 1px solid var(--line); box-shadow: inset 0 -2px var(--copper); background: linear-gradient(180deg, rgba(200,121,65,.12), transparent); }
+.room-btn.is-locked { opacity: .36; cursor: not-allowed; filter: saturate(.25); }
+.room-btn.is-locked .room-index::before { content: "\f023"; margin-right: .35rem; font-family: "Font Awesome 6 Free", "Font Awesome 5 Free"; font-weight: 900; }
+.room-index { color: var(--copper); font: 600 .58rem/1 "IBM Plex Mono", monospace; }
+.room-label { font-size: .65rem; letter-spacing: .06em; text-transform: uppercase; }
+
+.game-environment { --scene-image: url("assets/images/game/eric-night-workshop.webp"); --scene-position: center; min-height: 510px; border-radius: 0; background-image: var(--scene-image); background-size: cover; background-position: var(--scene-position); transition: background-image .35s ease, background-position 700ms cubic-bezier(.2,.8,.2,1); box-shadow: none; }
+.room-container { overflow: hidden; align-items: flex-end; background: linear-gradient(90deg, rgba(4,10,14,.18), transparent 40%, rgba(4,10,14,.18)); }
+.scene-vignette { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 55% 55%, transparent 15%, rgba(4,9,12,.12) 65%, rgba(4,9,12,.64) 115%); }
+.scene-caption { position: absolute; z-index: 4; top: 1rem; left: 1rem; display: grid; gap: .2rem; padding: .65rem .8rem; border-left: 2px solid var(--copper); background: rgba(7,15,20,.68); backdrop-filter: blur(9px); color: #f1f6f5; }
+.scene-caption span { font: 500 .78rem/1.1 Georgia, serif; }
+.scene-caption small { color: #93aab2; font-size: .58rem; letter-spacing: .03em; }
+.sound-toggle { position: absolute; z-index: 8; top: 1rem; right: 1rem; display: flex; align-items: center; gap: .45rem; padding: .5rem .62rem; border: 1px solid rgba(148,163,184,.24); border-radius: 2px; background: rgba(7,15,20,.72); color: #7f949c; cursor: pointer; backdrop-filter: blur(8px); font: 600 .52rem/1 "IBM Plex Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+.sound-toggle:hover, .sound-toggle.is-on { border-color: rgba(200,121,65,.6); color: #e2a56f; background: rgba(200,121,65,.1); }
+
+.eric-3d-stage { position: absolute; z-index: 3; left: 35%; bottom: 1%; width: 29%; height: 68%; cursor: pointer; filter: drop-shadow(0 18px 12px rgba(0,0,0,.35)); }
+.eric-3d-stage canvas { display: block; width: 100% !important; height: 100% !important; outline: none; }
+
+.eric-illustrated-stage { --eric-x: 42%; --eric-y: 7%; --eric-scale: .62; --eric-facing: 1; --walk-duration: 1250ms; position: absolute; z-index: 4; left: var(--eric-x); bottom: var(--eric-y); width: 290px; height: 310px; padding: 0; border: 0; background: transparent; transform: translateX(-50%) scaleX(var(--eric-facing)) scale(var(--eric-scale)); transform-origin: 50% 100%; cursor: pointer; transition: left var(--walk-duration) linear, bottom var(--walk-duration) linear, transform var(--walk-duration) ease; }
+.eric-sprite { --sprite-x: 0%; --sprite-y: 0%; position: relative; z-index: 2; display: block; width: 100%; height: 100%; background-image: url("assets/images/game/eric-sprites/eric-atlas.webp"); background-repeat: no-repeat; background-size: 400% 400%; background-position: var(--sprite-x) var(--sprite-y); filter: drop-shadow(0 14px 8px rgba(0,0,0,.48)); animation: illustratedBreathe 3.2s ease-in-out infinite; will-change: background-position, transform; }
+.illustrated-shadow { position: absolute; z-index: 1; left: 18%; right: 18%; bottom: 2%; height: 9%; border-radius: 50%; background: rgba(0,0,0,.48); filter: blur(8px); }
+.eric-illustrated-stage.is-entering .eric-sprite { animation: illustratedWalk .42s ease-in-out infinite alternate; }
+.eric-illustrated-stage[data-pose="happy"] .eric-sprite { animation: illustratedHappy .42s ease-in-out 2; }
+.eric-illustrated-stage[data-pose="sleep"] .eric-sprite { animation: illustratedSleep 4s ease-in-out infinite; }
+.eric-illustrated-stage:focus-visible { outline: 2px solid var(--amber); outline-offset: 4px; }
+.eric-sprite.ear-twitch { animation: earTwitch .16s ease-in-out 4 alternate; }
+
+.scene-object-layer { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+.scene-object { position: absolute; left: var(--object-x); bottom: var(--object-y); width: 25px; height: 25px; padding: 0; border: 1px solid rgba(226,165,111,.5); border-radius: 50%; background: rgba(7,15,20,.72); color: #dda06c; cursor: pointer; pointer-events: auto; box-shadow: 0 0 0 0 rgba(221,160,108,.25); transition: transform .2s ease, background .2s ease, opacity .2s ease; animation: objectSignal 2.8s ease-out infinite; }
+.scene-object:hover, .scene-object:focus-visible { transform: scale(1.15); background: #c87941; color: #0b1418; outline: none; }
+.scene-object span { position: absolute; left: 50%; bottom: calc(100% + 7px); translate: -50% 3px; padding: .35rem .48rem; border: 1px solid rgba(200,121,65,.34); background: rgba(7,15,20,.9); color: #dce7e7; font: 600 .5rem/1 "IBM Plex Mono", monospace; letter-spacing: .05em; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .18s ease, translate .18s ease; }
+.scene-object:hover span, .scene-object:focus-visible span { translate: -50% 0; opacity: 1; }
+.scene-object.is-discovered { border-color: #79d8b4; color: #79d8b4; animation: none; }
+
+.adventure-card { position: absolute; z-index: 6; right: 1rem; bottom: 1rem; width: min(290px, 36%); padding: 1rem 1.05rem; border: 1px solid rgba(200,121,65,.38); border-top: 2px solid var(--copper); background: linear-gradient(145deg, rgba(8,17,22,.94), rgba(18,32,38,.91)); box-shadow: 0 18px 38px rgba(0,0,0,.35); backdrop-filter: blur(12px); color: #dfe9e9; }
+.story-eyebrow { display: block; margin-bottom: .45rem; color: var(--copper); font: 700 .52rem/1 "IBM Plex Mono", monospace; letter-spacing: .15em; text-transform: uppercase; }
+.adventure-card strong { display: block; color: #f0e6d6; font: 500 .92rem/1.2 Georgia, serif; }
+.adventure-card p { margin: .55rem 0 .75rem; color: #9bb0b7; font-size: .64rem; line-height: 1.48; }
+.adventure-card button { width: 100%; padding: .62rem .7rem; border: 1px solid rgba(200,121,65,.5); border-radius: 1px; background: rgba(200,121,65,.12); color: #efc18c; cursor: pointer; font: 650 .58rem/1 "IBM Plex Mono", monospace; letter-spacing: .06em; text-transform: uppercase; transition: background .2s ease, color .2s ease; }
+.adventure-card button:hover { background: var(--copper); color: #10181c; }
+
+.adventure-hotspot { position: absolute; z-index: 7; left: 24%; top: 47%; padding: .55rem .7rem .55rem 1.65rem; border: 1px solid rgba(242,185,95,.62); border-radius: 999px; background: rgba(7,15,20,.86); color: #f2d4a5; cursor: pointer; font: 650 .55rem/1 "IBM Plex Mono", monospace; box-shadow: 0 0 0 0 rgba(242,185,95,.35); animation: hotspotPulse 2s ease-out infinite; }
+.adventure-hotspot::before { content: ""; position: absolute; left: .65rem; top: 50%; width: 6px; height: 6px; margin-top: -3px; border-radius: 50%; background: var(--amber); box-shadow: 0 0 12px var(--amber); }
+.adventure-hotspot[hidden] { display: none; }
+
+.eric-character { position: absolute; z-index: 3; left: 50%; bottom: 7%; width: clamp(170px, 27vw, 290px); height: auto; aspect-ratio: 1 / 1.08; padding: 0; border: 0; background: none; transform: translateX(-50%); cursor: pointer; animation: ericBreathe 4s ease-in-out infinite; }
+.eric-character img { position: relative; z-index: 2; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 18px 14px rgba(0,0,0,.45)); transition: transform .35s ease, filter .35s ease; }
+.eric-character:hover img { transform: translateY(-5px) rotate(1deg); filter: drop-shadow(0 24px 18px rgba(0,0,0,.55)) brightness(1.07); }
+.eric-aura { position: absolute; z-index: 1; inset: 18% 8% 8%; border-radius: 50%; background: radial-gradient(circle, rgba(121,216,180,.18), transparent 66%); filter: blur(10px); opacity: .5; }
+.eric-ground-shadow { position: absolute; z-index: 0; left: 15%; right: 15%; bottom: 0; height: 12%; border-radius: 50%; background: rgba(0,0,0,.52); filter: blur(8px); }
+.eric-character.is-play img, .eric-character.is-eat img { animation: ericJoy .6s cubic-bezier(.2,.8,.2,1) 2; }
+.eric-character.is-sleep img { transform: translateY(12px) scale(.96); filter: brightness(.72) saturate(.75) drop-shadow(0 12px 10px rgba(0,0,0,.5)); }
+.eric-character.is-sad img { filter: saturate(.55) brightness(.75) drop-shadow(0 18px 14px rgba(0,0,0,.5)); }
+
+.ambient-dust { position: absolute; inset: 0; pointer-events: none; }
+.ambient-dust i { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: var(--amber); opacity: .25; animation: dustFloat 7s linear infinite; }
+.ambient-dust i:nth-child(1){left:20%;top:70%;animation-delay:-2s}.ambient-dust i:nth-child(2){left:45%;top:45%;animation-delay:-4s}.ambient-dust i:nth-child(3){left:72%;top:62%;animation-delay:-1s}.ambient-dust i:nth-child(4){left:86%;top:28%;animation-delay:-6s}
+
+.eric-status { margin: 0; min-height: 42px; padding: .65rem 1rem; border: 0; border-top: 1px solid var(--line); border-radius: 0; background: #0c161b; font: 500 .7rem/1.25 "IBM Plex Mono", monospace; }
+.quick-actions { gap: 0; padding: 0; border-radius: 0; border-top: 1px solid var(--line); background: #101b20; }
+.quick-action-btn { flex-direction: row; justify-content: center; gap: .45rem; padding: .85rem .45rem; border: 0; border-right: 1px solid var(--line); border-radius: 0; background: transparent; color: #c5d2d5; }
+.quick-action-btn:hover { transform: none; color: white; background: rgba(200,121,65,.12); box-shadow: inset 0 -2px var(--copper); }
+.action-icon { font-size: .85rem; }.action-label { font-size: .65rem; letter-spacing: .05em; text-transform: uppercase; }
+
+.game-sidebar { border: 0; border-left: 1px solid var(--line); border-radius: 0; background: #0d171d; }
+.sidebar-tabs { background: #101b20; border-color: var(--line); }
+.sidebar-tab { padding: .85rem .35rem; border-bottom-width: 1px; color: #708791; }
+.sidebar-tab span:first-child { font-size: .8rem; }.sidebar-tab span:last-child { font-size: .55rem; letter-spacing: .07em; text-transform: uppercase; }
+.sidebar-tab.active { color: var(--amber); border-bottom-color: var(--copper); background: rgba(200,121,65,.08); }
+.sidebar-panel { padding: 1rem; }.panel-title { color: #dfe9e9; border-color: var(--line); font: 500 .78rem/1.3 Georgia, serif; }
+.inventory-grid { grid-template-columns: repeat(2, 1fr); gap: .5rem; }
+.night-mission { grid-column: 1 / -1; display: grid; gap: .48rem; padding: .85rem; border: 1px solid rgba(200,121,65,.34); background: linear-gradient(135deg, rgba(200,121,65,.12), rgba(121,216,180,.035)); }
+.mission-eyebrow { color: var(--copper); font: 700 .52rem/1 "IBM Plex Mono", monospace; letter-spacing: .14em; text-transform: uppercase; }
+.night-mission strong { color: #e4eded; font: 500 .72rem/1.25 Georgia, serif; }
+.night-mission small { color: #78909a; font-size: .55rem; }
+.mission-progress { height: 3px; overflow: hidden; background: #26353b; }
+.mission-progress span { display: block; height: 100%; background: linear-gradient(90deg, var(--copper), var(--amber)); transition: width .45s ease; }
+.night-mission.is-complete { border-color: rgba(121,216,180,.38); background: rgba(121,216,180,.07); }
+.night-mission.is-complete .mission-eyebrow { color: var(--mint); }
+.empty-message { grid-column: 1 / -1; padding: 1.1rem .5rem; color: #617780; line-height: 1.5; }
+.inventory-item, .shop-item, .minigame-card { border: 1px solid var(--line); border-radius: 2px; background: rgba(255,255,255,.025); }
+.inventory-item:hover, .shop-item:hover, .minigame-card:hover { border-color: rgba(200,121,65,.6); box-shadow: none; }
+.buy-btn { border-radius: 2px; background: var(--copper); color: #10181c; }
+
+@keyframes ericBreathe { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(-5px)} }
+@keyframes ericJoy { 0%,100%{transform:translateY(0) rotate(0)} 45%{transform:translateY(-14px) rotate(-2deg)} }
+@keyframes dustFloat { from{transform:translateY(25px);opacity:0} 30%{opacity:.35} to{transform:translateY(-120px);opacity:0} }
+@keyframes hotspotPulse { 0%{box-shadow:0 0 0 0 rgba(242,185,95,.3)} 70%{box-shadow:0 0 0 12px rgba(242,185,95,0)} 100%{box-shadow:0 0 0 0 rgba(242,185,95,0)} }
+@keyframes illustratedBreathe { 0%,100%{transform:translateY(0) rotate(0)} 50%{transform:translateY(-3px) rotate(.35deg)} }
+@keyframes illustratedWalk { from{transform:translateY(0) rotate(-1deg)} to{transform:translateY(-9px) rotate(1deg)} }
+@keyframes illustratedHappy { 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-12px) scale(1.025)} }
+@keyframes illustratedSleep { 0%,100%{transform:scale(1)} 50%{transform:scale(1.015)} }
+@keyframes earTwitch { from{transform:rotate(-.8deg) translateY(0)} to{transform:rotate(.8deg) translateY(-2px)} }
+@keyframes objectSignal { 0%,100%{box-shadow:0 0 0 0 rgba(221,160,108,.25)} 55%{box-shadow:0 0 0 7px rgba(221,160,108,0)} }
+
+/* Le dashboard est une scène complète : aucun widget flottant du CV ne doit la recouvrir. */
+.notifications-toggle,
+#xpbarToggle,
+#gamingController,
+.unified-notifications-zone,
+#tamaContextMenu,
+.tama-tooltip { display: none !important; }
+
+/* Accès au jeu et navigation : pictogrammes sobres, aucun badge emoji flottant. */
+.tamagotchi { width: 62px !important; height: 62px !important; border-radius: 14px !important; border: 1px solid rgba(200,121,65,.58) !important; background: linear-gradient(145deg,#17262d,#0b151a) !important; box-shadow: 0 12px 32px rgba(0,0,0,.38), inset 0 1px rgba(255,255,255,.04) !important; color: #d08b55; font-size: 1.35rem !important; }
+.tamagotchi.show { animation: launcherBreath 3.5s ease-in-out infinite !important; }
+.tamagotchi:hover { transform: translateY(-3px) !important; border-color: #e2a56f !important; }
+#tamagotchiIcon { width: auto !important; height: auto !important; border-radius: 0 !important; }
+.dashboard-tab-btn > div:first-child { color: #718995; font-size: 1rem; }
+.dashboard-tab-btn.active > div:first-child { color: var(--copper); }
+.quick-action-btn .action-icon { color: var(--copper); }
+@keyframes launcherBreath { 0%,100%{box-shadow:0 12px 32px rgba(0,0,0,.38),0 0 0 0 rgba(200,121,65,.2)} 50%{box-shadow:0 12px 32px rgba(0,0,0,.38),0 0 0 7px rgba(200,121,65,0)} }
+
+body:has(#gamingDashboard:not(.hidden)) #gamingController,
+body:has(#gamingDashboard:not(.hidden)) #notificationsToggle,
+body:has(#gamingDashboard:not(.hidden)) #unifiedNotificationsZone,
+body:has(#gamingDashboard:not(.hidden)) #gameHUD,
+body:has(#gamingDashboard:not(.hidden)) #tamagotchi,
+body:has(#gamingDashboard:not(.hidden)) .game-notification,
+body:has(#gamingDashboard:not(.hidden)) .achievement-toast,
+body:has(#gamingDashboard:not(.hidden)) .portrait-dialogue { display: none !important; }
+
+@media (max-width: 1100px) {
+    .game-identity p { display: none; }
+    .stats-panel { grid-template-columns: repeat(2, minmax(90px,1fr)); }
+}
+
+@media (max-width: 820px) {
+    .eric-game-container { grid-template-columns: 1fr; min-height: auto; }
+    .game-header { align-items: center; }
+    .game-identity { min-width: 160px; }
+    .stats-panel { order: 4; flex-basis: 100%; }
+    .game-sidebar { border-left: 0; border-top: 1px solid var(--line); max-height: 380px; }
+    .game-environment { min-height: 400px; }
+    .eric-3d-stage { left: 18%; width: 48%; height: 66%; }
+    .eric-illustrated-stage { width: 240px; height: 250px; }
+    .adventure-card { width: calc(100% - 2rem); right: 1rem; bottom: 1rem; }
+    .adventure-card p { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .eric-character, .ambient-dust i, .portrait-frame, .coin-icon { animation: none !important; }
+    .eric-illustrated-stage, .eric-illustrated-stage img { animation: none !important; transition: none !important; }
+    .game-environment { transition: none; }
 }

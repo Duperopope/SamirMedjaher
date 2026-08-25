@@ -681,6 +681,15 @@ function updatePlaytime() {
    ============================================ */
 
 function renderEricTab(container) {
+    // Le jeu illustré est désormais la source de vérité de l'onglet Éric.
+    // L'ancien renderer ne doit jamais réécrire la scène après son montage.
+    if (window.EricCompleteGame) {
+        if (container.querySelector('.eric-game-container')) return;
+        if (window.ericGame?.adventure) window.ericGame.adventure.destroy();
+        window.ericGame = new EricCompleteGame(container.id);
+        return;
+    }
+
     // Get Eric state
     const ericState = window.gamingConnector ? window.gamingConnector.getEricState() : null;
     const icon = ericState?.icon || '🐱';
@@ -776,6 +785,15 @@ function quickFeed(foodId) {
     }
 }
 
+function getShopGlyph(category, itemId = '') {
+    const id = itemId.toLowerCase();
+    if (id.includes('pizza')) return 'fa-pizza-slice';
+    if (id.includes('burger')) return 'fa-burger';
+    if (id.includes('sushi') || id.includes('fish')) return 'fa-fish';
+    if (id.includes('cake') || id.includes('gateau')) return 'fa-cake-candles';
+    return ({ food:'fa-bowl-food', skins:'fa-mask-face', boosters:'fa-flask', lootboxes:'fa-box-open' })[category] || 'fa-gem';
+}
+
 function renderShopTab(container) {
     // Get player coins
     const playerCoins = (typeof gameState !== 'undefined' && gameState.coins) ? gameState.coins : 0;
@@ -784,9 +802,9 @@ function renderShopTab(container) {
     container.innerHTML = `
         <div class="shop-dashboard">
             <div class="shop-header">
-                <h2>🛒 Boutique Gaming</h2>
+                <h2><i class="fas fa-briefcase"></i><span><small>Intendance</small>Boutique nocturne</span></h2>
                 <div class="player-coins">
-                    <span class="coins-icon">🪙</span>
+                    <span class="coins-icon"><i class="fas fa-coins"></i></span>
                     <span class="coins-amount">${playerCoins.toLocaleString()}</span>
                     <span class="coins-label">Coins</span>
                 </div>
@@ -795,19 +813,19 @@ function renderShopTab(container) {
             <!-- Shop Categories Tabs -->
             <div class="shop-categories">
                 <button class="shop-category-btn active" onclick="switchShopCategory('food')">
-                    🍔 Nourriture
+                    <i class="fas fa-utensils"></i> Provisions
                 </button>
                 <button class="shop-category-btn" onclick="switchShopCategory('skins')">
-                    😎 Skins
+                    <i class="fas fa-palette"></i> Apparences
                 </button>
                 <button class="shop-category-btn" onclick="switchShopCategory('boosters')">
-                    ⚡ Boosters
+                    <i class="fas fa-bolt"></i> Talismans
                 </button>
                 <button class="shop-category-btn" onclick="switchShopCategory('lootboxes')">
-                    🎁 Lootboxes
+                    <i class="fas fa-box-open"></i> Trouvailles
                 </button>
                 <button class="shop-category-btn" onclick="switchShopCategory('inventory')">
-                    📦 Inventaire
+                    <i class="fas fa-archive"></i> Réserve
                 </button>
             </div>
             
@@ -857,7 +875,7 @@ function switchShopCategory(category) {
             
             html += `
                 <div class="shop-item-card ${!canBuy ? 'locked' : ''}">
-                    <div class="shop-item-icon">${item.icon}</div>
+                    <div class="shop-item-icon"><i class="fas ${getShopGlyph(category, item.id)}"></i></div>
                     <div class="shop-item-info">
                         <h3>${item.name}</h3>
                         <p>${item.description}</p>
@@ -865,13 +883,13 @@ function switchShopCategory(category) {
                     </div>
                     <div class="shop-item-footer">
                         <span class="item-price ${!canAfford ? 'cannot-afford' : ''}">
-                            🪙 ${item.price}
+                            <i class="fas fa-coins"></i> ${item.price}
                         </span>
                         <button 
                             class="buy-btn ${!canBuy ? 'disabled' : ''}" 
                             onclick="buyShopItem('${category}', '${item.id}')"
                             ${!canBuy ? 'disabled' : ''}>
-                            ${!levelOk ? '🔒 Verrouillé' : !canAfford ? '💰 Trop cher' : '✅ Acheter'}
+                            ${!levelOk ? '<i class="fas fa-lock"></i> Verrouillé' : !canAfford ? '<i class="fas fa-coins"></i> Insuffisant' : '<i class="fas fa-plus"></i> Acquérir'}
                         </button>
                     </div>
                 </div>
@@ -890,17 +908,17 @@ function renderInventoryInShop() {
         skins: []
     };
     
-    let html = '<h3>📦 Votre Inventaire</h3>';
+    let html = '<h3><i class="fas fa-archive"></i> Votre réserve</h3>';
     
     // Foods
-    html += '<div class="inventory-section"><h4>🍔 Nourriture</h4><div class="inventory-items">';
+    html += '<div class="inventory-section"><h4><i class="fas fa-utensils"></i> Provisions</h4><div class="inventory-items">';
     Object.entries(inventory.foods || {}).forEach(([id, count]) => {
         if (count > 0) {
             const item = SHOP_CATALOG?.food?.find(f => f.id === id);
             if (item) {
                 html += `
                     <div class="inventory-item-card">
-                        <div class="inventory-item-icon">${item.icon}</div>
+                        <div class="inventory-item-icon"><i class="fas ${getShopGlyph('food', id)}"></i></div>
                         <div class="inventory-item-name">${item.name}</div>
                         <div class="inventory-item-count">x${count}</div>
                         <button class="use-btn" onclick="useInventoryItem('${id}', 'food')">Utiliser</button>
@@ -912,14 +930,14 @@ function renderInventoryInShop() {
     html += '</div></div>';
     
     // Boosters
-    html += '<div class="inventory-section"><h4>⚡ Boosters</h4><div class="inventory-items">';
+    html += '<div class="inventory-section"><h4><i class="fas fa-bolt"></i> Talismans</h4><div class="inventory-items">';
     Object.entries(inventory.boosters || {}).forEach(([id, count]) => {
         if (count > 0) {
             const item = SHOP_CATALOG?.boosters?.find(b => b.id === id);
             if (item) {
                 html += `
                     <div class="inventory-item-card">
-                        <div class="inventory-item-icon">${item.icon}</div>
+                        <div class="inventory-item-icon"><i class="fas ${getShopGlyph('boosters', id)}"></i></div>
                         <div class="inventory-item-name">${item.name}</div>
                         <div class="inventory-item-count">x${count}</div>
                         <button class="use-btn" onclick="useInventoryItem('${id}', 'booster')">Utiliser</button>
@@ -931,13 +949,13 @@ function renderInventoryInShop() {
     html += '</div></div>';
     
     // Skins
-    html += '<div class="inventory-section"><h4>😎 Skins Débloqués</h4><div class="inventory-items">';
+    html += '<div class="inventory-section"><h4><i class="fas fa-palette"></i> Apparences acquises</h4><div class="inventory-items">';
     (inventory.skins || []).forEach(skinId => {
         const skin = SHOP_CATALOG?.skins?.find(s => s.id === skinId);
         if (skin) {
             html += `
                 <div class="inventory-item-card">
-                    <div class="inventory-item-icon">${skin.icon}</div>
+                    <div class="inventory-item-icon"><i class="fas fa-mask-face"></i></div>
                     <div class="inventory-item-name">${skin.name}</div>
                     <button class="equip-btn" onclick="equipSkin('${skinId}')">Équiper</button>
                 </div>
@@ -975,28 +993,28 @@ function equipSkin(skinId) {
 function renderGamesTab(container) {
     container.innerHTML = `
         <div class="games-dashboard">
-            <h2>🎮 Mini-Jeux</h2>
+            <h2><i class="fas fa-gamepad"></i><span><small>Entraînement</small>Épreuves nocturnes</span></h2>
             <div class="games-grid">
                 <div class="game-card" onclick="openMinigame('memory')">
-                    <div class="game-icon">🧠</div>
-                    <h3>Memory Match</h3>
-                    <p>Trouve les paires</p>
+                    <div class="game-icon"><i class="fas fa-clone"></i></div>
+                    <h3>Constellations</h3>
+                    <p>Retrouver les signes jumeaux</p>
                 </div>
                 <div class="game-card" onclick="openMinigame('simon')">
-                    <div class="game-icon">🎵</div>
-                    <h3>Simon Says</h3>
-                    <p>Mémorise la séquence</p>
+                    <div class="game-icon"><i class="fas fa-wave-square"></i></div>
+                    <h3>Fréquence</h3>
+                    <p>Mémoriser le chant de la balise</p>
                 </div>
                 <div class="game-card" onclick="openMinigame('reaction')">
-                    <div class="game-icon">⚡</div>
-                    <h3>Reaction Time</h3>
-                    <p>Teste tes réflexes</p>
+                    <div class="game-icon"><i class="fas fa-crosshairs"></i></div>
+                    <h3>Lueur fugitive</h3>
+                    <p>Attraper le signal avant sa disparition</p>
                 </div>
                 <div class="game-card" onclick="openMinigame('coinrush')">
-                    <div class="game-icon">🪙</div>
-                    <h3>Coin Rush</h3>
+                    <div class="game-icon"><i class="fas fa-route"></i></div>
+                    <h3>Course des toits</h3>
                     <p class="new-badge">NOUVEAU</p>
-                    <p>Course aux pièces</p>
+                    <p>Tracer le meilleur passage nocturne</p>
                 </div>
             </div>
         </div>
@@ -1006,23 +1024,23 @@ function renderGamesTab(container) {
 function renderStatsTab(container) {
     container.innerHTML = `
         <div class="stats-dashboard">
-            <h2>📊 Statistiques</h2>
+            <h2><i class="fas fa-chart-line"></i><span><small>Carnet de route</small>Progression d’Éric</span></h2>
             <div class="stats-grid">
                 <div class="stat-card">
-                    <h3>🪙 ${dashboardState.metrics.coinsEarnedTotal.toLocaleString()}</h3>
-                    <p>Coins Gagnés Total</p>
+                    <i class="fas fa-coins"></i><h3>${dashboardState.metrics.coinsEarnedTotal.toLocaleString()}</h3>
+                    <p>Pièces découvertes</p>
                 </div>
                 <div class="stat-card">
-                    <h3>🎮 ${dashboardState.metrics.minigameWins}</h3>
-                    <p>Victoires Mini-Jeux</p>
+                    <i class="fas fa-gamepad"></i><h3>${dashboardState.metrics.minigameWins}</h3>
+                    <p>Épreuves remportées</p>
                 </div>
                 <div class="stat-card">
-                    <h3>🏆 ${dashboardState.metrics.achievementsUnlocked}</h3>
-                    <p>Achievements Débloqués</p>
+                    <i class="fas fa-medal"></i><h3>${dashboardState.metrics.achievementsUnlocked}</h3>
+                    <p>Souvenirs révélés</p>
                 </div>
                 <div class="stat-card">
-                    <h3>🔥 ${dashboardState.metrics.dailyStreakMax}</h3>
-                    <p>Meilleure Série</p>
+                    <i class="fas fa-moon"></i><h3>${dashboardState.metrics.dailyStreakMax}</h3>
+                    <p>Nuits consécutives</p>
                 </div>
             </div>
             <div class="stats-charts">
@@ -1038,7 +1056,7 @@ function renderQuestsTab(container) {
     
     let html = `
         <div class="quests-dashboard">
-            <h2>⭐ ${currentChain.icon} ${currentChain.name}</h2>
+            <h2><i class="fas fa-compass"></i><span><small>Journal d’aventure</small>${currentChain.name}</span></h2>
             <div class="quests-list">
     `;
     
@@ -1059,10 +1077,10 @@ function renderQuestsTab(container) {
                     `).join('')}
                 </div>
                 <div class="quest-rewards">
-                    🪙 ${quest.rewards.coins} | ⭐ ${quest.rewards.xp}XP
-                    ${quest.rewards.skin ? `| 🎨 ${quest.rewards.skin}` : ''}
+                    <i class="fas fa-coins"></i> ${quest.rewards.coins} <span class="reward-separator"></span><i class="fas fa-star"></i> ${quest.rewards.xp} XP
+                    ${quest.rewards.skin ? `<span class="reward-separator"></span><i class="fas fa-palette"></i> ${quest.rewards.skin}` : ''}
                 </div>
-                ${isCompleted ? '<div class="completed-badge">✅ Complété</div>' : ''}
+                ${isCompleted ? '<div class="completed-badge"><i class="fas fa-check"></i> Accomplie</div>' : ''}
             </div>
         `;
     });
@@ -1081,9 +1099,8 @@ function renderEventsTab(container) {
     if (!activeEvent) {
         container.innerHTML = `
             <div class="events-dashboard">
-                <h2>🎁 Événements</h2>
-                <p class="no-event">Aucun événement actif pour le moment</p>
-                <p>Reviens plus tard pour des événements spéciaux !</p>
+                <h2><i class="fas fa-calendar-alt"></i><span><small>Phénomènes rares</small>Événements</span></h2>
+                <div class="no-event"><i class="fas fa-cloud-moon"></i><strong>La nuit est calme</strong><p>De nouveaux phénomènes apparaîtront au fil des aventures.</p></div>
             </div>
         `;
         return;
@@ -1106,7 +1123,7 @@ function renderEventsTab(container) {
                             </div>
                             <span>${dashboardState.eventProgress[challenge.id] || 0} / ${challenge.required}</span>
                         </div>
-                        <div class="challenge-reward">🪙 ${challenge.reward}</div>
+                        <div class="challenge-reward"><i class="fas fa-coins"></i> ${challenge.reward}</div>
                     </div>
                 `).join('')}
             </div>
@@ -1117,7 +1134,7 @@ function renderEventsTab(container) {
 function renderAchievementsTab(container) {
     let html = `
         <div class="achievements-dashboard">
-            <h2>🏆 Achievements</h2>
+            <h2><i class="fas fa-trophy"></i><span><small>Cabinet des souvenirs</small>Trophées</span></h2>
             <div class="achievement-points">
                 <h3>${dashboardState.achievementPoints} Points</h3>
             </div>
@@ -1127,7 +1144,7 @@ function renderAchievementsTab(container) {
     Object.entries(ACHIEVEMENT_CATALOG).forEach(([key, achievement]) => {
         html += `
             <div class="achievement-category">
-                <h3>${achievement.icon} ${achievement.name}</h3>
+                <h3><i class="fas fa-star"></i> ${achievement.name}</h3>
                 <div class="achievement-tiers">
         `;
         
@@ -1137,13 +1154,13 @@ function renderAchievementsTab(container) {
             
             html += `
                 <div class="achievement-tier ${isUnlocked ? 'unlocked' : ''}">
-                    <div class="tier-icon" style="color: ${tierInfo.color}">${tierInfo.icon}</div>
+                    <div class="tier-icon" style="--tier-color: ${tierInfo.color}"><i class="fas fa-medal"></i></div>
                     <div class="tier-info">
                         <h4>${tier.toUpperCase()}</h4>
                         <p>${Object.values(data)[0]} ${Object.keys(data)[0]}</p>
-                        <span class="tier-reward">🪙 ${data.reward}</span>
+                        <span class="tier-reward"><i class="fas fa-coins"></i> ${data.reward}</span>
                     </div>
-                    ${isUnlocked ? '<span class="unlocked-badge">✅</span>' : ''}
+                    ${isUnlocked ? '<span class="unlocked-badge"><i class="fas fa-check"></i></span>' : ''}
                 </div>
             `;
         });
@@ -1165,11 +1182,11 @@ function renderAchievementsTab(container) {
 function renderSettingsTab(container) {
     container.innerHTML = `
         <div class="settings-dashboard">
-            <h2>⚙️ Réglages Gaming</h2>
+            <h2><i class="fas fa-sliders-h"></i><span><small>Préférences du voyage</small>Réglages</span></h2>
             
             <!-- HUD Settings -->
             <div class="settings-section">
-                <h3>🎯 Affichage HUD</h3>
+                <h3><i class="fas fa-eye"></i> Interface</h3>
                 <div class="settings-group">
                     <label>
                         <span>Opacité HUD (%)</span>
@@ -1188,7 +1205,7 @@ function renderSettingsTab(container) {
             
             <!-- Position Settings -->
             <div class="settings-section">
-                <h3>📍 Positions</h3>
+                <h3><i class="fas fa-arrows-alt"></i> Position du compagnon</h3>
                 <div class="settings-group">
                     <label>
                         <span>Position Éric (Bas - rem)</span>
@@ -1213,12 +1230,12 @@ function renderSettingsTab(container) {
             
             <!-- Reset Button -->
             <div class="settings-section">
-                <h3>🔧 Actions</h3>
+                <h3><i class="fas fa-toolbox"></i> Données de voyage</h3>
                 <button onclick="resetGamingSettings()" class="action-btn danger">
-                    🔄 Réinitialiser tous les réglages
+                    <i class="fas fa-undo"></i> Réinitialiser les réglages
                 </button>
                 <button onclick="exportGamingData()" class="action-btn">
-                    📥 Exporter mes données
+                    <i class="fas fa-file-export"></i> Exporter les données
                 </button>
             </div>
         </div>

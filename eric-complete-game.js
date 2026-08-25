@@ -16,7 +16,7 @@
 // CONFIGURATION DU JEU
 // ============================================
 
-const GAME_CONFIG = {
+const ERIC_COMPLETE_CONFIG = {
     // Dimensions de la zone de jeu
     width: '100%',
     height: '100%',
@@ -84,9 +84,17 @@ class EricCompleteGame {
     constructor(containerId) {
         this.container = document.getElementById(containerId);
         this.currentRoom = 'living';
-        this.stats = JSON.parse(JSON.stringify(GAME_CONFIG.stats));
+        this.stats = JSON.parse(JSON.stringify(ERIC_COMPLETE_CONFIG.stats));
         this.inventory = this.loadInventory();
         this.coins = this.loadCoins();
+        this.level = 1;
+        this.xp = 0;
+        this.bond = 0;
+        this.dailyActions = [];
+        this.dailyRewardClaimed = false;
+        this.dailyKey = new Date().toISOString().slice(0, 10);
+        this.lastActionAt = 0;
+        this.loopId = null;
         this.isPlaying = false;
         this.miniGameActive = false;
         
@@ -101,9 +109,11 @@ class EricCompleteGame {
      * Initialise le jeu complet
      */
     init() {
+        this.loadGameState();
+        this.applyOfflineProgress();
         this.createGameLayout();
         this.startGameLoop();
-        this.loadGameState();
+        this.showFirstRunTip();
         console.log('🎮 Jeu Eric complet initialisé');
     }
     
@@ -116,8 +126,14 @@ class EricCompleteGame {
                 <!-- Header avec stats -->
                 <div class="game-header">
                     <div class="eric-portrait">
-                        <img src="assets/images/eric-normal.png" alt="Eric" id="ericPortrait">
+                        <img src="assets/images/game/eric-poses/alert.webp" alt="Portrait d'Éric" id="ericPortrait">
                         <div class="portrait-frame"></div>
+                    </div>
+
+                    <div class="game-identity">
+                        <span class="game-kicker">Compagnon système</span>
+                        <h2>Éric <em>// gardien de nuit</em></h2>
+                        <p>Maintiens son équilibre et renforce votre lien.</p>
                     </div>
                     
                     <div class="stats-panel">
@@ -167,9 +183,16 @@ class EricCompleteGame {
                     </div>
                     
                     <div class="currency-display">
+                        <div class="level-count">
+                            <span>Niv. <strong id="ericLevelDisplay">1</strong></span>
+                            <div class="xp-track"><span id="ericXpFill"></span></div>
+                        </div>
                         <div class="coins-count">
                             <span class="coin-icon">🪙</span>
-                            <span id="coinsDisplay">0</span>
+                            <span id="ericCoinsDisplay">0</span>
+                        </div>
+                        <div class="bond-count" title="Lien avec Éric">
+                            <span>Lien</span><strong id="ericBondDisplay">0</strong><span>%</span>
                         </div>
                     </div>
                 </div>
@@ -178,21 +201,21 @@ class EricCompleteGame {
                 <div class="game-main">
                     <!-- Sélecteur de pièces -->
                     <div class="room-selector">
-                        <button class="room-btn active" data-room="living" title="Salon">
-                            <span class="room-icon">🛋️</span>
-                            <span class="room-label">Salon</span>
+                        <button class="room-btn active" data-room="living" title="Atelier musical — niveau 1">
+                            <span class="room-index">01</span>
+                            <span class="room-label">Musique</span>
                         </button>
-                        <button class="room-btn" data-room="kitchen" title="Cuisine">
-                            <span class="room-icon">🍳</span>
+                        <button class="room-btn" data-room="kitchen" title="Cuisine — progression requise">
+                            <span class="room-index">02</span>
                             <span class="room-label">Cuisine</span>
                         </button>
-                        <button class="room-btn" data-room="bedroom" title="Chambre">
-                            <span class="room-icon">🛏️</span>
-                            <span class="room-label">Chambre</span>
+                        <button class="room-btn" data-room="bedroom" title="Refuge — niveau 2 requis">
+                            <span class="room-index">03</span>
+                            <span class="room-label">Repos</span>
                         </button>
-                        <button class="room-btn" data-room="garden" title="Jardin">
-                            <span class="room-icon">🌳</span>
-                            <span class="room-label">Jardin</span>
+                        <button class="room-btn" data-room="garden" title="Serre des toits — progression requise">
+                            <span class="room-index">04</span>
+                            <span class="room-label">Terrasse</span>
                         </button>
                     </div>
                     
@@ -200,23 +223,28 @@ class EricCompleteGame {
                     <div class="game-environment" id="gameEnvironment">
                         <!-- Eric et décor seront rendus ici -->
                     </div>
+
+                    <div class="eric-status" role="status" aria-live="polite">
+                        <span class="status-dot"></span>
+                        <span id="ericStatusText">Eric est prêt à jouer.</span>
+                    </div>
                     
                     <!-- Panel d'actions rapides -->
                     <div class="quick-actions">
                         <button class="quick-action-btn" data-action="feed" title="Nourrir">
-                            <span class="action-icon">🍖</span>
+                            <span class="action-icon"><i class="fas fa-utensils"></i></span>
                             <span class="action-label">Nourrir</span>
                         </button>
                         <button class="quick-action-btn" data-action="play" title="Jouer">
-                            <span class="action-icon">🎾</span>
+                            <span class="action-icon"><i class="fas fa-feather-alt"></i></span>
                             <span class="action-label">Jouer</span>
                         </button>
                         <button class="quick-action-btn" data-action="care" title="Soigner">
-                            <span class="action-icon">💊</span>
+                            <span class="action-icon"><i class="fas fa-heart"></i></span>
                             <span class="action-label">Soigner</span>
                         </button>
                         <button class="quick-action-btn" data-action="sleep" title="Dormir">
-                            <span class="action-icon">😴</span>
+                            <span class="action-icon"><i class="fas fa-moon"></i></span>
                             <span class="action-label">Dormir</span>
                         </button>
                     </div>
@@ -294,10 +322,17 @@ class EricCompleteGame {
         `;
         
         this.setupEventListeners();
+        this.refreshRoomLocks();
+        if (document.querySelector(`.room-btn[data-room="${this.currentRoom}"]`)?.disabled) {
+            this.currentRoom = 'living';
+        }
         this.renderEnvironment();
         this.renderInventory();
         this.renderShop('foods');
         this.updateStatsDisplay();
+        document.querySelectorAll('.room-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.room === this.currentRoom);
+        });
     }
     
     /**
@@ -333,12 +368,25 @@ class EricCompleteGame {
                 this.renderShop(btn.dataset.category);
             });
         });
+
+        document.querySelectorAll('.minigame-card').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const gameMap = { memory: 'memory', catch: 'mouse', puzzle: 'simon' };
+                if (typeof window.openMinigame === 'function') window.openMinigame(gameMap[btn.dataset.game]);
+            });
+        });
     }
     
     /**
      * Change de pièce
      */
     changeRoom(roomId) {
+        const roomButton = document.querySelector(`.room-btn[data-room="${roomId}"]`);
+        if (roomButton?.disabled) {
+            this.setStatus(roomButton.title, '◆');
+            return;
+        }
+        this.previousRoom = this.currentRoom;
         this.currentRoom = roomId;
         
         // Mettre à jour les boutons
@@ -354,34 +402,34 @@ class EricCompleteGame {
      * Rend l'environnement de la pièce actuelle
      */
     renderEnvironment() {
-        const room = GAME_CONFIG.rooms[this.currentRoom];
         const env = document.getElementById('gameEnvironment');
-        
-        env.style.background = room.background;
+        const roomMeta = {
+            living: { image: 'assets/images/game/eric-night-workshop.webp', position: 'center', label: 'Atelier musical', note: 'Niveau 1 — Le signal sous les toits.' },
+            kitchen: { image: 'assets/images/game/eric-kitchen.webp', position: 'center', label: 'Cuisine & réserve', note: 'Niveau 2 — La piste lumineuse.' },
+            bedroom: { image: 'assets/images/game/eric-refuge.webp', position: 'center', label: 'Le refuge cartographe', note: 'Niveau 3 — La fréquence perdue.' },
+            garden: { image: 'assets/images/game/eric-rooftop.webp', position: 'center', label: 'Serre des toits', note: 'Niveau 4 — La balise endormie.' }
+        }[this.currentRoom];
+
+        env.style.setProperty('--scene-image', `url("${roomMeta.image}")`);
+        env.style.setProperty('--scene-position', roomMeta.position);
         env.innerHTML = `
-            <div class="room-container">
-                <!-- Sol -->
-                <div class="room-floor"></div>
-                
-                <!-- Murs décorés -->
-                <div class="room-walls">
-                    ${this.renderWallDecor()}
+            <div class="room-container" data-room="${this.currentRoom}">
+                <div class="scene-vignette"></div>
+                <div class="scene-caption">
+                    <span>${roomMeta.label}</span>
+                    <small>${roomMeta.note}</small>
                 </div>
-                
-                <!-- Meubles -->
-                <div class="room-furniture">
-                    ${this.renderFurniture(room.furniture)}
-                </div>
-                
-                <!-- 🎮 PHASER GAME CANVAS -->
-                <div id="ericGameContainer" style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
-                    <!-- Le jeu Phaser sera créé ici -->
-                </div>
+                <button class="sound-toggle" id="ericSoundToggle" type="button" aria-label="Activer l’ambiance sonore" aria-pressed="false"><i class="fas fa-volume-mute"></i><span>Ambiance</span></button>
+                <button class="eric-illustrated-stage" id="ericIllustratedStage" type="button" aria-label="Éric, personnage illustré animé">
+                    <span id="ericAnimatedSprite" class="eric-sprite" role="img" aria-label="Éric, chat noir animé"></span>
+                    <span class="illustrated-shadow"></span>
+                </button>
+                <aside class="adventure-card" id="adventureCard" aria-live="polite"></aside>
+                <button class="adventure-hotspot" id="adventureHotspot" type="button" hidden></button>
+                <div class="ambient-dust" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+                <div class="room-effects" id="roomEffects"></div>
             </div>
         `;
-        
-        // Initialiser le jeu Phaser
-        this.initPhaserGame();
         
         // Ajouter interactivité sur Eric
         const ericContainer = document.getElementById('ericCharacter');
@@ -390,6 +438,26 @@ class EricCompleteGame {
                 this.petEric();
             });
         }
+
+        if (window.ericAdventure) window.ericAdventure.destroy();
+        if (window.EricAdventure) {
+            window.ericAdventure = new window.EricAdventure(this, env);
+        }
+    }
+
+    refreshRoomLocks() {
+        const storyStep = Number(localStorage.getItem('ericAdventureStep') || 0);
+        const unlocked = {
+            living: true,
+            kitchen: storyStep >= 2,
+            bedroom: storyStep >= 3 || this.level >= 2,
+            garden: storyStep >= 5
+        };
+        document.querySelectorAll('.room-btn').forEach(button => {
+            const locked = !unlocked[button.dataset.room];
+            button.disabled = locked;
+            button.classList.toggle('is-locked', locked);
+        });
     }
     
     /**
@@ -528,20 +596,74 @@ class EricCompleteGame {
      * Gère les actions rapides
      */
     handleQuickAction(action) {
+        if (Date.now() - this.lastActionAt < 700) {
+            this.setStatus('Doucement ! Eric profite encore de la dernière action.', '⏳');
+            return;
+        }
+        this.lastActionAt = Date.now();
+        if (action !== 'sleep') this.sleepingUntil = 0;
+
         switch(action) {
             case 'feed':
-                this.openFeedMenu();
+                this.performAction({ id: 'feed', stat: 'hunger', amount: 18, energy: 2, state: 'eat', icon: '🐟', message: 'Eric a bien mangé.' });
                 break;
             case 'play':
-                this.openPlayMenu();
+                if (this.stats.energy.current < 10) return this.setStatus('Eric est trop fatigué pour jouer.', '😴');
+                this.performAction({ id: 'play', stat: 'mood', amount: 16, energy: -8, state: 'play', icon: '🎾', message: 'Belle partie ! Eric est ravi.' });
                 break;
             case 'care':
-                this.openCareMenu();
+                this.performAction({ id: 'care', stat: 'health', amount: 12, mood: 4, state: 'idle', icon: '🪮', message: 'Eric est propre et soigné.' });
                 break;
             case 'sleep':
-                this.putToSleep();
+                this.performAction({ id: 'sleep', stat: 'energy', amount: 24, hunger: -4, state: 'sleep', icon: '💤', message: 'Une bonne sieste recharge Eric.' });
                 break;
         }
+    }
+
+    performAction(action) {
+        this.modifyStat(action.stat, action.amount, false);
+        if (action.energy) this.modifyStat('energy', action.energy, false);
+        if (action.mood) this.modifyStat('mood', action.mood, false);
+        if (action.hunger) this.modifyStat('hunger', action.hunger, false);
+        this.updateEricState(action.state);
+        this.createParticleEffect(action.state === 'sleep' ? 'zzz' : action.state === 'play' ? 'hearts' : 'sparkles');
+        this.awardProgress(8, 2);
+        this.setStatus(action.message, action.icon);
+        this.registerDailyAction(action.id);
+        this.saveGameState();
+        setTimeout(() => this.checkCriticalConditions(), action.state === 'sleep' ? 6500 : 1800);
+    }
+
+    registerDailyAction(actionId) {
+        if (!this.dailyActions.includes(actionId)) this.dailyActions.push(actionId);
+        if (this.dailyActions.length >= 3 && !this.dailyRewardClaimed) {
+            this.dailyRewardClaimed = true;
+            this.coins += 40;
+            this.xp += 25;
+            this.setStatus('Rituel de nuit accompli : +40 pièces et +25 XP.', '◆');
+            this.createParticleEffect('stars');
+        }
+        this.renderInventory();
+    }
+
+    setStatus(message, icon = '🐾') {
+        const status = document.getElementById('ericStatusText');
+        if (status) status.textContent = `${icon} ${message}`;
+    }
+
+    awardProgress(xp, coins) {
+        this.xp += xp;
+        this.coins += coins;
+        this.bond = Math.min(100, this.bond + 2);
+        const threshold = this.level * 100;
+        if (this.xp >= threshold) {
+            this.xp -= threshold;
+            this.level += 1;
+            this.coins += 25;
+            this.setStatus(`Niveau ${this.level} atteint ! Bonus de 25 pièces.`, '🏆');
+        }
+        this.updateStatsDisplay();
+        this.refreshRoomLocks();
     }
     
     /**
@@ -603,29 +725,21 @@ class EricCompleteGame {
      */
     updateEricState(state) {
         this.currentEricState = state;
-        
-        if (this.isometricRenderer) {
-            this.isometricRenderer.setState(state);
-        } else {
-            // Fallback: changer l'image PNG
-            const img = document.querySelector('#ericCharacter img');
-            if (img) {
-                const stateImages = {
-                    'idle': 'eric-normal.png',
-                    'walk': 'eric-normal.png',
-                    'eat': 'eric-fed.png',
-                    'play': 'eric-happy.png',
-                    'sleep': 'eric-sleeping.png',
-                    'sad': 'eric-unhappy.png'
-                };
-                img.src = `assets/images/${stateImages[state] || 'eric-normal.png'}`;
-            }
+        if (state === 'sleep') this.sleepingUntil = Number.POSITIVE_INFINITY;
+        if (window.ericAdventure) {
+            const pose = state === 'play' || state === 'eat'
+                ? 'happy'
+                : state === 'sleep'
+                    ? 'sleep'
+                    : 'idle';
+            const duration = pose === 'happy' ? 1600 : 0;
+            window.ericAdventure.setPose(pose, duration);
         }
-        
+
         // Mettre à jour les classes CSS
         const ericChar = document.getElementById('ericCharacter');
         if (ericChar) {
-            ericChar.className = `eric-character ${state}`;
+            ericChar.className = `eric-character is-${state}`;
         }
     }
     
@@ -652,6 +766,7 @@ class EricCompleteGame {
      */
     createParticleEffect(type) {
         const effects = document.getElementById('roomEffects');
+        if (!effects) return;
         const particles = {
             hearts: '❤️',
             stars: '⭐',
@@ -699,24 +814,31 @@ class EricCompleteGame {
                 const percentage = (stat.current / stat.max) * 100;
                 
                 fill.style.width = `${percentage}%`;
-                value.textContent = `${stat.current}/${stat.max}`;
+                value.textContent = `${Math.round(stat.current)}/${stat.max}`;
             }
         });
         
-        document.getElementById('coinsDisplay').textContent = this.coins;
+        const coinsDisplay = document.getElementById('ericCoinsDisplay');
+        if (coinsDisplay) coinsDisplay.textContent = this.coins;
+        const levelDisplay = document.getElementById('ericLevelDisplay');
+        const xpFill = document.getElementById('ericXpFill');
+        const bondDisplay = document.getElementById('ericBondDisplay');
+        if (levelDisplay) levelDisplay.textContent = this.level;
+        if (xpFill) xpFill.style.width = `${Math.min(100, (this.xp / (this.level * 100)) * 100)}%`;
+        if (bondDisplay) bondDisplay.textContent = this.bond;
     }
     
     /**
      * Modifie une stat
      */
-    modifyStat(statName, amount) {
+    modifyStat(statName, amount, persist = true) {
         if (this.stats[statName]) {
             this.stats[statName].current = Math.max(0, Math.min(
                 this.stats[statName].max,
                 this.stats[statName].current + amount
             ));
             this.updateStatsDisplay();
-            this.saveGameState();
+            if (persist) this.saveGameState();
         }
     }
     
@@ -725,22 +847,49 @@ class EricCompleteGame {
      */
     renderInventory() {
         const grid = document.getElementById('inventoryGrid');
-        grid.innerHTML = Object.entries(this.inventory)
+        const missionProgress = Math.min(3, this.dailyActions.length);
+        const mission = `
+            <div class="night-mission ${this.dailyRewardClaimed ? 'is-complete' : ''}">
+                <span class="mission-eyebrow">Rituel de nuit</span>
+                <strong>${this.dailyRewardClaimed ? 'Équilibre restauré' : 'Prends soin d’Éric de 3 façons'}</strong>
+                <div class="mission-progress"><span style="width:${missionProgress / 3 * 100}%"></span></div>
+                <small>${missionProgress}/3 · récompense 40 pièces + 25 XP</small>
+            </div>`;
+        const items = Object.entries(this.inventory)
             .filter(([id, item]) => item.count > 0)
             .map(([id, item]) => `
-                <div class="inventory-item" data-item="${id}">
+                <button type="button" class="inventory-item" data-item="${id}" title="Utiliser ${item.name}">
                     <span class="item-icon">${item.icon}</span>
                     <span class="item-count">${item.count}</span>
                     <span class="item-name">${item.name}</span>
-                </div>
-            `).join('') || '<p class="empty-message">Inventaire vide</p>';
+                </button>
+            `).join('') || '<p class="empty-message">La sacoche est vide.<br><small>La boutique contient de quoi gâter Éric.</small></p>';
+        grid.innerHTML = mission + items;
+
+        grid.querySelectorAll('.inventory-item').forEach(item => {
+            item.addEventListener('click', () => this.useItem(item.dataset.item));
+        });
+    }
+
+    useItem(itemId) {
+        const item = this.inventory[itemId];
+        if (!item || item.count < 1) return;
+        ['hunger', 'mood', 'health', 'energy'].forEach(stat => {
+            if (typeof item[stat] === 'number') this.modifyStat(stat, item[stat], false);
+        });
+        item.count -= 1;
+        this.awardProgress(12, 0);
+        this.updateEricState(item.hunger ? 'eat' : item.energy ? 'sleep' : 'play');
+        this.setStatus(`${item.name} utilisé.`, item.icon);
+        this.renderInventory();
+        this.saveGameState();
     }
     
     /**
      * Rend la boutique
      */
     renderShop(category) {
-        const items = GAME_CONFIG.items[category];
+        const items = ERIC_COMPLETE_CONFIG.items[category];
         const container = document.getElementById('shopItems');
         
         // Mettre à jour les boutons de catégorie
@@ -766,7 +915,7 @@ class EricCompleteGame {
      * Achète un item
      */
     buyItem(category, itemId) {
-        const item = GAME_CONFIG.items[category][itemId];
+        const item = ERIC_COMPLETE_CONFIG.items[category][itemId];
         
         if (this.coins >= item.cost) {
             this.coins -= item.cost;
@@ -808,14 +957,16 @@ class EricCompleteGame {
      * Démarre la boucle de jeu
      */
     startGameLoop() {
-        setInterval(() => {
+        if (this.loopId) clearInterval(this.loopId);
+        this.loopId = setInterval(() => {
             // Décrémenter les stats progressivement
-            this.modifyStat('hunger', -0.5);
-            this.modifyStat('mood', -0.3);
-            this.modifyStat('energy', -0.2);
+            this.modifyStat('hunger', -0.5, false);
+            this.modifyStat('mood', -0.3, false);
+            this.modifyStat('energy', -0.2, false);
             
             // Vérifier les conditions critiques
             this.checkCriticalConditions();
+            this.saveGameState();
         }, 10000); // Toutes les 10 secondes
     }
     
@@ -839,6 +990,7 @@ class EricCompleteGame {
         } else {
             // Retour à idle si les stats sont bonnes
             if (this.currentEricState === 'sad' || this.currentEricState === 'sleep') {
+                if (this.currentEricState === 'sleep' && this.sleepingUntil > Date.now()) return;
                 this.updateEricState('idle');
             }
         }
@@ -849,10 +1001,18 @@ class EricCompleteGame {
      */
     saveGameState() {
         localStorage.setItem('ericGameState', JSON.stringify({
+            version: 2,
             stats: this.stats,
             inventory: this.inventory,
             coins: this.coins,
-            currentRoom: this.currentRoom
+            level: this.level,
+            xp: this.xp,
+            bond: this.bond,
+            dailyKey: this.dailyKey,
+            dailyActions: this.dailyActions,
+            dailyRewardClaimed: this.dailyRewardClaimed,
+            currentRoom: this.currentRoom,
+            lastSavedAt: Date.now()
         }));
     }
     
@@ -862,13 +1022,45 @@ class EricCompleteGame {
     loadGameState() {
         const saved = localStorage.getItem('ericGameState');
         if (saved) {
-            const state = JSON.parse(saved);
-            this.stats = state.stats || this.stats;
-            this.inventory = state.inventory || this.inventory;
-            this.coins = state.coins || 0;
-            this.currentRoom = state.currentRoom || 'living';
-            this.updateStatsDisplay();
+            try {
+                const state = JSON.parse(saved);
+                this.stats = state.stats || this.stats;
+                this.inventory = state.inventory || this.inventory;
+                this.coins = Number.isFinite(state.coins) ? state.coins : 100;
+                this.level = state.level || 1;
+                this.xp = state.xp || 0;
+                this.bond = state.bond || 0;
+                if (state.dailyKey === this.dailyKey) {
+                    this.dailyActions = state.dailyActions || [];
+                    this.dailyRewardClaimed = Boolean(state.dailyRewardClaimed);
+                }
+                this.currentRoom = state.currentRoom || 'living';
+                this.lastSavedAt = state.lastSavedAt || Date.now();
+            } catch (error) {
+                console.warn('Sauvegarde Eric illisible, nouvelle partie démarrée.', error);
+            }
         }
+    }
+
+    applyOfflineProgress() {
+        if (!this.lastSavedAt) return;
+        const minutesAway = Math.min(8 * 60, Math.max(0, (Date.now() - this.lastSavedAt) / 60000));
+        if (minutesAway < 2) return;
+        this.stats.hunger.current = Math.max(5, this.stats.hunger.current - minutesAway * 0.055);
+        this.stats.mood.current = Math.max(5, this.stats.mood.current - minutesAway * 0.035);
+        this.stats.energy.current = Math.max(5, this.stats.energy.current - minutesAway * 0.025);
+        this.offlineMinutes = Math.round(minutesAway);
+    }
+
+    showFirstRunTip() {
+        requestAnimationFrame(() => {
+            if (this.offlineMinutes) {
+                this.setStatus(`Tu étais absent ${this.offlineMinutes} min. Eric t'attendait.`, '👋');
+            } else if (!localStorage.getItem('ericTutorialSeen')) {
+                this.setStatus('Occupe-toi d’Eric, gagne de l’XP et utilise tes pièces dans la boutique.', '✨');
+                localStorage.setItem('ericTutorialSeen', 'true');
+            }
+        });
     }
     
     /**
@@ -891,6 +1083,9 @@ class EricCompleteGame {
 // INITIALISATION
 // ============================================
 
+// Exposer explicitement le renderer afin que le dashboard historique ne puisse
+// jamais réinjecter son ancien Tamagotchi lorsqu'on revient sur l'onglet Éric.
+window.EricCompleteGame = EricCompleteGame;
 window.ericGame = null;
 
 function initEricGame() {
