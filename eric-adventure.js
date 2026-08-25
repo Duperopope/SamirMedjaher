@@ -29,16 +29,23 @@ class EricAdventure {
     };
 
     roomPositions = {
-        living: { x: 43, y: 7, scale: .58 },
-        kitchen: { x: 48, y: 8, scale: .52 },
-        bedroom: { x: 45, y: 7, scale: .5 },
-        garden: { x: 44, y: 7, scale: .54 }
+        living: { x: 43, y: 24, scale: .43 },
+        kitchen: { x: 35, y: 20, scale: .42 },
+        bedroom: { x: 52, y: 18, scale: .41 },
+        garden: { x: 48, y: 22, scale: .42 }
     };
 
     worldData = {
         living: {
-            bounds: { x1: 18, x2: 74, y1: 7, y2: 27 },
-            obstacles: [{ x1: 12, x2: 38, y1: 5, y2: 17 }],
+            bounds: { x1: 7, x2: 91, y1: 9, y2: 56 },
+            obstacles: [
+                { x1: 5, x2: 26, y1: 27, y2: 45 },
+                { x1: 14, x2: 32, y1: 18, y2: 31 },
+                { x1: 19, x2: 43, y1: 40, y2: 58 },
+                { x1: 46, x2: 72, y1: 48, y2: 68 },
+                { x1: 76, x2: 94, y1: 40, y2: 62 },
+                { x1: 43, x2: 65, y1: 8, y2: 20 }
+            ],
             objects: [
                 { id:'vinyl', label:'Platine', x:13, y:13, icon:'fa-record-vinyl', message:'Le vinyle tourne sans musique. Éric suit la vibration du regard.' },
                 { id:'guitar', label:'Guitare', x:37, y:31, icon:'fa-music', message:'Une corde résonne toute seule, exactement sur la fréquence de la balise.' },
@@ -46,8 +53,11 @@ class EricAdventure {
             ]
         },
         kitchen: {
-            bounds: { x1: 17, x2: 78, y1: 7, y2: 30 },
-            obstacles: [{ x1: 43, x2: 69, y1: 13, y2: 34 }],
+            bounds: { x1: 6, x2: 92, y1: 8, y2: 52 },
+            obstacles: [
+                { x1: 3, x2: 25, y1: 15, y2: 39 },
+                { x1: 43, x2: 72, y1: 27, y2: 61 }
+            ],
             objects: [
                 { id:'prints', label:'Empreintes', x:77, y:13, icon:'fa-paw', message:'Les traces sont encore tièdes. Elles traversent la porte de service.' },
                 { id:'pantry', label:'Réserve', x:78, y:54, icon:'fa-box-open', message:'Éric renifle les bocaux. Quelque chose a été déplacé récemment.' },
@@ -55,8 +65,12 @@ class EricAdventure {
             ]
         },
         bedroom: {
-            bounds: { x1: 23, x2: 73, y1: 7, y2: 29 },
-            obstacles: [{ x1: 17, x2: 43, y1: 15, y2: 35 }],
+            bounds: { x1: 13, x2: 88, y1: 8, y2: 52 },
+            obstacles: [
+                { x1: 7, x2: 43, y1: 34, y2: 67 },
+                { x1: 66, x2: 94, y1: 43, y2: 67 },
+                { x1: 4, x2: 22, y1: 9, y2: 28 }
+            ],
             objects: [
                 { id:'radio', label:'Radio', x:80, y:53, icon:'fa-broadcast-tower', message:'La radio capte trois notes, puis le silence. Éric dresse les oreilles.' },
                 { id:'map', label:'Carte', x:75, y:72, icon:'fa-map', message:'Un fil relie l’atelier, la cuisine et la serre des toits.' },
@@ -64,8 +78,13 @@ class EricAdventure {
             ]
         },
         garden: {
-            bounds: { x1: 17, x2: 79, y1: 8, y2: 34 },
-            obstacles: [{ x1: 12, x2: 35, y1: 20, y2: 40 }, { x1: 60, x2: 78, y1: 12, y2: 30 }],
+            bounds: { x1: 7, x2: 92, y1: 9, y2: 61 },
+            obstacles: [
+                { x1: 5, x2: 37, y1: 44, y2: 78 },
+                { x1: 38, x2: 55, y1: 27, y2: 42 },
+                { x1: 57, x2: 77, y1: 11, y2: 25 },
+                { x1: 72, x2: 93, y1: 39, y2: 64 }
+            ],
             objects: [
                 { id:'beacon', label:'Balise', x:77, y:68, icon:'fa-satellite-dish', message:'La balise pulse faiblement. Le médaillon d’Éric lui répond.' },
                 { id:'greenhouse', label:'Serre', x:22, y:60, icon:'fa-seedling', message:'La chaleur de la serre dessine de la buée sur les vitres.' },
@@ -144,9 +163,7 @@ class EricAdventure {
             button.innerHTML = `<span class="object-focus" aria-hidden="true"></span><span>${object.label}</span>`;
             button.onclick = (event) => {
                 event.stopPropagation();
-                const targetY = Math.max(6, Math.min(38, object.y * .48));
-                const targetX = object.x > 60 && targetY < 32 ? 57 : Math.max(10, Math.min(84, object.x));
-                this.walkTo(targetX, targetY, () => {
+                this.walkTo(object.x, object.y, () => {
                     this.audio?.playTone(object.id === 'beacon' ? 659.25 : 392, .65, .025);
                     this.setPose(object.id === 'bed' ? 'sleep' : 'happy', object.id === 'bed' ? 0 : 1700);
                     this.game.setStatus(object.message, '◆');
@@ -199,19 +216,51 @@ class EricAdventure {
     }
 
     buildPath(start, destination, world) {
-        const blocking = world.obstacles.find(obstacle => this.segmentCrosses(start, destination, obstacle));
-        if (!blocking) return [destination];
-        const candidates = [
-            { x: blocking.x1 - 3, y: blocking.y1 - 3 },
-            { x: blocking.x2 + 3, y: blocking.y1 - 3 },
-            { x: blocking.x1 - 3, y: blocking.y2 + 3 },
-            { x: blocking.x2 + 3, y: blocking.y2 + 3 }
-        ].map(point => this.resolveDestination(point.x, point.y, { ...world, obstacles: [] }));
-        candidates.sort((a, b) =>
-            Math.hypot(a.x - start.x, a.y - start.y) + Math.hypot(destination.x - a.x, destination.y - a.y) -
-            Math.hypot(b.x - start.x, b.y - start.y) - Math.hypot(destination.x - b.x, destination.y - b.y)
-        );
-        return [candidates[0], destination];
+        if (this.hasLineOfSight(start, destination, world)) return [destination];
+        const step = 3;
+        const key = point => `${Math.round(point.x / step)},${Math.round(point.y / step)}`;
+        const pointFor = nodeKey => {
+            const [gx, gy] = nodeKey.split(',').map(Number);
+            return { x: gx * step, y: gy * step };
+        };
+        const startPoint = this.nearestWalkable(start.x, start.y, world, step);
+        const endPoint = this.nearestWalkable(destination.x, destination.y, world, step);
+        const startKey = key(startPoint);
+        const endKey = key(endPoint);
+        const open = new Set([startKey]);
+        const cameFrom = new Map();
+        const gScore = new Map([[startKey, 0]]);
+        const fScore = new Map([[startKey, Math.hypot(startPoint.x - endPoint.x, startPoint.y - endPoint.y)]]);
+        const directions = [-1, 0, 1].flatMap(dx => [-1, 0, 1].map(dy => ({ dx, dy }))).filter(({dx,dy}) => dx || dy);
+
+        while (open.size) {
+            const currentKey = [...open].sort((a, b) => (fScore.get(a) ?? Infinity) - (fScore.get(b) ?? Infinity))[0];
+            if (currentKey === endKey) {
+                const path = [];
+                let cursor = currentKey;
+                while (cursor && cursor !== startKey) {
+                    path.unshift(pointFor(cursor));
+                    cursor = cameFrom.get(cursor);
+                }
+                path[path.length - 1] = destination;
+                return this.simplifyPath(start, path, world);
+            }
+            open.delete(currentKey);
+            const current = pointFor(currentKey);
+            directions.forEach(({ dx, dy }) => {
+                const next = { x: current.x + dx * step, y: current.y + dy * step };
+                if (!this.isWalkable(next, world)) return;
+                if (dx && dy && (!this.isWalkable({x:current.x + dx * step,y:current.y}, world) || !this.isWalkable({x:current.x,y:current.y + dy * step}, world))) return;
+                const nextKey = key(next);
+                const tentative = (gScore.get(currentKey) ?? Infinity) + Math.hypot(dx, dy);
+                if (tentative >= (gScore.get(nextKey) ?? Infinity)) return;
+                cameFrom.set(nextKey, currentKey);
+                gScore.set(nextKey, tentative);
+                fScore.set(nextKey, tentative + Math.hypot(next.x - endPoint.x, next.y - endPoint.y) / step);
+                open.add(nextKey);
+            });
+        }
+        return [destination];
     }
 
     segmentCrosses(start, end, rect) {
@@ -225,26 +274,67 @@ class EricAdventure {
     }
 
     resolveDestination(x, y, world) {
-        const point = {
+        return this.nearestWalkable(x, y, world, 1.5);
+    }
+
+    isWalkable(point, world) {
+        const margin = 1.7;
+        if (point.x < world.bounds.x1 || point.x > world.bounds.x2 || point.y < world.bounds.y1 || point.y > world.bounds.y2) return false;
+        return !world.obstacles.some(obstacle =>
+            point.x > obstacle.x1 - margin && point.x < obstacle.x2 + margin &&
+            point.y > obstacle.y1 - margin && point.y < obstacle.y2 + margin
+        );
+    }
+
+    nearestWalkable(x, y, world, step = 2) {
+        const origin = {
             x: Math.max(world.bounds.x1, Math.min(world.bounds.x2, x)),
             y: Math.max(world.bounds.y1, Math.min(world.bounds.y2, y))
         };
-        for (const obstacle of world.obstacles) {
-            if (point.x > obstacle.x1 && point.x < obstacle.x2 && point.y > obstacle.y1 && point.y < obstacle.y2) {
-                const edges = [
-                    { x: obstacle.x1 - 2, y: point.y }, { x: obstacle.x2 + 2, y: point.y },
-                    { x: point.x, y: obstacle.y1 - 2 }, { x: point.x, y: obstacle.y2 + 2 }
-                ];
-                edges.sort((a, b) => Math.hypot(a.x - point.x, a.y - point.y) - Math.hypot(b.x - point.x, b.y - point.y));
-                return edges[0];
+        if (this.isWalkable(origin, world)) return origin;
+        for (let radius = step; radius < 55; radius += step) {
+            const candidates = [];
+            for (let angle = 0; angle < Math.PI * 2; angle += Math.PI / 12) {
+                const point = { x: origin.x + Math.cos(angle) * radius, y: origin.y + Math.sin(angle) * radius };
+                if (this.isWalkable(point, world)) candidates.push(point);
+            }
+            if (candidates.length) {
+                candidates.sort((a, b) => Math.hypot(a.x - x, a.y - y) - Math.hypot(b.x - x, b.y - y));
+                return candidates[0];
             }
         }
-        return point;
+        return { ...this.roomPositions[this.game.currentRoom] };
+    }
+
+    hasLineOfSight(start, end, world) {
+        const distance = Math.hypot(end.x - start.x, end.y - start.y);
+        const samples = Math.max(2, Math.ceil(distance / 1.5));
+        for (let index = 1; index <= samples; index += 1) {
+            const t = index / samples;
+            if (!this.isWalkable({ x:start.x + (end.x - start.x) * t, y:start.y + (end.y - start.y) * t }, world)) return false;
+        }
+        return true;
+    }
+
+    simplifyPath(start, path, world) {
+        const simplified = [];
+        let anchor = start;
+        let index = 0;
+        while (index < path.length) {
+            let furthest = index;
+            for (let candidate = path.length - 1; candidate >= index; candidate -= 1) {
+                if (this.hasLineOfSight(anchor, path[candidate], world)) { furthest = candidate; break; }
+            }
+            simplified.push(path[furthest]);
+            anchor = path[furthest];
+            index = furthest + 1;
+        }
+        return simplified;
     }
 
     depthScale(y) {
         const base = this.roomPositions[this.game.currentRoom].scale;
-        return Math.max(.38, Math.min(.68, base + (18 - y) * .007));
+        return Math.max(.31, Math.min(.56, base + (18 - y) * .006));
     }
 
     scheduleBehaviour(delay = 7500 + Math.random() * 6500) {
