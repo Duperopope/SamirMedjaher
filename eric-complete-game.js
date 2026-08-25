@@ -1083,6 +1083,9 @@ class EricCompleteGame {
 // INITIALISATION
 // ============================================
 
+// Exposer explicitement le renderer afin que le dashboard historique ne puisse
+// jamais réinjecter son ancien Tamagotchi lorsqu'on revient sur l'onglet Éric.
+window.EricCompleteGame = EricCompleteGame;
 window.ericGame = null;
 
 function initEricGame() {

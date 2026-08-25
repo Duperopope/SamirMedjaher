@@ -486,38 +486,6 @@ body.hud-preview-active .game-notification {
     <!-- Tamagotchi (Éric le chat) - Click to open dashboard -->
     <div class="tamagotchi" id="tamagotchi" onclick="openGamingDashboard()">
     <i id="tamagotchiIcon" class="fas fa-cat" aria-label="Ouvrir les aventures d’Éric"></i>
-    <!-- Tooltip interactif -->
-    <div class="tama-tooltip" id="tamaTooltip">
-        <div style="font-weight:600;margin-bottom:2px;">🐱 Éric - Niveau <span id="tamaLevelDisplay">1</span></div>
-        <div style="font-size:0.75rem;opacity:0.9;">
-            <span class="tama-stat-icon">🍔</span> Faim: <span id="tamaHungerDisplay">100</span>%
-            <span style="margin:0 4px;">|</span>
-            <span class="tama-stat-icon">😊</span> Humeur: <span id="tamaMoodDisplay">100</span>%
-        </div>
-        <div style="font-size:0.7rem;opacity:0.7;margin-top:4px;border-top:1px solid rgba(255,255,255,0.2);padding-top:4px;">
-            👆 Clic: Ouvrir menu | 🖱️ Hover: Voir stats
-        </div>
-    </div>
-    </div>
-
-    <!-- Menu Contextuel Tamagotchi -->
-    <div class="tama-context-menu" id="tamaContextMenu" style="display:none;">
-        <div class="tama-menu-item" onclick="feedTamagotchi(); closeTamaMenu();">
-            <span class="tama-menu-icon">🍔</span>
-            <span class="tama-menu-text">Nourrir</span>
-        </div>
-        <div class="tama-menu-item" onclick="playWithTamagotchi(); closeTamaMenu();">
-            <span class="tama-menu-icon">🎮</span>
-            <span class="tama-menu-text">Jouer</span>
-        </div>
-        <div class="tama-menu-item" onclick="openShop(); closeTamaMenu();">
-            <span class="tama-menu-icon">🏪</span>
-            <span class="tama-menu-text">Boutique</span>
-        </div>
-        <div class="tama-menu-item" onclick="showTamaStats(); closeTamaMenu();">
-            <span class="tama-menu-icon">📊</span>
-            <span class="tama-menu-text">Statistiques</span>
-        </div>
     </div>
 
     <!-- Gaming Controller and Mini-games buttons removed - Now in dashboard -->
@@ -3551,6 +3519,7 @@ body.hud-preview-active .game-notification {
             if (!gamingMode) return;
             
             const menu = document.getElementById('tamaContextMenu');
+            if (!menu) return;
             const isActive = menu.classList.contains('active');
             
             if (isActive) {
@@ -3570,6 +3539,7 @@ body.hud-preview-active .game-notification {
         
         function closeTamaMenu() {
             const menu = document.getElementById('tamaContextMenu');
+            if (!menu) return;
             menu.classList.remove('active');
             document.removeEventListener('click', handleClickOutsideTamaMenu);
         }
@@ -3577,6 +3547,7 @@ body.hud-preview-active .game-notification {
         function handleClickOutsideTamaMenu(e) {
             const menu = document.getElementById('tamaContextMenu');
             const tamagotchi = document.getElementById('tamagotchi');
+            if (!menu || !tamagotchi) return;
             
             if (!menu.contains(e.target) && !tamagotchi.contains(e.target)) {
                 closeTamaMenu();

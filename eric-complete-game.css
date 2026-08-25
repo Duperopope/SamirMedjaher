@@ -964,7 +964,9 @@
 .notifications-toggle,
 #xpbarToggle,
 #gamingController,
-.unified-notifications-zone { display: none !important; }
+.unified-notifications-zone,
+#tamaContextMenu,
+.tama-tooltip { display: none !important; }
 
 /* Accès au jeu et navigation : pictogrammes sobres, aucun badge emoji flottant. */
 .tamagotchi { width: 62px !important; height: 62px !important; border-radius: 14px !important; border: 1px solid rgba(200,121,65,.58) !important; background: linear-gradient(145deg,#17262d,#0b151a) !important; box-shadow: 0 12px 32px rgba(0,0,0,.38), inset 0 1px rgba(255,255,255,.04) !important; color: #d08b55; font-size: 1.35rem !important; }

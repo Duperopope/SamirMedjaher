@@ -25,7 +25,7 @@ class EricAdventure {
         walk:  { row: 1, frames: [0, 1, 2, 3], fps: 9, loop: true },
         happy: { row: 2, frames: [0, 1, 2, 3], fps: 8, loop: false },
         sit:   { row: 3, frames: [0], fps: 1, loop: false },
-        sleep: { row: 3, frames: [0, 1, 2, 3, 2, 3], fps: 3, loop: true }
+        sleep: { row: 3, intro: [0, 1], frames: [2, 3, 2, 3], fps: 2, loop: true }
     };
 
     roomPositions = {
@@ -270,16 +270,18 @@ class EricAdventure {
         const animation = this.animations[name] || this.animations.idle;
         clearInterval(this.frameTimer);
         this.frame = 0;
+        const intro = animation.intro || [];
+        const sequence = [...intro, ...animation.frames];
         const drawFrame = () => {
-            const column = animation.frames[this.frame];
+            const column = sequence[this.frame];
             this.sprite.style.setProperty('--sprite-x', `${column * 100 / 3}%`);
             this.sprite.style.setProperty('--sprite-y', `${animation.row * 100 / 3}%`);
-            if (this.frame < animation.frames.length - 1) this.frame += 1;
-            else if (animation.loop) this.frame = 0;
+            if (this.frame < sequence.length - 1) this.frame += 1;
+            else if (animation.loop) this.frame = intro.length;
             else clearInterval(this.frameTimer);
         };
         drawFrame();
-        if (animation.frames.length > 1) this.frameTimer = setInterval(drawFrame, 1000 / animation.fps);
+        if (sequence.length > 1) this.frameTimer = setInterval(drawFrame, 1000 / animation.fps);
         this.stage.dataset.pose = name;
         if (duration) {
             this.poseTimer = setTimeout(() => this.setPose('idle'), duration);
