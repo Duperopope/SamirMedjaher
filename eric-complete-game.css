@@ -801,3 +801,139 @@
 .glowing {
     animation: glow 2s ease-in-out infinite;
 }
+
+/* ==========================================================
+   ERIC — NIGHT WORKSHOP ART DIRECTION (v3)
+   ========================================================== */
+
+.eric-game-container {
+    --ink: #0b1218;
+    --panel: rgba(13, 25, 31, 0.92);
+    --line: rgba(168, 199, 212, 0.16);
+    --copper: #c87941;
+    --amber: #f2b95f;
+    --mint: #79d8b4;
+    --fog: #a8c7d4;
+    min-height: 760px;
+    grid-template-columns: minmax(0, 1fr) 292px;
+    gap: 0;
+    padding: 0;
+    border: 1px solid rgba(168, 199, 212, 0.14);
+    border-radius: 4px;
+    background: var(--ink);
+    box-shadow: 0 32px 90px rgba(0, 0, 0, 0.48), inset 0 1px rgba(255,255,255,.04);
+    font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+}
+
+.game-header {
+    min-height: 112px;
+    gap: 1.1rem;
+    padding: 1.15rem 1.4rem;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    border-radius: 0;
+    background: linear-gradient(90deg, #101d24 0%, #0d171d 100%);
+}
+
+.eric-portrait { width: 62px; height: 62px; }
+.eric-portrait img { border: 0; background: #14242b; object-fit: contain; }
+.portrait-frame { inset: -4px; border-color: var(--copper); animation: none; }
+.portrait-frame::after { content: ""; position: absolute; width: 6px; height: 6px; right: 2px; bottom: 5px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 12px var(--mint); }
+
+.game-identity { min-width: 230px; }
+.game-kicker { color: var(--copper); font: 700 .62rem/1.2 "IBM Plex Mono", monospace; letter-spacing: .16em; text-transform: uppercase; }
+.game-identity h2 { margin: .25rem 0 .2rem; color: #eef5f5; font: 600 1.25rem/1.15 Georgia, serif; letter-spacing: .01em; }
+.game-identity h2 em { color: #7d99a5; font: 500 .7rem/1 "IBM Plex Mono", monospace; letter-spacing: .04em; }
+.game-identity p { margin: 0; color: #78919b; font-size: .7rem; }
+
+.stats-panel { grid-template-columns: repeat(4, minmax(82px, 1fr)); gap: .45rem; }
+.stat-bar { position: relative; display: block; padding: .55rem .6rem .65rem; border: 0; border-left: 1px solid var(--line); border-radius: 0; background: transparent; }
+.stat-icon { position: absolute; right: .5rem; top: .35rem; font-size: .8rem; filter: saturate(.7); }
+.stat-info { gap: .45rem; }
+.stat-label { color: #76909a; font: 600 .56rem/1 "IBM Plex Mono", monospace; letter-spacing: .12em; }
+.stat-value { color: #d9e4e7; font: 500 .62rem/1 "IBM Plex Mono", monospace; }
+.stat-bar-bg { order: 3; height: 3px; border: 0; background: #26343a; }
+.stat-bar-fill { box-shadow: none; }
+
+.currency-display { min-width: 104px; padding: .7rem .8rem; border: 1px solid rgba(200,121,65,.35); border-radius: 2px; background: rgba(200,121,65,.08); box-shadow: none; }
+.coins-count { justify-content: space-between; color: var(--amber); font: 600 .82rem/1 "IBM Plex Mono", monospace; }
+.coin-icon { font-size: .9rem; animation: none; }
+.bond-count { display: flex; gap: .25rem; margin-top: .6rem; padding-top: .55rem; border-top: 1px solid rgba(200,121,65,.24); color: #8299a1; font: 600 .58rem/1 "IBM Plex Mono", monospace; text-transform: uppercase; }
+.bond-count strong { margin-left: auto; color: var(--mint); }
+
+.game-main { gap: 0; padding: 0; border: 0; border-radius: 0; background: #111b21; }
+.room-selector { position: relative; z-index: 5; gap: 0; padding: 0; border-radius: 0; background: #0d171d; border-bottom: 1px solid var(--line); }
+.room-btn { flex-direction: row; justify-content: center; gap: .5rem; padding: .78rem .5rem; border: 0; border-right: 1px solid var(--line); border-radius: 0; color: #728993; }
+.room-btn:hover { transform: none; border-color: var(--line); background: rgba(121,216,180,.05); }
+.room-btn.active { color: #ecf4f3; border: 0; border-right: 1px solid var(--line); box-shadow: inset 0 -2px var(--copper); background: linear-gradient(180deg, rgba(200,121,65,.12), transparent); }
+.room-index { color: var(--copper); font: 600 .58rem/1 "IBM Plex Mono", monospace; }
+.room-label { font-size: .65rem; letter-spacing: .06em; text-transform: uppercase; }
+
+.game-environment { --scene-position: 7% center; min-height: 510px; border-radius: 0; background-image: url("assets/images/game/eric-night-workshop.webp"); background-size: cover; background-position: var(--scene-position); transition: background-position 900ms cubic-bezier(.2,.8,.2,1); box-shadow: none; }
+.room-container { overflow: hidden; align-items: flex-end; background: linear-gradient(90deg, rgba(4,10,14,.18), transparent 40%, rgba(4,10,14,.18)); }
+.scene-vignette { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 55% 55%, transparent 15%, rgba(4,9,12,.12) 65%, rgba(4,9,12,.64) 115%); }
+.scene-caption { position: absolute; z-index: 4; top: 1rem; left: 1rem; display: grid; gap: .2rem; padding: .65rem .8rem; border-left: 2px solid var(--copper); background: rgba(7,15,20,.68); backdrop-filter: blur(9px); color: #f1f6f5; }
+.scene-caption span { font: 500 .78rem/1.1 Georgia, serif; }
+.scene-caption small { color: #93aab2; font-size: .58rem; letter-spacing: .03em; }
+
+.eric-character { position: absolute; z-index: 3; left: 50%; bottom: 7%; width: clamp(170px, 27vw, 290px); height: auto; aspect-ratio: 1 / 1.08; padding: 0; border: 0; background: none; transform: translateX(-50%); cursor: pointer; animation: ericBreathe 4s ease-in-out infinite; }
+.eric-character img { position: relative; z-index: 2; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 18px 14px rgba(0,0,0,.45)); transition: transform .35s ease, filter .35s ease; }
+.eric-character:hover img { transform: translateY(-5px) rotate(1deg); filter: drop-shadow(0 24px 18px rgba(0,0,0,.55)) brightness(1.07); }
+.eric-aura { position: absolute; z-index: 1; inset: 18% 8% 8%; border-radius: 50%; background: radial-gradient(circle, rgba(121,216,180,.18), transparent 66%); filter: blur(10px); opacity: .5; }
+.eric-ground-shadow { position: absolute; z-index: 0; left: 15%; right: 15%; bottom: 0; height: 12%; border-radius: 50%; background: rgba(0,0,0,.52); filter: blur(8px); }
+.eric-character.is-play img, .eric-character.is-eat img { animation: ericJoy .6s cubic-bezier(.2,.8,.2,1) 2; }
+.eric-character.is-sleep img { transform: translateY(12px) scale(.96); filter: brightness(.72) saturate(.75) drop-shadow(0 12px 10px rgba(0,0,0,.5)); }
+.eric-character.is-sad img { filter: saturate(.55) brightness(.75) drop-shadow(0 18px 14px rgba(0,0,0,.5)); }
+
+.ambient-dust { position: absolute; inset: 0; pointer-events: none; }
+.ambient-dust i { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: var(--amber); opacity: .25; animation: dustFloat 7s linear infinite; }
+.ambient-dust i:nth-child(1){left:20%;top:70%;animation-delay:-2s}.ambient-dust i:nth-child(2){left:45%;top:45%;animation-delay:-4s}.ambient-dust i:nth-child(3){left:72%;top:62%;animation-delay:-1s}.ambient-dust i:nth-child(4){left:86%;top:28%;animation-delay:-6s}
+
+.eric-status { margin: 0; min-height: 42px; padding: .65rem 1rem; border: 0; border-top: 1px solid var(--line); border-radius: 0; background: #0c161b; font: 500 .7rem/1.25 "IBM Plex Mono", monospace; }
+.quick-actions { gap: 0; padding: 0; border-radius: 0; border-top: 1px solid var(--line); background: #101b20; }
+.quick-action-btn { flex-direction: row; justify-content: center; gap: .45rem; padding: .85rem .45rem; border: 0; border-right: 1px solid var(--line); border-radius: 0; background: transparent; color: #c5d2d5; }
+.quick-action-btn:hover { transform: none; color: white; background: rgba(200,121,65,.12); box-shadow: inset 0 -2px var(--copper); }
+.action-icon { font-size: .85rem; }.action-label { font-size: .65rem; letter-spacing: .05em; text-transform: uppercase; }
+
+.game-sidebar { border: 0; border-left: 1px solid var(--line); border-radius: 0; background: #0d171d; }
+.sidebar-tabs { background: #101b20; border-color: var(--line); }
+.sidebar-tab { padding: .85rem .35rem; border-bottom-width: 1px; color: #708791; }
+.sidebar-tab span:first-child { font-size: .8rem; }.sidebar-tab span:last-child { font-size: .55rem; letter-spacing: .07em; text-transform: uppercase; }
+.sidebar-tab.active { color: var(--amber); border-bottom-color: var(--copper); background: rgba(200,121,65,.08); }
+.sidebar-panel { padding: 1rem; }.panel-title { color: #dfe9e9; border-color: var(--line); font: 500 .78rem/1.3 Georgia, serif; }
+.inventory-grid { grid-template-columns: repeat(2, 1fr); gap: .5rem; }
+.night-mission { grid-column: 1 / -1; display: grid; gap: .48rem; padding: .85rem; border: 1px solid rgba(200,121,65,.34); background: linear-gradient(135deg, rgba(200,121,65,.12), rgba(121,216,180,.035)); }
+.mission-eyebrow { color: var(--copper); font: 700 .52rem/1 "IBM Plex Mono", monospace; letter-spacing: .14em; text-transform: uppercase; }
+.night-mission strong { color: #e4eded; font: 500 .72rem/1.25 Georgia, serif; }
+.night-mission small { color: #78909a; font-size: .55rem; }
+.mission-progress { height: 3px; overflow: hidden; background: #26353b; }
+.mission-progress span { display: block; height: 100%; background: linear-gradient(90deg, var(--copper), var(--amber)); transition: width .45s ease; }
+.night-mission.is-complete { border-color: rgba(121,216,180,.38); background: rgba(121,216,180,.07); }
+.night-mission.is-complete .mission-eyebrow { color: var(--mint); }
+.empty-message { grid-column: 1 / -1; padding: 1.1rem .5rem; color: #617780; line-height: 1.5; }
+.inventory-item, .shop-item, .minigame-card { border: 1px solid var(--line); border-radius: 2px; background: rgba(255,255,255,.025); }
+.inventory-item:hover, .shop-item:hover, .minigame-card:hover { border-color: rgba(200,121,65,.6); box-shadow: none; }
+.buy-btn { border-radius: 2px; background: var(--copper); color: #10181c; }
+
+@keyframes ericBreathe { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(-5px)} }
+@keyframes ericJoy { 0%,100%{transform:translateY(0) rotate(0)} 45%{transform:translateY(-14px) rotate(-2deg)} }
+@keyframes dustFloat { from{transform:translateY(25px);opacity:0} 30%{opacity:.35} to{transform:translateY(-120px);opacity:0} }
+
+@media (max-width: 1100px) {
+    .game-identity p { display: none; }
+    .stats-panel { grid-template-columns: repeat(2, minmax(90px,1fr)); }
+}
+
+@media (max-width: 820px) {
+    .eric-game-container { grid-template-columns: 1fr; min-height: auto; }
+    .game-header { align-items: center; }
+    .game-identity { min-width: 160px; }
+    .stats-panel { order: 4; flex-basis: 100%; }
+    .game-sidebar { border-left: 0; border-top: 1px solid var(--line); max-height: 380px; }
+    .game-environment { min-height: 400px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .eric-character, .ambient-dust i, .portrait-frame, .coin-icon { animation: none !important; }
+    .game-environment { transition: none; }
+}

@@ -89,6 +89,10 @@ class EricCompleteGame {
         this.coins = this.loadCoins();
         this.level = 1;
         this.xp = 0;
+        this.bond = 0;
+        this.dailyActions = [];
+        this.dailyRewardClaimed = false;
+        this.dailyKey = new Date().toISOString().slice(0, 10);
         this.lastActionAt = 0;
         this.loopId = null;
         this.isPlaying = false;
@@ -122,8 +126,14 @@ class EricCompleteGame {
                 <!-- Header avec stats -->
                 <div class="game-header">
                     <div class="eric-portrait">
-                        <img src="assets/images/eric-normal.png" alt="Eric" id="ericPortrait">
+                        <img src="assets/images/game/eric-guardian.webp" alt="Portrait d'Éric" id="ericPortrait">
                         <div class="portrait-frame"></div>
+                    </div>
+
+                    <div class="game-identity">
+                        <span class="game-kicker">Compagnon système</span>
+                        <h2>Éric <em>// gardien de nuit</em></h2>
+                        <p>Maintiens son équilibre et renforce votre lien.</p>
                     </div>
                     
                     <div class="stats-panel">
@@ -181,6 +191,9 @@ class EricCompleteGame {
                             <span class="coin-icon">🪙</span>
                             <span id="ericCoinsDisplay">0</span>
                         </div>
+                        <div class="bond-count" title="Lien avec Éric">
+                            <span>Lien</span><strong id="ericBondDisplay">0</strong><span>%</span>
+                        </div>
                     </div>
                 </div>
                 
@@ -189,20 +202,20 @@ class EricCompleteGame {
                     <!-- Sélecteur de pièces -->
                     <div class="room-selector">
                         <button class="room-btn active" data-room="living" title="Salon">
-                            <span class="room-icon">🛋️</span>
-                            <span class="room-label">Salon</span>
+                            <span class="room-index">01</span>
+                            <span class="room-label">Musique</span>
                         </button>
                         <button class="room-btn" data-room="kitchen" title="Cuisine">
-                            <span class="room-icon">🍳</span>
+                            <span class="room-index">02</span>
                             <span class="room-label">Cuisine</span>
                         </button>
                         <button class="room-btn" data-room="bedroom" title="Chambre">
-                            <span class="room-icon">🛏️</span>
-                            <span class="room-label">Chambre</span>
+                            <span class="room-index">03</span>
+                            <span class="room-label">Repos</span>
                         </button>
                         <button class="room-btn" data-room="garden" title="Jardin">
-                            <span class="room-icon">🌳</span>
-                            <span class="room-label">Jardin</span>
+                            <span class="room-index">04</span>
+                            <span class="room-label">Terrasse</span>
                         </button>
                     </div>
                     
@@ -379,41 +392,31 @@ class EricCompleteGame {
      * Rend l'environnement de la pièce actuelle
      */
     renderEnvironment() {
-        const room = ERIC_COMPLETE_CONFIG.rooms[this.currentRoom];
         const env = document.getElementById('gameEnvironment');
-        
-        env.style.background = room.background;
+        const roomMeta = {
+            living: { position: '7% center', label: 'Le coin musique', note: 'Éric écoute la ville respirer.' },
+            kitchen: { position: '38% center', label: 'La cuisine', note: 'L’heure de refaire le plein.' },
+            bedroom: { position: '70% center', label: 'Le refuge', note: 'Ici, le réseau peut attendre.' },
+            garden: { position: '96% center', label: 'La terrasse', note: 'Un peu d’air au-dessus de Lyon.' }
+        }[this.currentRoom];
+
+        env.style.setProperty('--scene-position', roomMeta.position);
         env.innerHTML = `
-            <div class="room-container">
-                <!-- Sol -->
-                <div class="room-floor"></div>
-                
-                <!-- Murs décorés -->
-                <div class="room-walls">
-                    ${this.renderWallDecor()}
+            <div class="room-container" data-room="${this.currentRoom}">
+                <div class="scene-vignette"></div>
+                <div class="scene-caption">
+                    <span>${roomMeta.label}</span>
+                    <small>${roomMeta.note}</small>
                 </div>
-                
-                <!-- Meubles -->
-                <div class="room-furniture">
-                    ${this.renderFurniture(room.furniture)}
-                </div>
-                
-                <!-- 🎮 PHASER GAME CANVAS -->
-                <div id="ericGameContainer" style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
-                    <!-- Le jeu Phaser sera créé ici -->
-                </div>
+                <button class="eric-character" id="ericCharacter" type="button" aria-label="Caresser Éric">
+                    <span class="eric-aura"></span>
+                    <img src="assets/images/game/eric-guardian.webp" alt="Éric, chat noir aux yeux verts">
+                    <span class="eric-ground-shadow"></span>
+                </button>
+                <div class="ambient-dust" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
                 <div class="room-effects" id="roomEffects"></div>
             </div>
         `;
-        
-        // Détruire l'ancienne scène lors d'un changement de pièce.
-        if (window.ericPhaserGame && typeof window.ericPhaserGame.destroy === 'function') {
-            window.ericPhaserGame.destroy(true);
-            window.ericPhaserGame = null;
-        }
-
-        // Initialiser le jeu Phaser
-        this.initPhaserGame();
         
         // Ajouter interactivité sur Eric
         const ericContainer = document.getElementById('ericCharacter');
@@ -568,17 +571,17 @@ class EricCompleteGame {
 
         switch(action) {
             case 'feed':
-                this.performAction({ stat: 'hunger', amount: 18, energy: 2, state: 'eat', icon: '🐟', message: 'Eric a bien mangé.' });
+                this.performAction({ id: 'feed', stat: 'hunger', amount: 18, energy: 2, state: 'eat', icon: '🐟', message: 'Eric a bien mangé.' });
                 break;
             case 'play':
                 if (this.stats.energy.current < 10) return this.setStatus('Eric est trop fatigué pour jouer.', '😴');
-                this.performAction({ stat: 'mood', amount: 16, energy: -8, state: 'play', icon: '🎾', message: 'Belle partie ! Eric est ravi.' });
+                this.performAction({ id: 'play', stat: 'mood', amount: 16, energy: -8, state: 'play', icon: '🎾', message: 'Belle partie ! Eric est ravi.' });
                 break;
             case 'care':
-                this.performAction({ stat: 'health', amount: 12, mood: 4, state: 'idle', icon: '🪮', message: 'Eric est propre et soigné.' });
+                this.performAction({ id: 'care', stat: 'health', amount: 12, mood: 4, state: 'idle', icon: '🪮', message: 'Eric est propre et soigné.' });
                 break;
             case 'sleep':
-                this.performAction({ stat: 'energy', amount: 24, hunger: -4, state: 'sleep', icon: '💤', message: 'Une bonne sieste recharge Eric.' });
+                this.performAction({ id: 'sleep', stat: 'energy', amount: 24, hunger: -4, state: 'sleep', icon: '💤', message: 'Une bonne sieste recharge Eric.' });
                 break;
         }
     }
@@ -592,8 +595,21 @@ class EricCompleteGame {
         this.createParticleEffect(action.state === 'sleep' ? 'zzz' : action.state === 'play' ? 'hearts' : 'sparkles');
         this.awardProgress(8, 2);
         this.setStatus(action.message, action.icon);
+        this.registerDailyAction(action.id);
         this.saveGameState();
         setTimeout(() => this.checkCriticalConditions(), 1800);
+    }
+
+    registerDailyAction(actionId) {
+        if (!this.dailyActions.includes(actionId)) this.dailyActions.push(actionId);
+        if (this.dailyActions.length >= 3 && !this.dailyRewardClaimed) {
+            this.dailyRewardClaimed = true;
+            this.coins += 40;
+            this.xp += 25;
+            this.setStatus('Rituel de nuit accompli : +40 pièces et +25 XP.', '◆');
+            this.createParticleEffect('stars');
+        }
+        this.renderInventory();
     }
 
     setStatus(message, icon = '🐾') {
@@ -604,6 +620,7 @@ class EricCompleteGame {
     awardProgress(xp, coins) {
         this.xp += xp;
         this.coins += coins;
+        this.bond = Math.min(100, this.bond + 2);
         const threshold = this.level * 100;
         if (this.xp >= threshold) {
             this.xp -= threshold;
@@ -673,29 +690,11 @@ class EricCompleteGame {
      */
     updateEricState(state) {
         this.currentEricState = state;
-        
-        if (this.isometricRenderer) {
-            this.isometricRenderer.setState(state);
-        } else {
-            // Fallback: changer l'image PNG
-            const img = document.querySelector('#ericCharacter img');
-            if (img) {
-                const stateImages = {
-                    'idle': 'eric-normal.png',
-                    'walk': 'eric-normal.png',
-                    'eat': 'eric-fed.png',
-                    'play': 'eric-happy.png',
-                    'sleep': 'eric-sleeping.png',
-                    'sad': 'eric-unhappy.png'
-                };
-                img.src = `assets/images/${stateImages[state] || 'eric-normal.png'}`;
-            }
-        }
-        
+
         // Mettre à jour les classes CSS
         const ericChar = document.getElementById('ericCharacter');
         if (ericChar) {
-            ericChar.className = `eric-character ${state}`;
+            ericChar.className = `eric-character is-${state}`;
         }
     }
     
@@ -778,8 +777,10 @@ class EricCompleteGame {
         if (coinsDisplay) coinsDisplay.textContent = this.coins;
         const levelDisplay = document.getElementById('ericLevelDisplay');
         const xpFill = document.getElementById('ericXpFill');
+        const bondDisplay = document.getElementById('ericBondDisplay');
         if (levelDisplay) levelDisplay.textContent = this.level;
         if (xpFill) xpFill.style.width = `${Math.min(100, (this.xp / (this.level * 100)) * 100)}%`;
+        if (bondDisplay) bondDisplay.textContent = this.bond;
     }
     
     /**
@@ -801,7 +802,15 @@ class EricCompleteGame {
      */
     renderInventory() {
         const grid = document.getElementById('inventoryGrid');
-        grid.innerHTML = Object.entries(this.inventory)
+        const missionProgress = Math.min(3, this.dailyActions.length);
+        const mission = `
+            <div class="night-mission ${this.dailyRewardClaimed ? 'is-complete' : ''}">
+                <span class="mission-eyebrow">Rituel de nuit</span>
+                <strong>${this.dailyRewardClaimed ? 'Équilibre restauré' : 'Prends soin d’Éric de 3 façons'}</strong>
+                <div class="mission-progress"><span style="width:${missionProgress / 3 * 100}%"></span></div>
+                <small>${missionProgress}/3 · récompense 40 pièces + 25 XP</small>
+            </div>`;
+        const items = Object.entries(this.inventory)
             .filter(([id, item]) => item.count > 0)
             .map(([id, item]) => `
                 <button type="button" class="inventory-item" data-item="${id}" title="Utiliser ${item.name}">
@@ -809,7 +818,8 @@ class EricCompleteGame {
                     <span class="item-count">${item.count}</span>
                     <span class="item-name">${item.name}</span>
                 </button>
-            `).join('') || '<p class="empty-message">Inventaire vide</p>';
+            `).join('') || '<p class="empty-message">La sacoche est vide.<br><small>La boutique contient de quoi gâter Éric.</small></p>';
+        grid.innerHTML = mission + items;
 
         grid.querySelectorAll('.inventory-item').forEach(item => {
             item.addEventListener('click', () => this.useItem(item.dataset.item));
@@ -951,6 +961,10 @@ class EricCompleteGame {
             coins: this.coins,
             level: this.level,
             xp: this.xp,
+            bond: this.bond,
+            dailyKey: this.dailyKey,
+            dailyActions: this.dailyActions,
+            dailyRewardClaimed: this.dailyRewardClaimed,
             currentRoom: this.currentRoom,
             lastSavedAt: Date.now()
         }));
@@ -969,6 +983,11 @@ class EricCompleteGame {
                 this.coins = Number.isFinite(state.coins) ? state.coins : 100;
                 this.level = state.level || 1;
                 this.xp = state.xp || 0;
+                this.bond = state.bond || 0;
+                if (state.dailyKey === this.dailyKey) {
+                    this.dailyActions = state.dailyActions || [];
+                    this.dailyRewardClaimed = Boolean(state.dailyRewardClaimed);
+                }
                 this.currentRoom = state.currentRoom || 'living';
                 this.lastSavedAt = state.lastSavedAt || Date.now();
             } catch (error) {
