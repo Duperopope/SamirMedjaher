@@ -419,6 +419,7 @@ class EricCompleteGame {
                     <span>${roomMeta.label}</span>
                     <small>${roomMeta.note}</small>
                 </div>
+                <button class="sound-toggle" id="ericSoundToggle" type="button" aria-label="Activer l’ambiance sonore" aria-pressed="false"><i class="fas fa-volume-mute"></i><span>Ambiance</span></button>
                 <button class="eric-illustrated-stage" id="ericIllustratedStage" type="button" aria-label="Éric, personnage illustré animé">
                     <span id="ericAnimatedSprite" class="eric-sprite" role="img" aria-label="Éric, chat noir animé"></span>
                     <span class="illustrated-shadow"></span>
@@ -449,8 +450,8 @@ class EricCompleteGame {
         const unlocked = {
             living: true,
             kitchen: storyStep >= 2,
-            bedroom: this.level >= 2,
-            garden: storyStep >= 3
+            bedroom: storyStep >= 3 || this.level >= 2,
+            garden: storyStep >= 5
         };
         document.querySelectorAll('.room-btn').forEach(button => {
             const locked = !unlocked[button.dataset.room];
@@ -600,6 +601,7 @@ class EricCompleteGame {
             return;
         }
         this.lastActionAt = Date.now();
+        if (action !== 'sleep') this.sleepingUntil = 0;
 
         switch(action) {
             case 'feed':
@@ -723,6 +725,7 @@ class EricCompleteGame {
      */
     updateEricState(state) {
         this.currentEricState = state;
+        if (state === 'sleep') this.sleepingUntil = Number.POSITIVE_INFINITY;
         if (window.ericAdventure) {
             const pose = state === 'play' || state === 'eat'
                 ? 'happy'
@@ -987,6 +990,7 @@ class EricCompleteGame {
         } else {
             // Retour à idle si les stats sont bonnes
             if (this.currentEricState === 'sad' || this.currentEricState === 'sleep') {
+                if (this.currentEricState === 'sleep' && this.sleepingUntil > Date.now()) return;
                 this.updateEricState('idle');
             }
         }

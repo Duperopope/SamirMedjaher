@@ -877,6 +877,8 @@
 .scene-caption { position: absolute; z-index: 4; top: 1rem; left: 1rem; display: grid; gap: .2rem; padding: .65rem .8rem; border-left: 2px solid var(--copper); background: rgba(7,15,20,.68); backdrop-filter: blur(9px); color: #f1f6f5; }
 .scene-caption span { font: 500 .78rem/1.1 Georgia, serif; }
 .scene-caption small { color: #93aab2; font-size: .58rem; letter-spacing: .03em; }
+.sound-toggle { position: absolute; z-index: 8; top: 1rem; right: 1rem; display: flex; align-items: center; gap: .45rem; padding: .5rem .62rem; border: 1px solid rgba(148,163,184,.24); border-radius: 2px; background: rgba(7,15,20,.72); color: #7f949c; cursor: pointer; backdrop-filter: blur(8px); font: 600 .52rem/1 "IBM Plex Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+.sound-toggle:hover, .sound-toggle.is-on { border-color: rgba(200,121,65,.6); color: #e2a56f; background: rgba(200,121,65,.1); }
 
 .eric-3d-stage { position: absolute; z-index: 3; left: 35%; bottom: 1%; width: 29%; height: 68%; cursor: pointer; filter: drop-shadow(0 18px 12px rgba(0,0,0,.35)); }
 .eric-3d-stage canvas { display: block; width: 100% !important; height: 100% !important; outline: none; }
