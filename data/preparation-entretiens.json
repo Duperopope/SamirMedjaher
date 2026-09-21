@@ -1,0 +1,1413 @@
+{
+  "version": 1,
+  "updated": "2026-09-21",
+  "notice": "Questions simulées et formulations suggérées, jamais fournies par les recruteurs. Adapter aux faits réels. Les états du suivi sont un instantané du 21 septembre 2026, pas une vérification de disponibilité des offres.",
+  "roles": {
+    "transport": {
+      "label": "Transport de voyageurs",
+      "pitch": "Je suis Samir Medjaher, titulaire du permis D et de la FIMO voyageurs. Je souhaite exercer dans le transport de voyageurs. Mon parcours comprend la supervision réseau et la coordination d’équipes terrain, qui m’ont appris la rigueur, le suivi des procédures et la communication. Je souhaite comprendre votre service et les conditions de prise de poste pour être opérationnel dans un cadre clair.",
+      "proofs": [
+        "Permis D et FIMO voyageurs mentionnés dans le profil transport.",
+        "Supervision et coordination d’équipes terrain chez Rhône Telecom.",
+        "Documentation et formation d’utilisateurs au Collège au Carré."
+      ],
+      "limits": [
+        "Ne pas présenter la formation à la conduite comme plusieurs années d’emploi au volant.",
+        "Confirmer la validité et la disponibilité des justificatifs demandés avant la prise de poste.",
+        "Ne pas promettre une disponibilité, des horaires ou une mobilité non vérifiés."
+      ],
+      "qa": [
+        [
+          "Quelle est votre expérience de conduite professionnelle ?",
+          "Je suis titulaire du permis D et de la FIMO voyageurs. Je distingue ma formation de mes expériences professionnelles : mon CV ne décrit pas plusieurs années sur des lignes régulières. Je souhaite connaître votre accompagnement à la prise de poste et les services confiés.",
+          "Ajouter uniquement les heures, stages ou emplois de conduite réellement effectués et vérifiables."
+        ],
+        [
+          "Comment réagiriez-vous à un retard ou à un imprévu ?",
+          "Je donnerais la priorité à la sécurité et aux consignes d’exploitation. J’informerais l’interlocuteur prévu et les voyageurs lorsque c’est nécessaire, plutôt que de prendre un risque pour compenser un retard.",
+          "Réponse de mise en situation, pas récit d’un incident vécu."
+        ],
+        [
+          "Comment abordez-vous un passager mécontent ?",
+          "Je reste factuel, j’écoute la demande et j’explique ce qui est possible dans le cadre du service. Si la situation compromet la sécurité, j’applique la procédure de l’entreprise et je sollicite l’appui prévu.",
+          "Rester sur la posture professionnelle, sans inventer d’intervention passée."
+        ],
+        [
+          "Acceptez-vous les coupures, le scolaire ou les week-ends ?",
+          "J’aimerais voir un exemple de roulement : amplitudes, coupures, lieux de prise de service et jours travaillés. Je pourrai alors vous confirmer précisément les créneaux compatibles avec mon organisation.",
+          "Valider ses contraintes avant de répondre oui à tout."
+        ],
+        [
+          "Pourquoi un parcours informatique puis le transport ?",
+          "Le transport est un projet que j’ai concrétisé par le permis D et la FIMO. Mon expérience informatique m’apporte une façon rigoureuse de travailler, de documenter et de communiquer ; je souhaite maintenant l’appliquer à un service concret aux voyageurs.",
+          "Ne pas dévaloriser le parcours précédent."
+        ],
+        [
+          "Qu’attendez-vous de votre arrivée ?",
+          "Un cadre clair sur les lignes, les véhicules, les procédures et les interlocuteurs, ainsi qu’une prise en main adaptée. Je préfère identifier les points à apprendre plutôt que prétendre connaître vos méthodes avant de les avoir vues.",
+          "Demander le déroulé concret de la première semaine."
+        ]
+      ],
+      "ask": [
+        "Quel dépôt et quel type de service sont réellement concernés ?",
+        "Quel volume d’heures est garanti et comment se présentent les coupures ?",
+        "Quelle prise en main des véhicules et des lignes est prévue ?",
+        "Quelle est la rémunération de base, distincte des primes et remboursements ?",
+        "Quels justificatifs et quelles étapes restent nécessaires avant une prise de poste ?"
+      ]
+    },
+    "support": {
+      "label": "Support informatique",
+      "pitch": "Je suis Samir Medjaher. J’ai travaillé en supervision réseau chez Rhône Telecom, avec coordination d’équipes terrain et résolution d’incidents N1–N2, et j’ai aussi effectué une mission Wi-Fi, documentation et formation au Collège au Carré. Je développe des outils web et je recherche un rôle où relier diagnostic technique, suivi des incidents et service aux utilisateurs.",
+      "proofs": [
+        "Rhône Telecom : supervision SFR, coordination terrain, incidents N1–N2.",
+        "Collège au Carré : diagnostic Wi-Fi, configuration, documentation et formation.",
+        "Projets web livrés et code consultable sur le portfolio."
+      ],
+      "limits": [
+        "Ne pas affirmer une expertise Active Directory, Microsoft 365, virtualisation ou ITIL sans exemple réel.",
+        "Le Bachelor cybersécurité est un parcours suivi, pas un diplôme obtenu à présenter comme tel.",
+        "Ne pas confondre niveau d’incident traité et titre de poste senior."
+      ],
+      "qa": [
+        [
+          "Comment traitez-vous un incident utilisateur ?",
+          "Je commence par clarifier le symptôme, les personnes touchées, l’impact et ce qui a changé. Je mène des vérifications adaptées à mes droits, je trace les résultats et je valide le retour au fonctionnement avec l’utilisateur. Si le périmètre dépasse mon niveau, je transmets un diagnostic exploitable.",
+          "Méthode proposée ; préparer un incident réel sans données client."
+        ],
+        [
+          "Donnez un exemple de votre expérience.",
+          "Chez Rhône Telecom, j’ai travaillé sur la supervision d’infrastructures SFR, la coordination avec le terrain et des incidents N1–N2. Pour l’entretien, je peux détailler un cas réel : contexte, action personnelle, relais éventuel et résultat observé.",
+          "Choisir le cas exact avant l’appel ; ne pas inventer de volumes ou de gains."
+        ],
+        [
+          "Comment priorisez-vous plusieurs demandes ?",
+          "Je compare l’impact et l’urgence, puis j’applique les règles de l’équipe. Je rends visible ce qui bloque et j’annonce le prochain point, sans promettre un délai non maîtrisé.",
+          "Demander les engagements de service et la chaîne d’escalade."
+        ],
+        [
+          "Que faites-vous face à un outil que vous ne connaissez pas ?",
+          "Je précise mon niveau, je consulte la documentation et les procédures, puis je teste dans un cadre autorisé. Je sais demander une validation avant une modification risquée. Mon expérience du diagnostic est transférable, pas une preuve de maîtrise de tous les produits.",
+          "Nommer seulement les outils effectivement utilisés."
+        ],
+        [
+          "Comment communiquez-vous avec un utilisateur non technique ?",
+          "Je reformule le problème et les prochaines étapes en termes d’usage. Au Collège au Carré, la documentation et la formation faisaient partie de ma mission, en complément du diagnostic Wi-Fi.",
+          "Préparer une explication simple, sans vocabulaire inutile."
+        ],
+        [
+          "Pourquoi devrions-nous retenir un profil hybride ?",
+          "J’associe une expérience opérationnelle du support et du réseau à des projets de développement. Cela m’aide à comprendre le besoin et à produire une documentation ou un outil utile. Je veux surtout apporter cette méthode dans le périmètre réel du poste.",
+          "Relier la réponse aux tâches de l’annonce, pas à une liste de technologies."
+        ]
+      ],
+      "ask": [
+        "Quelle est la répartition entre incidents, demandes et projets ?",
+        "Quels outils et technologies faut-il maîtriser dès le premier jour ?",
+        "Quel niveau d’autonomie est attendu, et où se situe l’escalade ?",
+        "Quel parcours d’intégration et quelle documentation existent déjà ?",
+        "Quels horaires, déplacements, astreintes et modalités de télétravail s’appliquent ?"
+      ]
+    },
+    "reseau": {
+      "label": "Réseaux & supervision",
+      "pitch": "Je suis Samir Medjaher. Mon expérience chez Rhône Telecom porte sur la supervision d’infrastructures SFR, la coordination d’équipes terrain et le traitement d’incidents N1–N2. J’ai aussi effectué du diagnostic Wi-Fi, de la configuration et de la documentation au Collège au Carré. Je souhaite mettre cette base opérationnelle au service de votre périmètre réseau, en clarifiant les technologies et le niveau d’autonomie attendus.",
+      "proofs": [
+        "Supervision des infrastructures SFR chez Rhône Telecom.",
+        "Coordination d’équipes terrain et qualification d’incidents.",
+        "Diagnostic Wi-Fi et documentation au Collège au Carré."
+      ],
+      "limits": [
+        "Ne pas s’attribuer des certifications Cisco, une expertise SD-WAN ou une administration VoIP non démontrées.",
+        "Séparer l’expérience de supervision d’une responsabilité d’architecture réseau.",
+        "Les astreintes, horaires postés et déplacements doivent être confirmés."
+      ],
+      "qa": [
+        [
+          "Comment abordez-vous une alerte réseau ?",
+          "Je vérifie le périmètre, l’impact et la cohérence avec les événements disponibles. Je trace les vérifications et je coordonne les actions autorisées ou l’escalade. Je ne change pas une configuration en production sans cadre ni validation.",
+          "Présenter la méthode, puis un cas réel de supervision."
+        ],
+        [
+          "Quelle est votre expérience la plus proche ?",
+          "La supervision des infrastructures SFR chez Rhône Telecom, avec des incidents N1–N2 et de la coordination terrain, est mon expérience directement mobilisable. La mission Wi-Fi au Collège au Carré complète cette base côté diagnostic et utilisateurs.",
+          "Décrire les responsabilités réellement tenues, pas celles de toute l’équipe."
+        ],
+        [
+          "Que savez-vous faire sur nos équipements ?",
+          "Je peux préciser les environnements sur lesquels j’ai effectivement travaillé. Pour les produits qui me sont nouveaux, je propose de distinguer les tâches réalisables avec procédures et celles qui demandent une formation ou l’appui d’un référent.",
+          "Demander les marques, versions et actes attendus."
+        ],
+        [
+          "Comment transmettez-vous un incident au niveau supérieur ?",
+          "Je fournis le contexte, l’impact, les symptômes, les vérifications et leurs résultats, ainsi que les actions déjà tentées. L’objectif est que le relais ne recommence pas l’enquête depuis zéro.",
+          "Ne pas divulguer d’informations d’un ancien client."
+        ],
+        [
+          "Êtes-vous à l’aise avec le travail posté et l’anglais ?",
+          "Je peux échanger en anglais, que j’ai pratiqué pendant mon séjour au Pays de Galles. Pour les horaires, j’ai besoin du roulement réel pour confirmer mes disponibilités.",
+          "Ne pas inventer une disponibilité 24 h sur 24."
+        ],
+        [
+          "Comment garantissez-vous la traçabilité ?",
+          "Je distingue le constat, l’hypothèse et l’action effectuée ; je renseigne l’heure, le périmètre et le relais. La documentation est une partie du travail, pas une formalité de fin de ticket.",
+          "Préparer un exemple anonymisé de compte rendu."
+        ]
+      ],
+      "ask": [
+        "Quel est le périmètre entre supervision, exploitation et ingénierie ?",
+        "Quels équipements et outils sont utilisés, et quelles formations sont prévues ?",
+        "Quels horaires postés, astreintes et déplacements sont réellement attendus ?",
+        "Quelles actions peuvent être réalisées seul et lesquelles nécessitent une validation ?",
+        "Quels seraient les premiers objectifs pendant l’intégration ?"
+      ]
+    },
+    "applicatif": {
+      "label": "Support applicatif",
+      "pitch": "Je suis Samir Medjaher. Mon expérience porte sur la supervision et les incidents N1–N2, le diagnostic Wi-Fi, la documentation et l’accompagnement d’utilisateurs. Je développe aussi des outils web, ce qui m’aide à relier un symptôme utilisateur à une investigation technique. Je souhaite comprendre vos applications, votre organisation de support et le niveau d’expertise requis pour cette mission.",
+      "proofs": [
+        "Incidents N1–N2 et coordination opérationnelle chez Rhône Telecom.",
+        "Support, documentation et formation au Collège au Carré.",
+        "Construction Comores, portfolio bilingue et FIMO Check consultables."
+      ],
+      "limits": [
+        "Ne pas présenter les projets personnels comme une expérience salariée de support applicatif N3.",
+        "SQL, progiciels métiers, ITIL et TMA ne doivent pas être revendiqués sans cas réel.",
+        "Clarifier l’accompagnement sur la connaissance métier de l’application."
+      ],
+      "qa": [
+        [
+          "Comment qualifiez-vous un incident applicatif ?",
+          "Je reformule le comportement attendu et observé, le périmètre, les étapes de reproduction et l’impact. Je rassemble les éléments accessibles dans mon périmètre, puis je distingue incident, demande d’évolution et problème d’usage.",
+          "Méthode à mettre en situation, sans prétendre connaître leur logiciel."
+        ],
+        [
+          "Quel est votre niveau en développement ?",
+          "Je peux montrer mes projets web et expliquer les parties que j’ai réalisées, les choix et les corrections. Cela ne signifie pas que je maîtrise d’emblée votre code métier ou tous les langages de votre environnement.",
+          "Ouvrir un projet dont on peut expliquer personnellement le fonctionnement."
+        ],
+        [
+          "Et votre niveau SQL ou bases de données ?",
+          "Je préfère décrire précisément mes usages réels plutôt que me présenter comme expert. Quel niveau attendez-vous : lecture et diagnostic, requêtes encadrées, corrections ou administration ?",
+          "Compléter avec un exemple réel ; ne pas improviser un niveau."
+        ],
+        [
+          "Comment gérez-vous un utilisateur bloqué ?",
+          "Je qualifie l’impact, recherche un contournement validé et communique la prochaine étape. Je trace la demande et j’escalade avec des éléments reproductibles si nécessaire.",
+          "Ne pas proposer de modification de données sans validation."
+        ],
+        [
+          "Comment apprenez-vous un domaine métier nouveau ?",
+          "Je m’appuie sur les cas d’usage, la documentation, un environnement de test et les échanges avec un référent. Je construis une base de cas plutôt que d’apprendre seulement les menus du logiciel.",
+          "Demander le temps d’apprentissage réellement prévu."
+        ],
+        [
+          "Quel est votre apport sur la relation client ?",
+          "J’ai associé support et formation au Collège au Carré ; mon expérience commerciale m’a aussi appris à écouter et clarifier un besoin. Je peux expliquer un diagnostic sans faire porter la complexité technique à l’utilisateur.",
+          "Choisir une situation précise et anonymisée."
+        ]
+      ],
+      "ask": [
+        "Quelle application et quels usages métier sont concernés ?",
+        "Le poste relève-t-il surtout du fonctionnel, du technique ou du développement ?",
+        "Quel niveau SQL et quel accès aux données sont nécessaires ?",
+        "Qui valide les correctifs, les contournements et les mises en production ?",
+        "Quelle formation produit et quel relais vers les développeurs sont prévus ?"
+      ]
+    },
+    "web": {
+      "label": "Projets web",
+      "pitch": "Je suis Samir Medjaher. Je conçois des sites et des outils web du besoin initial à la mise en ligne. J’ai notamment livré Construction Comores et développé mon portfolio bilingue ainsi que FIMO Check. Mon expérience de supervision m’a apporté la coordination opérationnelle et la rigueur. Pour une refonte, je souhaite clarifier les livrables, les validations et la qualité attendue avant de m’engager sur un calendrier.",
+      "proofs": [
+        "Construction Comores : site client livré et travail de référencement.",
+        "Portfolio bilingue : conception, documentation et déploiement.",
+        "FIMO Check : application web autour d’un besoin métier.",
+        "Rhône Telecom : coordination terrain et résolution d’incidents."
+      ],
+      "limits": [
+        "Ne pas inventer une expérience confirmée de direction de prestataires marketing/créa/copywriting.",
+        "Ne pas promettre un gain SEO, un taux de conversion ou un délai sans diagnostic.",
+        "Ne pas annoncer un forfait, une disponibilité ou une capacité de facturation non confirmés."
+      ],
+      "qa": [
+        [
+          "Présentez une réalisation web concrète.",
+          "Construction Comores est un site client que j’ai livré et mis en ligne, avec un travail de référencement. Je peux présenter le besoin, les pages, mon rôle exact et les choix réalisés. Mon portfolio et FIMO Check montrent aussi ma démarche de conception et de documentation.",
+          "Préparer une démonstration réelle ; aucun chiffre de trafic non mesuré."
+        ],
+        [
+          "Comment reprenez-vous un projet déjà lancé ?",
+          "Je proposerais d’abord un inventaire partagé des livrables, des blocages, des accès et des validations attendues. Ensuite, je définirais avec les intervenants les responsables, les dépendances et les jalons avant de confirmer une date de mise en ligne.",
+          "C’est une méthode proposée, pas un précédent inventé."
+        ],
+        [
+          "Avez-vous déjà piloté une équipe marketing externe ?",
+          "Mon expérience démontrable est la réalisation web et la coordination opérationnelle, notamment avec des équipes terrain. Je ne la présente pas comme une longue expérience de direction créative. Mon apport serait de clarifier l’exécution et de travailler avec les spécialistes déjà mobilisés.",
+          "Assumer la différence de profil sans la masquer."
+        ],
+        [
+          "Comment abordez-vous les risques SEO d’une refonte ?",
+          "Je proposerais de faire établir l’état de référence, l’inventaire des pages et le plan des changements avec le spécialiste concerné. Les validations doivent couvrir les URL, les redirections, l’indexation et le suivi après mise en ligne ; je ne promets pas une absence totale de variation de trafic.",
+          "Ne pas revendiquer une migration complexe déjà pilotée si elle n’a pas eu lieu."
+        ],
+        [
+          "Comment organisez-vous la recette ?",
+          "Je définirais une liste de contrôles et de critères de validation : parcours, mobile, contenus, formulaires, liens et corrections restantes. Les arbitrages et la décision de mise en ligne doivent être explicites, avec un responsable et un suivi.",
+          "Demander qui réalise les tests et qui valide côté client."
+        ],
+        [
+          "Quel tarif et quel délai proposez-vous ?",
+          "Je préfère établir un forfait sur un périmètre connu : livrables restants, rôle de chacun, nombre de validations et critères d’acceptation. Je peux préparer un devis après cet échange, sans annoncer un montant déconnecté de la charge réelle.",
+          "Aucun engagement commercial tant que le périmètre n’est pas validé."
+        ]
+      ],
+      "ask": [
+        "Quels livrables sont validés, en cours et encore à produire ?",
+        "Qui tranche côté direction, et sous quel délai ?",
+        "Quel CMS, quels accès et quels prestataires sont déjà en place ?",
+        "Quel budget, quelle date cible et quelles dépendances sont incontournables ?",
+        "Qui prend en charge le SEO, la recette et le suivi après mise en ligne ?"
+      ]
+    },
+    "a-preciser": {
+      "label": "Périmètre à clarifier",
+      "pitch": "Bonjour, Samir Medjaher à l’appareil. Merci de me contacter. Pouvez-vous d’abord me rappeler l’intitulé exact du poste, sa référence et les principales missions ? Je pourrai vous présenter les éléments de mon parcours qui correspondent, sans confondre plusieurs dossiers.",
+      "proofs": [
+        "Parcours et réalisations consultables sur le portfolio.",
+        "Les arguments seront choisis après identification du poste exact."
+      ],
+      "limits": [
+        "L’intitulé ou les missions sont incomplets dans le suivi.",
+        "Ne pas attribuer une spécialité, un salaire ou une disponibilité à ce dossier par défaut."
+      ],
+      "qa": [
+        [
+          "Vous souvenez-vous de cette candidature ?",
+          "J’ai plusieurs démarches en cours ; je préfère vérifier la référence pour vous répondre précisément. Pouvez-vous me rappeler le poste et le site concerné ?",
+          "Ne pas prétendre reconnaître un dossier mal identifié."
+        ],
+        [
+          "Quel type de poste recherchez-vous ?",
+          "Mon parcours réunit support et réseau, réalisation web et formation au transport. Je souhaite préciser les missions dont vous parlez pour vous présenter la partie pertinente, plutôt que de vous faire une réponse trop générale.",
+          "Recadrer rapidement vers la mission exacte."
+        ],
+        [
+          "Pouvons-nous échanger tout de suite ?",
+          "Je peux prendre quelques minutes pour comprendre la demande. Si un entretien détaillé est nécessaire, fixons un créneau où je pourrai consulter l’offre et préparer des exemples adaptés.",
+          "Ne pas affirmer une disponibilité immédiate si ce n’est pas le cas."
+        ]
+      ],
+      "ask": [
+        "Quel est l’intitulé exact et la référence de l’offre ?",
+        "Quel employeur, site, contrat et volume horaire sont concernés ?",
+        "Quelles sont les trois missions prioritaires ?",
+        "Pouvez-vous transmettre le descriptif avant un entretien approfondi ?"
+      ]
+    },
+    "test-ia": {
+      "label": "Test d’outils IA",
+      "pitch": "Je suis Samir Medjaher. Je développe des outils et des sites web et je pratique l’expérimentation d’outils IA. Mon intérêt pour cette mission dépend d’un protocole clair : tâches, données utilisées, critères de validation et conditions de rémunération. Je souhaite tester de façon structurée et remonter des observations reproductibles.",
+      "proofs": [
+        "Projets web et automatisation documentés sur le portfolio.",
+        "Expérience de diagnostic et de rédaction de documentation."
+      ],
+      "limits": [
+        "Ne pas donner accès à une boîte mail personnelle ou à des identifiants pour un test mal cadré.",
+        "Ne pas communiquer des données réelles d’utilisateurs.",
+        "Vérifier le contrat et les modalités de paiement avant de commencer."
+      ],
+      "qa": [
+        [
+          "Comment testez-vous un assistant IA ?",
+          "Je définis un cas d’usage et un résultat attendu, je note les conditions du test, puis je relève les écarts et les éléments reproductibles. Je distingue préférence de présentation et erreur factuelle ou fonctionnelle.",
+          "Utiliser des exemples synthétiques et autorisés."
+        ],
+        [
+          "Pouvez-vous utiliser votre Gmail personnel ?",
+          "Je préfère un environnement de test fourni ou un compte dédié, avec des données synthétiques. Pouvez-vous préciser les accès réellement nécessaires et les mesures prévues pour protéger les données ?",
+          "Aucun partage de mot de passe ni contournement des protections."
+        ],
+        [
+          "Quel volume de travail pouvez-vous accepter ?",
+          "Je souhaite d’abord connaître la charge, les créneaux, la durée, les critères d’acceptation et les modalités de paiement. Je pourrai ensuite confirmer un volume réaliste.",
+          "Ne pas accepter implicitement un tarif ou un volume."
+        ]
+      ],
+      "ask": [
+        "Quel est le protocole exact et qui valide les tâches ?",
+        "Un compte de test et des données synthétiques sont-ils fournis ?",
+        "Quelle entité contracte, comment les heures sont-elles suivies et réglées ?",
+        "Le test initial est-il rémunéré, et quel est son périmètre ?"
+      ]
+    }
+  },
+  "globalqa": [
+    [
+      "Pourquoi ce poste ?",
+      "Je souhaite relier les missions que vous décrivez aux exemples concrets de mon parcours. Pouvez-vous me préciser votre priorité principale à l’arrivée ? Je pourrai alors développer l’expérience la plus pertinente.",
+      "Remplacer la réponse générale par l’angle du dossier affiché."
+    ],
+    [
+      "Quand pouvez-vous commencer et quelles sont vos attentes ?",
+      "Je préfère vous confirmer une date et des conditions fiables après avoir vérifié mes disponibilités et le périmètre. Pouvez-vous préciser la date cible, le rythme de travail et le cadre de rémunération ?",
+      "Les dates et montants restent à décider personnellement."
+    ],
+    [
+      "Avez-vous une question pour terminer ?",
+      "Quels seraient les signes d’une prise de poste réussie pendant les premières semaines, et quelle est la prochaine étape du recrutement ?",
+      "Noter l’interlocuteur, le délai et les documents demandés dans un espace privé."
+    ]
+  ],
+  "items": [
+    {
+      "id": "TR-002",
+      "company": "Sup Interim",
+      "role": "Conducteur / receveur",
+      "family": "transport",
+      "phase": "Historique",
+      "angle": "Accueil des voyageurs et titres de transport",
+      "qa": [
+        [
+          "Comment abordez-vous la fonction de receveur ?",
+          "Je souhaite apprendre votre billettique, les procédures de caisse et l’information voyageurs. La relation client fait partie de mon parcours, mais je ne prétends pas connaître votre matériel sans formation.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Quelle formation est prévue sur la billettique et les procédures de caisse ?"
+      ],
+      "source": "https://www.hellowork.com/fr-fr/emplois/82562214.html",
+      "letter": "",
+      "cv": "CV-Samir-Medjaher-Transport-FR.pdf",
+      "aliases": []
+    },
+    {
+      "id": "TR-004",
+      "company": "Aquila RH",
+      "role": "Conducteur de car scolaire · Saint-Priest",
+      "family": "transport",
+      "phase": "À suivre",
+      "angle": "Prise de service scolaire et coupures",
+      "qa": [
+        [
+          "Pourquoi cette mission scolaire ?",
+          "Le service scolaire demande régularité, attention aux voyageurs et respect d’un cadre. Je souhaite connaître les circuits et la prise en main prévue avant de confirmer mon organisation.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Les horaires sont-ils fractionnés et quel volume est garanti pendant les vacances scolaires ?"
+      ],
+      "source": "https://www.hellowork.com/fr-fr/emplois/82531695.html",
+      "letter": "",
+      "cv": "CV-Samir-Medjaher-Transport-FR.pdf",
+      "aliases": []
+    },
+    {
+      "id": "TR-005",
+      "company": "Aquila RH",
+      "role": "Conducteur de cars · Vénissieux",
+      "family": "transport",
+      "phase": "À suivre",
+      "angle": "Répartition scolaire, interurbain et services collectifs",
+      "qa": [
+        [
+          "Êtes-vous prêt à changer de type de service ?",
+          "Je souhaite comprendre la répartition entre les services et la formation aux lignes. Je peux confirmer ma disponibilité à partir du planning réel, pas sur une promesse générale de polyvalence.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Quelle est la répartition réelle entre scolaire, interurbain et autres services ?"
+      ],
+      "source": "https://www.hellowork.com/fr-fr/emplois/82531818.html",
+      "letter": "",
+      "cv": "CV-Samir-Medjaher-Transport-FR.pdf",
+      "aliases": []
+    },
+    {
+      "id": "TR-008",
+      "company": "Actual group",
+      "role": "Poste transport à préciser · Villeurbanne",
+      "family": "a-preciser",
+      "phase": "En pause",
+      "angle": "Intitulé absent et horaires variables à clarifier",
+      "qa": [
+        [
+          "Quelles disponibilités avez-vous ?",
+          "J’aimerais voir l’intitulé et un exemple de planning avant de confirmer les créneaux. Une amplitude variable peut avoir des conséquences différentes selon le dépôt et les coupures.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Pouvez-vous préciser la mission et fournir un roulement représentatif ?"
+      ],
+      "source": "https://www.hellowork.com/fr-fr/emplois/82507330.html",
+      "letter": "",
+      "cv": "",
+      "aliases": []
+    },
+    {
+      "id": "TR-013",
+      "company": "NOBEL INTERIM",
+      "role": "Conducteur de bus scolaire, urbain, interurbain",
+      "family": "transport",
+      "phase": "À suivre",
+      "angle": "Trois services différents dans le secteur de Genas",
+      "qa": [
+        [
+          "Quel type de ligne privilégiez-vous ?",
+          "Je souhaite connaître le besoin concret : scolaire, urbain ou interurbain. Je pourrai alors expliquer comment ma formation et mes contraintes correspondent au service proposé.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Le recrutement concerne-t-il un service dominant ou un remplacement sur plusieurs activités ?"
+      ],
+      "source": "https://www.hellowork.com/fr-fr/emplois/77811922.html",
+      "letter": "",
+      "cv": "CV-Samir-Medjaher-Transport-FR.pdf",
+      "aliases": []
+    },
+    {
+      "id": "TR-014",
+      "company": "Menway Emploi",
+      "role": "Conducteur de cars · Caluire-et-Cuire",
+      "family": "transport",
+      "phase": "À suivre",
+      "angle": "Mission d’intérim et prise de service",
+      "qa": [
+        [
+          "Pouvez-vous assurer une mission d’intérim à Caluire ?",
+          "Je suis intéressé par le transport de voyageurs. Pour confirmer, j’ai besoin des dates, du dépôt réel, des horaires et du volume garanti de la mission.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Caluire est-il le lieu de prise de service ou seulement le secteur desservi ?"
+      ],
+      "source": "https://www.hellowork.com/fr-fr/emplois/83374715.html",
+      "letter": "",
+      "cv": "CV-Samir-Medjaher-Transport-FR.pdf",
+      "aliases": []
+    },
+    {
+      "id": "TR-016",
+      "company": "Performance TT",
+      "role": "Conducteur de bus ou cars",
+      "family": "transport",
+      "phase": "Historique",
+      "angle": "Identifier la nouvelle mission si un recruteur rappelle",
+      "qa": [
+        [
+          "L’offre précédente est close ; accepteriez-vous une autre mission ?",
+          "Je suis ouvert à l’examen d’une nouvelle proposition. Pouvez-vous m’en préciser le lieu, les services, les horaires et le contrat afin que je confirme l’adéquation ?",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Quelle nouvelle référence remplace la première offre ?"
+      ],
+      "source": "https://www.hellowork.com/fr-fr/emplois/83541342.html",
+      "letter": "",
+      "cv": "CV-Samir-Medjaher-Transport-FR.pdf",
+      "aliases": []
+    },
+    {
+      "id": "TR-017",
+      "company": "Transports de l’Ain",
+      "role": "Conducteur de voyageurs · Meximieux",
+      "family": "transport",
+      "phase": "À suivre",
+      "angle": "Dépôt de Meximieux et organisation du poste",
+      "qa": [
+        [
+          "Pourquoi Meximieux et un poste durable ?",
+          "Je recherche un cadre clair et un service dans lequel m’investir. J’aimerais vérifier les lieux de prise de service et les roulements pour m’assurer que mon organisation est compatible.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Le poste dépend-il uniquement du dépôt de Meximieux et quel roulement type est prévu ?"
+      ],
+      "source": "https://www.hellowork.com/fr-fr/emplois/83045353.html",
+      "letter": "",
+      "cv": "CV-Samir-Medjaher-Transport-FR.pdf",
+      "aliases": []
+    },
+    {
+      "id": "TR-018",
+      "company": "Aquila RH",
+      "role": "Conducteur de car / conducteur-receveur",
+      "family": "transport",
+      "phase": "À suivre",
+      "angle": "Distinguer cette offre des deux autres candidatures Aquila",
+      "qa": [
+        [
+          "De quelle offre Aquila parlons-nous ?",
+          "J’ai examiné plusieurs postes de votre réseau. Pour éviter toute confusion, pouvez-vous me confirmer la référence, le dépôt et la part de conduite et de réception ?",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Quel dépôt et quelle formation à la billettique concernent cette offre précisément ?"
+      ],
+      "source": "",
+      "letter": "",
+      "cv": "CV-Samir-Medjaher-Transport-FR.pdf",
+      "aliases": []
+    },
+    {
+      "id": "TR-019",
+      "company": "LIP Transport",
+      "role": "Conducteur de car polyvalent",
+      "family": "transport",
+      "phase": "À suivre",
+      "angle": "Clarifier ce que recouvre la polyvalence",
+      "qa": [
+        [
+          "Que signifie pour vous la polyvalence ?",
+          "Je la comprends comme une capacité à s’adapter à plusieurs services dans un cadre maîtrisé. Je souhaite identifier les missions réelles, la fréquence des changements et l’accompagnement prévu.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "La polyvalence inclut-elle du tourisme, des découchés ou uniquement des lignes locales ?"
+      ],
+      "source": "",
+      "letter": "",
+      "cv": "CV-Samir-Medjaher-Transport-FR.pdf",
+      "aliases": []
+    },
+    {
+      "id": "IT-003",
+      "company": "Acass",
+      "role": "Technicien support IT itinérant",
+      "family": "support",
+      "phase": "Historique",
+      "angle": "Interventions et déplacements multi-sites",
+      "qa": [
+        [
+          "Comment organisez-vous une tournée d’interventions ?",
+          "Je clarifie les incidents, les priorités et les éléments à préparer avant le déplacement. Je trace les interventions et les relais. Le périmètre réel des sites et des moyens de transport reste à préciser.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Quels sites, quel véhicule et quelle organisation des déplacements sont prévus ?"
+      ],
+      "source": "https://www.hellowork.com/fr-fr/emplois/80206517.html",
+      "letter": "",
+      "cv": "",
+      "aliases": []
+    },
+    {
+      "id": "IT-004",
+      "company": "Axelys Interim",
+      "role": "Deux candidatures regroupées · intitulés à préciser",
+      "family": "a-preciser",
+      "phase": "À clarifier",
+      "angle": "Le suivi ne distingue pas les deux offres",
+      "qa": [
+        [
+          "Sur laquelle des deux candidatures souhaitez-vous échanger ?",
+          "Je préfère identifier la référence et le descriptif avant de développer mon expérience. Mon suivi regroupait deux démarches et je ne veux pas vous répondre sur la mauvaise mission.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Pouvez-vous distinguer les deux références, employeurs et missions ?"
+      ],
+      "source": "",
+      "letter": "",
+      "cv": "",
+      "aliases": []
+    },
+    {
+      "id": "IT-005",
+      "company": "OCEA Smart Building",
+      "role": "Technicien support IT",
+      "family": "support",
+      "phase": "Historique",
+      "angle": "Lien entre support utilisateurs et environnement bâtiment",
+      "qa": [
+        [
+          "Pourquoi le support IT chez OCEA ?",
+          "Le lien entre services numériques et usages concrets du bâtiment m’intéresse. Mon expérience démontrable reste le support et le réseau ; je souhaite préciser les équipements et applications réellement pris en charge.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Le poste porte-t-il sur l’informatique interne, les équipements connectés ou les deux ?"
+      ],
+      "source": "",
+      "letter": "lettreocea.html",
+      "cv": "",
+      "aliases": []
+    },
+    {
+      "id": "IT-006",
+      "company": "Amiltone",
+      "role": "Technicien support informatique",
+      "family": "support",
+      "phase": "Historique",
+      "angle": "Écart éventuel avec l’expérience et le diplôme attendus",
+      "qa": [
+        [
+          "Votre expérience correspond-elle au niveau demandé ?",
+          "Je peux détailler ma supervision en 2024, ma mission Wi-Fi en 2023 et mes projets. Je ne revendique pas un diplôme cybersécurité obtenu ni trois ans continus sur un poste identique. Échangeons sur les compétences réellement indispensables.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Le niveau d’autonomie attendu laisse-t-il une place à une intégration progressive ?"
+      ],
+      "source": "https://www.hellowork.com/fr-fr/emplois/80095544.html",
+      "letter": "",
+      "cv": "",
+      "aliases": []
+    },
+    {
+      "id": "IT-007",
+      "company": "Manpower",
+      "role": "Technicien support informatique N1–N2",
+      "family": "support",
+      "phase": "Historique",
+      "angle": "Qualification d’incident et escalade",
+      "qa": [
+        [
+          "Où situez-vous la limite entre N1 et N2 ?",
+          "Je m’appuie d’abord sur votre périmètre, vos procédures et mes droits. Je peux montrer mon expérience de diagnostic N1–N2 en supervision, sans supposer que le même intitulé recouvre les mêmes actes dans votre équipe.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Quelles actions relèvent de chaque niveau dans cette mission ?"
+      ],
+      "source": "",
+      "letter": "",
+      "cv": "",
+      "aliases": []
+    },
+    {
+      "id": "IT-008",
+      "company": "Manpower",
+      "role": "Technicien support informatique",
+      "family": "support",
+      "phase": "Historique",
+      "angle": "Ne pas confondre deux références du même cabinet",
+      "qa": [
+        [
+          "Quel poste Manpower vous intéresse ?",
+          "Pouvez-vous me confirmer la référence, le client et le périmètre ? Je pourrai ensuite relier précisément les missions à mon expérience de support et de réseau.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Ce dossier est-il distinct de votre offre N1–N2, et pour quel site ?"
+      ],
+      "source": "https://www.hellowork.com/fr-fr/emplois/79718489.html",
+      "letter": "",
+      "cv": "",
+      "aliases": []
+    },
+    {
+      "id": "IT-009",
+      "company": "Intérim Qualité Lyon",
+      "role": "Technicien support informatique",
+      "family": "support",
+      "phase": "Historique",
+      "angle": "Conditions de mission et environnement client",
+      "qa": [
+        [
+          "Comment vous intégrez-vous rapidement chez un client ?",
+          "Je commence par les procédures, les accès autorisés, les interlocuteurs et les incidents récurrents. Je rends mes actions visibles et je fais valider mes premières interventions sur les points sensibles.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Quelle durée, quel environnement et quel accompagnement sont prévus chez le client ?"
+      ],
+      "source": "",
+      "letter": "",
+      "cv": "",
+      "aliases": []
+    },
+    {
+      "id": "IT-010",
+      "company": "DLSI France",
+      "role": "Technicien informatique / support utilisateurs",
+      "family": "support",
+      "phase": "Historique",
+      "angle": "Diagnostic de proximité et accompagnement",
+      "qa": [
+        [
+          "Comment évitez-vous de perdre du temps sur un problème mal décrit ?",
+          "Je reformule le symptôme et l’impact avec l’utilisateur, puis je cherche un cas reproductible. La documentation et l’accompagnement utilisateur font partie de mon expérience au Collège au Carré.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Quels profils d’utilisateurs et quels incidents dominent dans le poste ?"
+      ],
+      "source": "",
+      "letter": "",
+      "cv": "",
+      "aliases": []
+    },
+    {
+      "id": "IT-011",
+      "company": "LIP recrute pour LIP",
+      "role": "Technicien support informatique niveau 1",
+      "family": "support",
+      "phase": "Historique",
+      "angle": "Support interne et demandes récurrentes",
+      "qa": [
+        [
+          "Pourquoi un rôle N1 avec des projets de développement ?",
+          "Je ne considère pas le support comme secondaire. Mes projets m’aident à comprendre les outils, tandis que mon expérience opérationnelle m’a appris à qualifier les demandes, à suivre et à expliquer.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Le support dessert-il les agences du groupe et quelle est la volumétrie habituelle ?"
+      ],
+      "source": "https://www.hellowork.com/fr-fr/emplois/79587624.html",
+      "letter": "",
+      "cv": "",
+      "aliases": []
+    },
+    {
+      "id": "IT-012",
+      "company": "Tessi Groupe",
+      "role": "Technicien informatique de proximité",
+      "family": "support",
+      "phase": "Historique",
+      "angle": "Parc, postes et gestes de proximité",
+      "qa": [
+        [
+          "Comment combinez-vous support et suivi de parc ?",
+          "Je souhaite comprendre votre inventaire et les procédures d’installation. Je documente les actions et je valide le service rendu ; je ne revendique pas la maîtrise de votre outil de gestion de parc avant de l’avoir utilisé.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Quelle part du poste concerne les incidents, le déploiement et l’inventaire ?"
+      ],
+      "source": "https://www.hellowork.com/fr-fr/emplois/80346954.html",
+      "letter": "",
+      "cv": "",
+      "aliases": []
+    },
+    {
+      "id": "IT-013",
+      "company": "Fiducial",
+      "role": "Technicien informatique · transferts de données",
+      "family": "applicatif",
+      "phase": "Historique",
+      "angle": "Rapprocher informatique et formation comptable",
+      "qa": [
+        [
+          "En quoi votre DCG est-il utile ici ?",
+          "Ma formation en comptabilité et gestion m’aide à comprendre les enjeux métier et la sensibilité des données. Je la combine avec mon expérience de diagnostic ; elle ne remplace pas une formation à vos outils de migration.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Quels contrôles d’intégrité, sauvegardes et validations encadrent les transferts ?"
+      ],
+      "source": "https://www.hellowork.com/fr-fr/emplois/79210187.html",
+      "letter": "",
+      "cv": "",
+      "aliases": []
+    },
+    {
+      "id": "IT-014",
+      "company": "DIMO Software",
+      "role": "Technicien support applicatif · Cash On Time",
+      "family": "applicatif",
+      "phase": "Historique",
+      "angle": "Qualifier les incidents et comprendre la gestion du poste client",
+      "qa": [
+        [
+          "Comment distinguez-vous demande fonctionnelle et anomalie technique ?",
+          "Je pars du résultat attendu et du cas reproductible, puis je vérifie le contexte métier et les éléments techniques disponibles. Mon DCG facilite le dialogue sur la gestion, mais je dois apprendre votre produit.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Quelle formation Cash On Time est prévue et comment le support évolue-t-il vers la TMA ?"
+      ],
+      "source": "https://recrutement.dimosoftware.fr/poste/lmmmyu4gb9-technicien-support-applicatif-hf/",
+      "letter": "",
+      "cv": "",
+      "aliases": []
+    },
+    {
+      "id": "IT-015",
+      "company": "DCS EASYWARE",
+      "role": "Technicien support de proximité",
+      "family": "support",
+      "phase": "À clarifier",
+      "angle": "Statut non renseigné et périmètre matériel",
+      "qa": [
+        [
+          "Êtes-vous disponible pour des déploiements sur site ?",
+          "J’aimerais préciser les sites, les périodes de déploiement et les horaires. Je peux ensuite vous confirmer mes disponibilités et expliquer mon expérience de configuration et d’accompagnement.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "La mission combine-t-elle support quotidien, renouvellement de postes et déménagements ?"
+      ],
+      "source": "",
+      "letter": "",
+      "cv": "",
+      "aliases": []
+    },
+    {
+      "id": "IT-016",
+      "company": "Université Lyon 1 · campus La Doua",
+      "role": "Technicien informatique, statistiques et calcul scientifique",
+      "family": "support",
+      "phase": "En pause",
+      "angle": "Distinguer assistance informatique et calcul scientifique",
+      "qa": [
+        [
+          "Quelle expérience avez-vous du calcul scientifique ?",
+          "Mon expérience démontrable concerne surtout support, réseau et développement de projets. Je ne me présente pas comme spécialiste du calcul scientifique ; j’aimerais savoir quelle part du poste exige cette expertise dès l’arrivée.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Le poste vise-t-il l’assistance aux chercheurs, l’exploitation d’infrastructure ou du développement scientifique ?"
+      ],
+      "source": "",
+      "letter": "",
+      "cv": "",
+      "aliases": []
+    },
+    {
+      "id": "IT-017",
+      "company": "Groupe INSA",
+      "role": "Développeur d’applications web",
+      "family": "web",
+      "phase": "Historique",
+      "angle": "Expliquer le code personnel et les besoins métier",
+      "qa": [
+        [
+          "Quel projet pouvez-vous détailler techniquement ?",
+          "Je peux présenter Construction Comores, mon portfolio ou FIMO Check en distinguant besoin, code réalisé, outils utilisés et corrections. Je préfère approfondir un projet réel plutôt que multiplier les noms de technologies.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Quelle stack, quelles applications et quel processus de revue de code sont utilisés ?"
+      ],
+      "source": "",
+      "letter": "",
+      "cv": "",
+      "aliases": []
+    },
+    {
+      "id": "IT-018",
+      "company": "Lustucru Premium Groupe",
+      "role": "Technicien support IT",
+      "family": "support",
+      "phase": "En pause",
+      "angle": "Support en contexte d’entreprise et contraintes de site",
+      "qa": [
+        [
+          "Comment gérez-vous une intervention dans un environnement de production ?",
+          "Je commence par le périmètre autorisé, l’impact et les procédures du site. Mon expérience de supervision apporte la rigueur ; je ne prétends pas connaître votre informatique industrielle sans accompagnement.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Le support concerne-t-il les bureaux, les sites industriels ou les deux ?"
+      ],
+      "source": "",
+      "letter": "",
+      "cv": "",
+      "aliases": []
+    },
+    {
+      "id": "IT-019",
+      "company": "Lùkla",
+      "role": "Technicien support N1",
+      "family": "support",
+      "phase": "Historique",
+      "angle": "Onboarding et gestion du parc",
+      "qa": [
+        [
+          "Comment prépareriez-vous l’arrivée d’un collaborateur ?",
+          "Je suivrais une checklist validée : matériel, profil, accès autorisés et vérification avec l’utilisateur. Je m’assure de la traçabilité ; les actes d’administration non maîtrisés restent encadrés par un référent.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Quelle part de la mission concerne l’onboarding, le stock et le support quotidien ?"
+      ],
+      "source": "https://www.hellowork.com/fr-fr/emplois/79263546.html",
+      "letter": "",
+      "cv": "",
+      "aliases": []
+    },
+    {
+      "id": "IT-020",
+      "company": "Actual Talent",
+      "role": "Technicien support",
+      "family": "support",
+      "phase": "Historique",
+      "angle": "Migration et déploiement Windows 11",
+      "qa": [
+        [
+          "Comment abordez-vous une phase de migration ?",
+          "Je clarifie les prérequis, les validations et les moyens de retour en arrière avec l’équipe. Je peux contribuer au diagnostic et à l’accompagnement des utilisateurs sans me présenter comme responsable d’une migration que je n’ai pas pilotée.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Qui prépare l’image, les procédures et les validations de fin de migration ?"
+      ],
+      "source": "https://www.hellowork.com/fr-fr/emplois/80852894.html",
+      "letter": "",
+      "cv": "",
+      "aliases": []
+    },
+    {
+      "id": "IT-021",
+      "company": "Lynx RH",
+      "role": "Poste informatique à préciser",
+      "family": "a-preciser",
+      "phase": "En pause",
+      "angle": "Intitulé absent dans le suivi",
+      "qa": [
+        [
+          "Sur quelle mission souhaitez-vous me positionner ?",
+          "Je peux vous présenter mes expériences en supervision, Wi-Fi et projets web. Pour vous répondre utilement, il me faut d’abord le descriptif et le niveau attendu du poste concerné.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Quel est le client, le site et le périmètre exact de cette candidature ?"
+      ],
+      "source": "",
+      "letter": "",
+      "cv": "",
+      "aliases": []
+    },
+    {
+      "id": "PR-002",
+      "company": "QUATTRIS",
+      "role": "Field / Data Center / Smart Hands Technician",
+      "family": "reseau",
+      "phase": "Prospection",
+      "angle": "Périmètre terrain, ordre d’intervention et interlocuteur",
+      "qa": [
+        [
+          "Avez-vous déjà réalisé des interventions Smart Hands ?",
+          "Je peux décrire mon expérience de coordination terrain et de diagnostic réseau. Je souhaite distinguer les opérations attendues en datacenter et celles qui demandent une procédure ou une qualification spécifique.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Quels actes, quel ordre d’intervention, quelle responsabilité et quels moyens d’accès sont prévus ?"
+      ],
+      "source": "",
+      "letter": "",
+      "cv": "",
+      "aliases": []
+    },
+    {
+      "id": "PR-003",
+      "company": "Truelancer",
+      "role": "Test Gmail / Gemini AI",
+      "family": "test-ia",
+      "phase": "Prospection",
+      "angle": "Protocole, données et conditions de prestation",
+      "qa": [
+        [
+          "Accepteriez-vous un test avant contrat ?",
+          "Je souhaite un test limité, documenté et des conditions de validation claires. Je ne donne pas accès à mes comptes personnels ; un environnement dédié permet d’évaluer le travail sans exposer de données privées.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Le test initial est-il rémunéré et réalisé sur un compte fourni pour la mission ?"
+      ],
+      "source": "",
+      "letter": "",
+      "cv": "",
+      "aliases": []
+    },
+    {
+      "id": "PR-004",
+      "company": "HELPLINE / Everience",
+      "role": "Technicien support applicatif N3",
+      "family": "applicatif",
+      "phase": "Prospection",
+      "angle": "Écart entre expérience N1–N2 et rôle N3",
+      "qa": [
+        [
+          "Avez-vous déjà assuré un poste applicatif N3 ?",
+          "Mon expérience professionnelle décrite dans le CV est N1–N2 en supervision, complétée par des projets de développement. Je ne la rebaptise pas N3. J’aimerais connaître les actes qui justifient ce niveau et l’accompagnement prévu.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Le N3 implique-t-il des corrections de code, du SQL avancé ou surtout l’analyse et la coordination ?"
+      ],
+      "source": "",
+      "letter": "",
+      "cv": "",
+      "aliases": []
+    },
+    {
+      "id": "PR-005",
+      "company": "Skaelia",
+      "role": "Technicien supervision datacenter / NOC",
+      "family": "reseau",
+      "phase": "Prospection",
+      "angle": "Horaires postés, supervision et anglais",
+      "qa": [
+        [
+          "Comment vous situez-vous pour un NOC en horaires postés ?",
+          "La supervision réseau et la coordination d’incidents sont directement liées à mon expérience. Je peux échanger en anglais ; pour les horaires, je souhaite vérifier le roulement exact avant de confirmer.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Quel cycle de travail, quelles passations et quel périmètre technique sont prévus au NOC ?"
+      ],
+      "source": "https://www.hellowork.com/fr-fr/emplois/83136283.html",
+      "letter": "",
+      "cv": "",
+      "aliases": []
+    },
+    {
+      "id": "PR-006",
+      "company": "SEA TPI",
+      "role": "Support de proximité VIP / anglais",
+      "family": "support",
+      "phase": "Prospection",
+      "angle": "Discrétion, communication et niveau d’exigence VIP",
+      "qa": [
+        [
+          "Comment communiqueriez-vous avec un utilisateur VIP en anglais ?",
+          "Je peux expliquer le problème et les prochaines étapes en anglais, en restant discret et factuel. Mon parcours au Pays de Galles soutient ma pratique ; je souhaite connaître vos usages VIP et votre cadre d’escalade.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Le rôle VIP impose-t-il des déplacements, des astreintes ou un niveau N3 autonome ?"
+      ],
+      "source": "https://www.hellowork.com/fr-fr/emplois/82841726.html",
+      "letter": "",
+      "cv": "",
+      "aliases": []
+    },
+    {
+      "id": "PR-007",
+      "company": "Steep Plastique",
+      "role": "Technicien support informatique",
+      "family": "support",
+      "phase": "Prospection",
+      "angle": "Écart avec la durée d’expérience demandée",
+      "qa": [
+        [
+          "Vous demandez cinq ans ; que pouvez-vous apporter ?",
+          "Je ne revendique pas cinq années identiques au poste. J’apporte la supervision réseau, le support Wi-Fi, la documentation et des projets concrets. Nous pouvons identifier les tâches immédiatement mobilisables et celles qui demandent une montée en compétences.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Quelles exigences sont impératives à l’entrée et lesquelles peuvent être accompagnées ?"
+      ],
+      "source": "",
+      "letter": "",
+      "cv": "",
+      "aliases": []
+    },
+    {
+      "id": "PR-008",
+      "company": "Techteam",
+      "role": "Technicien support informatique industrielle N2",
+      "family": "support",
+      "phase": "Prospection",
+      "angle": "Prudence sur les environnements industriels",
+      "qa": [
+        [
+          "Avez-vous travaillé sur de l’IT industriel ?",
+          "Mon expérience documentée porte surtout sur support et réseau. Je ne présente pas une maîtrise industrielle non démontrée ; je souhaite comprendre les applications, les contraintes de production et l’encadrement des interventions.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Quelles technologies industrielles et quelles règles de changement sont indispensables dès le départ ?"
+      ],
+      "source": "https://www.hellowork.com/fr-fr/emplois/82913592.html",
+      "letter": "",
+      "cv": "",
+      "aliases": []
+    },
+    {
+      "id": "PR-009",
+      "company": "VINCI Energies / Actemium Lyon Digital Warehouse & Services",
+      "role": "Technicien support applicatif WCS",
+      "family": "applicatif",
+      "phase": "Prospection",
+      "angle": "Applications logistiques et niveau de code attendu",
+      "qa": [
+        [
+          "Quel est votre niveau sur le développement lié au WCS ?",
+          "Je peux expliquer mes projets et les technologies réellement utilisées. Je dois clarifier votre environnement WCS et la part de C, C++, C# et SQL, plutôt que prétendre connaître un produit que je n’ai pas exploité.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "La mission demande-t-elle du diagnostic, des correctifs de code ou de l’intervention sur site client ?"
+      ],
+      "source": "",
+      "letter": "",
+      "cv": "",
+      "aliases": []
+    },
+    {
+      "id": "PR-010",
+      "company": "Kapa IT",
+      "role": "Technicien support applicatif N2",
+      "family": "applicatif",
+      "phase": "Prospection",
+      "angle": "Qualifier le support produit et les pratiques ITIL",
+      "qa": [
+        [
+          "Votre expérience N2 est-elle directement applicative ?",
+          "Elle est surtout liée à la supervision réseau, avec des méthodes de qualification et de suivi transférables. Mes projets web complètent cette base ; je souhaite comprendre le produit et les pratiques de l’équipe.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Quelle formation produit et quelles procédures de gestion des incidents sont prévues ?"
+      ],
+      "source": "https://kapa-it.fr/carrieres/",
+      "letter": "",
+      "cv": "",
+      "aliases": []
+    },
+    {
+      "id": "PR-011",
+      "company": "NXO Experts",
+      "role": "Technicien réseau / télécom · Lyon",
+      "family": "reseau",
+      "phase": "Prospection",
+      "angle": "Téléphonie et équipements à qualifier",
+      "qa": [
+        [
+          "Maîtrisez-vous la ToIP et Alcatel OXE ?",
+          "Je peux détailler mon expérience réseau, mais je ne revendique pas une maîtrise d’OXE ou de la ToIP sans cas réel. Quel niveau d’autonomie est exigé et quelle formation produit est disponible ?",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Quelle part du poste concerne la téléphonie, le réseau et les interventions client ?"
+      ],
+      "source": "",
+      "letter": "",
+      "cv": "",
+      "aliases": []
+    },
+    {
+      "id": "PR-012",
+      "company": "ELIT-Technologies",
+      "role": "Candidature spontanée · NOC / support réseaux",
+      "family": "reseau",
+      "phase": "Prospection",
+      "angle": "Cibler l’exploitation N1–N2 plutôt que l’ingénierie senior",
+      "qa": [
+        [
+          "Quel poste ciblez-vous dans une candidature spontanée ?",
+          "Je cible d’abord la supervision et le support réseaux N1–N2, où mon expérience est directement pertinente. Je préfère être positionné sur un périmètre adapté plutôt que sur une ingénierie senior non démontrée.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Existe-t-il un besoin d’exploitation ou de support à Lyon distinct des postes d’ingénierie ?"
+      ],
+      "source": "https://elit-technologies.fr/carrieres/",
+      "letter": "",
+      "cv": "",
+      "aliases": []
+    },
+    {
+      "id": "PR-013",
+      "company": "TALEXIM",
+      "role": "Ingénieur réseaux & télécoms · client à préciser",
+      "family": "reseau",
+      "phase": "Prospection",
+      "angle": "Écart entre intitulé ingénieur et expérience opérationnelle",
+      "qa": [
+        [
+          "Avez-vous déjà conçu une architecture SD-WAN ?",
+          "Je ne revendique pas cette expérience sur la base de mon CV. Mon point d’appui est l’exploitation et le diagnostic réseau ; j’aimerais connaître la part d’architecture, de téléphonie et de leadership réellement attendue.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Le besoin est-il ouvert à un profil d’exploitation évolutif ou exige-t-il une autonomie d’architecte immédiate ?"
+      ],
+      "source": "",
+      "letter": "",
+      "cv": "",
+      "aliases": []
+    },
+    {
+      "id": "PR-014",
+      "company": "TFC Rhône Alpes",
+      "role": "Technicien télécom & réseaux",
+      "family": "reseau",
+      "phase": "Prospection",
+      "angle": "Solutions VoIP, 3CX ou UNIFY à qualifier",
+      "qa": [
+        [
+          "Êtes-vous autonome sur 3CX ou UNIFY ?",
+          "Je souhaite préciser mon expérience réelle avant de parler d’autonomie. Mon socle réseau et Wi-Fi est utile, mais je dois identifier les produits, les opérations et l’accompagnement technique de cette mission.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Quelle formation sur vos solutions téléphonie et quel appui pendant les premières interventions sont prévus ?"
+      ],
+      "source": "https://candidat.francetravail.fr/offres/recherche/detail/213RQHL",
+      "letter": "",
+      "cv": "",
+      "aliases": []
+    },
+    {
+      "id": "PR-015",
+      "company": "Urban Linker",
+      "role": "Tech support N2/N3",
+      "family": "support",
+      "phase": "Prospection",
+      "angle": "Cloud, sauvegarde et niveau N3 à distinguer",
+      "qa": [
+        [
+          "Êtes-vous opérationnel sur toute la stack Microsoft et sauvegarde ?",
+          "Je peux décrire mes usages réels et mes projets, mais pas affirmer la maîtrise de toute votre stack. Je propose de distinguer diagnostic général, procédures apprises et opérations qui demandent un référent.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Quels produits, droits d’administration et actes N3 sont réellement obligatoires ?"
+      ],
+      "source": "",
+      "letter": "",
+      "cv": "",
+      "aliases": []
+    },
+    {
+      "id": "PR-016",
+      "company": "XEFI",
+      "role": "Technicien conseil",
+      "family": "support",
+      "phase": "Prospection",
+      "angle": "Associer maintenance et conseil client",
+      "qa": [
+        [
+          "Comment passez-vous du dépannage au conseil ?",
+          "Je commence par comprendre le besoin et le problème concret. J’explique les options et leurs limites, sans proposer une solution que je ne peux pas justifier. Mon expérience du support et de la relation client m’aide à faire ce lien.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Quelle part du poste concerne le conseil, la maintenance sur site et l’accompagnement commercial ?"
+      ],
+      "source": "https://www.hellowork.com/fr-fr/emplois/83053569.html",
+      "letter": "",
+      "cv": "",
+      "aliases": []
+    },
+    {
+      "id": "PR-017",
+      "company": "Chubb",
+      "role": "Technicien IT téléservices · JR40006074",
+      "family": "support",
+      "phase": "Prospection",
+      "angle": "MCO, Microsoft, virtualisation et suivi prestataires",
+      "qa": [
+        [
+          "Quel est votre niveau sur SQL Server, O365 et la virtualisation ?",
+          "Mon expérience démontrée est le diagnostic, la supervision, le réseau et la coordination. Je souhaite préciser vos exigences produit et identifier les opérations que je peux réaliser ou apprendre dans un cadre validé.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "La mission nécessite-t-elle des changements autonomes en production ou une exploitation encadrée par des procédures ?"
+      ],
+      "source": "",
+      "letter": "",
+      "cv": "",
+      "aliases": []
+    },
+    {
+      "id": "MEZAELLE",
+      "company": "Mezaelle",
+      "role": "Chargé de projet marketing digital · Refonte de site web",
+      "family": "web",
+      "phase": "À finaliser",
+      "angle": "Reprendre un chantier avec prestataires déjà mobilisés",
+      "qa": [
+        [
+          "Comment pouvez-vous remettre cette refonte en mouvement ?",
+          "Je commencerais par rendre visibles les livrables restants, les blocages et les décisions à obtenir. Je proposerais ensuite un rétroplanning partagé et des critères de recette, en m’appuyant sur les spécialistes déjà mobilisés pour les points marketing et SEO.",
+          "Réponse suggérée à adapter à l’expérience réelle."
+        ]
+      ],
+      "ask": [
+        "Quels sont aujourd’hui les trois blocages les plus importants, et qui peut les arbitrer ?"
+      ],
+      "source": "https://carriere.mezaelle.com/jobs/8404981-charge-e-de-projet-marketing-digital-refonte-de-site-web-h-f",
+      "letter": "lettremezaelle.html",
+      "cv": "CV-Samir-Medjaher-Mezaelle-Refonte-Web-FR.pdf",
+      "aliases": [
+        "AJ-001"
+      ]
+    }
+  ],
+  "mezaelle": {
+    "form": [
+      {
+        "label": "Temps de travail souhaité",
+        "answer": "À confirmer : temps plein, temps partiel ou mission ponctuelle.",
+        "note": "Les trois choix existent dans le formulaire. Aucun choix n’est fait à votre place."
+      },
+      {
+        "label": "Années de gestion de projets marketing digital",
+        "answer": "Nombre à confirmer à partir de l’expérience réelle.",
+        "note": "Les projets numériques 2025–2026 ne prouvent pas automatiquement deux années de gestion marketing digital. Ne pas convertir des dates de projets en ancienneté inventée."
+      },
+      {
+        "label": "Exemples de sites réalisés",
+        "answer": "Construction Comores : https://constructioncomores.com/ — site client livré et mis en ligne, avec travail de référencement. Portfolio bilingue : https://duperopope.github.io/SamirMedjaher/ — conception, documentation et déploiement d’un site interactif. FIMO Check : https://github.com/Duperopope/rse-rsn-calculator — application web autour d’un besoin métier.",
+        "note": "Réponse préparée à partir du portfolio ; aucun chiffre de trafic ajouté."
+      },
+      {
+        "label": "Vidéo personnelle · deux minutes maximum",
+        "answer": "Enregistrer ou importer une vidéo de vous reprenant le script ci-dessous avec vos mots.",
+        "note": "Champ obligatoire du formulaire consulté le 21 septembre 2026. Aucun enregistrement ni accès à la caméra n’est déclenché par cette page."
+      },
+      {
+        "label": "Tarif pour le projet",
+        "answer": "Proposition à valider : « Forfait sur devis après état des lieux et validation du périmètre, des livrables et des jalons. »",
+        "note": "Ce texte est une option à approuver, pas une réponse déjà transmise. Aucun montant n’est engagé."
+      },
+      {
+        "label": "Dépôt du dossier",
+        "answer": "CV et lettre prêts. Le formulaire n’a pas été soumis.",
+        "note": "Confirmer aussi l’adresse à utiliser et les modalités de contractualisation. La vidéo, le temps de travail et l’expérience doivent être renseignés avant transmission."
+      }
+    ],
+    "video": "Bonjour, je suis Samir Medjaher. Je vous propose ma candidature pour la reprise de votre refonte web.\n\nMon point fort est de relier la réalisation technique à l’usage. J’ai livré Construction Comores, un site client mis en ligne et optimisé pour le référencement. J’ai aussi conçu mon portfolio bilingue et FIMO Check, un outil web construit autour d’un besoin métier.\n\nMon expérience chez Rhône Telecom m’a appris à suivre des incidents, à coordonner les actions avec le terrain et à communiquer clairement. Au Collège au Carré, j’ai associé diagnostic, documentation et formation des utilisateurs.\n\nPour votre projet, je commencerais par faire le point sur ce qui est terminé, ce qui bloque et les validations à obtenir. Je proposerais ensuite un calendrier partagé avec les prestataires, des responsables identifiés et des critères de recette avant la mise en ligne.\n\nJe ne me présente pas comme expert de toutes les spécialités marketing. Je vous apporte un profil technique et opérationnel, capable de travailler avec les spécialistes déjà mobilisés et de rendre l’avancement lisible.\n\nJe serais heureux d’échanger sur votre chantier, votre échéance et le périmètre de la mission pour définir un engagement réaliste. Merci pour votre attention.",
+    "formUrl": "https://carriere.mezaelle.com/jobs/8404981-charge-e-de-projet-marketing-digital-refonte-de-site-web-h-f/applications/new"
+  }
+}
