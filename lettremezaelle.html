@@ -1,0 +1,207 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Candidature Mezaelle · Refonte de site web | Samir Medjaher</title><link rel="icon" href="assets/favicon.svg"><style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: #0f1117;
+            color: #e8e8e8;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .page {
+            background: #ffffff;
+            color: #1a1a1a;
+            width: 100%;
+            max-width: 780px;
+            padding: 60px 70px;
+            border-radius: 4px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        .accent-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #2d6a4f, #52b788, #74c69d);
+            border-radius: 4px 4px 0 0;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 45px;
+        }
+
+        .sender {
+            font-size: 13px;
+            color: #444;
+            line-height: 1.8;
+        }
+
+        .sender strong {
+            font-size: 15px;
+            color: #1a1a1a;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .cv-link-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #2d6a4f;
+            color: white;
+            text-decoration: none;
+            font-family: 'Arial', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 7px 14px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+
+        .cv-link-badge:hover { background: #1b4332; }
+
+        .cv-link-badge svg {
+            width: 13px;
+            height: 13px;
+            fill: white;
+        }
+
+        .recipient {
+            text-align: right;
+            font-size: 13px;
+            color: #444;
+            line-height: 1.8;
+        }
+
+        .subject {
+            border-left: 3px solid #2d6a4f;
+            padding-left: 14px;
+            margin-bottom: 30px;
+        }
+
+        .subject p {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 4px;
+        }
+
+        .subject h2 {
+            font-size: 16px;
+            color: #1a1a1a;
+            font-weight: 700;
+        }
+
+        .salutation {
+            font-size: 14px;
+            margin-bottom: 24px;
+            color: #1a1a1a;
+        }
+
+        .letter-body p {
+            font-size: 14px;
+            line-height: 1.85;
+            color: #2a2a2a;
+            text-align: justify;
+            margin-bottom: 20px;
+        }
+
+        .letter-body p strong {
+            color: #2d6a4f;
+        }
+
+        .closing {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #2a2a2a;
+            line-height: 1.8;
+        }
+
+        .signature {
+            margin-top: 30px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .footer-nav {
+            margin-top: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .back-btn {
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-family: 'Arial', sans-serif;
+            font-size: 13px;
+            padding: 10px 20px;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.05);
+            color: white;
+            border-color: rgba(255,255,255,0.4);
+        }
+
+        /* Mesure synchrone (hors impression) : mêmes métriques qu'à l'impression */
+        .measure-print .page {
+            width: 186mm !important;
+            max-width: 186mm !important;
+            padding: 6mm 8mm !important;
+            box-shadow: none !important;
+        }
+
+        @media print {
+            @page { size: A4; margin: 12mm; }
+            body { background: #fff; padding: 0; margin: 0; }
+            .footer-nav { display: none; }
+            .accent-bar { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+            .page {
+                width: 186mm;
+                max-width: 186mm;
+                padding: 6mm 8mm;
+                box-shadow: none;
+                border-radius: 0;
+                margin: 0 auto;
+                zoom: var(--fit, 1);   /* auto-ajustement pour tenir sur UNE page */
+            }
+        }
+
+        @media (max-width: 600px) {
+            .page { padding: 40px 30px; }
+            .header { flex-direction: column; gap: 20px; }
+            .recipient { text-align: left; }
+        }
+
+.letter-body p{text-align:left;font-size:14px;line-height:1.65;margin-bottom:15px}.header{margin-bottom:28px}.subject{margin-bottom:22px}.salutation{margin-bottom:18px}.closing{margin-top:20px}.signature{margin-top:16px}.sender a{color:inherit}.sender .cv-link-badge{color:#fff}.letter-body a{color:#2d6a4f}.copy-status{color:#a7f3d0;font:13px Arial,sans-serif;min-height:1.2em;margin-top:12px}.page{padding:48px 58px}button:focus-visible,a:focus-visible{outline:3px solid #10b981;outline-offset:4px}@media print{.copy-status{display:none}.page{zoom:1}.letter-body p{font-size:13.5px;line-height:1.6}.header{margin-bottom:22px}.subject{margin-bottom:18px}}@media(max-width:600px){.page{padding:34px 23px}.letter-body p{font-size:15px}.header{gap:18px}}
+</style></head><body><article class="page"><div class="accent-bar"></div><header class="header"><div class="sender"><strong>Samir Medjaher</strong>Rillieux-la-Pape · Région lyonnaise<br><a href="mailto:s.medjaher@gmail.com">s.medjaher@gmail.com</a><br>+33 7 43 43 47 67<br><a class="cv-link-badge" href="https://duperopope.github.io/SamirMedjaher/">Portfolio en ligne</a></div><div class="recipient">À l’attention de l’équipe recrutement<br><strong>Mezaelle</strong><br>Direction générale</div></header><div class="subject"><p>Rillieux-la-Pape, le 21 septembre 2026</p><h2>Candidature · Chargé de projet marketing digital<br>Refonte de site web · Réf. 8404981</h2></div><p class="salutation">Madame, Monsieur,</p><div class="letter-body"><p>Votre recherche porte sur la reprise d’une refonte déjà engagée, avec des prestataires mobilisés et une date de livraison à sécuriser. Je vous propose ma candidature pour contribuer à ce pilotage opérationnel, en m’appuyant sur mon expérience de réalisation web, de coordination et de relation client.</p>
+<p>J’ai livré <a href="https://constructioncomores.com/">Construction Comores</a>, un site vitrine et de mise en relation mis en ligne et optimisé pour le référencement. J’ai également conçu et déployé mon <a href="https://duperopope.github.io/SamirMedjaher/">portfolio bilingue</a> ainsi que <a href="https://github.com/Duperopope/rse-rsn-calculator">FIMO Check</a>, une application web répondant à un besoin métier concret. Ces réalisations illustrent mon approche : partir de l’usage attendu, construire une solution lisible, la documenter et la rendre accessible.</p>
+<p>Chez Rhône Telecom, la supervision des infrastructures SFR impliquait la coordination d’équipes terrain et la résolution d’incidents de niveaux 1 et 2. Au Collège au Carré, j’ai associé diagnostic réseau, documentation et formation des utilisateurs. Ce parcours m’a appris à clarifier un problème, à suivre les actions et à communiquer avec des interlocuteurs de profils différents.</p>
+<p>Pour votre refonte, je commencerais par un état des lieux partagé des livrables, des blocages et des validations attendues. Je proposerais ensuite un rétroplanning avec responsables, jalons et critères de recette. Avec les spécialistes déjà en place, les contrôles couvriraient les parcours mobiles, les contenus, les formulaires et les points SEO sensibles, notamment l’inventaire des URL, les redirections et la vérification de l’indexation avant et après la mise en ligne.</p>
+<p>Mon apport est celui d’un profil technique et opérationnel, attentif à la qualité et à la transmission. Je serais heureux d’échanger sur l’état actuel du chantier, le périmètre restant et votre échéance, afin de définir des jalons et un forfait cohérents avant tout engagement. Vous trouverez dans mon CV ciblé et mon portfolio les réalisations sur lesquelles repose cette proposition.</p></div><div class="closing">Je vous remercie de l’attention portée à ma candidature.<br>Veuillez agréer, Madame, Monsieur, mes salutations distinguées.</div><div class="signature">Samir Medjaher</div></article><nav class="footer-nav" aria-label="Documents"><a class="back-btn" href="Lettre-Samir-Medjaher-Mezaelle-Refonte-Web-FR.pdf" download>Télécharger la lettre PDF</a><button class="back-btn" type="button" id="copy-letter">Copier le texte</button><a class="back-btn" href="CV-Samir-Medjaher-Mezaelle-Refonte-Web-FR.pdf" download>CV ciblé PDF</a><a class="back-btn" href="coulisses.html">Retour aux coulisses</a></nav><p class="copy-status" role="status" aria-live="polite"></p><script>
+const copyText="Madame, Monsieur,\n\n"+Array.from(document.querySelectorAll('.letter-body p')).map(p=>p.innerText).join('\n\n')+"\n\nJe vous remercie de l’attention portée à ma candidature.\n\nCordialement,\nSamir Medjaher\nhttps://duperopope.github.io/SamirMedjaher/";
+document.getElementById('copy-letter').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(copyText.replace(/\\n/g,'\n'));document.querySelector('.copy-status').textContent='Texte copié. Aucun message envoyé.';}catch(e){document.querySelector('.copy-status').textContent='Copie indisponible : sélectionnez le texte de la lettre pour le copier.';}});
+if(new URLSearchParams(location.search).get('print')==='1'){window.addEventListener('load',()=>window.print());}
+</script></body></html>

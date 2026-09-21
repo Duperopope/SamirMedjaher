@@ -1,0 +1,121 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>CV Samir Medjaher | Mezaelle · Refonte web</title><link rel="icon" href="assets/favicon.svg"><style>
+    @page { size: A4; margin: 0; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+        --ink: #1f2a37;
+        --blue: #2274b8;
+        --blue-bright: #2b8fd0;
+        --green: #2f9e44;
+        --muted: #4b5563;
+        --soft: #6b7280;
+        --line: #d8dee6;
+        --line-soft: #e8edf2;
+    }
+    html, body { background: #fff; }
+    body {
+        font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+        color: var(--ink);
+        font-size: 9.4px;
+        line-height: 1.45;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    .sheet {
+        width: 210mm; min-height: 297mm;
+        padding: 12mm 13mm;
+        margin: 0 auto;
+    }
+
+    /* ---------- Header ---------- */
+    .header {
+        display: flex; align-items: center; gap: 20px;
+        border-bottom: 3px solid var(--blue);
+        padding-bottom: 12px; margin-bottom: 12px;
+    }
+    .photo-ring {
+        flex: 0 0 auto;
+        width: 104px; height: 104px; border-radius: 50%;
+        padding: 3px;
+        background: linear-gradient(135deg, var(--blue-bright) 0%, var(--green) 100%);
+        display: flex;
+    }
+    .photo-ring img {
+        width: 100%; height: 100%; border-radius: 50%;
+        object-fit: cover; border: 2.5px solid #fff;
+    }
+    .header-text { flex: 1; text-align: center; }
+    .header-text h1 { font-size: 27px; font-weight: 700; color: var(--ink); letter-spacing: .3px; }
+    .header-text .role { font-size: 14px; color: var(--blue-bright); font-weight: 600; margin-top: 2px; }
+    .contact {
+        margin-top: 8px;
+        display: grid; grid-template-columns: 1.18fr 1fr 1.38fr 1.18fr;
+        gap: 8px; width: 100%; font-size: 8.7px; color: var(--muted);
+    }
+    .contact .ci { display: inline-flex; align-items: center; justify-content: center; gap: 4px; white-space: nowrap; min-width: 0; }
+    .contact svg { width: 12px; height: 12px; stroke: var(--blue); fill: none; flex: 0 0 auto; }
+
+    /* ---------- Sections ---------- */
+    .sec-title {
+        font-size: 14px; font-weight: 700; color: var(--ink);
+        padding-bottom: 3px; border-bottom: 1px solid var(--line);
+        margin-bottom: 7px;
+    }
+    section { margin-bottom: 12px; }
+    .profil { margin-bottom: 13px; }
+    .profil p { color: var(--muted); text-align: justify; font-size: 9.6px; line-height: 1.55; }
+
+    .cols { display: grid; grid-template-columns: 0.92fr 1.32fr; gap: 24px; }
+
+    /* ---------- Left column ---------- */
+    .skillgroup { margin-bottom: 6px; }
+    .skillgroup h3 { font-size: 10px; font-weight: 700; color: var(--green); margin-bottom: 1px; }
+    .skillgroup p { color: var(--muted); }
+
+    .lang-line {
+        display: flex; justify-content: space-between; align-items: baseline;
+        padding: 3px 0; border-bottom: 1px solid var(--line-soft);
+    }
+    .lang-line b { color: var(--ink); font-weight: 600; }
+    .lang-line span { color: var(--blue); font-weight: 600; }
+
+    .intl-item { margin-bottom: 6px; }
+    .intl-item b { color: var(--ink); font-weight: 700; }
+    .intl-item .y { color: var(--blue); font-weight: 600; font-size: 8.8px; }
+    .intl-item .d { color: var(--muted); }
+
+    /* ---------- Right column items ---------- */
+    .item { margin-bottom: 9px; padding-left: 11px; border-left: 2.5px solid var(--blue); }
+    .item .head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+    .item .title { font-size: 10.6px; font-weight: 700; color: var(--ink); }
+    .item .date { font-size: 8.8px; color: var(--blue); font-weight: 600; white-space: nowrap; }
+    .item .sub { font-size: 9.4px; color: var(--blue); font-weight: 500; margin: 1px 0 2px; }
+    .item .desc { color: var(--muted); }
+
+    /* ---------- Project cards ---------- */
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 11px; }
+    .card { border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; }
+    .card h4 { font-size: 10px; font-weight: 700; color: var(--ink); margin-bottom: 3px; line-height: 1.25; }
+    .card p { font-size: 8.9px; color: var(--muted); line-height: 1.4; }
+    .card .tags { font-size: 8.6px; color: var(--blue); font-weight: 600; margin-top: 5px; }
+
+    footer { margin-top: 12px; text-align: center; font-size: 7.6px; color: #9ca3af; }
+
+body{font-size:11.2px;line-height:1.42}.sheet{min-height:297mm}.header{gap:17px;margin-bottom:13px;padding-bottom:12px}.header-text h1{font-size:28px}.header-text .role{font-size:16px}.scope{font-size:10px;color:var(--muted);margin-top:3px}.contact{grid-template-columns:1fr 1fr;font-size:10px;gap:4px 10px}.contact .ci{white-space:normal}.contact a{color:inherit;text-decoration:none}.profil p{font-size:11.2px;line-height:1.5;text-align:left}.sec-title{font-size:14px}.skillgroup{margin-bottom:8px}.skillgroup h3{font-size:11.3px}.cols{grid-template-columns:1fr 1.42fr;gap:23px}.item{margin-bottom:11px}.item .title{font-size:11.5px}.item .date{font-size:9.3px}.item .sub{font-size:10.3px}.item .head{align-items:flex-start}.intl-item .y{font-size:10px}.card h4{font-size:11.2px}.card p{font-size:10.4px;line-height:1.42}.card .tags{font-size:9.6px}.card a{color:var(--blue);text-decoration:none}.print-actions{font-family:Arial,sans-serif;max-width:210mm;margin:18px auto;padding:0 12px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center}.print-actions a,.print-actions button{padding:10px 15px;border:1px solid #2274b8;border-radius:8px;background:white;color:#175c93;font-size:13px;text-decoration:none;cursor:pointer}footer{font-size:9px;color:#59636f;line-height:1.45}footer a{color:var(--blue);text-decoration:none}
+@media screen{body{background:#eef2f6}.sheet{background:#fff;box-shadow:0 10px 40px #1232;margin:16px auto}}
+@media screen and (max-width:800px){.sheet{width:100%;min-height:0;padding:24px 20px}.header{flex-direction:column}.header-text{width:100%}.contact{grid-template-columns:1fr}.cols{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.header-text h1{font-size:28px}body{font-size:14px}.profil p{font-size:14px}.skillgroup h3,.item .title{font-size:14px}.item .sub,.item .date{font-size:12px}.card p{font-size:13px}}
+@media print{.print-actions{display:none}html,body{background:white}.sheet{margin:0;box-shadow:none}a{color:inherit}.item,.card,.skillgroup{break-inside:avoid}}
+</style></head><body><nav class="print-actions" aria-label="Documents de candidature"><a href="CV-Samir-Medjaher-Mezaelle-Refonte-Web-FR.pdf" download>Télécharger le CV PDF</a><button type="button" onclick="window.print()">Imprimer</button><a href="lettremezaelle.html">Lire la candidature</a><a href="coulisses.html">Retour aux coulisses</a></nav><div class="sheet"><header class="header"><div class="photo-ring"><img src="assets/portrait.jpg" alt="Portrait de Samir Medjaher"></div><div class="header-text"><h1>Samir Medjaher</h1><div class="role">Coordination de projets web</div><div class="scope">Développement · qualité · mise en ligne</div><div class="contact"><span class="ci"><a href="mailto:s.medjaher@gmail.com">s.medjaher@gmail.com</a></span><span class="ci"><a href="tel:+33743434767">+33 7 43 43 47 67</a></span><span class="ci">Rillieux-la-Pape · Région lyonnaise</span><span class="ci"><a href="https://duperopope.github.io/SamirMedjaher/">duperopope.github.io/SamirMedjaher</a></span></div></div></header>
+<section class="profil"><div class="sec-title">Profil professionnel</div><p>Créateur de sites et d’outils web, avec une expérience de coordination opérationnelle en supervision réseau. J’ai livré un site client, <strong>Construction Comores</strong>, et développé des applications documentées, du besoin initial à la mise en ligne. Je souhaite mettre ce profil technique et organisé au service de la refonte Mezaelle : clarifier les livrables, faciliter les échanges et vérifier la qualité du résultat.</p></section>
+<div class="cols"><aside><section><div class="sec-title">Compétences mobilisables</div>
+<div class="skillgroup"><h3>Réalisation web</h3><p>HTML/CSS, JavaScript, React.js, Node.js, APIs REST. Interfaces adaptatives et déploiement de projets web.</p></div>
+<div class="skillgroup"><h3>Qualité &amp; référencement</h3><p>Diagnostic, corrections, documentation. Référencement appliqué à un site client ; attention à la lisibilité et à l’expérience utilisateur.</p></div>
+<div class="skillgroup"><h3>Coordination opérationnelle</h3><p>Coordination d’équipes terrain, suivi d’incidents N1–N2, communication avec des interlocuteurs techniques et non techniques.</p></div>
+<div class="skillgroup"><h3>Relation client &amp; transmission</h3><p>Écoute du besoin, support, formation des utilisateurs, gestion commerciale et coordination logistique.</p></div>
+<div class="skillgroup"><h3>Outils &amp; environnement</h3><p>Git/GitHub, VS Code, Cursor IDE, Python, Linux. Automatisation et expérimentation d’outils IA.</p></div></section>
+<section><div class="sec-title">Langues</div><div class="lang-line"><b>Français</b><span>Natif</span></div><div class="lang-line"><b>Anglais</b><span>Courant · C1</span></div></section>
+<section><div class="sec-title">Ouverture internationale</div><div class="intl-item"><b>Pays de Galles</b> <span class="y">2019–2022</span><div class="d">Immersion, anglais professionnel et adaptabilité.</div></div></section></aside>
+<main><section><div class="sec-title">Expérience professionnelle</div><div class="item"><div class="head"><span class="title">Créateur d’outils numériques / missions client</span><span class="date">2025–2026</span></div><div class="sub">Projets livrés et valorisés</div><div class="desc">Livraison de Construction Comores, site vitrine et de mise en relation mis en ligne et optimisé pour le référencement. Développement de FIMO Check et d’un outil d’aide pour Path of Exile.</div></div><div class="item"><div class="head"><span class="title">Technicien supervision réseau</span><span class="date">2024</span></div><div class="sub">Rhône Telecom · infrastructure SFR</div><div class="desc">Supervision réseau, coordination d’équipes terrain et résolution d’incidents de niveaux 1 et 2.</div></div><div class="item"><div class="head"><span class="title">Consultant Wi-Fi &amp; support réseau</span><span class="date">2023</span></div><div class="sub">Collège au Carré · Villeurbanne</div><div class="desc">Diagnostic Wi-Fi, configuration du matériel, documentation technique et formation des utilisateurs.</div></div><div class="item"><div class="head"><span class="title">Co-gérant commercial</span><span class="date">2021–2022</span></div><div class="sub">La Poire Verte</div><div class="desc">Gestion commerciale sur marchés et salons, sourcing international, coordination logistique et relation client.</div></div></section><section><div class="sec-title">Formation</div><div class="item"><div class="head"><span class="title">Parcours Bachelor cybersécurité</span><span class="date">2023</span></div><div class="sub">CSB School · Lyon</div><div class="desc">Enseignements suivis en sécurité des systèmes et réseaux et développement sécurisé.</div></div><div class="item"><div class="head"><span class="title">Développement en autodidacte</span><span class="date">2023–2025</span></div><div class="sub">Projets GitHub et veille technique</div><div class="desc">Python, JavaScript et Linux ; conception et documentation de projets.</div></div><div class="item"><div class="head"><span class="title">DCG · Comptabilité et gestion</span><span class="date">2012</span></div><div class="sub">Académie de Lyon</div><div class="desc">Diplôme de comptabilité et de gestion.</div></div><p style="font-size:10px;color:var(--muted)"><strong>Autre certification :</strong> titre professionnel de conducteur de transport en commun sur route, 2025–2026.</p></section></main></div><section><div class="sec-title">Réalisations à consulter</div><div class="cards">
+<div class="card"><h4><a href="https://constructioncomores.com/">Construction Comores ↗</a></h4><p>Site client livré : vitrine, mise en relation et travail de référencement.</p><div class="tags">Client · Web · SEO</div></div>
+<div class="card"><h4><a href="https://duperopope.github.io/SamirMedjaher/">Portfolio bilingue ↗</a></h4><p>Conception, documentation et déploiement d’un site interactif avec CV imprimables.</p><div class="tags">Interface · GitHub Pages</div></div>
+<div class="card"><h4><a href="https://github.com/Duperopope/rse-rsn-calculator">FIMO Check ↗</a></h4><p>Application web d’aide à l’analyse des temps de conduite et de repos.</p><div class="tags">Besoin utilisateur · Outil web</div></div>
+</div></section><footer>Candidature Mezaelle · Refonte de site web · Référence 8404981<br>Portfolio et réalisations accessibles par les liens ci-dessus.</footer></div><script>if(new URLSearchParams(location.search).get('print')==='1'){window.addEventListener('load',()=>window.print());}</script></body></html>
