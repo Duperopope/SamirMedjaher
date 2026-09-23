@@ -1372,6 +1372,35 @@
       "aliases": []
     },
     {
+      "id": "TR-020",
+      "company": "GENIPLURI",
+      "role": "Opportunité conducteur de voyageurs — poste à préciser",
+      "family": "transport",
+      "phase": "À suivre",
+      "angle": "Échange actif avec Lilou (GENIPLURI), joignable au 04 37 56 11 86. Le poste précis, le contrat, le dépôt et les horaires restent à confirmer.",
+      "qa": [
+        [
+          "Si Lilou vous rappelle, comment reprendre l'échange ?",
+          "Bonjour Lilou, merci pour votre retour. Pour que je puisse me positionner précisément, pouvez-vous me confirmer le poste, le dépôt, le type de contrat et le roulement concernés ? Je vous confirme que je suis disponible hors week-end et que je débute professionnellement après l'obtention récente de mon permis D.",
+          "Conserver l'historique des autres contacts GENIPLURI : Julie Rodriguez, Cléo et les adresses RH déjà connues."
+        ],
+        [
+          "Si elle revient sur vos prétentions salariales ?",
+          "Je préfère les préciser à partir du contrat réel : nombre d'heures, coupures, type de service, primes et éventuelles majorations. Une fois ces éléments connus, je peux vous donner une attente cohérente.",
+          "Ne pas inventer un chiffre tant que le contrat et le roulement ne sont pas identifiés."
+        ]
+      ],
+      "ask": [
+        "Quel poste et quel dépôt concernent votre appel ?",
+        "Quel type de contrat, quel volume horaire et quel roulement sont proposés ?",
+        "Quelle rémunération de base et quelles primes s'appliquent au poste ?"
+      ],
+      "source": "",
+      "letter": "",
+      "cv": "CV-Samir-Medjaher-Transport-FR.pdf",
+      "aliases": []
+    },
+    {
       "id": "TR-021",
       "company": "Aquila RH",
       "role": "Appel recruteur Mathieu — poste à préciser",
