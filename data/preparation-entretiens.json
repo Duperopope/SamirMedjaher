@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-09-21",
+  "updated": "2026-09-23",
   "notice": "Questions simulées et formulations suggérées, jamais fournies par les recruteurs. Adapter aux faits réels. Les états du suivi sont un instantané du 21 septembre 2026, pas une vérification de disponibilité des offres.",
   "roles": {
     "transport": {
@@ -1345,6 +1345,28 @@
         "La mission nécessite-t-elle des changements autonomes en production ou une exploitation encadrée par des procédures ?"
       ],
       "source": "",
+      "letter": "",
+      "cv": "",
+      "aliases": []
+    },
+    {
+      "id": "PR-018",
+      "company": "Groupe JTI",
+      "role": "Technicien(-ienne) Informatique H/F",
+      "family": "support",
+      "phase": "Prospection",
+      "angle": "Support utilisateurs, systèmes Windows et réseau au siège lyonnais ; vérifier la flexibilité sur les 5 ans d'expérience demandés",
+      "qa": [
+        [
+          "Votre expérience correspond-elle aux cinq années demandées ?",
+          "Je ne revendique pas cinq années sur un poste identique. Mon expérience démontrable comprend la supervision réseau SFR avec incidents N1–N2 et coordination terrain, ainsi qu'une mission de support Wi-Fi, documentation et formation. Je préfère vérifier avec vous quelles compétences doivent être immédiatement autonomes et lesquelles peuvent être accompagnées.",
+          "Ne pas transformer les projets ou la formation en années d'expérience salariée."
+        ]
+      ],
+      "ask": [
+        "Les cinq années d'expérience sont-elles impératives si le socle support/réseau est opérationnel et que la montée en compétences Microsoft 365/Windows Server est encadrée ?"
+      ],
+      "source": "https://careers.werecruit.io/fr/groupe-jti/offres/technicien-ienne-informatique-947ece",
       "letter": "",
       "cv": "",
       "aliases": []
