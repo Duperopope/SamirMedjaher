@@ -1372,6 +1372,36 @@
       "aliases": []
     },
     {
+      "id": "TR-021",
+      "company": "Aquila RH",
+      "role": "Appel recruteur Mathieu — poste à préciser",
+      "family": "transport",
+      "phase": "À suivre",
+      "angle": "Appel manqué de Mathieu (Aquila RH) le 22/09/2026 à 09:10. Il faut le rappeler et identifier laquelle des candidatures Aquila RH est concernée.",
+      "qa": [
+        [
+          "Comment rappeler Mathieu ?",
+          "Bonjour Mathieu, Samir Medjaher à l'appareil. J'ai vu votre appel d'hier à 9h10 concernant mes candidatures Aquila RH, je vous rappelle. Pouvez-vous me confirmer le poste ou le dépôt concerné ?",
+          "Ne pas supposer qu'il s'agit de Saint-Priest, Vénissieux ou de l'offre conducteur-receveur avant qu'il le confirme."
+        ],
+        [
+          "S'il demande votre disponibilité ?",
+          "Je suis disponible actuellement. Pour les horaires, j'aimerais voir le roulement réel et les éventuelles coupures afin de vous confirmer précisément mon organisation.",
+          "La disponibilité hors week-end déjà indiquée à GENIPLURI ne doit pas être transposée automatiquement à Aquila sans la confirmer pendant l'appel."
+        ]
+      ],
+      "ask": [
+        "Laquelle de mes candidatures Aquila RH concerne votre appel ?",
+        "Quel est le dépôt et le type de service : scolaire, interurbain, billets collectifs ou autre ?",
+        "Quel contrat, quel volume horaire et quelles coupures sont prévus ?",
+        "Quelle est la prochaine étape après cet échange ?"
+      ],
+      "source": "",
+      "letter": "",
+      "cv": "CV-Samir-Medjaher-Transport-FR.pdf",
+      "aliases": []
+    },
+    {
       "id": "MEZAELLE",
       "company": "Mezaelle",
       "role": "Chargé de projet marketing digital · Refonte de site web",
