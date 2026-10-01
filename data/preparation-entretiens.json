@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "updated": "2026-09-23",
-  "notice": "Questions simulées et formulations suggérées, jamais fournies par les recruteurs. Adapter aux faits réels. Les états du suivi sont un instantané du 21 septembre 2026, pas une vérification de disponibilité des offres.",
+  "updated": "2026-10-01",
+  "notice": "Questions simulées et formulations suggérées, jamais fournies par les recruteurs. Adapter aux faits réels. Les états du suivi ont été actualisés le 1er octobre 2026 à partir du suivi de candidatures et des envois réellement effectués ; ils ne garantissent pas que les offres restent ouvertes.",
   "roles": {
     "transport": {
       "label": "Transport de voyageurs",
@@ -846,10 +846,10 @@
     {
       "id": "IT-015",
       "company": "DCS EASYWARE",
-      "role": "Technicien support de proximité",
+      "role": "Technicien support / Helpdesk — angle support comptabilité",
       "family": "support",
-      "phase": "À clarifier",
-      "angle": "Statut non renseigné et périmètre matériel",
+      "phase": "Candidature envoyée",
+      "angle": "Candidature directe envoyée le 01/10/2026. Mettre en avant supervision réseau N1–N2, support utilisateurs et DCG sans inventer d’expérience récente en comptabilité.",
       "qa": [
         [
           "Êtes-vous disponible pour des déploiements sur site ?",
@@ -978,10 +978,10 @@
     {
       "id": "IT-021",
       "company": "Lynx RH",
-      "role": "Poste informatique à préciser",
-      "family": "a-preciser",
-      "phase": "En pause",
-      "angle": "Intitulé absent dans le suivi",
+      "role": "Support / proximité / déploiement junior — Lyon",
+      "family": "support",
+      "phase": "Candidature envoyée",
+      "angle": "Candidature de vivier envoyée à l’agence Lyon Sud Est le 01/10/2026 pour des missions compatibles junior.",
       "qa": [
         [
           "Sur quelle mission souhaitez-vous me positionner ?",
@@ -1066,10 +1066,10 @@
     {
       "id": "PR-005",
       "company": "Skaelia",
-      "role": "Technicien supervision datacenter / NOC",
+      "role": "Technicien supervision / NOC datacenter",
       "family": "reseau",
-      "phase": "Prospection",
-      "angle": "Horaires postés, supervision et anglais",
+      "phase": "Candidature envoyée",
+      "angle": "Candidature directe envoyée le 01/10/2026. L’expérience Rhône Telecom est directement pertinente ; confirmer le roulement 3x12 et les horaires de nuit/week-end.",
       "qa": [
         [
           "Comment vous situez-vous pour un NOC en horaires postés ?",
@@ -1088,10 +1088,10 @@
     {
       "id": "PR-006",
       "company": "SEA TPI",
-      "role": "Support de proximité VIP / anglais",
+      "role": "Technicien Support de Proximité / Anglais Junior",
       "family": "support",
-      "phase": "Prospection",
-      "angle": "Discrétion, communication et niveau d’exigence VIP",
+      "phase": "Candidature envoyée",
+      "angle": "Candidature directe envoyée le 01/10/2026. Anglais professionnel et réseau alignés ; Active Directory et Microsoft 365 restent des compétences à consolider.",
       "qa": [
         [
           "Comment communiqueriez-vous avec un utilisateur VIP en anglais ?",
@@ -1176,10 +1176,10 @@
     {
       "id": "PR-010",
       "company": "Kapa IT",
-      "role": "Technicien support applicatif N2",
+      "role": "Technicien Support Applicatif IT H/F — Lyon",
       "family": "applicatif",
-      "phase": "Prospection",
-      "angle": "Qualifier le support produit et les pratiques ITIL",
+      "phase": "Candidature envoyée",
+      "angle": "Nouvelle offre débutant accepté ciblée et candidature envoyée le 01/10/2026. Mettre en avant diagnostic, Windows/Linux et projets web ; SQL reste à consolider.",
       "qa": [
         [
           "Votre expérience N2 est-elle directement applicative ?",
@@ -1453,6 +1453,82 @@
       "aliases": [
         "AJ-001"
       ]
+    },
+    {
+      "id": "IT-050",
+      "company": "Momento",
+      "role": "Technicien Support IT N1/N2 Junior",
+      "family": "support",
+      "phase": "Candidature envoyée",
+      "angle": "Offre explicitement junior. Candidature envoyée le 01/10/2026 ; Bachelor cybersécurité non finalisé présenté honnêtement.",
+      "qa": [],
+      "ask": [],
+      "source": "Offre Lyon 2026",
+      "letter": "",
+      "cv": "CV-Samir-Medjaher-Support-IT-FR.pdf",
+      "aliases": []
+    },
+    {
+      "id": "IT-052",
+      "company": "Burgundy School of Business (BSB)",
+      "role": "Technicien polyvalent Maintenance & Support informatique",
+      "family": "support",
+      "phase": "Candidature envoyée",
+      "angle": "CDD de 4 mois à Lyon, candidature envoyée le 01/10/2026. Mettre en avant polyvalence support et disponibilité rapide.",
+      "qa": [],
+      "ask": [],
+      "source": "Offre Lyon 2026",
+      "letter": "",
+      "cv": "CV-Samir-Medjaher-Support-IT-FR.pdf",
+      "aliases": [
+        "BSB"
+      ]
+    },
+    {
+      "id": "IT-053",
+      "company": "Manpower IT Lyon",
+      "role": "Support / déploiement informatique junior",
+      "family": "support",
+      "phase": "Candidature envoyée",
+      "angle": "Candidature actualisée envoyée le 01/10/2026 après un premier dossier de juin. Chercher des missions réellement compatibles junior.",
+      "qa": [],
+      "ask": [],
+      "source": "Agence Manpower Lyon Informatique",
+      "letter": "",
+      "cv": "CV-Samir-Medjaher-Support-IT-FR.pdf",
+      "aliases": [
+        "Manpower"
+      ]
+    },
+    {
+      "id": "IT-054",
+      "company": "TIBCO",
+      "role": "Technicien support informatique N1 — Saint-Priest",
+      "family": "support",
+      "phase": "Candidature envoyée",
+      "angle": "Premier envoi bloqué par antispam, puis candidature renvoyée à recrutement@tibco.fr le 01/10/2026. AD/EasyVista non revendiqués comme acquis.",
+      "qa": [],
+      "ask": [],
+      "source": "Offre Saint-Priest 2026",
+      "letter": "",
+      "cv": "CV-Samir-Medjaher-Support-IT-FR.pdf",
+      "aliases": [
+        "Tibco Services"
+      ]
+    },
+    {
+      "id": "IT-055",
+      "company": "MATEN",
+      "role": "Technicien support applicatif — Lyon",
+      "family": "applicatif",
+      "phase": "Candidature envoyée",
+      "angle": "Offre débutant accepté. Candidature envoyée le 01/10/2026 ; Windows/Linux et investigation alignés, SQL à consolider.",
+      "qa": [],
+      "ask": [],
+      "source": "France Travail 214KZDF",
+      "letter": "",
+      "cv": "CV-Samir-Medjaher-Support-IT-FR.pdf",
+      "aliases": []
     }
   ],
   "mezaelle": {
