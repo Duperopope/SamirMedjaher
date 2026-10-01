@@ -1,72 +1,50 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow">
-<title>Suivi de recherche | Samir Medjaher</title>
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive"><title>Pilotage emploi — Samir</title>
 <style>
-:root{--bg:#0f172a;--panel:#182338;--ink:#e2e8f0;--muted:#94a3b8;--cyan:#06b6d4;--green:#10b981;--amber:#f59e0b;--red:#f87171}
-*{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#0f172a,#1e293b);color:var(--ink);font-family:Inter,"Segoe UI",sans-serif}
-.wrap{max-width:1140px;margin:auto;padding:42px 20px 70px}a{color:var(--cyan)}.top{display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap}.top a{text-decoration:none;color:var(--muted)}
-h1{font-size:clamp(2.1rem,6vw,4rem);margin:10px 0 8px;background:linear-gradient(135deg,var(--cyan),var(--green));background-clip:text;-webkit-background-clip:text;color:transparent}.lead{color:var(--muted);line-height:1.6;max-width:840px}
-.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:24px 0}.metric,.section{background:rgba(24,35,56,.78);border:1px solid rgba(148,163,184,.15);border-radius:16px;padding:18px}.metric strong{display:block;font-size:1.8rem;color:white}.metric span{color:var(--muted);font-size:.82rem}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.section h2{margin:0 0 13px}.row{display:grid;grid-template-columns:1.35fr 1.2fr .8fr;gap:10px;padding:10px 0;border-bottom:1px solid rgba(148,163,184,.12);align-items:start}.row:last-child{border-bottom:0}.company{font-weight:750}.role{color:var(--muted);font-size:.88rem;line-height:1.35}.status{font-size:.76rem;font-weight:800;text-transform:uppercase;text-align:right}.ok{color:var(--green)}.todo{color:var(--amber)}.closed{color:var(--red)}
-.note{margin-top:18px;border-left:3px solid var(--cyan);padding:14px 16px;color:var(--muted);background:rgba(6,182,212,.06);line-height:1.55}.foot{margin-top:30px;text-align:center;color:#64748b;font-size:.78rem}
-@media(max-width:760px){.grid,.metrics{grid-template-columns:1fr}.row{grid-template-columns:1fr}.status{text-align:left}}
-</style>
-</head>
-<body><main class="wrap">
-<div class="top"><div><div style="color:var(--green);font:700 .75rem ui-monospace,monospace;letter-spacing:.14em">ESPACE DISCRET · SNAPSHOT</div><h1>Recherche d’emploi</h1></div><a href="coulisses.html">← Coulisses</a></div>
-<p class="lead">Snapshot du 1er octobre 2026, fin d’après-midi. La source de vérité reste le Google Sheet privé. La recherche ne se limite plus à l’IT : elle vise désormais les postes réellement accessibles où le parcours hybride support, gestion, relation client et terrain peut produire un revenu rapidement.</p>
-
-<div class="metrics">
-  <div class="metric"><strong>14</strong><span>candidatures IT directes délivrées</span></div>
-  <div class="metric"><strong>10</strong><span>candidatures hors IT / généralistes directes</span></div>
-  <div class="metric"><strong>4</strong><span>pistes banque/compta prioritaires vérifiées</span></div>
-  <div class="metric"><strong>10+</strong><span>contacts transport actifs</span></div>
-</div>
-
+body{margin:0;background:#0b1220;color:#e5edf8;font:15px system-ui,sans-serif}.w{max-width:1080px;margin:auto;padding:28px 16px 60px}
+a{color:#67e8f9}.top{display:flex;justify-content:space-between;gap:12px;align-items:center}.sub{color:#93a4bb;line-height:1.5}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.box{background:#121e31;border:1px solid #26364c;border-radius:14px;padding:16px}
+h1{font-size:2.6rem;margin:.2rem 0}h2{font-size:1.1rem;margin:0 0 10px}.row{padding:9px 0;border-bottom:1px solid #253247}.row:last-child{border:0}
+.role{color:#93a4bb;font-size:.88rem}.s{font-size:.72rem;font-weight:800;text-transform:uppercase}.ok{color:#34d399}.todo{color:#fbbf24}.off{color:#fb7185}
+.todoBox{border-left:4px solid #fbbf24;background:#151d2b;padding:14px 16px;margin:18px 0;border-radius:10px}.todoBox li{margin:7px 0}
+small{color:#71839a}@media(max-width:750px){.grid{grid-template-columns:1fr}}
+</style></head><body><main class="w">
+<div class="top"><div><small>ESPACE DE TRAVAIL · NON INDEXÉ</small><h1>Pilotage emploi</h1></div><a href="coulisses.html">Coulisses</a></div>
+<p class="sub">Vue compacte. Le Google Sheet privé reste la source détaillée et conserve tout l'historique, y compris les refus et échecs d'envoi.</p>
+<section class="todoBox"><strong>Prochaines actions</strong><ol>
+<li>Candidater Caisse d'Épargne Rhône Alpes et Crédit Mutuel via leurs portails officiels.</li>
+<li>Appeler LIP Lyon Télémarketing et LIP Lyon Informatique.</li>
+<li>Valider Mailinblack pour Sovitrat et Domino Transport.</li>
+<li>Reprendre Temporis par téléphone ; l'adresse publiée a rejeté le mail.</li>
+<li>Utiliser les portails Endrix et TIBCO plutôt que les anciens emails.</li>
+</ol></section>
 <div class="grid">
-<section class="section"><h2>IT · nouveaux envois directs</h2>
-  <div class="row"><div><div class="company">La Nef</div><div class="role">Technicien support informatique · Vaulx-en-Velin</div></div><div></div><div class="status ok">envoyée</div></div>
-  <div class="row"><div><div class="company">EFFEKTIV</div><div class="role">Technicien Support N1 · Lyon</div></div><div></div><div class="status ok">envoyée</div></div>
-  <div class="row"><div><div class="company">Talents IT</div><div class="role">Support IT N1/N2 · Lyon</div></div><div></div><div class="status ok">envoyée</div></div>
-  <div class="row"><div><div class="company">Endrix</div><div class="role">Technicien Support IT · réf. 213PKXR</div></div><div></div><div class="status ok">envoyée RH</div></div>
-  <div class="row"><div><div class="company">Momento / DCS / SEA TPI / Amiltone</div><div class="role">Support, helpdesk, proximité</div></div><div></div><div class="status ok">actives</div></div>
-  <div class="row"><div><div class="company">BSB / Manpower / Kapa / MATEN / Lynx RH</div><div class="role">Support, déploiement, applicatif</div></div><div></div><div class="status ok">actives</div></div>
+<section class="box"><h2>IT / Support</h2>
+<div class="row"><b>Pulse Santé</b><div class="role">Support client SaaS</div><span class="s ok">envoyée</span></div>
+<div class="row"><b>Passman</b><div class="role">IT Supply Chain</div><span class="s ok">envoyée</span></div>
+<div class="row"><b>La Nef</b><div class="role">Support informatique</div><span class="s ok">reçue</span></div>
+<div class="row"><b>Skaelia · Momento · DCS · SEA TPI · Kapa · MATEN</b><div class="role">Support / NOC / applicatif</div><span class="s ok">envoyées</span></div>
+<div class="row"><b>Fiducial Informatique</b><div class="role">Support système & réseau</div><span class="s todo">portail</span></div>
+<div class="row"><b>Indy</b><div class="role">Customer Care Lyon / remote</div><span class="s ok">contact RH direct</span></div>
 </section>
-
-<section class="section"><h2>Hors IT · candidatures directes</h2>
-  <div class="row"><div><div class="company">XEFI</div><div class="role">Assistant Gestion & Comptabilité · Rillieux</div></div><div></div><div class="status ok">envoyée RH</div></div>
-  <div class="row"><div><div class="company">HTI Group</div><div class="role">Opérateur production / sablage · Décines</div></div><div></div><div class="status ok">envoyée RH</div></div>
-  <div class="row"><div><div class="company">Groupe Challancin / SRP</div><div class="role">Manager opérationnel · Rillieux</div></div><div></div><div class="status ok">envoyée RH</div></div>
-  <div class="row"><div><div class="company">Fondasol</div><div class="role">Technicien terrain · Vaulx-en-Velin</div></div><div></div><div class="status ok">envoyée DRH</div></div>
-  <div class="row"><div><div class="company">Vimédis / Mediclub</div><div class="role">Technicien médico-technique · Vaulx · formation interne</div></div><div></div><div class="status ok">envoyée RH</div></div>
-  <div class="row"><div><div class="company">Noxias</div><div class="role">Commercial B2B · Lyon 9 · formation de zéro</div></div><div></div><div class="status ok">envoyée RH</div></div>
-  <div class="row"><div><div class="company">Apache Recrutement</div><div class="role">Assistant comptable · Croix-Rousse</div></div><div></div><div class="status ok">envoyée recruteur</div></div>
-  <div class="row"><div><div class="company">FLAT Fournitures</div><div class="role">Assistant commercial / ADV · Saint-Priest</div></div><div></div><div class="status ok">envoyée</div></div>
-  <div class="row"><div><div class="company">Verisure</div><div class="role">Commercial débutant · Villeurbanne</div></div><div></div><div class="status ok">envoyée recrutement</div></div>
-  <div class="row"><div><div class="company">Crescendo Villeurbanne</div><div class="role">Vivier support / service client / opérations</div></div><div></div><div class="status ok">2 CV envoyés</div></div>
+<section class="box"><h2>Relation client / Banque</h2>
+<div class="row"><b>Caisse d'Épargne Rhône Alpes</b><div class="role">Conseiller clientèle · POE</div><span class="s todo">priorité</span></div>
+<div class="row"><b>Crédit Mutuel</b><div class="role">Conseiller en ligne</div><span class="s todo">priorité</span></div>
+<div class="row"><b>La Banque Postale</b><div class="role">Service Relation Clients · reconversion</div><span class="s todo">priorité</span></div>
+<div class="row"><b>LIP Télémarketing</b><div class="role">Téléconseiller banque / support logiciel</div><span class="s todo">appel</span></div>
+<div class="row"><b>Randstad Professional</b><div class="role">Téléconseil / assistant commercial</div><span class="s todo">portail</span></div>
 </section>
-
-<section class="section"><h2>Priorités banque / relation client</h2>
-  <div class="row"><div><div class="company">Caisse d’Épargne Rhône Alpes</div><div class="role">Conseiller Clientèle · agence Rillieux La Roue · 32,5–35,5 k€ + avantages</div></div><div></div><div class="status todo">portail</div></div>
-  <div class="row"><div><div class="company">La Banque Postale</div><div class="role">Service Relation Clients · 27–29 k€ + variable · reconversion acceptée</div></div><div></div><div class="status todo">forum / portail</div></div>
-  <div class="row"><div><div class="company">Crédit Mutuel</div><div class="role">CRC Bancassurance · 28–30 k€ + primes · POE financée</div></div><div></div><div class="status todo">webinaire / FT</div></div>
-  <div class="row"><div><div class="company">Randstad Professional</div><div class="role">Compta trésorerie 32 k€, fournisseurs 30 k€, assistant commercial 2 200 €/mois</div></div><div></div><div class="status todo">appel recruteur</div></div>
-  <div class="row"><div><div class="company">Agence France Locale</div><div class="role">Gestionnaire post-marché · CDD 6 mois · 28–30 k€</div></div><div></div><div class="status todo">portail</div></div>
-  <div class="row"><div><div class="company">Bruce / banque</div><div class="role">Conseiller clientèle bancaire · 29–32 k€ + avantages</div></div><div></div><div class="status todo">France Travail</div></div>
+<section class="box"><h2>Transport</h2>
+<div class="row"><b>R.A.S.</b><div class="role">Agence de formation</div><span class="s todo">rappel attendu</span></div>
+<div class="row"><b>LIP Voyageurs · Nobel · Supplay</b><div class="role">Bus / car</div><span class="s ok">CV envoyés</span></div>
+<div class="row"><b>Sovitrat · Domino</b><div class="role">Filtre Mailinblack</div><span class="s todo">validation</span></div>
+<div class="row"><b>Partnaire</b><div class="role">Pas de clients bus/car</div><span class="s off">clos</span></div>
 </section>
-
-<section class="section"><h2>Suivi / anomalies à traiter</h2>
-  <div class="row"><div><div class="company">Sovitrat / Domino Transport</div><div class="role">Mailinblack attend une validation humaine</div></div><div></div><div class="status todo">validation</div></div>
-  <div class="row"><div><div class="company">Temporis Lyon Vaise</div><div class="role">Adresse publiée rejetée par le serveur</div></div><div></div><div class="status todo">appel</div></div>
-  <div class="row"><div><div class="company">TIBCO</div><div class="role">Antispam bloque les emails Gmail</div></div><div></div><div class="status todo">portail</div></div>
-  <div class="row"><div><div class="company">Qualis / CAREE</div><div class="role">Offres support junior à terminer via portail / France Travail</div></div><div></div><div class="status todo">à déposer</div></div>
-</section>
-</div>
-
-<div class="note"><strong>Stratégie actuelle :</strong> arrêter de courir après les postes N3 ou les annonces qui réclament cinq ans d’expérience. Priorité aux employeurs qui disent explicitement débutant accepté, reconversion possible ou formation interne, puis aux vrais recruteurs joignables. Les candidatures directes sont adaptées au rôle et les écarts de compétences sont déclarés au lieu d’être maquillés.</div>
-<div class="foot">Snapshot non indexé · coordonnées et preuves d’envoi restent dans le suivi privé</div>
+<section class="box"><h2>Règle de ciblage</h2>
+<div class="row"><b>Comptabilité</b><div class="role">DCG utile comme culture métier, mais aucune pratique depuis 2012.</div><span class="s off">pas de postes comptables purs</span></div>
+<div class="row"><b>Cibles fortes</b><div class="role">Support N1/N2, Customer Care, banque avec formation, commercial/ADV, opérations et transport.</div></div>
+<div class="row"><b>Relances</b><div class="role">Prochaine vague : 08/10, uniquement dossiers réellement délivrés et sans réponse.</div></div>
+</section></div>
+<p><small>Mise à jour : 01/10/2026. Aucune coordonnée RH privée n'est publiée ici.</small></p>
 </main></body></html>
