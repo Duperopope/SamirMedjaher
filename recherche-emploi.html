@@ -8,70 +8,57 @@
 <style>
 :root{--bg:#0f172a;--panel:#182338;--ink:#e2e8f0;--muted:#94a3b8;--cyan:#06b6d4;--green:#10b981;--amber:#f59e0b;--red:#f87171}
 *{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#0f172a,#1e293b);color:var(--ink);font-family:Inter,"Segoe UI",sans-serif}
-.wrap{max-width:1100px;margin:auto;padding:42px 20px 70px}a{color:var(--cyan)}.top{display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap}.top a{text-decoration:none;color:var(--muted)}
-h1{font-size:clamp(2.1rem,6vw,4rem);margin:10px 0 8px;background:linear-gradient(135deg,var(--cyan),var(--green));background-clip:text;-webkit-background-clip:text;color:transparent}.lead{color:var(--muted);line-height:1.6;max-width:780px}
+.wrap{max-width:1140px;margin:auto;padding:42px 20px 70px}a{color:var(--cyan)}.top{display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap}.top a{text-decoration:none;color:var(--muted)}
+h1{font-size:clamp(2.1rem,6vw,4rem);margin:10px 0 8px;background:linear-gradient(135deg,var(--cyan),var(--green));background-clip:text;-webkit-background-clip:text;color:transparent}.lead{color:var(--muted);line-height:1.6;max-width:840px}
 .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:24px 0}.metric,.section{background:rgba(24,35,56,.78);border:1px solid rgba(148,163,184,.15);border-radius:16px;padding:18px}.metric strong{display:block;font-size:1.8rem;color:white}.metric span{color:var(--muted);font-size:.82rem}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.section h2{margin:0 0 13px}.row{display:grid;grid-template-columns:1.3fr 1.2fr .72fr;gap:10px;padding:10px 0;border-bottom:1px solid rgba(148,163,184,.12);align-items:start}.row:last-child{border-bottom:0}.company{font-weight:750}.role{color:var(--muted);font-size:.88rem;line-height:1.35}.status{font-size:.76rem;font-weight:800;text-transform:uppercase;text-align:right}.ok{color:var(--green)}.todo{color:var(--amber)}.closed{color:var(--red)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.section h2{margin:0 0 13px}.row{display:grid;grid-template-columns:1.35fr 1.2fr .8fr;gap:10px;padding:10px 0;border-bottom:1px solid rgba(148,163,184,.12);align-items:start}.row:last-child{border-bottom:0}.company{font-weight:750}.role{color:var(--muted);font-size:.88rem;line-height:1.35}.status{font-size:.76rem;font-weight:800;text-transform:uppercase;text-align:right}.ok{color:var(--green)}.todo{color:var(--amber)}.closed{color:var(--red)}
 .note{margin-top:18px;border-left:3px solid var(--cyan);padding:14px 16px;color:var(--muted);background:rgba(6,182,212,.06);line-height:1.55}.foot{margin-top:30px;text-align:center;color:#64748b;font-size:.78rem}
 @media(max-width:760px){.grid,.metrics{grid-template-columns:1fr}.row{grid-template-columns:1fr}.status{text-align:left}}
 </style>
 </head>
 <body><main class="wrap">
 <div class="top"><div><div style="color:var(--green);font:700 .75rem ui-monospace,monospace;letter-spacing:.14em">ESPACE DISCRET · SNAPSHOT</div><h1>Recherche d’emploi</h1></div><a href="coulisses.html">← Coulisses</a></div>
-<p class="lead">Vue de travail simplifiée au 1er octobre 2026. Le Google Sheet privé reste la source de vérité pour les coordonnées, preuves d’envoi, relances et notes détaillées. Cette page ne contient volontairement ni données confidentielles ni coordonnées de recruteurs.</p>
+<p class="lead">Snapshot du 1er octobre 2026, fin d’après-midi. La source de vérité reste le Google Sheet privé. La recherche ne se limite plus à l’IT : elle vise désormais les postes réellement accessibles où le parcours hybride support, gestion, relation client et terrain peut produire un revenu rapidement.</p>
 
 <div class="metrics">
-  <div class="metric"><strong>11</strong><span>candidatures IT actives / directes</span></div>
-  <div class="metric"><strong>6</strong><span>relances freelance / IA effectuées</span></div>
-  <div class="metric"><strong>10+</strong><span>contacts transport actifs aujourd’hui</span></div>
-  <div class="metric"><strong>1</strong><span>refus IT archivé aujourd’hui</span></div>
+  <div class="metric"><strong>14</strong><span>candidatures IT directes délivrées</span></div>
+  <div class="metric"><strong>4</strong><span>nouvelles candidatures hors IT directes</span></div>
+  <div class="metric"><strong>4</strong><span>pistes banque/compta prioritaires vérifiées</span></div>
+  <div class="metric"><strong>10+</strong><span>contacts transport actifs</span></div>
 </div>
 
 <div class="grid">
-<section class="section"><h2>IT · candidatures actives</h2>
-  <div class="row"><div><div class="company">Skaelia</div><div class="role">Supervision / NOC datacenter</div></div><div></div><div class="status ok">envoyée</div></div>
-  <div class="row"><div><div class="company">Momento</div><div class="role">Support IT N1/N2 Junior</div></div><div></div><div class="status ok">envoyée</div></div>
-  <div class="row"><div><div class="company">DCS EASYWARE</div><div class="role">Helpdesk / support, angle comptabilité</div></div><div></div><div class="status ok">envoyée</div></div>
-  <div class="row"><div><div class="company">SEA TPI</div><div class="role">Support proximité / anglais junior</div></div><div></div><div class="status ok">envoyée</div></div>
-  <div class="row"><div><div class="company">Amiltone</div><div class="role">Technicien support informatique</div></div><div></div><div class="status ok">envoyée</div></div>
-  <div class="row"><div><div class="company">BSB</div><div class="role">Maintenance & support informatique, CDD</div></div><div></div><div class="status ok">envoyée</div></div>
-  <div class="row"><div><div class="company">Manpower IT Lyon</div><div class="role">Support / déploiement junior</div></div><div></div><div class="status ok">envoyée</div></div>
-  <div class="row"><div><div class="company">TIBCO</div><div class="role">Support N1, Saint-Priest</div></div><div></div><div class="status todo">email bloqué</div></div>
-  <div class="row"><div><div class="company">Kapa IT</div><div class="role">Support applicatif, débutant accepté</div></div><div></div><div class="status ok">envoyée</div></div>
-  <div class="row"><div><div class="company">MATEN</div><div class="role">Support applicatif, débutant accepté</div></div><div></div><div class="status ok">envoyée</div></div>
-  <div class="row"><div><div class="company">Lynx RH Lyon Sud Est</div><div class="role">Support / proximité / déploiement</div></div><div></div><div class="status ok">vivier envoyé</div></div>
+<section class="section"><h2>IT · nouveaux envois directs</h2>
+  <div class="row"><div><div class="company">La Nef</div><div class="role">Technicien support informatique · Vaulx-en-Velin</div></div><div></div><div class="status ok">envoyée</div></div>
+  <div class="row"><div><div class="company">EFFEKTIV</div><div class="role">Technicien Support N1 · Lyon</div></div><div></div><div class="status ok">envoyée</div></div>
+  <div class="row"><div><div class="company">Talents IT</div><div class="role">Support IT N1/N2 · Lyon</div></div><div></div><div class="status ok">envoyée</div></div>
+  <div class="row"><div><div class="company">Endrix</div><div class="role">Technicien Support IT · réf. 213PKXR</div></div><div></div><div class="status ok">envoyée RH</div></div>
+  <div class="row"><div><div class="company">Momento / DCS / SEA TPI / Amiltone</div><div class="role">Support, helpdesk, proximité</div></div><div></div><div class="status ok">actives</div></div>
+  <div class="row"><div><div class="company">BSB / Manpower / Kapa / MATEN / Lynx RH</div><div class="role">Support, déploiement, applicatif</div></div><div></div><div class="status ok">actives</div></div>
 </section>
 
-<section class="section"><h2>IT · suivi effectué</h2>
-  <div class="row"><div><div class="company">Nubo</div><div class="role">Automatisation IA</div></div><div></div><div class="status ok">relancé 01/10</div></div>
-  <div class="row"><div><div class="company">RWS TrainAI</div><div class="role">Évaluation IA française</div></div><div></div><div class="status ok">relancé 01/10</div></div>
-  <div class="row"><div><div class="company">OpenTrain AI</div><div class="role">French AI evaluation / QA</div></div><div></div><div class="status ok">relancé 01/10</div></div>
-  <div class="row"><div><div class="company">Sequance</div><div class="role">Automatisation / IA</div></div><div></div><div class="status ok">relancé 01/10</div></div>
-  <div class="row"><div><div class="company">Powehi</div><div class="role">Agents IA / automatisation</div></div><div></div><div class="status ok">relancé 01/10</div></div>
-  <div class="row"><div><div class="company">Automato</div><div class="role">Outils internes / IA</div></div><div></div><div class="status ok">relancé 01/10</div></div>
-  <div class="row"><div><div class="company">XEFI</div><div class="role">Technicien Conseil</div></div><div></div><div class="status todo">attente</div></div>
-  <div class="row"><div><div class="company">Axelis Intérim</div><div class="role">Technicien informatique</div></div><div></div><div class="status closed">refus archivé</div></div>
+<section class="section"><h2>Hors IT · candidatures directes</h2>
+  <div class="row"><div><div class="company">XEFI</div><div class="role">Assistant Gestion & Comptabilité · Rillieux</div></div><div></div><div class="status ok">envoyée RH</div></div>
+  <div class="row"><div><div class="company">HTI Group</div><div class="role">Opérateur production / sablage · Décines</div></div><div></div><div class="status ok">envoyée RH</div></div>
+  <div class="row"><div><div class="company">Groupe Challancin / SRP</div><div class="role">Manager opérationnel · Rillieux</div></div><div></div><div class="status ok">envoyée RH</div></div>
+  <div class="row"><div><div class="company">Fondasol</div><div class="role">Technicien terrain · Vaulx-en-Velin</div></div><div></div><div class="status ok">envoyée DRH</div></div>
 </section>
 
-<section class="section"><h2>Transport · campagne du 01/10</h2>
-  <div class="row"><div><div class="company">R.A.S. Transport Voyageurs</div><div class="role">Ancienne agence de formation</div></div><div></div><div class="status todo">rappel attendu</div></div>
-  <div class="row"><div><div class="company">LIP Voyageurs AURA</div><div class="role">Bus / car</div></div><div></div><div class="status ok">CV envoyé</div></div>
-  <div class="row"><div><div class="company">Nobel Intérim</div><div class="role">Bus / car</div></div><div></div><div class="status ok">CV envoyé</div></div>
-  <div class="row"><div><div class="company">SUPPLAY</div><div class="role">Conducteur bus</div></div><div></div><div class="status ok">CV envoyé</div></div>
-  <div class="row"><div><div class="company">Partnaire / Randstad / Solano / TOMA / PROMAN</div><div class="role">Candidatures transport ciblées</div></div><div></div><div class="status ok">envoyées</div></div>
+<section class="section"><h2>Priorités banque / relation client</h2>
+  <div class="row"><div><div class="company">Caisse d’Épargne Rhône Alpes</div><div class="role">Conseiller Clientèle · agence Rillieux La Roue · 32,5–35,5 k€ + avantages</div></div><div></div><div class="status todo">portail</div></div>
+  <div class="row"><div><div class="company">La Banque Postale</div><div class="role">Service Relation Clients · 27–29 k€ + variable · reconversion acceptée</div></div><div></div><div class="status todo">forum / portail</div></div>
+  <div class="row"><div><div class="company">Crédit Mutuel</div><div class="role">CRC Bancassurance · 28–30 k€ + primes · POE financée</div></div><div></div><div class="status todo">webinaire / FT</div></div>
+  <div class="row"><div><div class="company">Randstad Professional</div><div class="role">Compta trésorerie 32 k€, fournisseurs 30 k€, assistant commercial 2 200 €/mois</div></div><div></div><div class="status todo">appel recruteur</div></div>
 </section>
 
-<section class="section"><h2>À corriger / à surveiller</h2>
-  <div class="row"><div><div class="company">Sovitrat Villeurbanne</div><div class="role">Protection Mailinblack</div></div><div></div><div class="status todo">validation requise</div></div>
-  <div class="row"><div><div class="company">Domino Transport Décines</div><div class="role">Protection Mailinblack</div></div><div></div><div class="status todo">validation requise</div></div>
-  <div class="row"><div><div class="company">Temporis Lyon Vaise</div><div class="role">Adresse publiée rejetée par le serveur</div></div><div></div><div class="status todo">appel nécessaire</div></div>
-  <div class="row"><div><div class="company">TIBCO</div><div class="role">Antispam du domaine bloque les emails Gmail ; utiliser portail / France Travail</div></div><div></div><div class="status todo">portail requis</div></div>
-  <div class="row"><div><div class="company">Qualis Recrutement Lyon</div><div class="role">Technicien support informatique CDI, offre du 30/09</div></div><div></div><div class="status todo">portail / appel</div></div>
-  <div class="row"><div><div class="company">CAREE</div><div class="role">Technicien support, débutant accepté, Lyon 9e</div></div><div></div><div class="status todo">France Travail</div></div>
-  <div class="row"><div><div class="company">Construction Comores</div><div class="role">Ancien canal email non distribué</div></div><div></div><div class="status todo">canal à retrouver</div></div>
+<section class="section"><h2>Suivi / anomalies à traiter</h2>
+  <div class="row"><div><div class="company">Sovitrat / Domino Transport</div><div class="role">Mailinblack attend une validation humaine</div></div><div></div><div class="status todo">validation</div></div>
+  <div class="row"><div><div class="company">Temporis Lyon Vaise</div><div class="role">Adresse publiée rejetée par le serveur</div></div><div></div><div class="status todo">appel</div></div>
+  <div class="row"><div><div class="company">TIBCO</div><div class="role">Antispam bloque les emails Gmail</div></div><div></div><div class="status todo">portail</div></div>
+  <div class="row"><div><div class="company">Qualis / CAREE</div><div class="role">Offres support junior à terminer via portail / France Travail</div></div><div></div><div class="status todo">à déposer</div></div>
 </section>
 </div>
 
-<div class="note"><strong>Nettoyage effectué le 01/10 :</strong> les anciennes pistes nécessitant 3 à 5 ans d’expérience, de l’expertise N3/industrielle ou des stacks non démontrées ont été archivées ou mises en pause. La recherche active se concentre désormais sur support N1/N2, proximité, helpdesk, déploiement, support applicatif junior et supervision/NOC.</div>
-<div class="foot">Snapshot public non indexé · les données détaillées restent dans le suivi privé</div>
+<div class="note"><strong>Stratégie actuelle :</strong> arrêter de courir après les postes N3 ou les annonces qui réclament cinq ans d’expérience. Priorité aux employeurs qui disent explicitement débutant accepté, reconversion possible ou formation interne, puis aux vrais recruteurs joignables. Les candidatures directes sont adaptées au rôle et les écarts de compétences sont déclarés au lieu d’être maquillés.</div>
+<div class="foot">Snapshot non indexé · coordonnées et preuves d’envoi restent dans le suivi privé</div>
 </main></body></html>
