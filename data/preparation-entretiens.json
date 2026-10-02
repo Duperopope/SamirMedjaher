@@ -889,6 +889,36 @@
       ]
     },
     {
+      "id": "CUR-DATAKIT",
+      "company": "Datakit",
+      "role": "Support informatique / outils internes — candidature spontanée",
+      "family": "support",
+      "phase": "Candidature envoyée",
+      "angle": "Candidature spontanée envoyée le 02/10 à l’adresse officielle emploi@datakit.com. SCOP où la plupart des salariés sont associés et où au moins 25 % des résultats sont redistribués. Positionnement support/exploitation/QA, pas ingénieur logiciel senior.",
+      "qa": [
+        [
+          "Pourquoi Datakit ?",
+          "Le modèle SCOP m’intéresse autant que le contenu technique : autonomie, collectif, partage des résultats et possibilité de participer aux orientations. Côté métier, mon expérience est surtout support, supervision et diagnostic ; je souhaite l’appliquer dans un environnement logiciel exigeant.",
+          "Ne pas se présenter comme expert CAO/SDK 3D."
+        ],
+        [
+          "Quel poste recherchez-vous exactement ?",
+          "Un rôle de support interne, support produit junior, exploitation, QA technique ou outils internes. Je suis à l’aise pour diagnostiquer, tester, documenter et apprendre un produit, mais je ne me présente pas comme ingénieur R&D senior.",
+          "Rester sur le périmètre réel."
+        ]
+      ],
+      "ask": [
+        "Avez-vous aujourd’hui un besoin en support interne, support client, QA ou exploitation ?",
+        "Comment s’organise l’intégration dans la SCOP et à quel moment le sociétariat devient-il possible ?",
+        "Quels outils et connaissances produit sont indispensables au démarrage ?",
+        "Quelle formation interne est prévue sur vos technologies et vos usages clients ?"
+      ],
+      "source": "https://www.datakit.com/fr/rejoindre_datakit.php",
+      "letter": "",
+      "cv": "",
+      "aliases": []
+    },
+    {
       "id": "IT-015",
       "company": "DCS EASYWARE",
       "role": "Technicien support / Helpdesk — angle support comptabilité",
@@ -1277,6 +1307,45 @@
       "letter": "",
       "cv": "",
       "aliases": []
+    },
+    {
+      "id": "CUR-COOP-INTERNETS",
+      "company": "La Coopérative des Internets",
+      "role": "Commercial·le et co-gérant·e",
+      "family": "commercial",
+      "phase": "Candidature envoyée",
+      "angle": "Candidature envoyée le 02/10. SCOP de 5 personnes, association prévue après un an, salaires égaux, 4 jours/28h. Mettre en avant co-gérance commerciale passée, compréhension du web et recherche d’un projet collectif réellement aligné.",
+      "qa": [
+        [
+          "Pourquoi une SCOP ?",
+          "Je cherche un cadre où les personnes qui travaillent dans l’entreprise ont réellement leur mot à dire sur sa stratégie et peuvent devenir associées. J’ai déjà connu la responsabilité d’une petite activité commerciale ; ce qui m’intéresse ici est de la relier à un projet collectif, pas de reproduire une hiérarchie classique.",
+          "Rester concret : gouvernance partagée, décisions collectives, responsabilité."
+        ],
+        [
+          "Avez-vous déjà géré une coopérative ?",
+          "Non. J’ai une expérience de co-gérance d’une petite activité commerciale, mais pas de gouvernance SCOP. Je préfère le dire clairement. En revanche, je comprends le fonctionnement général et je suis prêt à apprendre les obligations spécifiques avec l’équipe et l’URSCOP.",
+          "Ne pas inventer de réseau ESS ni de maîtrise juridique SCOP."
+        ],
+        [
+          "Comment développeriez-vous la prospection ?",
+          "Je commencerais par segmenter les structures réellement alignées avec la coopérative, centraliser les contacts dans un CRM simple, définir une cadence de suivi et mesurer les retours. Mon objectif serait d’éviter la prospection mécanique et de cibler des organisations pour lesquelles l’éco-conception, l’accessibilité et l’open source ont du sens.",
+          "Proposition de méthode, pas expérience passée chiffrée."
+        ]
+      ],
+      "ask": [
+        "Quelle part du temps est réellement consacrée au commercial et quelle part à la co-gérance ?",
+        "Quels objectifs commerciaux sont nécessaires pour sécuriser la coopérative sans dégrader le choix des clients ?",
+        "Comment se passe concrètement le passage au sociétariat après un an ?",
+        "Quelles décisions sont prises collectivement et lesquelles relèvent de la gérance ?",
+        "Comment fonctionne le salaire égalitaire et la participation en année bénéficiaire ?"
+      ],
+      "source": "https://www.lacooperativedesinternets.fr/",
+      "letter": "",
+      "cv": "",
+      "aliases": [
+        "Coopérative des Internets",
+        "Coop Internets"
+      ]
     },
     {
       "id": "CUR-LANEF",
