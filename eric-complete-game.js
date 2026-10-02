@@ -446,7 +446,8 @@ class EricCompleteGame {
     }
 
     refreshRoomLocks() {
-        const storyStep = Number(localStorage.getItem('ericAdventureStep') || 0);
+        const storyKey = window.ERIC_DIRECTOR_CUT ? 'ericDirectorAdventureStep' : 'ericAdventureStep';
+        const storyStep = Number(localStorage.getItem(storyKey) || 0);
         const unlocked = {
             living: true,
             kitchen: storyStep >= 2,
@@ -1089,12 +1090,17 @@ window.EricCompleteGame = EricCompleteGame;
 window.ericGame = null;
 
 function initEricGame() {
+    // Do not run game loops, decay stats or touch saves for ordinary CV visitors.
+    // The game is a deliberate 23-click secret and initializes only after unlock.
+    const gamingIsActive = document.body.classList.contains('gaming-on') || localStorage.getItem('gamingMode') === 'true';
+    if (!gamingIsActive) return;
     const tabEric = document.getElementById('tab-eric');
     if (tabEric && !window.ericGame) {
         window.ericGame = new EricCompleteGame('tab-eric');
         console.log('✅ Jeu Eric complet chargé');
     }
 }
+window.initEricGame = initEricGame;
 
 // Attendre que le DOM soit prêt
 if (document.readyState === 'loading') {

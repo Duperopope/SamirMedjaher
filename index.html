@@ -3055,9 +3055,16 @@ body.hud-preview-active .game-notification {
             updateGamingMode();
             updateGamingStatus('HUD active', '🎯');
             
-            // 4. Show achievement toast
-            unlockAchievement('gaming_unlocked', true);
-            updateGamingStatus('Achievement', '🏆');
+            // 4. Initialise le refuge uniquement après l'ouverture du passage secret.
+            if (typeof window.initEricGame === 'function') {
+                window.initEricGame();
+            }
+
+            // L'ancien toast de succès reste disponible en mode legacy, mais le Director Cut
+            // ouvre la scène sans badge ni récompense extrinsèque.
+            if (!window.ERIC_DIRECTOR_CUT) {
+                unlockAchievement('gaming_unlocked', true);
+            }
             
             // 5. Auto-open Gaming Dashboard (with retry mechanism)
             setTimeout(() => {
@@ -3879,10 +3886,7 @@ body.hud-preview-active .game-notification {
                 }, 800);
             }
             
-            // Portrait click achievements
-            if (portraitClicks === 10) {
-                unlockAchievement('portrait_addict');
-            }
+            // Le passage reste secret : aucun succès ou indice n'est révélé avant l'ouverture.
             
             // Stop previous portrait typewriter
             if (typewriterInstances.has('portrait')) {
@@ -3908,89 +3912,34 @@ body.hud-preview-active .game-notification {
             typewriterInstances.set('portrait', typewriter);
             typewriter.type();
 
-            // Easter egg découvrable : trois clics sur le portrait.
-            console.log('🎮 Portrait clicks:', portraitClicks, 'gamingUnlocked:', gamingUnlocked);
+            // Passage secret personnel : 23 clics, sans indice ni compteur visible.
+            console.log('Portrait clicks:', portraitClicks, 'gamingUnlocked:', gamingUnlocked);
             
-            // Show click counter visually (seulement dans la dernière ligne droite)
-            if (portraitClicks >= 1 && portraitClicks < 3 && !gamingUnlocked) {
-                const clickCounter = document.createElement('div');
-                clickCounter.style.cssText = `
-                    position: fixed;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    background: linear-gradient(135deg, #8b5cf6, #06b6d4);
-                    color: white;
-                    padding: 0.75rem 1.25rem;
-                    border-radius: 999px;
-                    font-size: 1rem;
-                    font-weight: bold;
-                    z-index: 10000;
-                    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-                    animation: popIn 0.3s ease;
-                `;
-                clickCounter.textContent = portraitClicks === 1 ? 'Ce portrait cache quelque chose… 👀' : 'Encore un clic ✨';
-                document.body.appendChild(clickCounter);
-                
-                setTimeout(() => {
-                    clickCounter.style.opacity = '0';
-                    clickCounter.style.transform = 'translate(-50%, -50%) scale(0.5)';
-                    clickCounter.style.transition = 'all 0.3s ease';
-                    setTimeout(() => clickCounter.remove(), 300);
-                }, 1000);
-            }
-            
-            if (portraitClicks >= 3 && !gamingUnlocked) {
-                console.log('🎉 UNLOCKING GAMING MODE NOW!');
-                
-                // Show big unlock animation
+            if (portraitClicks >= 23 && !gamingUnlocked) {
                 const unlockOverlay = document.createElement('div');
-                unlockOverlay.style.cssText = `
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100vw;
-                    height: 100vh;
-                    background: rgba(0, 0, 0, 0.9);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    z-index: 11000;
-                    animation: fadeIn 0.3s ease;
-                `;
+                unlockOverlay.className = 'eric-secret-unlock';
                 unlockOverlay.innerHTML = `
-                    <div style="text-align: center; color: white;">
-                        <div style="font-size: 6rem; margin-bottom: 1rem; animation: bounce 0.5s ease infinite;">🎮</div>
-                        <h1 style="font-size: 3rem; font-weight: bold; background: linear-gradient(135deg, #8b5cf6, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 1rem;">
-                            GAMING MODE
-                        </h1>
-                        <h2 style="font-size: 2rem; color: #10b981;">UNLOCKED!</h2>
-                        <p style="margin-top: 2rem; font-size: 1.2rem; opacity: 0.8;">Chargement des systèmes gaming...</p>
+                    <div class="eric-secret-unlock__panel">
+                        <span class="eric-secret-unlock__kicker">Passage secret · 23</span>
+                        <i class="fas fa-cat eric-secret-unlock__mark" aria-hidden="true"></i>
+                        <h1>Les aventures d’Éric</h1>
+                        <p>Le refuge s’ouvre pour cette visite.</p>
                     </div>
                 `;
                 document.body.appendChild(unlockOverlay);
                 
                 setTimeout(() => {
-                    console.log('🚀 Calling unlockGamingMode()');
-                    
-                    // Wrap in try-catch to prevent crashes
                     try {
                         unlockGamingMode();
                     } catch (error) {
-                        console.error('❌ Error in unlockGamingMode:', error);
+                        console.error('Erreur lors de l’ouverture du passage secret:', error);
                     }
                     
-                    // ALWAYS remove overlay after 1.5s (even if error)
                     setTimeout(() => {
-                        unlockOverlay.style.opacity = '0';
-                        unlockOverlay.style.transition = 'opacity 0.5s ease';
-                        setTimeout(() => {
-                            if (unlockOverlay && unlockOverlay.parentNode) {
-                                unlockOverlay.remove();
-                            }
-                        }, 500);
-                    }, 1500);
-                }, 1000);
+                        unlockOverlay.classList.add('is-leaving');
+                        setTimeout(() => unlockOverlay.remove(), 500);
+                    }, 900);
+                }, 650);
             }
 
             // Durée d'affichage proportionnelle à la longueur du message (jamais coupé)
@@ -4523,6 +4472,9 @@ body.hud-preview-active .game-notification {
         });
     </script>
     
+    <!-- Hidden game feature flag. The professional CV remains untouched until the 23-click unlock. -->
+    <script>window.ERIC_DIRECTOR_CUT = true;</script>
+
     <!-- Tamagotchi Enhanced - CSS Animations -->
     <link rel="stylesheet" href="tamagotchi-animations.css?v=0.48">
     
@@ -4545,11 +4497,7 @@ body.hud-preview-active .game-notification {
     <!-- 🐱 ERIC COMPLETE GAME SYSTEM v2.0 - Jeu tamagotchi complet -->
     <!-- Jeu complet et immersif dans l'onglet Eric du dashboard -->
     
-    <!-- 🎮 PHASER 3 - Framework de jeu professionnel -->
-    <script src="https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js"></script>
-    
-    <!-- 🎮 Jeu Phaser Eric 2.5D Style Waven -->
-    <script src="eric-phaser-game.js?v=0.48"></script>
+    <!-- Legacy Phaser prototype kept in the repository, but no longer loaded by the Director Cut. -->
     
     <!-- 🎮 Jeu complet Eric (interface wrapper) -->
     <link rel="stylesheet" href="eric-complete-game.css?v=0.55">
@@ -4586,8 +4534,8 @@ body.hud-preview-active .game-notification {
         }
     }
     
-    // Appeler updateGameplayHUD régulièrement
-    setInterval(updateGameplayHUD, 1000);
+    // Legacy HUD polling is disabled in Director Cut mode.
+    setInterval(() => { if (!window.ERIC_DIRECTOR_CUT) updateGameplayHUD(); }, 1000);
     
     // Initialisation gameplay quand gaming mode activé
     document.addEventListener('DOMContentLoaded', function() {
@@ -4596,13 +4544,13 @@ body.hud-preview-active .game-notification {
         window.unlockGamingMode = function() {
             originalUnlock();
             
-            // Init gameplay
-            if (window.gameplaySystem) {
+            // Legacy economy stays available in code but is not started by the Director Cut.
+            if (!window.ERIC_DIRECTOR_CUT && window.gameplaySystem) {
                 window.gameplaySystem.initGameplaySystem();
             }
             
-            // Init shop
-            if (window.shopSystem) {
+            // Legacy shop is likewise kept dormant.
+            if (!window.ERIC_DIRECTOR_CUT && window.shopSystem) {
                 window.shopSystem.initShop();
                 
                 // Activer bouton shop
@@ -4617,6 +4565,11 @@ body.hud-preview-active .game-notification {
         
         // Hooks sur actions CV pour coins - WAIT FOR gameplaySystem
         function installCVActionsHooks() {
+            // Director Cut keeps professional CV actions outside the game economy.
+            if (window.ERIC_DIRECTOR_CUT) {
+                console.log('Director Cut: professional CV actions are not gamified.');
+                return;
+            }
             if (!window.gameplaySystem || typeof window.gameplaySystem.onEmailSent !== 'function') {
                 console.log('⏳ Waiting for gameplaySystem...');
                 setTimeout(installCVActionsHooks, 100);
@@ -4629,7 +4582,7 @@ body.hud-preview-active .game-notification {
             document.querySelectorAll('.contact-item').forEach(item => {
                 if (item.textContent.includes('Email') || item.textContent.includes('@')) {
                     item.addEventListener('click', function() {
-                        if (localStorage.getItem('gamingMode') === 'true' && window.gameplaySystem) {
+                        if (localStorage.getItem('gamingMode') === 'true' && localStorage.getItem('ericLegacyCvRewards') === 'true' && window.gameplaySystem) {
                             console.log('📧 Email clicked → Reward');
                             window.gameplaySystem.onEmailSent();
                         }
@@ -4640,7 +4593,7 @@ body.hud-preview-active .game-notification {
             // Hook Download CV
             document.querySelectorAll('.download-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
-                    if (localStorage.getItem('gamingMode') === 'true' && window.gameplaySystem) {
+                    if (localStorage.getItem('gamingMode') === 'true' && localStorage.getItem('ericLegacyCvRewards') === 'true' && window.gameplaySystem) {
                         console.log('💾 Download clicked → Reward');
                         window.gameplaySystem.onCVDownloaded();
                     }
@@ -4650,7 +4603,7 @@ body.hud-preview-active .game-notification {
             // Hook Skills
             document.querySelectorAll('.skill-bubble').forEach(skill => {
                 skill.addEventListener('click', function() {
-                    if (localStorage.getItem('gamingMode') === 'true' && window.gameplaySystem) {
+                    if (localStorage.getItem('gamingMode') === 'true' && localStorage.getItem('ericLegacyCvRewards') === 'true' && window.gameplaySystem) {
                         console.log('🎯 Skill clicked → Reward');
                         window.gameplaySystem.onSkillViewed();
                     }
@@ -4660,7 +4613,7 @@ body.hud-preview-active .game-notification {
             // Hook Portfolio
             document.querySelectorAll('.portfolio-card').forEach(card => {
                 card.addEventListener('click', function() {
-                    if (localStorage.getItem('gamingMode') === 'true' && window.gameplaySystem) {
+                    if (localStorage.getItem('gamingMode') === 'true' && localStorage.getItem('ericLegacyCvRewards') === 'true' && window.gameplaySystem) {
                         console.log('🎬 Video clicked → Reward');
                         window.gameplaySystem.onVideoWatched();
                     }
@@ -4674,7 +4627,7 @@ body.hud-preview-active .game-notification {
                 elements.forEach(el => {
                     const observer = new IntersectionObserver((entries) => {
                         entries.forEach(entry => {
-                            if (entry.isIntersecting && localStorage.getItem('gamingMode') === 'true' && window.gameplaySystem) {
+                            if (entry.isIntersecting && localStorage.getItem('gamingMode') === 'true' && localStorage.getItem('ericLegacyCvRewards') === 'true' && window.gameplaySystem) {
                                 window.gameplaySystem.onSectionVisited(section);
                             }
                         });
@@ -4697,6 +4650,7 @@ body.hud-preview-active .game-notification {
     <!-- Dashboard UI Styles -->
     <link rel="stylesheet" href="gaming-ui.css?v=0.48">
     <link rel="stylesheet" href="eric-ui-world.css?v=0.55">
+    <link rel="stylesheet" href="eric-director-cut.css?v=1.0">
     
     <style>
         /* Dashboard Toggle Button */
@@ -4710,23 +4664,14 @@ body.hud-preview-active .game-notification {
         }
     </style>
     
-    <!-- Advanced Mini-Games Styles -->
-    <link rel="stylesheet" href="gaming-minigames-advanced.css?v=0.48">
-    
-    <!-- Chart.js for Stats Dashboard -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    
-    <!-- Dashboard Core Engine -->
+    <!-- Dashboard Core Engine. Legacy arcade/Chart/gaming-connector assets stay archived in the repository but are no longer shipped to CV visitors. -->
     <script src="gaming-dashboard.js?v=0.48"></script>
-    
-    <!-- Advanced Mini-Games -->
-    <script src="gaming-minigames-advanced.js?v=0.48"></script>
-    
-    <!-- Gaming Connector - Liens entre tous les systèmes -->
-    <script src="gaming-connector.js?v=0.48"></script>
     
     <!-- Unified Notifications System -->
     <script src="unified-notifications.js?v=0.48"></script>
+
+    <!-- Eric Director Cut - narrative/gameplay coherence layer -->
+    <script src="eric-director-cut.js?v=1.0"></script>
     
     <!-- Initialize Dashboard -->
     <script>

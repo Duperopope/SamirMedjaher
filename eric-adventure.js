@@ -3,7 +3,8 @@ class EricAdventure {
     constructor(game, container) {
         this.game = game;
         this.container = container;
-        this.step = Number(localStorage.getItem('ericAdventureStep') || 0);
+        this.storyStorageKey = window.ERIC_DIRECTOR_CUT ? 'ericDirectorAdventureStep' : 'ericAdventureStep';
+        this.step = Number(localStorage.getItem(this.storyStorageKey) || 0);
         this.sprite = container.querySelector('#ericAnimatedSprite');
         this.stage = container.querySelector('#ericIllustratedStage');
         this.poseTimer = null;
@@ -493,7 +494,7 @@ class EricAdventure {
     advance() {
         const finalStep = this.storyData().length - 1;
         if (this.step < finalStep) this.step += 1;
-        localStorage.setItem('ericAdventureStep', this.step);
+        localStorage.setItem(this.storyStorageKey, this.step);
         this.game.refreshRoomLocks();
         if (this.step === finalStep) {
             this.game.coins += 100;
@@ -509,7 +510,7 @@ class EricAdventure {
 
     resetStory() {
         this.step = 0;
-        localStorage.setItem('ericAdventureStep', '0');
+        localStorage.setItem(this.storyStorageKey, '0');
         this.game.changeRoom('living');
     }
 

@@ -579,6 +579,10 @@ function switchDashboardTab(tabId) {
 function renderTabContent(tabId) {
     const container = document.getElementById(`tab-${tabId}`);
     if (!container) return;
+
+    // Director Cut owns the visible narrative/economy surfaces while leaving
+    // the legacy systems intact behind a feature flag.
+    if (window.ERIC_DIRECTOR_CUT && window.ericDirectorCut?.renderTab?.(tabId, container)) return;
     
     switch(tabId) {
         case 'eric':
