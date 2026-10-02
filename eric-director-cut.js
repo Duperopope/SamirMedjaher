@@ -215,6 +215,10 @@
         const safe = Math.max(0, Math.floor(value));
         state.coins = safe;
         saveState();
+        if (window.ericGame) {
+            window.ericGame.coins = safe;
+            window.ericGame.saveGameState?.();
+        }
         const display = document.getElementById('ericCoinsDisplay');
         if (display) display.textContent = safe;
         return safe;
