@@ -7,90 +7,96 @@
 <title>Coulisses professionnelles | Samir Medjaher</title>
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <style>
-:root{--bg:#07111f;--panel:#111d30;--panel2:#17263d;--ink:#e8eef7;--muted:#91a4bd;--cyan:#38bdf8;--green:#34d399;--amber:#fbbf24;--violet:#a78bfa;--line:rgba(148,163,184,.16)}
+:root{--bg:#07111f;--panel:#111d30;--ink:#e8eef7;--muted:#91a4bd;--cyan:#38bdf8;--green:#34d399;--amber:#fbbf24;--line:rgba(148,163,184,.16)}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 12% 0,#153653 0,transparent 34%),var(--bg);color:var(--ink);font-family:Inter,"Segoe UI",system-ui,sans-serif}
-.wrap{max-width:1120px;margin:auto;padding:30px 18px 70px}a{color:inherit}.top{display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap}
-.eyebrow{color:var(--green);font:800 .72rem ui-monospace,monospace;letter-spacing:.15em;text-transform:uppercase}
-h1{font-size:clamp(2.2rem,7vw,4.4rem);margin:.3rem 0 .5rem;line-height:.95;background:linear-gradient(135deg,var(--cyan),var(--green));background-clip:text;-webkit-background-clip:text;color:transparent}
-.lead{color:var(--muted);max-width:800px;line-height:1.6;margin:0 0 20px}.back,.pill{border:1px solid var(--line);border-radius:999px;padding:8px 12px;text-decoration:none;color:var(--muted);background:rgba(17,29,48,.72)}
-.back:hover,.pill:hover{color:white;border-color:rgba(56,189,248,.5)}
-.quick{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 22px}
-.today{background:linear-gradient(135deg,rgba(56,189,248,.09),rgba(52,211,153,.06));border:1px solid rgba(56,189,248,.22);border-radius:16px;padding:18px;margin-bottom:22px}
-.today h2{margin:0 0 9px}.today ol{margin:0;padding-left:22px}.today li{margin:7px 0;line-height:1.42}.tiny{font-size:.76rem;color:var(--muted)}
-.section{margin-top:26px}.section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:10px}.section h2{margin:0;font-size:1.2rem}.section-head span{color:var(--muted);font-size:.78rem}
-.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.card{display:flex;flex-direction:column;min-height:190px;background:linear-gradient(180deg,rgba(23,38,61,.96),rgba(17,29,48,.92));border:1px solid var(--line);border-radius:15px;padding:17px;text-decoration:none;transition:.2s}
-.card:hover{transform:translateY(-3px);border-color:rgba(56,189,248,.46);box-shadow:0 14px 30px rgba(0,0,0,.25)}.code{font:800 .68rem ui-monospace,monospace;letter-spacing:.08em;color:var(--green);text-transform:uppercase}
-.card h3{font-size:1.08rem;margin:9px 0 7px}.card p{color:var(--muted);line-height:1.48;margin:0 0 12px;flex:1}.go{color:var(--cyan);font-weight:800;font-size:.84rem}
-.warn{border-color:rgba(251,191,36,.25)}.warn .code{color:var(--amber)}.archive{opacity:.78}.archive .code{color:var(--violet)}
-.statusline{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.badge{font-size:.68rem;padding:4px 7px;border-radius:999px;border:1px solid var(--line);color:#b9c8da}
-.note{margin-top:24px;border-left:3px solid var(--green);background:rgba(52,211,153,.05);padding:13px 15px;color:var(--muted);line-height:1.5}
-footer{margin-top:32px;text-align:center;color:#60738d;font-size:.76rem}
-@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:620px){.grid{grid-template-columns:1fr}.wrap{padding-top:22px}}
+.wrap{max-width:1120px;margin:auto;padding:26px 18px 56px}.top{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;flex-wrap:wrap}.head-copy{min-width:260px;flex:1}.eyebrow{color:var(--green);font:800 .72rem ui-monospace,monospace;letter-spacing:.15em;text-transform:uppercase}
+h1{font-size:clamp(2.2rem,7vw,4.4rem);margin:.25rem 0 .45rem;line-height:.95;background:linear-gradient(135deg,var(--cyan),var(--green));background-clip:text;-webkit-background-clip:text;color:transparent}
+.lead{color:var(--muted);max-width:760px;line-height:1.55;margin:0}.nav{display:flex;justify-content:flex-end;gap:7px;flex-wrap:wrap;max-width:640px}
+.nav a{border:1px solid var(--line);border-radius:999px;padding:7px 10px;text-decoration:none;color:var(--muted);background:rgba(17,29,48,.72);font-size:.78rem;white-space:nowrap}
+.nav a:hover{color:white;border-color:rgba(56,189,248,.5)}.nav .back{color:#dbe7f5}
+.today{margin-top:20px;background:linear-gradient(135deg,rgba(56,189,248,.09),rgba(52,211,153,.06));border:1px solid rgba(56,189,248,.22);border-radius:15px;padding:16px}
+.today h2{margin:0 0 8px;font-size:1.05rem}.today ol{margin:0;padding-left:21px;display:grid;grid-template-columns:1fr 1fr;gap:5px 26px}.today li{line-height:1.4;color:#d6e1ef}
+.section{margin-top:24px}.section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:10px}.section h2{margin:0;font-size:1.12rem}.section-head span{color:var(--muted);font-size:.76rem}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.card{display:flex;flex-direction:column;min-height:155px;background:linear-gradient(180deg,rgba(23,38,61,.96),rgba(17,29,48,.92));border:1px solid var(--line);border-radius:14px;padding:16px;text-decoration:none;color:inherit;transition:.18s}
+.card:hover{transform:translateY(-2px);border-color:rgba(56,189,248,.46);box-shadow:0 12px 26px rgba(0,0,0,.22)}.card.primary{border-color:rgba(56,189,248,.34)}.code{font:800 .66rem ui-monospace,monospace;letter-spacing:.08em;color:var(--green);text-transform:uppercase}
+.card h3{font-size:1.05rem;margin:8px 0 6px}.card p{color:var(--muted);line-height:1.45;margin:0 0 10px;flex:1}.go{color:var(--cyan);font-weight:800;font-size:.82rem}
+.compact-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.compact{min-height:120px}.compact p{font-size:.85rem}.warn{border-color:rgba(251,191,36,.24)}.warn .code{color:var(--amber)}
+footer{margin-top:28px;text-align:center;color:#60738d;font-size:.74rem}
+@media(max-width:900px){.compact-grid{grid-template-columns:repeat(2,1fr)}.today ol{grid-template-columns:1fr}}
+@media(max-width:620px){.wrap{padding-top:20px}.top{display:block}.nav{justify-content:flex-start;margin-top:14px}.grid,.compact-grid{grid-template-columns:1fr}.today{padding:14px}}
 </style>
 </head>
 <body><main class="wrap">
-<div class="top"><div><div class="eyebrow">Espace discret · tableau de bord</div><h1>Coulisses</h1></div><a class="back" href="index.html">Retour au CV</a></div>
-<p class="lead">Le point d'entrée privé pour piloter les candidatures, accéder aux profils ciblés et préparer les entretiens. L'historique détaillé reste dans le Google Sheet privé ; ici, on garde seulement ce qui aide à agir.</p>
-
-<nav class="quick">
-<a class="pill" href="recherche-emploi.html">Suivi emploi</a>
-<a class="pill" href="support-it.html">Profil IT</a>
-<a class="pill" href="transport.html">Profil transport</a>
-<a class="pill" href="entretien.html">Préparer un entretien</a>
-<a class="pill" href="lettres.html">Lettres</a>
-<a class="pill" href="index.html#portfolio">Portfolio</a>
-</nav>
+<header class="top">
+  <div class="head-copy">
+    <div class="eyebrow">Espace discret · tableau de bord</div>
+    <h1>Coulisses</h1>
+    <p class="lead">Piloter la recherche, ouvrir la bonne fiche pendant un appel et retrouver les profils utiles sans fouiller dans l’historique.</p>
+  </div>
+  <nav class="nav" aria-label="Navigation rapide">
+    <a href="recherche-emploi.html">Suivi</a>
+    <a href="support-it.html">Profil IT</a>
+    <a href="transport.html">Profil transport</a>
+    <a href="entretien.html">Dossiers & appels</a>
+    <a href="index.html#portfolio">Portfolio</a>
+    <a class="back" href="index.html">Retour CV</a>
+  </nav>
+</header>
 
 <section class="today">
-<h2>Aujourd'hui · 2 octobre</h2>
-<ol>
-<li>Rappeler R.A.S. voyageurs si aucun retour n'est arrivé.</li>
-<li>Valider les deux filtres Mailinblack de Sovitrat et Domino, puis appeler Temporis pour un canal alternatif.</li>
-<li>Déposer les candidatures prioritaires sur les portails : Caisse d'Épargne, Crédit Mutuel, La Banque Postale et SNCF TER Lyon.</li>
-<li>Appeler LIP Lyon Informatique et LIP Télémarketing pour obtenir les missions junior disponibles immédiatement.</li>
-<li>Faire le screening Outlier Aether et actualiser le CV Jobtransport si ces deux pistes sont toujours pertinentes.</li>
-</ol>
-<div class="tiny">La boîte Gmail a été triée ce matin : les réponses utiles restent classées, le bruit a été archivé.</div>
+  <h2>Aujourd'hui · 2 octobre</h2>
+  <ol>
+    <li>Rappeler R.A.S. voyageurs si aucun retour.</li>
+    <li>Valider Mailinblack pour Sovitrat et Domino.</li>
+    <li>Appeler Temporis pour un canal alternatif.</li>
+    <li>Candidater Caisse d'Épargne, Crédit Mutuel, Banque Postale et SNCF.</li>
+    <li>Appeler LIP Informatique et LIP Télémarketing.</li>
+    <li>Faire Outlier Aether et actualiser Jobtransport.</li>
+  </ol>
 </section>
 
 <section class="section">
-<div class="section-head"><h2>Pilotage</h2><span>Commencer ici</span></div>
-<div class="grid">
-<a class="card" href="recherche-emploi.html"><div class="code">01 · cockpit</div><h3>Recherche d'emploi</h3><p>Priorités du jour, candidatures envoyées, réponses, échecs de livraison et dossiers à reprendre.</p><div class="go">Ouvrir le suivi →</div></a>
-<a class="card" href="entretien.html"><div class="code">02 · préparation</div><h3>Entretiens</h3><p>Préparer un appel ou un entretien sans fouiller dans les anciens fils : contexte, questions et points à expliquer.</p><div class="go">Préparer un échange →</div></a>
-<a class="card" href="lettres.html"><div class="code">03 · documents</div><h3>Lettres & candidatures</h3><p>Retrouver les textes de candidature et les documents déjà créés.</p><div class="go">Voir les lettres →</div></a>
-</div>
+  <div class="section-head"><h2>Pilotage</h2><span>Les deux entrées principales</span></div>
+  <div class="grid">
+    <a class="card primary" href="recherche-emploi.html">
+      <div class="code">01 · suivi</div><h3>Recherche d'emploi</h3>
+      <p>Priorités, candidatures actives, réponses, employeurs alignés avec tes valeurs et actions du jour.</p>
+      <div class="go">Ouvrir le suivi →</div>
+    </a>
+    <a class="card primary" href="entretien.html">
+      <div class="code">02 · appel recruteur</div><h3>Dossiers & entretiens</h3>
+      <p>Tu tapes le nom de l’entreprise et tu récupères immédiatement offre, pitch, points sensibles et questions.</p>
+      <div class="go">Chercher une entreprise →</div>
+    </a>
+  </div>
 </section>
 
 <section class="section">
-<div class="section-head"><h2>Profils ciblés</h2><span>Une lecture adaptée au poste</span></div>
-<div class="grid">
-<a class="card" href="support-it.html"><div class="code">profil · it</div><h3>Support IT & Réseaux</h3><p>Supervision SFR, incidents N1–N2, Wi-Fi, Windows/Linux, diagnostic, documentation et Customer Care technique.</p><div class="statusline"><span class="badge">N1/N2</span><span class="badge">NOC</span><span class="badge">SaaS</span></div><div class="go">Voir le profil →</div></a>
-<a class="card" href="transport.html"><div class="code">profil · transport</div><h3>Transport voyageurs</h3><p>Permis D, FIMO/CQC, sécurité voyageurs et reprise de conduite. Suivi des agences spécialisées.</p><div class="statusline"><span class="badge">Bus</span><span class="badge">Car</span><span class="badge">Débutant</span></div><div class="go">Voir le profil →</div></a>
-<a class="card" href="recherche-emploi.html"><div class="code">profil · relation client</div><h3>Banque & Customer Care</h3><p>Pistes où le service client, la pédagogie et l'aisance numérique valent davantage qu'une expérience sectorielle ancienne.</p><div class="statusline"><span class="badge">Banque avec formation</span><span class="badge">Support client</span></div><div class="go">Voir les candidatures →</div></a>
-<a class="card" href="recherche-emploi.html"><div class="code">profil · ferroviaire</div><h3>SNCF & ferroviaire</h3><p>Reconversion structurée : conduite TER, manoeuvre et métiers de sécurité avec formation interne.</p><div class="statusline"><span class="badge">Formation</span><span class="badge">Sécurité</span></div><div class="go">Voir les pistes →</div></a>
-<a class="card" href="index.html#portfolio"><div class="code">preuves</div><h3>Réalisations techniques</h3><p>Sites livrés, applications, automatisations et projets GitHub pour montrer ce qui existe vraiment au-delà du CV.</p><div class="go">Voir le portfolio →</div></a>
-<a class="card" href="https://github.com/Duperopope"><div class="code">source</div><h3>GitHub</h3><p>Dépôts publics et travaux techniques. À utiliser surtout pour les candidatures IT, support et automatisation.</p><div class="go">Ouvrir GitHub →</div></a>
-</div>
+  <div class="section-head"><h2>Profils & orientations</h2><span>Accès direct aux lectures utiles</span></div>
+  <div class="compact-grid">
+    <a class="card compact" href="support-it.html"><div class="code">IT</div><h3>Support & réseaux</h3><p>N1/N2, NOC, proximité, support applicatif.</p><div class="go">Voir →</div></a>
+    <a class="card compact" href="transport.html"><div class="code">Transport</div><h3>Voyageurs</h3><p>Permis D, FIMO/CQC, reprise de conduite.</p><div class="go">Voir →</div></a>
+    <a class="card compact" href="recherche-emploi.html#valeurs"><div class="code">Valeurs</div><h3>Banque & ESS</h3><p>Coopératives, mutuelles, SCOP et employeurs utiles.</p><div class="go">Voir →</div></a>
+    <a class="card compact" href="entretien.html?q=SNCF"><div class="code">Ferroviaire</div><h3>SNCF</h3><p>Conduite TER, manoeuvre et formation sécurité.</p><div class="go">Voir →</div></a>
+  </div>
 </section>
 
 <section class="section">
-<div class="section-head"><h2>À surveiller</h2><span>Les trucs qui aiment gaspiller du temps humain</span></div>
-<div class="grid">
-<a class="card warn" href="recherche-emploi.html"><div class="code">canaux bloqués</div><h3>Emails à corriger</h3><p>Sovitrat et Domino attendent Mailinblack ; Temporis a rejeté le mail ; Endrix et TIBCO doivent passer par leurs portails.</p><div class="go">Voir les actions →</div></a>
-<a class="card warn" href="recherche-emploi.html"><div class="code">relances</div><h3>Prochaine vague : 8 octobre</h3><p>Ne relancer que les candidatures réellement délivrées et restées sans réponse. Les refus restent clos.</p><div class="go">Voir les dossiers →</div></a>
-<a class="card warn" href="recherche-emploi.html"><div class="code">règle métier</div><h3>Comptabilité : prudence</h3><p>Le DCG reste utile comme culture métier, mais aucune expérience comptable récente n'est revendiquée depuis 2012.</p><div class="go">Voir le ciblage →</div></a>
-</div>
+  <div class="section-head"><h2>À surveiller</h2><span>Seulement les blocages réels</span></div>
+  <div class="grid">
+    <a class="card warn" href="recherche-emploi.html">
+      <div class="code">Canaux</div><h3>Envois à corriger</h3>
+      <p>Sovitrat et Domino attendent Mailinblack ; Temporis, Endrix et TIBCO doivent passer par un autre canal.</p>
+      <div class="go">Voir les actions →</div>
+    </a>
+    <a class="card warn" href="recherche-emploi.html">
+      <div class="code">Relances</div><h3>Prochaine vague · 8 octobre</h3>
+      <p>Relancer uniquement les dossiers réellement délivrés et toujours sans réponse.</p>
+      <div class="go">Voir les dossiers →</div>
+    </a>
+  </div>
 </section>
 
-<section class="section">
-<div class="section-head"><h2>Archives & anciens dossiers</h2><span>Conservés, mais hors du chemin principal</span></div>
-<div class="grid">
-<a class="card archive" href="cv-mezaelle.html"><div class="code">archive · mezaelle</div><h3>Mezaelle</h3><p>Ancienne candidature web avec CV et lettre ciblés.</p><div class="go">Ouvrir →</div></a>
-<a class="card archive" href="lettremezaelle.html"><div class="code">archive · lettre</div><h3>Lettre Mezaelle</h3><p>Texte conservé pour historique et réutilisation éventuelle.</p><div class="go">Lire →</div></a>
-</div>
-</section>
-
-<div class="note"><strong>Accès rapide :</strong> depuis le CV principal, maintiens le portrait environ <strong>2,5 secondes</strong> pour ouvrir ces coulisses. Le reset reste volontairement séparé et beaucoup plus long au clic droit, histoire de ne pas effacer l'interface parce qu'un doigt a traîné trois secondes.</div>
-<footer>Samir Medjaher · Coulisses professionnelles · mise à jour 02/10/2026</footer>
-</main></body></html>
+<footer>Samir Medjaher · Coulisses professionnelles · 02/10/2026</footer>
+</main></body>
+</html>
