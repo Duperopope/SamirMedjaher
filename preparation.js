@@ -12,7 +12,7 @@ function query(d){const q=new URLSearchParams({dossier:d.id});if(d.generic){q.se
 function docUrl(d){return d.letter||`candidature.html?${query(d)}`;}
 function prepUrl(d){return `entretien.html?${query(d)}`;}
 function badge(d){return `<span class="badge${d.phase==='Historique'?' history':''}">${h(d.phase)}</span>`;}
-function sources(d){return `<div class="source-links">${d.source?link(d.source,'Référence de l’offre','small'):''}${link('index.html#portfolio','Portfolio et réalisations','small')}${link('coulisses.html','Coulisses professionnelles','small')}</div><p class="small muted" style="margin-top:12px">Repères issus du suivi au 21 septembre 2026. Les offres historiques peuvent ne plus être disponibles. Aucune vérification actuelle du recrutement n’est déduite de cette fiche.</p>`;}
+function sources(d){return `<div class="source-links">${d.source?link(d.source,'Référence de l’offre','small'):''}${link('index.html#portfolio','Portfolio et réalisations','small')}${link('coulisses.html','Coulisses professionnelles','small')}</div><p class="small muted" style="margin-top:12px">Repères issus du suivi actualisé au 2 octobre 2026. Les offres historiques peuvent ne plus être disponibles. Aucune vérification actuelle du recrutement n’est déduite de cette fiche.</p>`;}
 function getDossier(){
  const id=(param.get('dossier')||'MEZAELLE').toUpperCase();
  let d=store.items.find(x=>x.id===id||(x.aliases||[]).includes(id));
@@ -24,16 +24,28 @@ function getDossier(){
  return {id,company:company.slice(0,180),role:role.slice(0,300),family,phase:'À personnaliser',angle:'Fiche de démarrage pour une nouvelle offre. Le descriptif complet n’a pas encore été analysé.',qa:[],ask:[],source:'',letter:'',cv:'',generic:true};
 }
 function gallery(){
- document.title='Candidatures et préparation | Samir Medjaher';
- $('#main').innerHTML=`<section class="hero"><div class="eyebrow">COULISSES / CANDIDATURES</div><h1>Un dossier.<br>Un échange à préparer.</h1><p class="lead">Ouvrir la candidature, retrouver ses arguments et préparer les questions du recruteur. Les lettres existantes restent disponibles ; chaque offre du suivi a sa fiche de préparation.</p></section><div class="panel controls"><label>Rechercher une entreprise ou un poste<input id="search" type="search" placeholder="Mezaelle, Aquila, réseau…" autocomplete="off"></label><label>Famille de métier<select id="family"><option value="">Toutes les familles</option value="transport">Transport</option><option value="it">Informatique & réseau</option><option value="web">Projets web</option><option value="a-preciser">À préciser</option></select></label><label>Vue du dossier<select id="phase"><option value="">Tous les dossiers</option><option>À finaliser</option><option>À suivre</option><option>Prospection</option><option>Historique</option><option>En pause</option><option>À clarifier</option></select></label></div><div id="count" class="result-count" role="status"></div><div id="cards" class="cards"></div><p class="note small">Une préparation n’est ni une candidature envoyée ni une invitation à un entretien. Les questions sont des simulations et les formulations doivent rester conformes à l’expérience réelle.</p>`;
- const sort=x=>x.id==='MEZAELLE'?-1:x.phase==='À suivre'?0:x.phase==='Prospection'?1:2;
- function draw(){
-  const q=$('#search').value.toLocaleLowerCase('fr'),f=$('#family').value,p=$('#phase').value;
-  const ds=store.items.filter(d=>(!q||`${d.company} ${d.role} ${d.id}`.toLocaleLowerCase('fr').includes(q))&&(!p||d.phase===p)&&(!f||(f==='it'?['support','applicatif','reseau','test-ia'].includes(d.family):d.family===f))).sort((a,b)=>sort(a)-sort(b)||a.company.localeCompare(b.company,'fr'));
-  $('#count').textContent=`${ds.length} dossier${ds.length>1?'s':''} affiché${ds.length>1?'s':''} sur ${store.items.length}. État du suivi : 21 septembre 2026.`;
-  $('#cards').innerHTML=ds.length?ds.map(d=>`<article class="panel job"><div class="meta">${badge(d)}<span class="sheetref">${h(d.id)}</span></div><h3>${h(d.company)}</h3><p class="role">${h(d.role)}</p><p class="angle">${h(d.angle)}</p><div class="pills">${link(docUrl(d),d.letter?'Lire la candidature':'Lire le dossier','btn ghost')}${link(prepUrl(d),'Préparer un échange','btn primary')}</div></article>`).join(''):'<p class="empty">Aucun dossier ne correspond à ces filtres.</p>';
+ document.title='Recherche express recruteur | Samir Medjaher';
+ $('#main').innerHTML=`<section class="hero"><div class="eyebrow">COULISSES / APPEL RECRUTEUR</div><h1>Tape le nom.<br>La fiche apparaît.</h1><p class="lead">Conçu pour répondre pendant qu’un recruteur est au téléphone : cherche l’entreprise, ouvre la fiche et passe en mode appel rapide. Offre, angle, présentation, points sensibles, questions probables et questions à poser sont regroupés au même endroit.</p></section><div class="panel controls quick-search"><label>Entreprise ou poste<input id="search" type="search" placeholder="Ex. La Nef, SNCF, R.A.S., Indy…" autocomplete="off" autofocus></label><label>Famille<select id="family"><option value="">Toutes</option><option value="transport">Transport</option><option value="it">IT / support</option><option value="customer">Relation client</option><option value="banque">Banque</option><option value="commercial">Commercial</option><option value="operations">Terrain / opérations</option><option value="ferroviaire">Ferroviaire</option><option value="web">Web / IA</option></select></label><label>État<select id="phase"><option value="">Tous</option></select></label></div><div class="call-hint">Astuce : tape quelques lettres puis appuie sur <strong>Entrée</strong>. S’il ne reste qu’un dossier, il s’ouvre immédiatement.</div><div id="count" class="result-count" role="status"></div><div id="cards" class="cards"></div><p class="note small">Une fiche est une préparation de conversation. Elle ne prouve ni candidature ni invitation et doit rester conforme à l’expérience réelle.</p>`;
+ const phases=[...new Set(store.items.map(x=>x.phase).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'fr'));
+ $('#phase').insertAdjacentHTML('beforeend',phases.map(p=>`<option>${h(p)}</option>`).join(''));
+ const priority=x=>/candidature envoyée|reçue|rappel attendu|contact rh direct/i.test(x.phase)?0:/à candidater|à appeler|à reprendre|à valider|mailinblack/i.test(x.phase)?1:/en attente|à suivre/i.test(x.phase)?2:/historique|clos/i.test(x.phase)?5:3;
+ let last=[];
+ function matchesFamily(d,f){
+  if(!f)return true;
+  if(f==='it')return ['support','applicatif','reseau'].includes(d.family);
+  if(f==='web')return ['web','test-ia'].includes(d.family);
+  return d.family===f;
  }
- $('#search').value=param.get('q')||'';for(const id of ['search','family','phase'])$('#'+id).addEventListener('input',draw);draw();
+ function draw(){
+  const q=$('#search').value.toLocaleLowerCase('fr').trim(),f=$('#family').value,p=$('#phase').value;
+  last=store.items.filter(d=>(!q||`${d.company} ${d.role} ${d.id} ${(d.aliases||[]).join(' ')}`.toLocaleLowerCase('fr').includes(q))&&(!p||d.phase===p)&&matchesFamily(d,f)).sort((a,b)=>priority(a)-priority(b)||a.company.localeCompare(b.company,'fr'));
+  $('#count').textContent=`${last.length} dossier${last.length>1?'s':''} sur ${store.items.length} · mise à jour ${store.updated}.`;
+  $('#cards').innerHTML=last.length?last.map(d=>`<article class="panel job" data-id="${h(d.id)}"><div class="meta">${badge(d)}<span class="sheetref">${h(d.id)}</span></div><h3>${h(d.company)}</h3><p class="role">${h(d.role)}</p><p class="angle">${h(d.angle)}</p><div class="pills">${link(prepUrl(d),'Ouvrir la fiche appel','btn primary')}${d.source?link(d.source,'Voir l’offre / source','btn ghost'):''}${link(docUrl(d),'Dossier','btn ghost')}</div></article>`).join(''):'<p class="empty">Aucun dossier ne correspond à cette recherche.</p>';
+ }
+ $('#search').value=param.get('q')||'';
+ for(const id of ['search','family','phase'])$('#'+id).addEventListener('input',draw);
+ $('#search').addEventListener('keydown',e=>{if(e.key==='Enter'&&last.length===1){e.preventDefault();location.href=prepUrl(last[0]);}});
+ draw(); setTimeout(()=>$('#search')?.focus(),50);
 }
 function qaHTML(q,i){return `<details class="qa"><summary>${h(q[0])}</summary><div class="answer"><p class="label">Formulation possible</p><p>${h(q[1])}</p><p class="truth"><strong>À garder juste :</strong> ${h(q[2])}</p></div></details>`;}
 function casePage(d){
@@ -61,7 +73,8 @@ function interview(d){
  }
 }
 async function boot(){try{
- const res=await fetch('data/preparation-entretiens.json?v=20260921-1',{cache:'no-cache'});if(!res.ok)throw new Error('Données indisponibles');store=await res.json();
- if(document.body.dataset.page==='gallery')gallery();else{current=getDossier();if(!current){$('#main').innerHTML='<section class="hero"><h1>Dossier introuvable</h1><p>Cette référence n’a pas de fiche identifiée.</p>'+link('lettres.html','Retrouver un dossier','btn primary')+'</section>';return;}document.body.dataset.page==='case'?casePage(current):interview(current);}
+ const res=await fetch('data/preparation-entretiens.json?v=20261002-2',{cache:'no-cache'});if(!res.ok)throw new Error('Données indisponibles');store=await res.json();
+ const noDossier=!param.get('dossier')&&!param.get('entreprise');
+ if(document.body.dataset.page==='gallery'||(document.body.dataset.page==='interview'&&noDossier))gallery();else{current=getDossier();if(!current){$('#main').innerHTML='<section class="hero"><h1>Dossier introuvable</h1><p>Cette référence n’a pas de fiche identifiée.</p>'+link('entretien.html','Rechercher une entreprise','btn primary')+'</section>';return;}document.body.dataset.page==='case'?casePage(current):interview(current);}
  }catch(err){$('#main').innerHTML='<div id="load-error"><h1>La fiche ne s’est pas chargée</h1><p>Rechargez la page ou revenez au répertoire des candidatures. Aucun formulaire n’a été envoyé.</p>'+link('coulisses.html','Retour aux Coulisses','btn')+'</div>';console.error(err);}}
 boot();
