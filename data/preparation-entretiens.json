@@ -1002,6 +1002,33 @@
       "aliases": []
     },
     {
+      "id": "FUT-ECODAIR",
+      "company": "Ecodair",
+      "role": "Réemploi informatique / support technique — veille",
+      "family": "operations",
+      "phase": "Veille",
+      "angle": "Association et entreprise adaptée de réemploi informatique à Rillieux-la-Pape : insertion, réduction de la fracture numérique et écologie. Vérifier l’éligibilité aux dispositifs avant toute candidature.",
+      "qa": [
+        [
+          "Pourquoi Ecodair ?",
+          "Le projet relie trois choses qui m’intéressent : informatique concrète, utilité sociale et réemploi. Je peux apporter du diagnostic, du support et de la documentation, mais je souhaite d’abord vérifier les conditions d’éligibilité du poste.",
+          "Ne jamais supposer une éligibilité à un dispositif d’insertion ou de handicap."
+        ]
+      ],
+      "ask": [
+        "Quels postes techniques sont ouverts hors dispositifs à critères spécifiques ?",
+        "Quels gestes de diagnostic/reconditionnement sont appris en interne ?",
+        "Quelles conditions d’éligibilité s’appliquent au poste concerné ?"
+      ],
+      "source": "",
+      "letter": "",
+      "cv": "",
+      "aliases": [
+        "Ecodair Lyon",
+        "Ecodair Rillieux"
+      ]
+    },
+    {
       "id": "CUR-EFFEKTIV",
       "company": "Effektiv",
       "role": "Technicien Support N1 — secteur santé",
@@ -1616,6 +1643,34 @@
       "cv": "CV-Samir-Medjaher-Mezaelle-Refonte-Web-FR.pdf",
       "aliases": [
         "AJ-001"
+      ]
+    },
+    {
+      "id": "FUT-MGEN",
+      "company": "MGEN / MNT · Groupe VYV",
+      "role": "Relation client / protection sociale — veille ciblée",
+      "family": "customer",
+      "phase": "Veille",
+      "angle": "Mutuelles de l’ESS alignées sur les valeurs recherchées. Les offres actuellement repérées demandent souvent une expérience assurantielle supérieure au profil actuel ; ne candidater que lorsqu’un rôle avec formation ou niveau junior apparaît.",
+      "qa": [
+        [
+          "Pourquoi le mutualisme ?",
+          "Je cherche un environnement où le service rendu aux adhérents compte réellement et où la gouvernance ne repose pas uniquement sur des actionnaires extérieurs. Mon expérience est surtout support et relation client ; je cherche une entrée avec formation métier.",
+          "Ne pas prétendre maîtriser l’assurance ou la DDA."
+        ]
+      ],
+      "ask": [
+        "Avez-vous des parcours de formation pour des profils venant d’un autre secteur ?",
+        "Quelle part du poste relève de l’accompagnement adhérent et quelle part relève de la vente ?",
+        "Quels postes junior sont ouverts sur Lyon ou Saint-Priest ?"
+      ],
+      "source": "",
+      "letter": "",
+      "cv": "",
+      "aliases": [
+        "MGEN",
+        "MNT",
+        "Groupe VYV"
       ]
     },
     {
