@@ -1,51 +1,60 @@
 <!doctype html>
-<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow,noarchive"><title>Pilotage emploi — Samir</title>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>Recherche d'emploi | Samir Medjaher</title>
 <style>
-body{margin:0;background:#0b1220;color:#e5edf8;font:15px system-ui,sans-serif}.w{max-width:1080px;margin:auto;padding:28px 16px 60px}
-a{color:#67e8f9}.top{display:flex;justify-content:space-between;gap:12px;align-items:center}.sub{color:#93a4bb;line-height:1.5}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.box{background:#121e31;border:1px solid #26364c;border-radius:14px;padding:16px}
-h1{font-size:2.6rem;margin:.2rem 0}h2{font-size:1.1rem;margin:0 0 10px}.row{padding:9px 0;border-bottom:1px solid #253247}.row:last-child{border:0}
-.role{color:#93a4bb;font-size:.88rem}.s{font-size:.72rem;font-weight:800;text-transform:uppercase}.ok{color:#34d399}.todo{color:#fbbf24}.off{color:#fb7185}
-.todoBox{border-left:4px solid #fbbf24;background:#151d2b;padding:14px 16px;margin:18px 0;border-radius:10px}.todoBox li{margin:7px 0}
-small{color:#71839a}@media(max-width:750px){.grid{grid-template-columns:1fr}}
-</style></head><body><main class="w">
-<div class="top"><div><small>ESPACE DE TRAVAIL · NON INDEXÉ</small><h1>Pilotage emploi</h1></div><a href="coulisses.html">Coulisses</a></div>
-<p class="sub">Vue compacte. Le Google Sheet privé reste la source détaillée et conserve tout l'historique, y compris les refus et échecs d'envoi.</p>
-<section class="todoBox"><strong>Plan du 02/10 · Inbox nettoyée (57 → 19)</strong><ol>
-<li>Rappeler R.A.S. voyageurs si aucun retour n'est arrivé.</li>
-<li>Candidater Caisse d'Épargne Rhône Alpes, Crédit Mutuel, La Banque Postale et SNCF TER via leurs portails officiels.</li>
-<li>Appeler LIP Lyon Télémarketing et LIP Lyon Informatique pour les offres junior disponibles immédiatement.</li>
-<li>Valider Mailinblack pour Sovitrat et Domino Transport.</li>
-<li>Reprendre Temporis par téléphone ; l'adresse publiée a rejeté le mail.</li>
-<li>Utiliser les portails Endrix et TIBCO plutôt que les anciens emails.</li><li>Faire le screening Outlier Aether et actualiser Jobtransport.</li>
+:root{--bg:#091321;--panel:#121f32;--ink:#e8eef7;--muted:#93a6be;--cyan:#38bdf8;--green:#34d399;--amber:#fbbf24;--line:rgba(148,163,184,.16)}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 12% 0,#17334f 0,transparent 35%),var(--bg);color:var(--ink);font:15px Inter,"Segoe UI",system-ui,sans-serif}
+.wrap{max-width:1120px;margin:auto;padding:28px 16px 60px}a{color:inherit;text-decoration:none}.top{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+.kicker{font:800 .72rem ui-monospace,monospace;letter-spacing:.14em;color:var(--green);text-transform:uppercase}
+h1{font-size:clamp(2.2rem,7vw,4.2rem);margin:.25rem 0 .5rem;line-height:1;background:linear-gradient(135deg,var(--cyan),var(--green));background-clip:text;-webkit-background-clip:text;color:transparent}
+.lead{color:var(--muted);max-width:830px;line-height:1.55}.btn{display:inline-flex;padding:9px 13px;border:1px solid var(--line);border-radius:9px;background:#142238;color:var(--ink);font-weight:750}.btn.primary{background:linear-gradient(135deg,var(--cyan),var(--green));color:#06131c;border:0}
+.hero-actions{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 24px}.section{margin-top:25px}.section h2{font-size:1.15rem;margin:0 0 10px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.card{background:rgba(18,31,50,.9);border:1px solid var(--line);border-radius:13px;padding:15px}
+.card strong{display:block}.role{color:var(--muted);font-size:.87rem;line-height:1.4;margin-top:3px}.meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}.tag{font-size:.68rem;padding:4px 7px;border:1px solid var(--line);border-radius:999px;color:#c3d1e2}
+.status{margin-top:9px;font-size:.72rem;font-weight:850;text-transform:uppercase}.ok{color:var(--green)}.todo{color:var(--amber)}
+.today{background:linear-gradient(135deg,rgba(56,189,248,.08),rgba(52,211,153,.05));border:1px solid rgba(56,189,248,.22);border-radius:14px;padding:17px}.today ol{margin:8px 0 0;padding-left:22px}.today li{margin:7px 0;line-height:1.4}
+.value{border-left:3px solid var(--green)}.note{margin-top:22px;color:var(--muted);line-height:1.5;border-left:3px solid var(--amber);padding:12px 14px;background:rgba(251,191,36,.04)}
+footer{margin-top:30px;text-align:center;color:#63758d;font-size:.75rem}@media(max-width:720px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body><main class="wrap">
+<div class="top"><div><div class="kicker">Coulisses · recherche d'emploi</div><h1>Pilotage</h1></div><a class="btn" href="coulisses.html">← Coulisses</a></div>
+<p class="lead">Cette page sert à agir vite, pas à stocker cinquante écrans de tableur. Le Google Sheet privé garde l'historique complet. Pour un appel recruteur, passe directement par la recherche d'entretien.</p>
+<div class="hero-actions">
+<a class="btn primary" href="entretien.html">🔎 Chercher une entreprise pendant un appel</a>
+<a class="btn" href="support-it.html">Profil IT</a>
+<a class="btn" href="transport.html">Profil transport</a>
+<a class="btn" href="index.html#portfolio">Portfolio</a>
+</div>
+
+<section class="today"><strong>Aujourd'hui · 2 octobre</strong><ol>
+<li>R.A.S. voyageurs : rappeler si aucun retour.</li>
+<li>Sovitrat + Domino : valider Mailinblack ; Temporis : demander un canal alternatif.</li>
+<li>Candidatures prioritaires : Caisse d'Épargne Rhône Alpes, Crédit Mutuel, La Banque Postale, SNCF TER.</li>
+<li>Appeler LIP Lyon Informatique et LIP Télémarketing.</li>
+<li>Screening Outlier Aether et actualisation Jobtransport.</li>
 </ol></section>
-<div class="grid">
-<section class="box"><h2>IT / Support</h2>
-<div class="row"><b>Pulse Santé</b><div class="role">Support client SaaS</div><span class="s ok">envoyée</span></div>
-<div class="row"><b>Passman</b><div class="role">IT Supply Chain</div><span class="s ok">envoyée</span></div>
-<div class="row"><b>La Nef</b><div class="role">Support informatique</div><span class="s ok">reçue</span></div>
-<div class="row"><b>Skaelia · Momento · DCS · SEA TPI · Kapa · MATEN</b><div class="role">Support / NOC / applicatif</div><span class="s ok">envoyées</span></div>
-<div class="row"><b>Fiducial Informatique</b><div class="role">Support système & réseau</div><span class="s todo">portail</span></div>
-<div class="row"><b>Indy</b><div class="role">Customer Care Lyon / remote</div><span class="s ok">contact RH direct</span></div>
-</section>
-<section class="box"><h2>Relation client / Banque</h2>
-<div class="row"><b>Caisse d'Épargne Rhône Alpes</b><div class="role">Conseiller clientèle · POE</div><span class="s todo">priorité</span></div>
-<div class="row"><b>Crédit Mutuel</b><div class="role">Conseiller en ligne</div><span class="s todo">priorité</span></div>
-<div class="row"><b>La Banque Postale</b><div class="role">Service Relation Clients · reconversion</div><span class="s todo">priorité</span></div>
-<div class="row"><b>LIP Télémarketing</b><div class="role">Téléconseiller banque / support logiciel</div><span class="s todo">appel</span></div>
-<div class="row"><b>Randstad Professional</b><div class="role">Téléconseil / assistant commercial</div><span class="s todo">portail</span></div>
-</section>
-<section class="box"><h2>Transport</h2>\n<div class="row"><b>SNCF Voyageurs</b><div class="role">Conducteur trains TER Lyon Perrache · CDI · formation rémunérée</div><span class="s todo">priorité max</span></div>
-<div class="row"><b>R.A.S.</b><div class="role">Agence de formation</div><span class="s todo">rappel attendu</span></div>
-<div class="row"><b>LIP Voyageurs · Nobel · Supplay</b><div class="role">Bus / car</div><span class="s ok">CV envoyés</span></div>
-<div class="row"><b>Sovitrat · Domino</b><div class="role">Filtre Mailinblack</div><span class="s todo">validation</span></div>
-<div class="row"><b>Partnaire</b><div class="role">Pas de clients bus/car</div><span class="s off">clos</span></div>
-</section>
-<section class="box"><h2>Règle de ciblage</h2>
-<div class="row"><b>Comptabilité</b><div class="role">DCG utile comme culture métier, mais aucune pratique depuis 2012.</div><span class="s off">pas de postes comptables purs</span></div>
-<div class="row"><b>Cibles fortes</b><div class="role">Support N1/N2, Customer Care, banque avec formation, commercial/ADV, opérations et transport.</div></div>
-<div class="row"><b>Relances</b><div class="role">Prochaine vague : 08/10, uniquement dossiers réellement délivrés et sans réponse.</div></div>
-</section></div>
-<p><small>Mise à jour : 02/10/2026. Aucune coordonnée RH privée n'est publiée ici.</small></p>
+
+<section class="section"><h2>Employeurs qui collent le mieux aux valeurs recherchées</h2><div class="grid">
+<div class="card value"><strong>La Nef</strong><div class="role">Coopérative bancaire, sans actionnaires, détenue par ses sociétaires. Siège à Vaulx-en-Velin La Soie. Candidature support IT déjà reçue.</div><div class="meta"><span class="tag">coopérative</span><span class="tag">ESUS</span><span class="tag">QVT</span></div><div class="status ok">priorité rêve</div></div>
+<div class="card value"><strong>Caisse d'Épargne Rhône Alpes</strong><div class="role">Banque coopérative régionale appartenant à ses clients-sociétaires. Pistes conseiller clientèle / POE proches de Rillieux.</div><div class="meta"><span class="tag">coopérative</span><span class="tag">local</span><span class="tag">formation</span></div><div class="status todo">à candidater</div></div>
+<div class="card value"><strong>Crédit Mutuel</strong><div class="role">Banque coopérative et mutualiste ; agence Rillieux à proximité immédiate et postes relation client à Lyon.</div><div class="meta"><span class="tag">mutualiste</span><span class="tag">sociétaires</span><span class="tag">entreprise à mission</span></div><div class="status todo">à candidater</div></div>
+<div class="card value"><strong>Datakit</strong><div class="role">SCOP lyonnaise : la plupart des salariés sont associés, participent aux orientations et au moins 25 % des bénéfices sont redistribués. Candidatures spontanées acceptées.</div><div class="meta"><span class="tag">SCOP</span><span class="tag">salariés associés</span><span class="tag">IT</span></div><div class="status todo">à explorer</div></div>
+<div class="card value"><strong>La Coopérative des Internets</strong><div class="role">SCOP lyonnaise du numérique : sites éco-conçus, accessibilité RGAA et open source. Pas d'offre ouverte vérifiée à cet instant.</div><div class="meta"><span class="tag">SCOP</span><span class="tag">open source</span><span class="tag">écoconception</span></div><div class="status todo">veille / spontané</div></div>
+<div class="card value"><strong>MGEN / MNT · Groupe VYV</strong><div class="role">Mutuelles de l'économie sociale et solidaire, avec des rôles actuels de relation client/protection sociale sur Lyon et Saint-Priest.</div><div class="meta"><span class="tag">mutuelle</span><span class="tag">ESS</span><span class="tag">santé</span></div><div class="status todo">veille active</div></div>
+<div class="card value"><strong>SNCF Voyageurs</strong><div class="role">Mobilité collective et mission de service public. Conducteur TER débutant avec formation longue actuellement ciblé.</div><div class="meta"><span class="tag">service public</span><span class="tag">transport</span><span class="tag">formation</span></div><div class="status todo">priorité maximale</div></div>
+</div></section>
+
+<section class="section"><h2>Candidatures en attente</h2><div class="grid">
+<div class="card"><strong>IT / support</strong><div class="role">La Nef, DCS, Momento, Amiltone, BSB, Manpower, MATEN, Lynx RH, Skaelia, Kapa, Pulse Santé, Passman, Effektiv, Talents IT, Indy.</div><div class="status ok">attendre avant relance</div></div>
+<div class="card"><strong>Transport</strong><div class="role">LIP Voyageurs, Nobel, SUPPLAY, Randstad, Solano, TOMA, PROMAN, R.A.S. en rappel.</div><div class="status ok">suivi actif</div></div>
+<div class="card"><strong>Autres</strong><div class="role">Fondasol, Medic Alliance, FLAT, Verisure, Crescendo, Noxias.</div><div class="status ok">suivi actif</div></div>
+<div class="card"><strong>IA / freelance</strong><div class="role">Nubo, RWS TrainAI, OpenTrain, Sequance, Powehi, Automato.</div><div class="status ok">relancés 01/10</div></div>
+</div></section>
+
+<div class="note"><strong>Règle :</strong> le DCG reste une culture métier utile, mais aucune pratique comptable n'est revendiquée depuis 2012. Le ciblage prioritaire reste support, relation client, banque/mutuelle avec formation, transport/ferroviaire et entreprises coopératives ou de service public réellement utiles.</div>
+<footer>Mise à jour 02/10/2026 · page non indexée · les contacts RH détaillés restent dans le suivi privé</footer>
 </main></body></html>
