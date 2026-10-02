@@ -1,102 +1,33 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow,noarchive">
-<title>Coulisses professionnelles | Samir Medjaher</title>
+<meta name="referrer" content="no-referrer">
+<title>Coulisses professionnelles</title>
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<script>
+(function () {
+  var target = "https://samirmedjaher-coulisses.s-medjaher.workers.dev/coulisses.html";
+  location.replace(target + location.search + location.hash);
+})();
+</script>
+<noscript>
+<meta http-equiv="refresh" content="0;url=https://samirmedjaher-coulisses.s-medjaher.workers.dev/coulisses.html">
+</noscript>
 <style>
-:root{--bg:#07111f;--panel:#111d30;--ink:#e8eef7;--muted:#91a4bd;--cyan:#38bdf8;--green:#34d399;--amber:#fbbf24;--line:rgba(148,163,184,.16)}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 12% 0,#153653 0,transparent 34%),var(--bg);color:var(--ink);font-family:Inter,"Segoe UI",system-ui,sans-serif}
-.wrap{max-width:1120px;margin:auto;padding:26px 18px 56px}.top{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;flex-wrap:wrap}.head-copy{min-width:260px;flex:1}.eyebrow{color:var(--green);font:800 .72rem ui-monospace,monospace;letter-spacing:.15em;text-transform:uppercase}
-h1{font-size:clamp(2.2rem,7vw,4.4rem);margin:.25rem 0 .45rem;line-height:.95;background:linear-gradient(135deg,var(--cyan),var(--green));background-clip:text;-webkit-background-clip:text;color:transparent}
-.lead{color:var(--muted);max-width:760px;line-height:1.55;margin:0}.nav{display:flex;justify-content:flex-end;gap:7px;flex-wrap:wrap;max-width:640px}
-.nav a{border:1px solid var(--line);border-radius:999px;padding:7px 10px;text-decoration:none;color:var(--muted);background:rgba(17,29,48,.72);font-size:.78rem;white-space:nowrap}
-.nav a:hover{color:white;border-color:rgba(56,189,248,.5)}.nav .back{color:#dbe7f5}
-.today{margin-top:20px;background:linear-gradient(135deg,rgba(56,189,248,.09),rgba(52,211,153,.06));border:1px solid rgba(56,189,248,.22);border-radius:15px;padding:16px}
-.today h2{margin:0 0 8px;font-size:1.05rem}.today ol{margin:0;padding-left:21px;display:grid;grid-template-columns:1fr 1fr;gap:5px 26px}.today li{line-height:1.4;color:#d6e1ef}
-.section{margin-top:24px}.section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:10px}.section h2{margin:0;font-size:1.12rem}.section-head span{color:var(--muted);font-size:.76rem}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.card{display:flex;flex-direction:column;min-height:155px;background:linear-gradient(180deg,rgba(23,38,61,.96),rgba(17,29,48,.92));border:1px solid var(--line);border-radius:14px;padding:16px;text-decoration:none;color:inherit;transition:.18s}
-.card:hover{transform:translateY(-2px);border-color:rgba(56,189,248,.46);box-shadow:0 12px 26px rgba(0,0,0,.22)}.card.primary{border-color:rgba(56,189,248,.34)}.code{font:800 .66rem ui-monospace,monospace;letter-spacing:.08em;color:var(--green);text-transform:uppercase}
-.card h3{font-size:1.05rem;margin:8px 0 6px}.card p{color:var(--muted);line-height:1.45;margin:0 0 10px;flex:1}.go{color:var(--cyan);font-weight:800;font-size:.82rem}
-.compact-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.compact{min-height:120px}.compact p{font-size:.85rem}.warn{border-color:rgba(251,191,36,.24)}.warn .code{color:var(--amber)}
-footer{margin-top:28px;text-align:center;color:#60738d;font-size:.74rem}
-@media(max-width:900px){.compact-grid{grid-template-columns:repeat(2,1fr)}.today ol{grid-template-columns:1fr}}
-@media(max-width:620px){.wrap{padding-top:20px}.top{display:block}.nav{justify-content:flex-start;margin-top:14px}.grid,.compact-grid{grid-template-columns:1fr}.today{padding:14px}}
+body{margin:0;min-height:100vh;display:grid;place-items:center;background:#07111f;color:#e8eef7;font-family:Inter,"Segoe UI",system-ui,sans-serif;padding:24px}
+main{max-width:620px;text-align:center}
+a{color:#38bdf8}
+p{color:#91a4bd;line-height:1.6}
 </style>
 </head>
-<body><main class="wrap">
-<header class="top">
-  <div class="head-copy">
-    <div class="eyebrow">Espace discret · tableau de bord</div>
-    <h1>Coulisses</h1>
-    <p class="lead">Piloter la recherche, ouvrir la bonne fiche pendant un appel et retrouver les profils utiles sans fouiller dans l’historique.</p>
-  </div>
-  <nav class="nav" aria-label="Navigation rapide">
-    <a href="recherche-emploi.html">Suivi</a>
-    <a href="support-it.html">Profil IT</a>
-    <a href="transport.html">Profil transport</a>
-    <a href="entretien.html">Dossiers & appels</a>
-    <a href="index.html#portfolio">Portfolio</a>
-    <a class="back" href="index.html">Retour CV</a>
-  </nav>
-</header>
-
-<section class="today">
-  <h2>Aujourd'hui · 2 octobre</h2>
-  <ol>
-    <li>Rappeler R.A.S. voyageurs si aucun retour.</li>
-    <li>Valider Mailinblack pour Sovitrat et Domino.</li>
-    <li>Appeler Temporis pour un canal alternatif.</li>
-    <li>Candidater Caisse d'Épargne, Crédit Mutuel, Banque Postale et SNCF.</li>
-    <li>Appeler LIP Informatique et LIP Télémarketing.</li>
-    <li>Faire Outlier Aether et actualiser Jobtransport.</li>
-  </ol>
-</section>
-
-<section class="section">
-  <div class="section-head"><h2>Pilotage</h2><span>Les deux entrées principales</span></div>
-  <div class="grid">
-    <a class="card primary" href="recherche-emploi.html">
-      <div class="code">01 · suivi</div><h3>Recherche d'emploi</h3>
-      <p>Priorités, candidatures actives, réponses, employeurs alignés avec tes valeurs et actions du jour.</p>
-      <div class="go">Ouvrir le suivi →</div>
-    </a>
-    <a class="card primary" href="entretien.html">
-      <div class="code">02 · appel recruteur</div><h3>Dossiers & entretiens</h3>
-      <p>Tu tapes le nom de l’entreprise et tu récupères immédiatement offre, pitch, points sensibles et questions.</p>
-      <div class="go">Chercher une entreprise →</div>
-    </a>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head"><h2>Profils & orientations</h2><span>Accès direct aux lectures utiles</span></div>
-  <div class="compact-grid">
-    <a class="card compact" href="support-it.html"><div class="code">IT</div><h3>Support & réseaux</h3><p>N1/N2, NOC, proximité, support applicatif.</p><div class="go">Voir →</div></a>
-    <a class="card compact" href="transport.html"><div class="code">Transport</div><h3>Voyageurs</h3><p>Permis D, FIMO/CQC, reprise de conduite.</p><div class="go">Voir →</div></a>
-    <a class="card compact" href="recherche-emploi.html#valeurs"><div class="code">Valeurs</div><h3>Banque & ESS</h3><p>Coopératives, mutuelles, SCOP et employeurs utiles.</p><div class="go">Voir →</div></a>
-    <a class="card compact" href="entretien.html?q=SNCF"><div class="code">Ferroviaire</div><h3>SNCF</h3><p>Conduite TER, manoeuvre et formation sécurité.</p><div class="go">Voir →</div></a>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-head"><h2>À surveiller</h2><span>Seulement les blocages réels</span></div>
-  <div class="grid">
-    <a class="card warn" href="recherche-emploi.html">
-      <div class="code">Canaux</div><h3>Envois à corriger</h3>
-      <p>Sovitrat et Domino attendent Mailinblack ; Temporis, Endrix et TIBCO doivent passer par un autre canal.</p>
-      <div class="go">Voir les actions →</div>
-    </a>
-    <a class="card warn" href="recherche-emploi.html">
-      <div class="code">Relances</div><h3>Prochaine vague · 8 octobre</h3>
-      <p>Relancer uniquement les dossiers réellement délivrés et toujours sans réponse.</p>
-      <div class="go">Voir les dossiers →</div>
-    </a>
-  </div>
-</section>
-
-<footer>Samir Medjaher · Coulisses professionnelles · 02/10/2026</footer>
-</main></body>
+<body>
+<main>
+<h1>Espace déplacé</h1>
+<p>Cette page fait désormais partie de l’espace professionnel protégé.</p>
+<p><a href="https://samirmedjaher-coulisses.s-medjaher.workers.dev/coulisses.html">Ouvrir l’espace protégé</a> · <a href="index.html">Retour au CV</a></p>
+</main>
+</body>
 </html>
