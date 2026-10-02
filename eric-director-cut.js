@@ -6,6 +6,7 @@
     window.ERIC_DIRECTOR_CUT = true;
 
     const STORAGE_KEY = 'ericDirectorCutStateV1';
+    const RUNTIME_KEY = 'ericDirectorRuntimeV1';
     const STORY_KEY = 'ericDirectorAdventureStep';
     const STATE_VERSION = 1;
 
@@ -237,8 +238,22 @@
     }
 
     function notify(message, type = 'info') {
-        if (window.unifiedNotifications?.show) window.unifiedNotifications.show(message, type);
-        else if (window.showNotification) window.showNotification(message, type);
+        window.ericGame?.setStatus?.(message);
+        const dashboard = document.getElementById('gamingDashboard');
+        if (!dashboard) return;
+
+        dashboard.querySelector('.director-toast')?.remove();
+        const toast = document.createElement('div');
+        toast.className = 'director-toast director-toast-' + type;
+        const icon = type === 'error' ? 'fa-circle-exclamation' : type === 'success' ? 'fa-check' : 'fa-circle-info';
+        toast.innerHTML = '<i class="fas ' + icon + '" aria-hidden="true"></i><span></span>';
+        toast.querySelector('span').textContent = message;
+        dashboard.appendChild(toast);
+        requestAnimationFrame(() => toast.classList.add('is-visible'));
+        setTimeout(() => {
+            toast.classList.remove('is-visible');
+            setTimeout(() => toast.remove(), 240);
+        }, 2300);
     }
 
     function purchase(itemId) {
@@ -255,6 +270,13 @@
         state.spent += item.cost;
         saveState();
         notify(item.cost ? item.name + ' rejoint le refuge.' : item.name + ' a été récupéré.', 'success');
+
+        // The purchase chime is the first fragment of the signal motif heard later.
+        if (item.cost > 0) {
+            [196, 294, 247].forEach((frequency, index) => {
+                setTimeout(() => tone(frequency, 0.075), index * 95);
+            });
+        }
 
         if (window.ericGame) {
             renderDirectorInventory(window.ericGame);
@@ -492,6 +514,80 @@
         `;
     }
 
+    function renderSettingsTab(container) {
+        const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+        container.innerHTML = `
+            <section class="director-page director-settings-page">
+                <header class="director-heading">
+                    <span class="director-kicker">Réglages</span>
+                    <div>
+                        <h2>Une expérience discrète</h2>
+                        <p>Le refuge conserve seulement sa progression dans ce navigateur. Rien ici n’est nécessaire au CV professionnel.</p>
+                    </div>
+                </header>
+                <div class="director-settings-grid">
+                    <article class="director-setting-card">
+                        <span class="director-item-glyph"><i class="fas fa-volume-high" aria-hidden="true"></i></span>
+                        <div>
+                            <h3>Son</h3>
+                            <p>L’ambiance reste coupée jusqu’à une action volontaire. Les deux épreuves ont aussi un retour visuel complet.</p>
+                        </div>
+                    </article>
+                    <article class="director-setting-card">
+                        <span class="director-item-glyph"><i class="fas fa-person-walking" aria-hidden="true"></i></span>
+                        <div>
+                            <h3>Mouvement</h3>
+                            <p>${reducedMotion ? 'Les animations réduites demandées par ton système sont respectées.' : 'Les animations sont actives. Le réglage système « réduire les animations » est respecté automatiquement.'}</p>
+                        </div>
+                    </article>
+                    <article class="director-setting-card">
+                        <span class="director-item-glyph"><i class="fas fa-hard-drive" aria-hidden="true"></i></span>
+                        <div>
+                            <h3>Progression locale</h3>
+                            <p>Histoire, souvenirs et objets restent dans le stockage local de ce navigateur. Aucune progression n’est envoyée à un serveur.</p>
+                        </div>
+                    </article>
+                    <article class="director-setting-card director-setting-actions">
+                        <span class="director-item-glyph"><i class="fas fa-rotate-left" aria-hidden="true"></i></span>
+                        <div>
+                            <h3>Recommencer</h3>
+                            <p>Rejouer l’histoire garde les souvenirs et objets. Effacer la progression repart d’une nuit vierge sans refermer le passage secret.</p>
+                            <div class="director-setting-buttons">
+                                <button type="button" data-director-replay>Rejouer l’histoire</button>
+                                <button type="button" class="is-danger" data-director-reset>Effacer la progression</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        `;
+
+        container.querySelector('[data-director-replay]')?.addEventListener('click', () => {
+            localStorage.setItem(STORY_KEY, '0');
+            state.storyStep = 0;
+            state.finished = false;
+            saveState();
+            if (window.ericGame) {
+                window.ericGame.changeRoom('living');
+                window.ericAdventure?.renderStory?.();
+                window.ericGame.refreshRoomLocks?.();
+            }
+            notify('L’histoire recommence. Les souvenirs restent.', 'info');
+        });
+
+        container.querySelector('[data-director-reset]')?.addEventListener('click', () => {
+            const confirmed = window.confirm('Effacer l’histoire, les objets et les souvenirs d’Éric sur ce navigateur ?');
+            if (!confirmed) return;
+            localStorage.removeItem(STORAGE_KEY);
+            localStorage.removeItem(RUNTIME_KEY);
+            localStorage.removeItem(STORY_KEY);
+            state = defaultState();
+            localStorage.setItem(STORY_KEY, '0');
+            saveState();
+            window.location.reload();
+        });
+    }
+
     function renderTab(tabId, container) {
         switch (tabId) {
             case 'shop': renderShopTab(container); return true;
@@ -500,6 +596,7 @@
             case 'quests': renderJournalTab(container); return true;
             case 'events': renderEventsTab(container); return true;
             case 'achievements': renderMemoriesTab(container); return true;
+            case 'settings': renderSettingsTab(container); return true;
             default: return false;
         }
     }
@@ -673,6 +770,57 @@
             if (status) status.textContent = message;
         };
 
+        // Director Cut runtime is isolated from the old Tamagotchi save.
+        // Returning to the legacy prototype later cannot overwrite this story state.
+        Proto.loadInventory = function() {
+            return {};
+        };
+
+        Proto.loadCoins = function() {
+            return currentCoins();
+        };
+
+        Proto.loadGameState = function() {
+            try {
+                const saved = JSON.parse(localStorage.getItem(RUNTIME_KEY) || 'null');
+                if (!saved) {
+                    this.coins = currentCoins();
+                    this.level = chapterNumber();
+                    this.xp = 0;
+                    this.inventory = {};
+                    this.lastSavedAt = Date.now();
+                    return;
+                }
+                this.stats = saved.stats || this.stats;
+                this.currentRoom = saved.currentRoom || 'living';
+                this.bond = Number.isFinite(saved.bond) ? saved.bond : 0;
+                this.lastSavedAt = saved.lastSavedAt || Date.now();
+                this.coins = currentCoins();
+                this.level = chapterNumber();
+                this.xp = 0;
+                this.inventory = {};
+                this.dailyActions = [];
+                this.dailyRewardClaimed = false;
+            } catch {
+                this.coins = currentCoins();
+                this.currentRoom = 'living';
+                this.level = chapterNumber();
+                this.xp = 0;
+                this.inventory = {};
+                this.lastSavedAt = Date.now();
+            }
+        };
+
+        Proto.saveGameState = function() {
+            localStorage.setItem(RUNTIME_KEY, JSON.stringify({
+                version: STATE_VERSION,
+                stats: this.stats,
+                currentRoom: this.currentRoom,
+                bond: this.bond,
+                lastSavedAt: Date.now()
+            }));
+        };
+
         Proto.handleQuickAction = function(action) {
             if (Date.now() - this.lastActionAt < 600) return;
             this.lastActionAt = Date.now();
@@ -796,16 +944,18 @@
 
     function trialModal(title, subtitle) {
         document.querySelector('.director-trial-modal')?.remove();
+        const previousFocus = document.activeElement;
         const modal = document.createElement('div');
         modal.className = 'director-trial-modal';
         modal.setAttribute('role', 'dialog');
         modal.setAttribute('aria-modal', 'true');
+        modal.setAttribute('aria-labelledby', 'director-trial-title');
         modal.innerHTML = `
             <div class="director-trial-backdrop" data-trial-close></div>
             <section class="director-trial-dialog">
                 <header>
                     <span class="director-kicker">Épreuve du signal</span>
-                    <h2>${title}</h2>
+                    <h2 id="director-trial-title">${title}</h2>
                     <p>${subtitle}</p>
                     <button type="button" class="director-trial-close" data-trial-close aria-label="Fermer"><i class="fas fa-times"></i></button>
                 </header>
@@ -817,6 +967,7 @@
         const closeModal = () => {
             modal.remove();
             if (onEscape) document.removeEventListener('keydown', onEscape);
+            if (previousFocus instanceof HTMLElement && previousFocus.isConnected) previousFocus.focus();
         };
         modal.querySelectorAll('[data-trial-close]').forEach(button => button.addEventListener('click', closeModal));
         onEscape = event => {

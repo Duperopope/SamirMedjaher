@@ -404,10 +404,10 @@ class EricCompleteGame {
     renderEnvironment() {
         const env = document.getElementById('gameEnvironment');
         const roomMeta = {
-            living: { image: 'assets/images/game/eric-night-workshop.webp', position: 'center', label: 'Atelier musical', note: 'Niveau 1 — Le signal sous les toits.' },
-            kitchen: { image: 'assets/images/game/eric-kitchen.webp', position: 'center', label: 'Cuisine & réserve', note: 'Niveau 2 — La piste lumineuse.' },
-            bedroom: { image: 'assets/images/game/eric-refuge.webp', position: 'center', label: 'Le refuge cartographe', note: 'Niveau 3 — La fréquence perdue.' },
-            garden: { image: 'assets/images/game/eric-rooftop.webp', position: 'center', label: 'Serre des toits', note: 'Niveau 4 — La balise endormie.' }
+            living: { image: 'assets/images/game/eric-night-workshop.webp', position: 'center', label: 'Atelier musical', note: 'Acte I — Le bruit.' },
+            kitchen: { image: 'assets/images/game/eric-kitchen.webp', position: 'center', label: 'Cuisine & réserve', note: 'Acte II — Le besoin.' },
+            bedroom: { image: 'assets/images/game/eric-refuge.webp', position: 'center', label: 'Le refuge cartographe', note: 'Acte III — Le désir.' },
+            garden: { image: 'assets/images/game/eric-rooftop.webp', position: 'center', label: 'Serre des toits', note: 'Acte IV — La machine.' }
         }[this.currentRoom];
 
         env.style.setProperty('--scene-image', `url("${roomMeta.image}")`);
@@ -451,8 +451,8 @@ class EricCompleteGame {
         const unlocked = {
             living: true,
             kitchen: storyStep >= 2,
-            bedroom: storyStep >= 3 || this.level >= 2,
-            garden: storyStep >= 5
+            bedroom: storyStep >= 4,
+            garden: storyStep >= 6
         };
         document.querySelectorAll('.room-btn').forEach(button => {
             const locked = !unlocked[button.dataset.room];

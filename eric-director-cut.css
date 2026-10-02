@@ -736,9 +736,9 @@ body.eric-director-cut #gamingDashboard .dashboard-tab-content:not(#tab-eric) {
     }
 
     body.eric-director-cut #gamingDashboard .dashboard-tab-btn {
-        flex: 0 0 72px !important;
-        width: 72px !important;
-        min-width: 72px !important;
+        flex: 0 0 calc(100vw / 7) !important;
+        width: calc(100vw / 7) !important;
+        min-width: calc(100vw / 7) !important;
         min-height: 64px !important;
         height: 64px !important;
         border-bottom: 0 !important;
@@ -1009,4 +1009,160 @@ body.eric-director-cut.gaming-on #unifiedNotificationsZone {
 .eric-secret-unlock p {
     margin: 14px 0 0;
     color: #8b9ca0;
+}
+
+.director-toast {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 12050;
+    max-width: min(380px, calc(100vw - 32px));
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 16px;
+    border: 1px solid rgba(226, 178, 110, .34);
+    background: rgba(8, 17, 21, .96);
+    color: #dfe7e6;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, .38);
+    transform: translateY(12px);
+    opacity: 0;
+    transition: opacity .2s ease, transform .2s ease;
+    pointer-events: none;
+}
+
+.director-toast.is-visible {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.director-toast i {
+    color: var(--dc-copper);
+}
+
+.director-toast span {
+    font-size: .78rem;
+    line-height: 1.4;
+}
+
+.director-toast-error {
+    border-color: rgba(190, 95, 72, .45);
+}
+
+@media (max-width: 820px) {
+    .director-toast {
+        right: 12px;
+        bottom: 76px;
+        left: 12px;
+        max-width: none;
+    }
+}
+
+.director-settings-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.director-setting-card {
+    min-height: 180px;
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 18px;
+    align-items: start;
+    padding: 22px;
+    border: 1px solid var(--dc-line);
+    background: rgba(10, 20, 24, .82);
+}
+
+.director-setting-card h3 {
+    margin: 2px 0 8px;
+    font: 500 1.08rem/1.2 Georgia, "Times New Roman", serif;
+    color: #e8dcc8;
+}
+
+.director-setting-card p {
+    margin: 0;
+    color: var(--dc-muted);
+    line-height: 1.55;
+}
+
+.director-setting-actions {
+    grid-column: 1 / -1;
+}
+
+.director-setting-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.director-setting-buttons button {
+    border: 1px solid rgba(210, 131, 73, .42);
+    background: rgba(65, 41, 25, .28);
+    color: #e5c59d;
+    padding: 11px 14px;
+    font: 700 .6rem/1 "IBM Plex Mono", monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.director-setting-buttons .is-danger {
+    border-color: rgba(190, 95, 72, .38);
+    color: #cf9b8f;
+    background: rgba(82, 31, 24, .16);
+}
+
+@media (max-width: 820px) {
+    .director-settings-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .director-setting-actions {
+        grid-column: auto;
+    }
+}
+
+@media (max-width: 820px) {
+  body.eric-director-cut #gamingDashboard .dashboard-tab-btn .tab-label { font-size:.43rem !important; letter-spacing:.015em !important; white-space:nowrap; }
+  body.eric-director-cut #gamingDashboard .dashboard-tab-btn > div:first-child { font-size:.82rem !important; }
+}
+
+.director-eric-root .eric-illustrated-stage.is-preparing .eric-sprite {
+    animation: directorAnticipate .12s ease-out both !important;
+}
+
+.director-eric-root .eric-illustrated-stage.is-arriving .eric-sprite {
+    animation: directorSettle .15s ease-out both !important;
+}
+
+@keyframes directorAnticipate {
+    from { transform: translateY(0) scaleY(1); }
+    to { transform: translateY(3px) scaleY(.975) scaleX(1.01); }
+}
+
+@keyframes directorSettle {
+    0% { transform: translateY(-2px) scaleY(1.015); }
+    100% { transform: translateY(0) scaleY(1); }
+}
+
+.director-shop-page.market-stage-2 .director-shop-card {
+    background: linear-gradient(145deg, rgba(31, 25, 22, .93), rgba(9, 20, 24, .96));
+}
+
+.director-shop-page.market-stage-3 .director-shop-grid {
+    gap: 11px;
+}
+
+.director-shop-page.market-stage-3 .director-shop-card {
+    border-color: rgba(210, 131, 73, .27);
+    background:
+        radial-gradient(circle at 84% 12%, rgba(210, 131, 73, .08), transparent 30%),
+        linear-gradient(145deg, rgba(35, 26, 21, .96), rgba(8, 18, 22, .98));
+}
+
+.director-shop-page.market-stage-3 .director-price {
+    color: #f0bd73;
 }

@@ -230,10 +230,21 @@ class EricAdventure {
         const world = this.worldData[this.game.currentRoom];
         const destination = this.resolveDestination(rawX, rawY, world);
         const path = this.buildPath(this.position, destination, world);
-        this.setPose('walk');
-        if (Math.hypot(destination.x - this.position.x, destination.y - this.position.y) > 5) this.audio?.startSteps();
-        this.stage.classList.add('is-entering');
-        this.walkPath(path, onArrival);
+        const distance = Math.hypot(destination.x - this.position.x, destination.y - this.position.y);
+
+        // A tiny anticipation makes movement read as intention rather than a CSS translation.
+        this.stage.classList.remove('is-arriving');
+        this.stage.classList.add('is-preparing');
+        this.setPose('idle');
+        this.stage.style.setProperty('--eric-facing', destination.x - this.position.x >= 0 ? -1 : 1);
+
+        this.moveTimer = setTimeout(() => {
+            this.stage.classList.remove('is-preparing');
+            this.setPose('walk');
+            if (distance > 5) this.audio?.startSteps();
+            this.stage.classList.add('is-entering');
+            this.walkPath(path, onArrival);
+        }, 120);
     }
 
     walkPath(path, onArrival) {
@@ -241,9 +252,13 @@ class EricAdventure {
         if (!destination) {
             this.audio?.stopSteps();
             this.stage.classList.remove('is-entering');
+            this.stage.classList.add('is-arriving');
             this.setPose('idle');
-            onArrival?.();
-            this.scheduleBehaviour();
+            this.moveTimer = setTimeout(() => {
+                this.stage?.classList.remove('is-arriving');
+                onArrival?.();
+                this.scheduleBehaviour();
+            }, 150);
             return;
         }
         const dx = destination.x - this.position.x;

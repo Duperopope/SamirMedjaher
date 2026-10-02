@@ -1035,23 +1035,33 @@ body.hud-preview-active .game-notification {
         const CURRENT_VERSION = '0.48';
         const storedVersion = localStorage.getItem('cv-version');
         if (storedVersion !== CURRENT_VERSION) {
-            console.log(`🔄 Version changed (${storedVersion} → ${CURRENT_VERSION}) - Clearing gaming state`);
-            // Keep user preferences but clear gaming state
-            const lang = localStorage.getItem('preferredLanguage');
-            const theme = localStorage.getItem('cv-theme');
-            const particles = localStorage.getItem('particle-settings');
+            console.log(`Version changed (${storedVersion} → ${CURRENT_VERSION}) - migrating local state`);
+            // Keep user preferences and Director Cut progress across ordinary CV releases.
+            const preservedKeys = [
+                'preferredLanguage',
+                'cv-theme',
+                'particle-settings',
+                'portraitClicks',
+                'gamingUnlocked',
+                'gamingMode',
+                'gamingDashboardState',
+                'ericDirectorCutStateV1',
+                'ericDirectorAdventureStep',
+                'ericDirectorRuntimeV1'
+            ];
+            const preserved = Object.fromEntries(
+                preservedKeys
+                    .map(key => [key, localStorage.getItem(key)])
+                    .filter(([, value]) => value !== null)
+            );
             
-            // Clear everything
+            // Clear obsolete caches/legacy game state without erasing the secret story.
             localStorage.clear();
-            
-            // Restore user preferences
-            if (lang) localStorage.setItem('preferredLanguage', lang);
-            if (theme) localStorage.setItem('cv-theme', theme);
-            if (particles) localStorage.setItem('particle-settings', particles);
+            Object.entries(preserved).forEach(([key, value]) => localStorage.setItem(key, value));
             
             // Set new version
             localStorage.setItem('cv-version', CURRENT_VERSION);
-            console.log('✅ localStorage cleaned - gaming state reset');
+            console.log('Local state migrated - Director Cut progress preserved');
         }
         
         // Global Variables
@@ -1889,14 +1899,18 @@ body.hud-preview-active .game-notification {
             const gameToggle = document.getElementById('gameToggle');
             if (gameToggle) gameToggle.addEventListener('mouseenter', function() {
                 if (gamingUnlocked) {
-                    const text = this.getAttribute('data-text') || 'Gaming';
-                    this.innerHTML = `🎮 ${text}`;
+                    const text = this.getAttribute('data-text') || 'Éric';
+                    this.innerHTML = window.ERIC_DIRECTOR_CUT
+                        ? '<i class="fas fa-cat" aria-hidden="true"></i> ' + text
+                        : '🎮 ' + text;
                 }
             });
             
             if (gameToggle) gameToggle.addEventListener('mouseleave', function() {
                 if (gamingUnlocked) {
-                    this.innerHTML = '🎮';
+                    this.innerHTML = window.ERIC_DIRECTOR_CUT
+                        ? '<i class="fas fa-cat" aria-hidden="true"></i>'
+                        : '🎮';
                 }
             });
 
@@ -3140,7 +3154,7 @@ body.hud-preview-active .game-notification {
                 hud.classList.add('show');
                 tama.classList.add('show');
                 if (toggle) {
-                    toggle.innerHTML = '🎮';
+                    toggle.innerHTML = '<i class="fas fa-cat" aria-hidden="true"></i>';
                     toggle.style.background = 'rgba(139, 92, 246, 0.2)';
                     toggle.title = 'Mode Gaming: Activé';
                     toggle.setAttribute('data-text', 'Gaming ON');
@@ -3149,7 +3163,7 @@ body.hud-preview-active .game-notification {
                 hud.classList.remove('show');
                 tama.classList.remove('show');
                 if (toggle) {
-                    toggle.innerHTML = '🎮';
+                    toggle.innerHTML = '<i class="fas fa-cat" aria-hidden="true"></i>';
                     toggle.style.background = 'rgba(148, 163, 184, 0.1)';
                     toggle.title = 'Mode Gaming: Désactivé';
                     toggle.setAttribute('data-text', 'Gaming OFF');
@@ -3158,7 +3172,8 @@ body.hud-preview-active .game-notification {
         }
 
         function triggerAction(action) {
-            if (!gamingMode) return;
+            // Professional CV interactions are deliberately outside the Director Cut economy.
+            if (window.ERIC_DIRECTOR_CUT || !gamingMode) return;
 
             const xpGain = {
                 'skill-hover': 2,
@@ -3839,7 +3854,7 @@ body.hud-preview-active .game-notification {
             
             // Check if 10 quick clicks reached (reset rapide réservé au mode gaming déjà débloqué,
             // pour ne pas interrompre la séquence de 23 clics)
-            if (quickClickCount >= QUICK_CLICK_THRESHOLD && gamingUnlocked) {
+            if (quickClickCount >= QUICK_CLICK_THRESHOLD && gamingUnlocked && !window.ERIC_DIRECTOR_CUT) {
                 clearTimeout(quickClickTimer);
                 quickClickCount = 0;
                 
@@ -3858,7 +3873,7 @@ body.hud-preview-active .game-notification {
             }
             
             // Show click counter feedback if getting close
-            if (quickClickCount >= 5 && quickClickCount < QUICK_CLICK_THRESHOLD && gamingUnlocked) {
+            if (quickClickCount >= 5 && quickClickCount < QUICK_CLICK_THRESHOLD && gamingUnlocked && !window.ERIC_DIRECTOR_CUT) {
                 const remaining = QUICK_CLICK_THRESHOLD - quickClickCount;
                 const feedbackDiv = document.createElement('div');
                 feedbackDiv.style.cssText = `
@@ -4475,24 +4490,9 @@ body.hud-preview-active .game-notification {
     <!-- Hidden game feature flag. The professional CV remains untouched until the 23-click unlock. -->
     <script>window.ERIC_DIRECTOR_CUT = true;</script>
 
-    <!-- Tamagotchi Enhanced - CSS Animations -->
-    <link rel="stylesheet" href="tamagotchi-animations.css?v=0.48">
-    
-    <!-- Tamagotchi Mini-Games - CSS Interface -->
-    <link rel="stylesheet" href="tamagotchi-minigames.css?v=0.48">
-    
-    <!-- Tamagotchi Enhanced - JavaScript Logic -->
-    <script src="tamagotchi-enhanced.js?v=0.48"></script>
-    
-    <!-- Tamagotchi Mini-Games - JavaScript Logic -->
-    <script src="tamagotchi-minigames.js?v=0.48"></script>
-    
-    <!-- Gameplay System v2.0 - Coins, XP, Évolution -->
-    <script src="tamagotchi-gameplay.js?v=0.51"></script>
-    
-    <!-- Shop System - Boutique complète -->
-    <link rel="stylesheet" href="tamagotchi-shop.css?v=0.48">
-    <script src="tamagotchi-shop.js?v=0.48"></script>
+    <!-- Legacy Tamagotchi, arcade and F2P systems remain in the repository for reference.
+         They are intentionally not shipped in the Director Cut: no background decay loops,
+         daily-reward economy, generic mini-games or duplicate shop runtime. -->
     
     <!-- 🐱 ERIC COMPLETE GAME SYSTEM v2.0 - Jeu tamagotchi complet -->
     <!-- Jeu complet et immersif dans l'onglet Eric du dashboard -->

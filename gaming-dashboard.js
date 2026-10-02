@@ -503,11 +503,11 @@ function initGamingDashboard() {
     // Load saved state
     loadDashboardState();
     
-    // Check for active events
-    checkActiveEvents();
-    
-    // Initialize quest system
-    initQuestSystem();
+    // Legacy events/quest chains stay archived but are not started by the Director Cut.
+    if (!window.ERIC_DIRECTOR_CUT) {
+        checkActiveEvents();
+        initQuestSystem();
+    }
     
     // Update metrics
     updatePlaytime();
@@ -527,6 +527,9 @@ function loadDashboardState() {
         try {
             const parsed = JSON.parse(saved);
             dashboardState = { ...dashboardState, ...parsed };
+            if (window.ERIC_DIRECTOR_CUT && dashboardState.currentTab === 'events') {
+                dashboardState.currentTab = 'eric';
+            }
         } catch (e) {
             console.error('Failed to load dashboard state:', e);
         }
