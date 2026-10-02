@@ -1,67 +1,33 @@
 <!doctype html>
 <html lang="fr">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow,noarchive">
-<title>Recherche d'emploi | Samir Medjaher</title>
+<meta name="referrer" content="no-referrer">
+<title>Suivi emploi protégé</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<script>
+(function () {
+  var target = "https://samirmedjaher-coulisses.s-medjaher.workers.dev/recherche-emploi.html";
+  location.replace(target + location.search + location.hash);
+})();
+</script>
+<noscript>
+<meta http-equiv="refresh" content="0;url=https://samirmedjaher-coulisses.s-medjaher.workers.dev/recherche-emploi.html">
+</noscript>
 <style>
-:root{--bg:#091321;--panel:#121f32;--ink:#e8eef7;--muted:#93a6be;--cyan:#38bdf8;--green:#34d399;--amber:#fbbf24;--line:rgba(148,163,184,.16)}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 12% 0,#17334f 0,transparent 35%),var(--bg);color:var(--ink);font:15px Inter,"Segoe UI",system-ui,sans-serif}
-.wrap{max-width:1120px;margin:auto;padding:26px 16px 56px}.top{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;flex-wrap:wrap}.head-copy{flex:1;min-width:260px}
-.kicker{font:800 .72rem ui-monospace,monospace;letter-spacing:.14em;color:var(--green);text-transform:uppercase}h1{font-size:clamp(2.2rem,7vw,4.2rem);margin:.25rem 0 .45rem;line-height:1;background:linear-gradient(135deg,var(--cyan),var(--green));background-clip:text;-webkit-background-clip:text;color:transparent}
-.lead{color:var(--muted);max-width:760px;line-height:1.55;margin:0}.nav{display:flex;justify-content:flex-end;gap:7px;flex-wrap:wrap;max-width:640px}.nav a{border:1px solid var(--line);border-radius:999px;padding:7px 10px;text-decoration:none;color:var(--muted);background:rgba(18,31,50,.72);font-size:.78rem;white-space:nowrap}.nav a:hover{color:white;border-color:rgba(56,189,248,.5)}.nav .back{color:#dbe7f5}
-.section{margin-top:24px;scroll-margin-top:20px}.section h2{font-size:1.12rem;margin:0 0 10px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.card{display:block;background:rgba(18,31,50,.9);border:1px solid var(--line);border-radius:13px;padding:15px;color:inherit;text-decoration:none;transition:.18s}.card:hover{transform:translateY(-2px);border-color:rgba(56,189,248,.45);box-shadow:0 12px 24px rgba(0,0,0,.2)}
-.card strong{display:block}.role{color:var(--muted);font-size:.87rem;line-height:1.4;margin-top:3px}.meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}.tag{font-size:.68rem;padding:4px 7px;border:1px solid var(--line);border-radius:999px;color:#c3d1e2}.status{margin-top:9px;font-size:.72rem;font-weight:850;text-transform:uppercase}.ok{color:var(--green)}.todo{color:var(--amber)}
-.today{margin-top:20px;background:linear-gradient(135deg,rgba(56,189,248,.08),rgba(52,211,153,.05));border:1px solid rgba(56,189,248,.22);border-radius:14px;padding:16px}.today ol{margin:8px 0 0;padding-left:22px;display:grid;grid-template-columns:1fr 1fr;gap:5px 24px}.today li{line-height:1.4}
-.value{border-left:3px solid var(--green)}.value .open{margin-top:10px;color:var(--cyan);font-weight:800;font-size:.8rem}.waiting{grid-template-columns:repeat(2,minmax(0,1fr))}
-.note{margin-top:22px;color:var(--muted);line-height:1.5;border-left:3px solid var(--amber);padding:12px 14px;background:rgba(251,191,36,.04)}footer{margin-top:28px;text-align:center;color:#63758d;font-size:.74rem}
-@media(max-width:760px){.grid,.waiting,.today ol{grid-template-columns:1fr}.top{display:block}.nav{justify-content:flex-start;margin-top:14px}}
+body{margin:0;min-height:100vh;display:grid;place-items:center;background:#07111f;color:#e8eef7;font-family:Inter,"Segoe UI",system-ui,sans-serif;padding:24px}
+main{max-width:620px;text-align:center}
+a{color:#38bdf8}
+p{color:#91a4bd;line-height:1.6}
 </style>
 </head>
-<body><main class="wrap">
-<header class="top">
-  <div class="head-copy">
-    <div class="kicker">Coulisses · recherche d'emploi</div>
-    <h1>Suivi emploi</h1>
-    <p class="lead">Agir vite : priorités du jour, candidatures en attente et employeurs qui correspondent le mieux au type de structure recherché.</p>
-  </div>
-  <nav class="nav" aria-label="Navigation rapide">
-    <a href="support-it.html">Profil IT</a>
-    <a href="transport.html">Profil transport</a>
-    <a href="entretien.html">Dossiers & appels</a>
-    <a href="index.html#portfolio">Portfolio</a>
-    <a href="coulisses.html">Coulisses</a>
-    <a class="back" href="index.html">Retour CV</a>
-  </nav>
-</header>
-
-<section class="today"><strong>Aujourd'hui · 2 octobre</strong><ol>
-<li>R.A.S. voyageurs : rappeler si aucun retour.</li>
-<li>Sovitrat + Domino : valider Mailinblack.</li>
-<li>Temporis : demander un canal alternatif.</li>
-<li>Candidater Caisse d'Épargne, Crédit Mutuel, Banque Postale et SNCF.</li>
-<li>Appeler LIP Informatique et LIP Télémarketing.</li>
-<li>Screening Outlier Aether + Jobtransport.</li>
-</ol></section>
-
-<section class="section" id="valeurs"><h2>Employeurs les plus alignés avec les valeurs recherchées</h2><div class="grid">
-<a class="card value" href="entretien.html?dossier=CUR-LANEF"><strong>La Nef</strong><div class="role">Coopérative bancaire, sans actionnaires, détenue par ses sociétaires. Candidature support IT déjà reçue.</div><div class="meta"><span class="tag">coopérative</span><span class="tag">ESUS</span><span class="tag">QVT</span></div><div class="status ok">priorité rêve</div><div class="open">Ouvrir la fiche →</div></a>
-<a class="card value" href="entretien.html?dossier=FUT-CERA"><strong>Caisse d'Épargne Rhône Alpes</strong><div class="role">Banque coopérative régionale appartenant à ses clients-sociétaires. Pistes conseiller clientèle / POE proches de Rillieux.</div><div class="meta"><span class="tag">coopérative</span><span class="tag">local</span><span class="tag">formation</span></div><div class="status todo">à candidater</div><div class="open">Préparer la candidature →</div></a>
-<a class="card value" href="entretien.html?dossier=FUT-CM"><strong>Crédit Mutuel</strong><div class="role">Banque coopérative et mutualiste ; agence Rillieux à proximité immédiate et postes relation client à Lyon.</div><div class="meta"><span class="tag">mutualiste</span><span class="tag">sociétaires</span><span class="tag">mission</span></div><div class="status todo">à candidater</div><div class="open">Ouvrir la fiche →</div></a>
-<a class="card value" href="entretien.html?dossier=CUR-DATAKIT"><strong>Datakit</strong><div class="role">SCOP lyonnaise : salariés associés, participation aux orientations et redistribution d'une partie des résultats. Candidature support/IT envoyée.</div><div class="meta"><span class="tag">SCOP</span><span class="tag">salariés associés</span><span class="tag">IT</span></div><div class="status ok">candidature envoyée</div><div class="open">Ouvrir la fiche →</div></a>
-<a class="card value" href="entretien.html?dossier=CUR-COOP-INTERNETS"><strong>La Coopérative des Internets</strong><div class="role">SCOP du numérique responsable. Candidature envoyée sur le poste Commercial·le et co-gérant·e.</div><div class="meta"><span class="tag">SCOP</span><span class="tag">sociétariat</span><span class="tag">4 jours</span></div><div class="status ok">candidature envoyée</div><div class="open">Ouvrir la fiche →</div></a>
-<a class="card value" href="entretien.html?dossier=FUT-SNCF"><strong>SNCF Voyageurs</strong><div class="role">Mobilité collective et mission de service public. Conducteur TER débutant avec formation longue ciblé.</div><div class="meta"><span class="tag">service public</span><span class="tag">transport</span><span class="tag">formation</span></div><div class="status todo">priorité maximale</div><div class="open">Ouvrir la fiche →</div></a>
-<a class="card value" href="entretien.html?q=MGEN"><strong>MGEN / MNT · Groupe VYV</strong><div class="role">Mutuelles de l'ESS. Valeurs fortes mais les offres actuelles demandent souvent une expérience assurantielle plus élevée.</div><div class="meta"><span class="tag">mutuelle</span><span class="tag">ESS</span><span class="tag">santé</span></div><div class="status todo">veille ciblée</div><div class="open">Voir dans les dossiers →</div></a>
-<a class="card value" href="entretien.html?q=Ecodair"><strong>Ecodair</strong><div class="role">Association de reconditionnement informatique à Rillieux : insertion, fracture numérique et écologie. Éligibilité des offres à vérifier.</div><div class="meta"><span class="tag">intérêt général</span><span class="tag">réemploi IT</span><span class="tag">Rillieux</span></div><div class="status todo">à surveiller</div><div class="open">Voir dans les dossiers →</div></a>
-</div></section>
-
-<section class="section"><h2>Candidatures en attente</h2><div class="grid waiting">
-<a class="card" href="entretien.html?q=support"><strong>IT / support</strong><div class="role">La Nef, DCS, Momento, Amiltone, BSB, Manpower, MATEN, Lynx RH, Skaelia, Kapa, Pulse Santé, Passman, Effektiv, Talents IT, Indy.</div><div class="status ok">attendre avant relance</div></a>
-<a class="card" href="entretien.html?q=transport"><strong>Transport</strong><div class="role">LIP Voyageurs, Nobel, SUPPLAY, Randstad, Solano, TOMA, PROMAN, R.A.S. en rappel.</div><div class="status ok">suivi actif</div></a>
-<a class="card" href="entretien.html?q=Fondasol"><strong>Autres</strong><div class="role">Fondasol, Medic Alliance, FLAT, Verisure, Crescendo, Noxias.</div><div class="status ok">suivi actif</div></a>
-<a class="card" href="entretien.html?q=Automato"><strong>IA / freelance</strong><div class="role">Nubo, RWS TrainAI, OpenTrain, Sequance, Powehi, Automato.</div><div class="status ok">relancés 01/10</div></a>
-</div></section>
-
-<div class="note"><strong>Règle :</strong> le DCG reste une culture métier utile, mais aucune pratique comptable n'est revendiquée depuis 2012. Priorité au support, à la relation client, aux structures coopératives/mutualistes, au transport et aux services utiles.</div>
-<footer>Mise à jour 02/10/2026 · page non indexée</footer>
-</main></body></html>
+<body>
+<main>
+<h1>Espace déplacé</h1>
+<p>Cette page fait désormais partie de l’espace professionnel protégé.</p>
+<p><a href="https://samirmedjaher-coulisses.s-medjaher.workers.dev/recherche-emploi.html">Ouvrir l’espace protégé</a> · <a href="index.html">Retour au CV</a></p>
+</main>
+</body>
+</html>
