@@ -3659,7 +3659,7 @@ body.hud-preview-active .game-notification {
         const MAX_CLICK_INTERVAL = 800; // Max 800ms entre chaque clic
         
         function startResetTimer(event) {
-            // Clic GAUCHE / tactile (long 10s) -> index des lettres ; clic DROIT (long 10s) -> reset
+            // Clic GAUCHE / tactile (2,5s) -> coulisses ; clic DROIT (10s) -> reset
             const action = (event && event.button === 2) ? 'reset' : 'letters';
 
             resetStartTime = Date.now();
@@ -3670,9 +3670,11 @@ body.hud-preview-active .game-notification {
             // Animation loop
             function updateProgress() {
                 const elapsed = Date.now() - resetStartTime;
+                const longPressWarmup = 400;
+                const targetDuration = action === 'reset' ? 10000 : 2500;
                 
-                // Après 500ms, on considère que c'est un long press
-                if (elapsed >= 500 && !isLongPressActive) {
+                // Après 400ms, on considère que c'est un long press
+                if (elapsed >= longPressWarmup && !isLongPressActive) {
                     isLongPressActive = true;
                     progress.classList.add('active');
                     // Vibration légère pour indiquer le début du long press
@@ -3681,14 +3683,14 @@ body.hud-preview-active .game-notification {
                     }
                 }
                 
-                // Calcul du pourcentage (0-100% sur 10 secondes)
+                // Progression adaptée : coulisses rapides, reset volontairement long
                 if (isLongPressActive) {
-                    const percent = Math.min(((elapsed - 500) / 9500) * 100, 100);
+                    const percent = Math.min(((elapsed - longPressWarmup) / Math.max(targetDuration - longPressWarmup, 1)) * 100, 100);
                     progress.style.setProperty('--progress', percent + '%');
                 }
                 
-                if (elapsed >= 10000) {
-                    // Appui long complet (10s) : clic droit -> reset, gauche/tactile -> espace professionnel discret
+                if (elapsed >= targetDuration) {
+                    // Clic droit : reset après 10s ; gauche/tactile : coulisses après 2,5s
                     if (resetAnimationFrame) { cancelAnimationFrame(resetAnimationFrame); resetAnimationFrame = null; }
                     resetStartTime = 0;
                     if (action === 'reset') { resetLocalStorage(); } else { openLettersIndex(); }
@@ -3721,7 +3723,7 @@ body.hud-preview-active .game-notification {
         }
         
         function openLettersIndex() {
-            // Appui long de 10s sur le portrait -> espace professionnel discret
+            // Appui long de 2,5s sur le portrait -> espace professionnel discret
             const progress = document.getElementById('resetProgress');
             if (progress) {
                 progress.classList.remove('active');
