@@ -1,36 +1,96 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="robots" content="noindex,nofollow">
-  <title>Coulisses professionnelles | Samir Medjaher</title>
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <style>
-    :root{--cyan:#06b6d4;--green:#10b981;--ink:#e2e8f0;--muted:#94a3b8;--panel:rgba(30,41,59,.48)}
-    *{box-sizing:border-box} body{margin:0;min-height:100vh;padding:48px 20px;background:linear-gradient(135deg,#0f172a,#1e293b 58%,#334155);color:var(--ink);font-family:Inter,"Segoe UI",sans-serif}
-    .wrap{max-width:980px;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}.eyebrow{color:var(--cyan);font-size:.76rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
-    h1{margin:.35rem 0 .7rem;font-size:clamp(2rem,5vw,3.5rem);line-height:1;background:linear-gradient(135deg,var(--cyan),var(--green));background-clip:text;-webkit-background-clip:text;color:transparent}
-    .subtitle{max-width:720px;color:var(--muted);line-height:1.65;margin:0 0 36px}.back{color:var(--muted);text-decoration:none;border:1px solid rgba(148,163,184,.25);padding:9px 15px;border-radius:9px}.back:hover{color:white;border-color:var(--cyan)}
-    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.card{position:relative;display:flex;flex-direction:column;min-height:220px;padding:25px;border-radius:18px;background:var(--panel);border:1px solid rgba(6,182,212,.2);backdrop-filter:blur(14px);transition:.25s}.card:hover{transform:translateY(-4px);border-color:rgba(6,182,212,.55);box-shadow:0 18px 40px rgba(0,0,0,.28)}
-    .code{color:var(--green);font:700 .75rem ui-monospace,SFMono-Regular,Consolas,monospace}.card h2{margin:12px 0 9px;font-size:1.25rem}.card p{margin:0 0 22px;color:var(--muted);line-height:1.6;flex:1}.actions{display:flex;gap:10px;flex-wrap:wrap}.btn{display:inline-flex;padding:9px 14px;border-radius:8px;text-decoration:none;font-weight:750;font-size:.86rem}.primary{color:#07131d;background:linear-gradient(135deg,var(--cyan),var(--green))}.ghost{color:var(--cyan);background:rgba(6,182,212,.09);border:1px solid rgba(6,182,212,.25)}
-    .note{margin-top:28px;padding:16px 18px;border-left:3px solid var(--green);background:rgba(16,185,129,.07);color:var(--muted);font-size:.86rem;line-height:1.55}footer{margin-top:34px;text-align:center;color:#64748b;font-size:.78rem}
-    @media(max-width:700px){body{padding:32px 16px}.grid{grid-template-columns:1fr}}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>Coulisses professionnelles | Samir Medjaher</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<style>
+:root{--bg:#07111f;--panel:#111d30;--panel2:#17263d;--ink:#e8eef7;--muted:#91a4bd;--cyan:#38bdf8;--green:#34d399;--amber:#fbbf24;--violet:#a78bfa;--line:rgba(148,163,184,.16)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 12% 0,#153653 0,transparent 34%),var(--bg);color:var(--ink);font-family:Inter,"Segoe UI",system-ui,sans-serif}
+.wrap{max-width:1120px;margin:auto;padding:30px 18px 70px}a{color:inherit}.top{display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap}
+.eyebrow{color:var(--green);font:800 .72rem ui-monospace,monospace;letter-spacing:.15em;text-transform:uppercase}
+h1{font-size:clamp(2.2rem,7vw,4.4rem);margin:.3rem 0 .5rem;line-height:.95;background:linear-gradient(135deg,var(--cyan),var(--green));background-clip:text;-webkit-background-clip:text;color:transparent}
+.lead{color:var(--muted);max-width:800px;line-height:1.6;margin:0 0 20px}.back,.pill{border:1px solid var(--line);border-radius:999px;padding:8px 12px;text-decoration:none;color:var(--muted);background:rgba(17,29,48,.72)}
+.back:hover,.pill:hover{color:white;border-color:rgba(56,189,248,.5)}
+.quick{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 22px}
+.today{background:linear-gradient(135deg,rgba(56,189,248,.09),rgba(52,211,153,.06));border:1px solid rgba(56,189,248,.22);border-radius:16px;padding:18px;margin-bottom:22px}
+.today h2{margin:0 0 9px}.today ol{margin:0;padding-left:22px}.today li{margin:7px 0;line-height:1.42}.tiny{font-size:.76rem;color:var(--muted)}
+.section{margin-top:26px}.section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:10px}.section h2{margin:0;font-size:1.2rem}.section-head span{color:var(--muted);font-size:.78rem}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.card{display:flex;flex-direction:column;min-height:190px;background:linear-gradient(180deg,rgba(23,38,61,.96),rgba(17,29,48,.92));border:1px solid var(--line);border-radius:15px;padding:17px;text-decoration:none;transition:.2s}
+.card:hover{transform:translateY(-3px);border-color:rgba(56,189,248,.46);box-shadow:0 14px 30px rgba(0,0,0,.25)}.code{font:800 .68rem ui-monospace,monospace;letter-spacing:.08em;color:var(--green);text-transform:uppercase}
+.card h3{font-size:1.08rem;margin:9px 0 7px}.card p{color:var(--muted);line-height:1.48;margin:0 0 12px;flex:1}.go{color:var(--cyan);font-weight:800;font-size:.84rem}
+.warn{border-color:rgba(251,191,36,.25)}.warn .code{color:var(--amber)}.archive{opacity:.78}.archive .code{color:var(--violet)}
+.statusline{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.badge{font-size:.68rem;padding:4px 7px;border-radius:999px;border:1px solid var(--line);color:#b9c8da}
+.note{margin-top:24px;border-left:3px solid var(--green);background:rgba(52,211,153,.05);padding:13px 15px;color:var(--muted);line-height:1.5}
+footer{margin-top:32px;text-align:center;color:#60738d;font-size:.76rem}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:620px){.grid{grid-template-columns:1fr}.wrap{padding-top:22px}}
+</style>
 </head>
-<body>
-  <main class="wrap">
-    <div class="top"><div><div class="eyebrow">Espace discret · profils ciblés</div><h1>Coulisses professionnelles</h1></div><a class="back" href="index.html">Retour au CV principal</a></div>
-    <p class="subtitle">Un point d’entrée vers plusieurs lectures du même parcours. Le site principal reste la vue d’ensemble ; chaque profil ci-dessous met en avant les éléments utiles à une candidature précise.</p>
-    <section class="grid">
-      <article class="card" id="mezaelle"><div class="code">CANDIDATURE_05 · SEPTEMBRE 2026</div><h2>Mezaelle · Refonte de site web</h2><p>CV ciblé et candidature pour une mission de coordination web : réalisation client, qualité des livrables et mise en ligne. CV et lettre publiés. Dépôt du formulaire à finaliser avec une vidéo personnelle et les choix de mission.</p><div class="actions"><a class="btn primary" href="cv-mezaelle.html">Voir le CV ciblé</a><a class="btn ghost" href="CV-Samir-Medjaher-Mezaelle-Refonte-Web-FR.pdf">CV PDF</a><a class="btn ghost" href="lettremezaelle.html">Lire la candidature</a><a class="btn primary" href="entretien.html?dossier=MEZAELLE">Préparer un échange</a></div></article>
-      <article class="card"><div class="code">PROFIL_01</div><h2>Transport de voyageurs</h2><p>Permis D, FIMO voyageurs, titre professionnel, compétences opérationnelles et projet FIMO Check.</p><div class="actions"><a class="btn primary" href="transport.html">Voir le profil</a><a class="btn ghost" href="CV-Samir-Medjaher-Transport-FR.pdf">CV PDF</a></div></article>
-      <article class="card"><div class="code">PROFIL_02 · MIS À JOUR 01/10/2026</div><h2>IT · Support & Réseaux</h2><p>Profil junior ciblé : supervision réseau SFR, incidents N1–N2, support Wi-Fi, Windows/Linux, diagnostic et documentation. Les compétences encore à consolider sont indiquées explicitement.</p><div class="actions"><a class="btn primary" href="support-it.html">Voir le profil support</a><a class="btn ghost" href="index.html#portfolio">Voir les projets</a></div></article>
-      <article class="card"><div class="code">SUIVI_03 · 01/10/2026</div><h2>Recherche d’emploi</h2><p>Vue discrète du suivi actuel : candidatures IT et transport, relances réalisées, dossiers archivés et actions restant à corriger.</p><div class="actions"><a class="btn primary" href="recherche-emploi.html">Voir le suivi</a><a class="btn ghost" href="lettres.html">Lettres existantes</a></div></article>
-      <article class="card"><div class="code">PREUVES_04</div><h2>Réalisations techniques</h2><p>Projets open source, sites livrés et outils fonctionnels permettant d’examiner le travail au-delà du CV.</p><div class="actions"><a class="btn primary" href="https://github.com/Duperopope">GitHub</a><a class="btn ghost" href="index.html#portfolio">Portfolio</a></div></article>
-    </section>
-    <div class="note">Cet espace est volontairement discret mais n’est pas un coffre-fort : aucune donnée financière, contractuelle ou confidentielle n’y est publiée.</div>
-    <footer>Samir Medjaher · Plusieurs profils, un seul parcours</footer>
-  </main>
-</body>
-</html>
+<body><main class="wrap">
+<div class="top"><div><div class="eyebrow">Espace discret · tableau de bord</div><h1>Coulisses</h1></div><a class="back" href="index.html">Retour au CV</a></div>
+<p class="lead">Le point d'entrée privé pour piloter les candidatures, accéder aux profils ciblés et préparer les entretiens. L'historique détaillé reste dans le Google Sheet privé ; ici, on garde seulement ce qui aide à agir.</p>
+
+<nav class="quick">
+<a class="pill" href="recherche-emploi.html">Suivi emploi</a>
+<a class="pill" href="support-it.html">Profil IT</a>
+<a class="pill" href="transport.html">Profil transport</a>
+<a class="pill" href="entretien.html">Préparer un entretien</a>
+<a class="pill" href="lettres.html">Lettres</a>
+<a class="pill" href="index.html#portfolio">Portfolio</a>
+</nav>
+
+<section class="today">
+<h2>Aujourd'hui · 2 octobre</h2>
+<ol>
+<li>Rappeler R.A.S. voyageurs si aucun retour n'est arrivé.</li>
+<li>Valider les deux filtres Mailinblack de Sovitrat et Domino, puis appeler Temporis pour un canal alternatif.</li>
+<li>Déposer les candidatures prioritaires sur les portails : Caisse d'Épargne, Crédit Mutuel, La Banque Postale et SNCF TER Lyon.</li>
+<li>Appeler LIP Lyon Informatique et LIP Télémarketing pour obtenir les missions junior disponibles immédiatement.</li>
+<li>Faire le screening Outlier Aether et actualiser le CV Jobtransport si ces deux pistes sont toujours pertinentes.</li>
+</ol>
+<div class="tiny">La boîte Gmail a été triée ce matin : les réponses utiles restent classées, le bruit a été archivé.</div>
+</section>
+
+<section class="section">
+<div class="section-head"><h2>Pilotage</h2><span>Commencer ici</span></div>
+<div class="grid">
+<a class="card" href="recherche-emploi.html"><div class="code">01 · cockpit</div><h3>Recherche d'emploi</h3><p>Priorités du jour, candidatures envoyées, réponses, échecs de livraison et dossiers à reprendre.</p><div class="go">Ouvrir le suivi →</div></a>
+<a class="card" href="entretien.html"><div class="code">02 · préparation</div><h3>Entretiens</h3><p>Préparer un appel ou un entretien sans fouiller dans les anciens fils : contexte, questions et points à expliquer.</p><div class="go">Préparer un échange →</div></a>
+<a class="card" href="lettres.html"><div class="code">03 · documents</div><h3>Lettres & candidatures</h3><p>Retrouver les textes de candidature et les documents déjà créés.</p><div class="go">Voir les lettres →</div></a>
+</div>
+</section>
+
+<section class="section">
+<div class="section-head"><h2>Profils ciblés</h2><span>Une lecture adaptée au poste</span></div>
+<div class="grid">
+<a class="card" href="support-it.html"><div class="code">profil · it</div><h3>Support IT & Réseaux</h3><p>Supervision SFR, incidents N1–N2, Wi-Fi, Windows/Linux, diagnostic, documentation et Customer Care technique.</p><div class="statusline"><span class="badge">N1/N2</span><span class="badge">NOC</span><span class="badge">SaaS</span></div><div class="go">Voir le profil →</div></a>
+<a class="card" href="transport.html"><div class="code">profil · transport</div><h3>Transport voyageurs</h3><p>Permis D, FIMO/CQC, sécurité voyageurs et reprise de conduite. Suivi des agences spécialisées.</p><div class="statusline"><span class="badge">Bus</span><span class="badge">Car</span><span class="badge">Débutant</span></div><div class="go">Voir le profil →</div></a>
+<a class="card" href="recherche-emploi.html"><div class="code">profil · relation client</div><h3>Banque & Customer Care</h3><p>Pistes où le service client, la pédagogie et l'aisance numérique valent davantage qu'une expérience sectorielle ancienne.</p><div class="statusline"><span class="badge">Banque avec formation</span><span class="badge">Support client</span></div><div class="go">Voir les candidatures →</div></a>
+<a class="card" href="recherche-emploi.html"><div class="code">profil · ferroviaire</div><h3>SNCF & ferroviaire</h3><p>Reconversion structurée : conduite TER, manoeuvre et métiers de sécurité avec formation interne.</p><div class="statusline"><span class="badge">Formation</span><span class="badge">Sécurité</span></div><div class="go">Voir les pistes →</div></a>
+<a class="card" href="index.html#portfolio"><div class="code">preuves</div><h3>Réalisations techniques</h3><p>Sites livrés, applications, automatisations et projets GitHub pour montrer ce qui existe vraiment au-delà du CV.</p><div class="go">Voir le portfolio →</div></a>
+<a class="card" href="https://github.com/Duperopope"><div class="code">source</div><h3>GitHub</h3><p>Dépôts publics et travaux techniques. À utiliser surtout pour les candidatures IT, support et automatisation.</p><div class="go">Ouvrir GitHub →</div></a>
+</div>
+</section>
+
+<section class="section">
+<div class="section-head"><h2>À surveiller</h2><span>Les trucs qui aiment gaspiller du temps humain</span></div>
+<div class="grid">
+<a class="card warn" href="recherche-emploi.html"><div class="code">canaux bloqués</div><h3>Emails à corriger</h3><p>Sovitrat et Domino attendent Mailinblack ; Temporis a rejeté le mail ; Endrix et TIBCO doivent passer par leurs portails.</p><div class="go">Voir les actions →</div></a>
+<a class="card warn" href="recherche-emploi.html"><div class="code">relances</div><h3>Prochaine vague : 8 octobre</h3><p>Ne relancer que les candidatures réellement délivrées et restées sans réponse. Les refus restent clos.</p><div class="go">Voir les dossiers →</div></a>
+<a class="card warn" href="recherche-emploi.html"><div class="code">règle métier</div><h3>Comptabilité : prudence</h3><p>Le DCG reste utile comme culture métier, mais aucune expérience comptable récente n'est revendiquée depuis 2012.</p><div class="go">Voir le ciblage →</div></a>
+</div>
+</section>
+
+<section class="section">
+<div class="section-head"><h2>Archives & anciens dossiers</h2><span>Conservés, mais hors du chemin principal</span></div>
+<div class="grid">
+<a class="card archive" href="cv-mezaelle.html"><div class="code">archive · mezaelle</div><h3>Mezaelle</h3><p>Ancienne candidature web avec CV et lettre ciblés.</p><div class="go">Ouvrir →</div></a>
+<a class="card archive" href="lettremezaelle.html"><div class="code">archive · lettre</div><h3>Lettre Mezaelle</h3><p>Texte conservé pour historique et réutilisation éventuelle.</p><div class="go">Lire →</div></a>
+</div>
+</section>
+
+<div class="note"><strong>Accès rapide :</strong> depuis le CV principal, maintiens le portrait environ <strong>2,5 secondes</strong> pour ouvrir ces coulisses. Le reset reste volontairement séparé et beaucoup plus long au clic droit, histoire de ne pas effacer l'interface parce qu'un doigt a traîné trois secondes.</div>
+<footer>Samir Medjaher · Coulisses professionnelles · mise à jour 02/10/2026</footer>
+</main></body></html>
