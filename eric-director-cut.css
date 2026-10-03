@@ -1926,3 +1926,19 @@ body.eric-director-cut .world-camera .eric-illustrated-stage.is-petted::after {
     32% { opacity: .9; }
     100% { opacity: 0; transform: scale(1.18); }
 }
+
+body.eric-director-cut .world-camera .scene-object {
+    width: 42px !important;
+    height: 42px !important;
+    background: radial-gradient(circle, rgba(242,185,95,.12), transparent 68%) !important;
+}
+
+body.eric-director-cut .world-camera .scene-object .object-focus {
+    inset: 12px !important;
+    box-shadow: 0 0 0 3px rgba(242,185,95,.04), 0 0 12px rgba(242,185,95,.16) !important;
+}
+
+body.eric-director-cut .world-camera .scene-object > span:last-child {
+    bottom: calc(100% + 4px) !important;
+    font-size: .44rem !important;
+}
