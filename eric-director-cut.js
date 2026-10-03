@@ -662,7 +662,7 @@
 
     function addOwnedObjects(game) {
         const room = game.currentRoom;
-        const scene = document.querySelector('#gameEnvironment .room-container');
+        const scene = document.querySelector('#gameEnvironment .world-camera') || document.querySelector('#gameEnvironment .room-container');
         if (!scene) return;
         scene.querySelectorAll('.director-room-object').forEach(node => node.remove());
         SHOP_ITEMS.filter(item => state.purchases.includes(item.id) && item.room === room).forEach(item => {
@@ -726,14 +726,22 @@
         if (shopTitle) shopTitle.innerHTML = '<i class="fas fa-store" aria-hidden="true"></i> Comptoir nocturne';
         root.querySelector('#shopTab .shop-categories')?.setAttribute('hidden', '');
 
-        const actNotes = {
-            living: 'Acte I — Le bruit',
-            kitchen: 'Acte II — Le besoin',
-            bedroom: 'Acte III — Le désir',
-            garden: 'Acte IV — La machine'
-        };
-        const sceneNote = root.querySelector('.scene-caption small');
-        if (sceneNote && actNotes[game.currentRoom]) sceneNote.textContent = actNotes[game.currentRoom];
+        if (!root.querySelector('.director-sidebar-toggle')) {
+            const toggle = document.createElement('button');
+            toggle.type = 'button';
+            toggle.className = 'director-sidebar-toggle';
+            toggle.setAttribute('aria-label', 'Afficher ou masquer les objets et le comptoir');
+            toggle.setAttribute('aria-expanded', 'false');
+            toggle.innerHTML = '<i class="fas fa-layer-group" aria-hidden="true"></i><span>Objets</span>';
+            toggle.addEventListener('click', () => {
+                const open = root.classList.toggle('sidebar-open');
+                toggle.setAttribute('aria-expanded', String(open));
+                toggle.innerHTML = open
+                    ? '<i class="fas fa-times" aria-hidden="true"></i><span>Fermer</span>'
+                    : '<i class="fas fa-layer-group" aria-hidden="true"></i><span>Objets</span>';
+            });
+            root.querySelector('.eric-game-container')?.appendChild(toggle);
+        }
 
         renderDirectorInventory(game);
         renderDirectorShop(game);
@@ -852,6 +860,22 @@
             this.saveGameState();
         };
 
+        Proto.petEric = function() {
+            if (Date.now() - (this._lastPetAt || 0) < 700) return;
+            this._lastPetAt = Date.now();
+            this.modifyStat('mood', 3, false);
+            this.bond = Math.min(100, this.bond + 1);
+            state.careMoments += 1;
+            this.setStatus('Éric ferme les yeux une seconde, puis revient se frotter contre ta main.');
+            const stage = document.getElementById('ericIllustratedStage');
+            stage?.classList.add('is-petted');
+            window.ericAdventure?.setPose?.('happy', 900);
+            setTimeout(() => stage?.classList.remove('is-petted'), 900);
+            saveState();
+            this.updateStatsDisplay();
+            this.saveGameState();
+        };
+
         Proto.registerDailyAction = function() {};
 
         Proto.awardProgress = function() {
@@ -899,6 +923,63 @@
 
         Proto.storyData = function() {
             return STORY;
+        };
+
+        Proto.roomLabel = function(room) {
+            return ({ living: 'le refuge', kitchen: 'la cuisine', bedroom: 'le coin repos', garden: 'la terrasse' })[room] || 'la zone';
+        };
+
+        Proto.renderStory = function() {
+            const card = this.container.querySelector('#adventureCard');
+            const marker = this.container.querySelector('#adventureHotspot');
+            if (!card || !marker) return;
+            const story = STORY[this.step] || STORY[0];
+            const roomMatches = story.room === this.game.currentRoom;
+            const isFinal = this.step === STORY.length - 1;
+
+            card.classList.remove('is-speaking');
+            card.innerHTML = `
+                <div class="eric-speaker director-objective-speaker">
+                    <span class="speaker-mark">É</span>
+                    <span><small>Éric</small><b>${story.eyebrow}</b></span>
+                </div>
+                <div class="director-objective-copy">
+                    <h3>${story.title}</h3>
+                </div>
+                <button type="button" id="storyAction">${roomMatches ? story.action : `Rejoindre ${this.roomLabel(story.room)}`}</button>
+            `;
+
+            marker.hidden = !roomMatches || this.step === 0 || isFinal;
+            marker.textContent = story.action;
+
+            const storyAction = card.querySelector('#storyAction');
+            storyAction.disabled = true;
+            clearTimeout(this.storyReadyTimer);
+            this.storyReadyTimer = setTimeout(() => { storyAction.disabled = false; }, 450);
+            storyAction.onclick = () => {
+                if (storyAction.disabled) return;
+                if (isFinal) return this.resetStory();
+                if (this.step === 0) return this.advance();
+                if (!roomMatches) this.game.changeRoom(story.room);
+                else this.advance();
+            };
+            marker.onclick = () => this.advance();
+        };
+
+        Proto.showEricLine = function(text, subject = 'Découverte') {
+            const card = this.container.querySelector('#adventureCard');
+            if (!card) return;
+            clearTimeout(this.dialogueTimer);
+            clearTimeout(this.storyReadyTimer);
+            card.classList.add('is-speaking');
+            card.innerHTML = `
+                <div class="eric-speaker">
+                    <span class="speaker-mark">É</span>
+                    <span><small>Éric</small><b>${subject}</b></span>
+                </div>
+                <p class="director-discovery-line">${text}</p>
+            `;
+            this.dialogueTimer = setTimeout(() => this.renderStory(), 3600);
         };
 
         Proto.advance = function() {
