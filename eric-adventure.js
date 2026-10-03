@@ -14,7 +14,9 @@ class EricAdventure {
         this.currentPose = 'idle';
         this.audio = window.ericAudio;
         this.frame = 0;
-        this.position = { ...this.roomPositions[this.game.currentRoom] };
+        this.position = window.ERIC_DIRECTOR_CUT
+            ? { ...this.masterWorld.zones[this.game.currentRoom] }
+            : { ...this.roomPositions[this.game.currentRoom] };
         this.enterRoom();
         this.setupWorld();
         this.setupAudio();
@@ -116,9 +118,74 @@ class EricAdventure {
         }
     };
 
+    // Director Cut: one coherent apartment, not four unrelated background images.
+    // Coordinates are percentages of the master illustration; Y is measured from the bottom.
+    masterWorld = {
+        bounds: { x1: 7, x2: 97, y1: 7, y2: 78 },
+        walkableAreas: [
+            [
+                {x:21,y:30},{x:21,y:37},{x:27,y:43},{x:30,y:50},{x:31,y:55},
+                {x:43,y:60},{x:56,y:60},{x:69,y:55},{x:72,y:49},{x:68,y:43},
+                {x:61,y:38},{x:55,y:32},{x:48,y:27},{x:38,y:22},{x:29,y:22}
+            ],
+            [
+                {x:65,y:42},{x:72,y:47},{x:79,y:47},{x:82,y:43},
+                {x:79,y:39},{x:70,y:39}
+            ],
+            [
+                {x:64,y:18},{x:66,y:29},{x:72,y:34},{x:82,y:36},{x:92,y:33},
+                {x:98,y:28},{x:98,y:14},{x:92,y:8},{x:76,y:8},{x:65,y:12}
+            ]
+        ],
+        obstacles: [
+            { x1: 5, x2: 24, y1: 39, y2: 53 },
+            { x1: 16, x2: 29, y1: 31, y2: 42 },
+            { x1: 31, x2: 42.5, y1: 50, y2: 68 },
+            { x1: 50, x2: 68, y1: 57, y2: 77 },
+            { x1: 78, x2: 94, y1: 44, y2: 61 },
+            { x1: 50, x2: 62, y1: 19, y2: 38 },
+            { x1: 66, x2: 74, y1: 17, y2: 31 },
+            { x1: 72, x2: 82, y1: 20, y2: 31 },
+            { x1: 89, x2: 98, y1: 20, y2: 34 },
+            { x1: 82, x2: 91, y1: 8, y2: 19 }
+        ],
+        zones: {
+            living:  { x: 44, y: 34 },
+            kitchen: { x: 47, y: 51 },
+            bedroom: { x: 72, y: 43 },
+            garden:  { x: 80, y: 18 }
+        },
+        objects: [
+            { id:'vinyl', zone:'living', label:'Platine', x:8, y:40, approachX:29, approachY:44, icon:'fa-record-vinyl', message:'Le disque ne joue rien. Pourtant son rythme revient ailleurs dans le refuge.' },
+            { id:'guitar', zone:'living', label:'Guitare', x:26, y:50, approachX:29, approachY:43, icon:'fa-music', message:'La corde vibre au même tempo que les écrans de l’atelier.' },
+            { id:'console', zone:'living', label:'Console', x:59, y:70, approachX:58, approachY:53, icon:'fa-wave-square', message:'Les courbes ne représentent pas une seule machine. Elles se répondent.' },
+            { id:'fridge', zone:'kitchen', label:'Réfrigérateur', x:34, y:74, approachX:45, approachY:56, icon:'fa-box', message:'Le froid conserve le nécessaire. Le reste de la pièce raconte surtout ce qu’on a choisi d’accumuler.' },
+            { id:'bed', zone:'bedroom', label:'Lit', x:85, y:52, approachX:73, approachY:44, icon:'fa-moon', message:'Éric préfère parfois le carton au coussin. Le confort et le prix ne parlent pas toujours de la même chose.' },
+            { id:'terrace', zone:'garden', label:'Table de terrasse', x:84, y:19, approachX:80, approachY:18, icon:'fa-seedling', message:'Les lumières de la ville clignotent sans savoir qu’elles dessinent un motif.' }
+        ],
+        occluders: [
+            { id:'sofa', baseline:37, clip:'polygon(4% 47%,25% 47%,25% 63%,4% 66%)' },
+            { id:'table', baseline:31, clip:'polygon(16% 57%,31% 57%,31% 69%,15% 69%)' },
+            { id:'island', baseline:48, clip:'polygon(29% 30%,44% 30%,44% 52%,30% 52%)' },
+            { id:'desk', baseline:55, clip:'polygon(49% 22%,70% 22%,70% 45%,49% 44%)' },
+            { id:'bed', baseline:42, clip:'polygon(76% 37%,95% 37%,95% 58%,76% 58%)' },
+            { id:'cabinet', baseline:18, clip:'polygon(49% 58%,66% 56%,66% 82%,49% 79%)' },
+            { id:'terrace-left', baseline:16, clip:'polygon(65% 68%,75% 66%,77% 82%,66% 84%)' },
+            { id:'terrace-center', baseline:19, clip:'polygon(72% 68%,83% 66%,84% 79%,73% 81%)' },
+            { id:'terrace-right', baseline:21, clip:'polygon(88% 61%,100% 60%,100% 79%,89% 79%)' },
+            { id:'terrace-table', baseline:7, clip:'polygon(79% 77%,92% 77%,92% 93%,79% 93%)' }
+        ]
+    };
+
+    getWorld() {
+        return window.ERIC_DIRECTOR_CUT ? this.masterWorld : this.worldData[this.game.currentRoom];
+    }
+
     enterRoom() {
         if (!this.sprite || !this.stage) return;
-        const target = this.roomPositions[this.game.currentRoom];
+        const target = window.ERIC_DIRECTOR_CUT
+            ? { ...this.masterWorld.zones[this.game.currentRoom], scale: this.depthScale(this.masterWorld.zones[this.game.currentRoom].y) }
+            : this.roomPositions[this.game.currentRoom];
         this.setPose('walk');
         const order = ['living', 'kitchen', 'bedroom', 'garden'];
         const previous = this.game.previousRoom || this.game.currentRoom;
@@ -128,6 +195,7 @@ class EricAdventure {
         this.stage.style.setProperty('--eric-x', `${startX}%`);
         this.stage.style.setProperty('--eric-y', `${target.y}%`);
         this.stage.style.setProperty('--eric-scale', target.scale);
+        if (window.ERIC_DIRECTOR_CUT) this.stage.style.zIndex = String(Math.round(64 - target.y * .45));
         requestAnimationFrame(() => requestAnimationFrame(() => {
             this.stage.classList.add('is-entering');
             this.stage.style.setProperty('--eric-x', `${target.x}%`);
@@ -144,9 +212,10 @@ class EricAdventure {
     }
 
     setupWorld() {
-        const room = this.container.querySelector('.room-container');
+        const room = this.container.querySelector('.world-camera') || this.container.querySelector('.room-container');
         if (!room) return;
         this.renderObjects(room);
+        if (window.ERIC_DIRECTOR_CUT) this.renderOccluders(room);
         if (new URLSearchParams(window.location.search).has('navdebug')) this.renderNavigationDebug(room);
         room.addEventListener('click', (event) => {
             if (event.target.closest('button, aside')) return;
@@ -158,15 +227,18 @@ class EricAdventure {
     }
 
     renderNavigationDebug(room) {
-        const world = this.worldData[this.game.currentRoom];
+        const world = this.getWorld();
         const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         svg.setAttribute('class', 'navigation-debug');
         svg.setAttribute('viewBox', '0 0 100 100');
         svg.setAttribute('preserveAspectRatio', 'none');
-        const polygon = document.createElementNS(svg.namespaceURI, 'polygon');
-        polygon.setAttribute('points', world.walkable.map(point => `${point.x},${100 - point.y}`).join(' '));
-        polygon.setAttribute('class', 'navigation-debug__floor');
-        svg.appendChild(polygon);
+        const areas = world.walkableAreas || (world.walkable ? [world.walkable] : []);
+        areas.forEach(area => {
+            const polygon = document.createElementNS(svg.namespaceURI, 'polygon');
+            polygon.setAttribute('points', area.map(point => `${point.x},${100 - point.y}`).join(' '));
+            polygon.setAttribute('class', 'navigation-debug__floor');
+            svg.appendChild(polygon);
+        });
         world.obstacles.forEach(obstacle => {
             const rect = document.createElementNS(svg.namespaceURI, 'rect');
             rect.setAttribute('x', obstacle.x1);
@@ -177,6 +249,21 @@ class EricAdventure {
             svg.appendChild(rect);
         });
         room.appendChild(svg);
+    }
+
+    renderOccluders(room) {
+        const world = this.getWorld();
+        const layer = document.createElement('div');
+        layer.className = 'scene-occlusion-layer';
+        (world.occluders || []).forEach(occluder => {
+            const piece = document.createElement('div');
+            piece.className = 'scene-occluder scene-occluder-' + occluder.id;
+            piece.style.clipPath = occluder.clip;
+            piece.style.webkitClipPath = occluder.clip;
+            piece.style.zIndex = String(Math.round(64 - (occluder.baseline ?? 30) * .45));
+            layer.appendChild(piece);
+        });
+        room.appendChild(layer);
     }
 
     setupAudio() {
@@ -197,9 +284,13 @@ class EricAdventure {
     }
 
     renderObjects(room) {
+        room.querySelector('.scene-object-layer')?.remove();
         const layer = document.createElement('div');
         layer.className = 'scene-object-layer';
-        this.worldData[this.game.currentRoom].objects.forEach(object => {
+        const visibleObjects = this.getWorld().objects.filter(object =>
+            !window.ERIC_DIRECTOR_CUT || !object.zone || object.zone === this.game.currentRoom
+        );
+        visibleObjects.forEach(object => {
             const button = document.createElement('button');
             button.type = 'button';
             button.className = 'scene-object';
@@ -209,7 +300,7 @@ class EricAdventure {
             button.innerHTML = `<span class="object-focus" aria-hidden="true"></span><span>${object.label}</span>`;
             button.onclick = (event) => {
                 event.stopPropagation();
-                this.walkTo(object.x, object.y, () => {
+                this.walkTo(object.approachX ?? object.x, object.approachY ?? object.y, () => {
                     this.audio?.playTone(object.id === 'beacon' ? 659.25 : 392, .65, .025);
                     this.setPose(object.id === 'bed' ? 'sleep' : 'happy', object.id === 'bed' ? 0 : 1700);
                     this.game.setStatus(object.message, '◆');
@@ -224,12 +315,30 @@ class EricAdventure {
         room.appendChild(layer);
     }
 
+    refreshFocus() {
+        if (!window.ERIC_DIRECTOR_CUT) return;
+        const room = this.container.querySelector('.world-camera');
+        if (!room) return;
+        this.renderObjects(room);
+        this.renderStory();
+    }
+
     walkTo(rawX, rawY, onArrival) {
         clearTimeout(this.moveTimer);
         clearTimeout(this.behaviourTimer);
-        const world = this.worldData[this.game.currentRoom];
+        const world = this.getWorld();
         const destination = this.resolveDestination(rawX, rawY, world);
+        if (!destination) {
+            this.game.setStatus('Éric ne peut pas atteindre cet endroit depuis le sol visible.');
+            this.scheduleBehaviour(2200);
+            return false;
+        }
         const path = this.buildPath(this.position, destination, world);
+        if (!path || !path.length) {
+            this.game.setStatus('Le passage est bloqué. Éric ne traverse plus les meubles ni les murs.');
+            this.scheduleBehaviour(2200);
+            return false;
+        }
         const distance = Math.hypot(destination.x - this.position.x, destination.y - this.position.y);
 
         // A tiny anticipation makes movement read as intention rather than a CSS translation.
@@ -271,21 +380,51 @@ class EricAdventure {
         this.stage.style.setProperty('--eric-x', `${destination.x}%`);
         this.stage.style.setProperty('--eric-y', `${destination.y}%`);
         this.stage.style.setProperty('--eric-scale', this.depthScale(destination.y));
-        this.stage.style.zIndex = String(Math.round(80 - destination.y));
+        this.stage.style.zIndex = String(Math.round(64 - destination.y * .45));
         this.position = destination;
         this.moveTimer = setTimeout(() => this.walkPath(path, onArrival), duration);
     }
 
+    transitionToZone(roomId) {
+        if (!window.ERIC_DIRECTOR_CUT) return;
+        const target = this.masterWorld.zones[roomId];
+        if (!target) return;
+        const path = this.buildPath(this.position, target, this.masterWorld);
+        if (path?.length) {
+            this.walkTo(target.x, target.y);
+            return;
+        }
+        // Disconnected spaces (the roof terrace) use the visible doorway transition,
+        // never a wall-crossing fallback.
+        this.audio?.stopSteps();
+        this.stage.classList.add('is-zoning');
+        this.setPose('walk');
+        setTimeout(() => {
+            this.position = { ...target };
+            this.stage.style.setProperty('--walk-duration', '0ms');
+            this.stage.style.setProperty('--eric-x', `${target.x}%`);
+            this.stage.style.setProperty('--eric-y', `${target.y}%`);
+            this.stage.style.setProperty('--eric-scale', this.depthScale(target.y));
+            this.stage.style.zIndex = String(Math.round(64 - target.y * .45));
+            void this.stage.offsetWidth;
+            this.stage.classList.remove('is-zoning');
+            requestAnimationFrame(() => this.stage.style.setProperty('--walk-duration', '850ms'));
+            this.setPose('idle');
+            this.scheduleBehaviour(1800);
+        }, 260);
+    }
+
     buildPath(start, destination, world) {
         if (this.hasLineOfSight(start, destination, world)) return [destination];
-        const step = 3;
+        const step = window.ERIC_DIRECTOR_CUT ? 2 : 3;
         const key = point => `${Math.round(point.x / step)},${Math.round(point.y / step)}`;
         const pointFor = nodeKey => {
             const [gx, gy] = nodeKey.split(',').map(Number);
             return { x: gx * step, y: gy * step };
         };
-        const startPoint = this.nearestWalkable(start.x, start.y, world, step);
-        const endPoint = this.nearestWalkable(destination.x, destination.y, world, step);
+        const startPoint = this.nearestWalkable(start.x, start.y, world, step, 9);
+        const endPoint = this.nearestWalkable(destination.x, destination.y, world, step, 9);
+        if (!startPoint || !endPoint) return null;
         const startKey = key(startPoint);
         const endKey = key(endPoint);
         const open = new Set([startKey]);
@@ -321,7 +460,7 @@ class EricAdventure {
                 open.add(nextKey);
             });
         }
-        return [destination];
+        return null;
     }
 
     segmentCrosses(start, end, rect) {
@@ -335,14 +474,15 @@ class EricAdventure {
     }
 
     resolveDestination(x, y, world) {
-        return this.nearestWalkable(x, y, world, 1.5);
+        return this.nearestWalkable(x, y, world, 1.5, 7.5);
     }
 
     isWalkable(point, world) {
-        const margin = 1.7;
+        const margin = window.ERIC_DIRECTOR_CUT ? .7 : 1.7;
         if (point.x < world.bounds.x1 || point.x > world.bounds.x2 || point.y < world.bounds.y1 || point.y > world.bounds.y2) return false;
-        if (world.walkable && !this.pointInPolygon(point, world.walkable)) return false;
-        return !world.obstacles.some(obstacle =>
+        const areas = world.walkableAreas || (world.walkable ? [world.walkable] : []);
+        if (areas.length && !areas.some(area => this.pointInPolygon(point, area))) return false;
+        return !(world.obstacles || []).some(obstacle =>
             point.x > obstacle.x1 - margin && point.x < obstacle.x2 + margin &&
             point.y > obstacle.y1 - margin && point.y < obstacle.y2 + margin
         );
@@ -360,15 +500,15 @@ class EricAdventure {
         return inside;
     }
 
-    nearestWalkable(x, y, world, step = 2) {
+    nearestWalkable(x, y, world, step = 2, maxRadius = 9) {
         const origin = {
             x: Math.max(world.bounds.x1, Math.min(world.bounds.x2, x)),
             y: Math.max(world.bounds.y1, Math.min(world.bounds.y2, y))
         };
         if (this.isWalkable(origin, world)) return origin;
-        for (let radius = step; radius < 55; radius += step) {
+        for (let radius = step; radius <= maxRadius; radius += step) {
             const candidates = [];
-            for (let angle = 0; angle < Math.PI * 2; angle += Math.PI / 12) {
+            for (let angle = 0; angle < Math.PI * 2; angle += Math.PI / 16) {
                 const point = { x: origin.x + Math.cos(angle) * radius, y: origin.y + Math.sin(angle) * radius };
                 if (this.isWalkable(point, world)) candidates.push(point);
             }
@@ -377,7 +517,7 @@ class EricAdventure {
                 return candidates[0];
             }
         }
-        return { ...this.roomPositions[this.game.currentRoom] };
+        return null;
     }
 
     hasLineOfSight(start, end, world) {
@@ -407,8 +547,8 @@ class EricAdventure {
     }
 
     depthScale(y) {
-        const base = this.roomPositions[this.game.currentRoom].scale;
-        return Math.max(.31, Math.min(.56, base + (18 - y) * .006));
+        const base = window.ERIC_DIRECTOR_CUT ? .46 : this.roomPositions[this.game.currentRoom].scale;
+        return Math.max(.30, Math.min(.58, base + (24 - y) * .0052));
     }
 
     scheduleBehaviour(delay = 7500 + Math.random() * 6500) {
