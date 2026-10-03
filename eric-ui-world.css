@@ -21,7 +21,7 @@
     position: fixed;
     inset: 0;
     z-index: -2;
-    background: linear-gradient(rgba(4,9,12,.82),rgba(4,9,12,.94)), url("assets/images/game/eric-refuge.webp") center/cover;
+    background: linear-gradient(rgba(4,9,12,.84),rgba(4,9,12,.95)), url("assets/images/game/eric-night-workshop.webp") center/cover;
     filter: saturate(.72);
 }
 

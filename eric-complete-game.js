@@ -201,19 +201,19 @@ class EricCompleteGame {
                 <div class="game-main">
                     <!-- Sélecteur de pièces -->
                     <div class="room-selector">
-                        <button class="room-btn active" data-room="living" title="Atelier musical — niveau 1">
+                        <button class="room-btn active" data-room="living" title="Vue d’ensemble du refuge">
                             <span class="room-index">01</span>
-                            <span class="room-label">Musique</span>
+                            <span class="room-label">Refuge</span>
                         </button>
-                        <button class="room-btn" data-room="kitchen" title="Cuisine — progression requise">
+                        <button class="room-btn" data-room="kitchen" title="Se concentrer sur la cuisine">
                             <span class="room-index">02</span>
                             <span class="room-label">Cuisine</span>
                         </button>
-                        <button class="room-btn" data-room="bedroom" title="Refuge — niveau 2 requis">
+                        <button class="room-btn" data-room="bedroom" title="Se concentrer sur le coin repos">
                             <span class="room-index">03</span>
                             <span class="room-label">Repos</span>
                         </button>
-                        <button class="room-btn" data-room="garden" title="Serre des toits — progression requise">
+                        <button class="room-btn" data-room="garden" title="Se concentrer sur la terrasse">
                             <span class="room-index">04</span>
                             <span class="room-label">Terrasse</span>
                         </button>
@@ -394,8 +394,56 @@ class EricCompleteGame {
             btn.classList.toggle('active', btn.dataset.room === roomId);
         });
         
-        // Re-render l'environnement
+        if (window.ERIC_DIRECTOR_CUT && document.querySelector('#ericWorldCamera')) {
+            this.applyDirectorCamera(roomId);
+            window.ericAdventure?.transitionToZone?.(roomId);
+            window.ericAdventure?.refreshFocus?.();
+            return;
+        }
+
+        // Legacy renderer swaps complete room images.
         this.renderEnvironment();
+    }
+
+    applyDirectorCamera(roomId) {
+        const camera = document.getElementById('ericWorldCamera');
+        if (!camera) return;
+        const views = {
+            living:  { scale: 1.00, x: 50, y: 53, label: 'Refuge', note: 'Vue d’ensemble du refuge.' },
+            kitchen: { scale: 1.55, x: 39, y: 32, label: 'Cuisine', note: 'Coin cuisine, côté nord.' },
+            bedroom: { scale: 1.52, x: 84, y: 47, label: 'Coin repos', note: 'Côté est du refuge.' },
+            garden:  { scale: 1.46, x: 82, y: 78, label: 'Terrasse', note: 'Terrasse-jardin, niveau inférieur.' }
+        };
+        const view = views[roomId] || views.living;
+        const viewport = camera.parentElement?.getBoundingClientRect();
+        if (viewport) {
+            // Keep the illustrated level in its native 16:9 geometry on every screen.
+            // The viewport crops the world; it never stretches it.
+            const worldRatio = 1672 / 941;
+            const baseWidth = Math.max(viewport.width, viewport.height * worldRatio);
+            const baseHeight = baseWidth / worldRatio;
+            camera.style.width = `${baseWidth}px`;
+            camera.style.height = `${baseHeight}px`;
+
+            const desiredX = viewport.width / 2 - (view.x / 100) * baseWidth * view.scale;
+            const desiredY = viewport.height / 2 - (view.y / 100) * baseHeight * view.scale;
+            const minX = viewport.width - baseWidth * view.scale;
+            const minY = viewport.height - baseHeight * view.scale;
+            const tx = Math.max(minX, Math.min(0, desiredX));
+            const ty = Math.max(minY, Math.min(0, desiredY));
+            camera.style.transformOrigin = '0 0';
+            camera.style.transform = `translate(${tx}px, ${ty}px) scale(${view.scale})`;
+        }
+        camera.dataset.focus = roomId;
+        const label = document.getElementById('sceneFocusLabel');
+        const note = document.getElementById('sceneFocusNote');
+        if (label) label.textContent = view.label;
+        if (note) note.textContent = view.note;
+        window.ericAudio?.setRoom?.(roomId);
+        if (!this._directorResizeHandler) {
+            this._directorResizeHandler = () => this.applyDirectorCamera(this.currentRoom);
+            window.addEventListener('resize', this._directorResizeHandler, { passive: true });
+        }
     }
     
     /**
@@ -403,6 +451,42 @@ class EricCompleteGame {
      */
     renderEnvironment() {
         const env = document.getElementById('gameEnvironment');
+
+        if (window.ERIC_DIRECTOR_CUT) {
+            env.classList.add('master-level');
+            env.style.removeProperty('--scene-image');
+            env.style.removeProperty('--scene-position');
+            env.innerHTML = `
+                <div class="room-container master-room" data-room="${this.currentRoom}">
+                    <div class="world-camera" id="ericWorldCamera">
+                        <div class="master-scene-image" aria-hidden="true"></div>
+                        <div class="scene-vignette"></div>
+                        <button class="eric-illustrated-stage" id="ericIllustratedStage" type="button" aria-label="Éric, personnage illustré animé">
+                            <span id="ericAnimatedSprite" class="eric-sprite" role="img" aria-label="Éric, chat noir animé"></span>
+                            <span class="illustrated-shadow"></span>
+                            <span class="eric-hit-target" aria-hidden="true"></span>
+                        </button>
+                        <button class="adventure-hotspot" id="adventureHotspot" type="button" hidden></button>
+                        <div class="ambient-dust" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+                        <div class="room-effects" id="roomEffects"></div>
+                    </div>
+                    <div class="scene-caption">
+                        <span id="sceneFocusLabel"></span>
+                        <small id="sceneFocusNote"></small>
+                    </div>
+                    <button class="sound-toggle" id="ericSoundToggle" type="button" aria-label="Activer l’ambiance sonore" aria-pressed="false">
+                        <i class="fas fa-volume-mute"></i><span>Son</span>
+                    </button>
+                    <aside class="adventure-card" id="adventureCard" aria-live="polite"></aside>
+                </div>
+            `;
+            this.applyDirectorCamera(this.currentRoom);
+
+            if (window.ericAdventure) window.ericAdventure.destroy();
+            if (window.EricAdventure) window.ericAdventure = new window.EricAdventure(this, env);
+            return;
+        }
+
         const roomMeta = {
             living: { image: 'assets/images/game/eric-night-workshop.webp', position: 'center', label: 'Atelier musical', note: 'Acte I — Le bruit.' },
             kitchen: { image: 'assets/images/game/eric-kitchen.webp', position: 'center', label: 'Cuisine & réserve', note: 'Acte II — Le besoin.' },
