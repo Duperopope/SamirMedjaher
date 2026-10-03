@@ -405,9 +405,22 @@ class EricCompleteGame {
         this.renderEnvironment();
     }
 
-    applyDirectorCamera(roomId) {
+    applyDirectorCamera(roomId, attempt = 0) {
         const camera = document.getElementById('ericWorldCamera');
         if (!camera) return;
+
+        // Install observers before checking dimensions. The dashboard is normally
+        // initialized while hidden (0×0), then becomes measurable when opened.
+        if (!this._directorResizeHandler) {
+            this._directorResizeHandler = () => this.applyDirectorCamera(this.currentRoom);
+            window.addEventListener('resize', this._directorResizeHandler, { passive: true });
+            window.visualViewport?.addEventListener('resize', this._directorResizeHandler, { passive: true });
+        }
+        if (!this._directorResizeObserver && typeof ResizeObserver !== 'undefined') {
+            this._directorResizeObserver = new ResizeObserver(() => this.applyDirectorCamera(this.currentRoom));
+            if (camera.parentElement) this._directorResizeObserver.observe(camera.parentElement);
+        }
+
         const views = {
             living:  { scale: 1.00, x: 50, y: 53, label: 'Refuge', note: 'Vue d’ensemble du refuge.' },
             kitchen: { scale: 1.55, x: 39, y: 32, label: 'Cuisine', note: 'Coin cuisine, côté nord.' },
@@ -416,7 +429,18 @@ class EricCompleteGame {
         };
         const view = views[roomId] || views.living;
         const viewport = camera.parentElement?.getBoundingClientRect();
-        if (viewport) {
+
+        if (!viewport || viewport.width < 2 || viewport.height < 2) {
+            // On real Android browsers the fixed dashboard can be painted one frame
+            // before its child obtains a measurable size. Never persist a 0×0 camera.
+            camera.style.removeProperty('width');
+            camera.style.removeProperty('height');
+            camera.style.removeProperty('transform');
+            if (attempt < 12) requestAnimationFrame(() => this.applyDirectorCamera(roomId, attempt + 1));
+            return;
+        }
+
+        {
             // Keep the illustrated level in its native 16:9 geometry on every screen.
             // The viewport crops the world; it never stretches it.
             const worldRatio = 1672 / 941;
@@ -440,10 +464,6 @@ class EricCompleteGame {
         if (label) label.textContent = view.label;
         if (note) note.textContent = view.note;
         window.ericAudio?.setRoom?.(roomId);
-        if (!this._directorResizeHandler) {
-            this._directorResizeHandler = () => this.applyDirectorCamera(this.currentRoom);
-            window.addEventListener('resize', this._directorResizeHandler, { passive: true });
-        }
     }
     
     /**
@@ -480,10 +500,11 @@ class EricCompleteGame {
                     <aside class="adventure-card" id="adventureCard" aria-live="polite"></aside>
                 </div>
             `;
-            this.applyDirectorCamera(this.currentRoom);
-
             if (window.ericAdventure) window.ericAdventure.destroy();
             if (window.EricAdventure) window.ericAdventure = new window.EricAdventure(this, env);
+
+            // Wait for the fixed dashboard and game grid to receive their final Android size.
+            requestAnimationFrame(() => requestAnimationFrame(() => this.applyDirectorCamera(this.currentRoom)));
             return;
         }
 
