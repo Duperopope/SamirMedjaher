@@ -780,6 +780,15 @@
         Proto.setStatus = function(message) {
             const status = document.getElementById('ericStatusText');
             if (status) status.textContent = message;
+
+            const shell = status?.closest('.eric-status');
+            if (shell && document.body.classList.contains('eric-visual-mobile')) {
+                clearTimeout(this._mobileStatusTimer);
+                shell.classList.add('is-toast-visible');
+                this._mobileStatusTimer = setTimeout(() => {
+                    shell.classList.remove('is-toast-visible');
+                }, 2800);
+            }
         };
 
         // Director Cut runtime is isolated from the old Tamagotchi save.
@@ -1206,16 +1215,32 @@
         const viewport = window.visualViewport;
         const width = Math.max(1, Math.round(viewport?.width || document.documentElement.clientWidth || window.innerWidth));
         const height = Math.max(1, Math.round(viewport?.height || window.innerHeight));
+        const mobile = width <= 820 || (height <= 620 && width <= 1100);
+        const portrait = height >= width;
+
         document.documentElement.style.setProperty('--eric-visual-width', width + 'px');
         document.documentElement.style.setProperty('--eric-visual-height', height + 'px');
-        document.body.classList.toggle('eric-visual-mobile', width <= 820);
+        document.documentElement.style.setProperty('--eric-visual-left', Math.round(viewport?.offsetLeft || 0) + 'px');
+        document.documentElement.style.setProperty('--eric-visual-top', Math.round(viewport?.offsetTop || 0) + 'px');
+
+        document.body.classList.toggle('eric-visual-mobile', mobile);
+        document.body.classList.toggle('eric-visual-portrait', mobile && portrait);
+        document.body.classList.toggle('eric-visual-landscape', mobile && !portrait);
+        document.documentElement.classList.toggle('eric-visual-mobile', mobile);
+        document.documentElement.classList.toggle('eric-visual-portrait', mobile && portrait);
+        document.documentElement.classList.toggle('eric-visual-landscape', mobile && !portrait);
 
         const dashboard = document.getElementById('gamingDashboard');
         if (dashboard) {
             dashboard.style.setProperty('--eric-dashboard-width', width + 'px');
             dashboard.style.setProperty('--eric-dashboard-height', height + 'px');
         }
-        window.ericGame?.applyDirectorCamera?.(window.ericGame.currentRoom);
+
+        // Apply the camera after the mobile class has changed the layout. On Samsung
+        // Internet the visual viewport can update one frame before the CSS box tree.
+        requestAnimationFrame(() => {
+            window.ericGame?.applyDirectorCamera?.(window.ericGame.currentRoom);
+        });
     }
 
     function install() {
