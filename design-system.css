@@ -1,0 +1,357 @@
+/**
+ * Design System CSS
+ * Système unifié de design pour le CV Gaming
+ * Version: 2.0
+ * Date: 2025-11-02
+ */
+
+/* ==============================================
+   VARIABLES CSS (Design Tokens)
+   ============================================== */
+:root {
+    /* Spacing System (8px base) */
+    --space-xs: 0.25rem;   /* 4px */
+    --space-sm: 0.5rem;    /* 8px */
+    --space-md: 1rem;      /* 16px */
+    --space-lg: 1.5rem;    /* 24px */
+    --space-xl: 2rem;      /* 32px */
+    --space-2xl: 3rem;     /* 48px */
+    
+    /* Z-Index Scale (Organized hierarchy) */
+    --z-base: 1;
+    --z-dropdown: 1000;
+    --z-sticky: 1020;
+    --z-fixed: 1030;        /* Header buttons */
+    --z-modal-backdrop: 1040; /* Overlay backgrounds */
+    --z-modal: 1050;        /* Main modals (color-picker, theater, mini-game) */
+    --z-popover: 1060;      /* Tamagotchi menu, tooltips */
+    --z-tooltip: 1070;      /* Top-level tooltips */
+    --z-notification: 1080; /* Game notifications */
+    
+    /* Legacy z-index values for gradual migration */
+    /* Old value: 10000 → New: 1050 (modal) */
+    /* Old value: 10001 → New: 1080 (notification) */
+    /* Old value: 10005 → New: 1070 (tooltip) */
+    /* Old value: 20001+ → New: Shop uses 1050 (modal level) */
+    
+    /* Layout */
+    --header-height: 4rem;
+    --header-padding: var(--space-lg);
+    
+    /* Colors (already defined in main) */
+    /* Keeping existing variables from main CSS */
+    
+    /* Border Radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    --radius-full: 9999px;
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.2);
+    --shadow-xl: 0 12px 48px rgba(0, 0, 0, 0.25);
+    
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-base: 300ms ease;
+    --transition-slow: 500ms ease;
+}
+
+/* ==============================================
+   HEADER ACTIONS BAR (Unified Button System)
+   ============================================== */
+
+.header-actions {
+    position: fixed;
+    top: var(--header-padding);
+    right: var(--header-padding);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    z-index: var(--z-fixed);
+    transition: all var(--transition-base);
+}
+
+.header-btn {
+    width: 40px;
+    height: 40px;
+    background: rgba(30, 41, 59, 0.15);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(148, 163, 184, 0.1);
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+}
+
+.header-btn:hover {
+    background: rgba(30, 41, 59, 0.25);
+    border-color: var(--primary);
+    transform: scale(1.1);
+}
+
+/* Game Toggle Specific */
+.game-toggle {
+    background: rgba(139, 92, 246, 0.1);
+    border-color: rgba(139, 92, 246, 0.2);
+    color: var(--accent);
+    display: none; /* Hidden by default */
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.game-toggle.unlocked {
+    display: flex;
+    animation: unlockAnimation 0.8s ease forwards;
+}
+
+.game-toggle:hover {
+    background: rgba(139, 92, 246, 0.2);
+}
+
+/* Color Picker Specific */
+.color-picker-trigger i {
+    font-size: 1rem;
+}
+
+/* Language Switch Specific */
+.lang-switch {
+    background: rgba(30, 41, 59, 0.15);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 0.3rem;
+    display: flex;
+    gap: 0.3rem;
+    border: 1px solid rgba(148, 163, 184, 0.1);
+    width: auto;
+    height: auto;
+}
+
+.lang-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--radius-full); /* Cercle parfait */
+    cursor: pointer;
+    font-weight: 500;
+    transition: all var(--transition-base);
+    font-size: 0.8rem;
+    min-width: 36px;
+    text-align: center;
+}
+
+.lang-btn.active {
+    background: rgba(6, 182, 212, 0.2);
+    color: var(--primary);
+    box-shadow: 0 0 10px rgba(6, 182, 212, 0.3);
+}
+
+.lang-btn:hover:not(.active) {
+    background: rgba(148, 163, 184, 0.1);
+}
+
+/* ==============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================== */
+
+@media (max-width: 968px) {
+    .header-actions {
+        top: var(--space-md);
+        right: var(--space-md);
+        gap: var(--space-xs);
+    }
+    
+    .header-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+    
+    .lang-switch {
+        padding: 0.25rem;
+    }
+    
+    .lang-btn {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.75rem;
+        min-width: 32px;
+    }
+}
+
+@media (max-width: 640px) {
+    .header-actions {
+        top: var(--space-sm);
+        right: var(--space-sm);
+        gap: 0.25rem;
+    }
+    
+    .header-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 0.9rem;
+    }
+}
+
+/* ==============================================
+   UNLOCK ANIMATION
+   ============================================== */
+
+@keyframes unlockAnimation {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* ==============================================
+   TAMAGOTCHI CONTEXT MENU
+   ============================================== */
+
+.tama-context-menu {
+    position: fixed;
+    bottom: 110px; /* Au-dessus du Tamagotchi */
+    right: 20px;
+    background: rgba(30, 41, 59, 0.98);
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(6, 182, 212, 0.3);
+    border-radius: var(--radius-lg);
+    padding: var(--space-sm);
+    z-index: var(--z-popover);
+    box-shadow: var(--shadow-xl);
+    min-width: 180px;
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+    transition: all var(--transition-base);
+}
+
+.tama-context-menu.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+    display: block !important;
+}
+
+.tama-menu-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    color: #e2e8f0;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.tama-menu-item:hover {
+    background: rgba(6, 182, 212, 0.15);
+    transform: translateX(-3px);
+}
+
+.tama-menu-icon {
+    font-size: 1.4rem;
+    width: 28px;
+    text-align: center;
+}
+
+.tama-menu-text {
+    flex: 1;
+}
+
+/* Responsive Tamagotchi Menu */
+@media (max-width: 968px) {
+    .tama-context-menu {
+        bottom: 90px;
+        right: 15px;
+        min-width: 160px;
+    }
+    
+    .tama-menu-item {
+        padding: var(--space-sm);
+        font-size: 0.9rem;
+    }
+    
+    .tama-menu-icon {
+        font-size: 1.2rem;
+        width: 24px;
+    }
+}
+
+/* ==============================================
+   FOOTER VERSION INFO
+   ============================================== */
+
+.cv-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(148, 163, 184, 0.1);
+    padding: var(--space-sm) var(--space-md);
+    z-index: var(--z-base);
+    transition: all var(--transition-base);
+}
+
+.version-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    font-size: 0.75rem;
+    color: #64748b;
+    font-family: 'Fira Code', monospace;
+}
+
+.version-number {
+    color: var(--primary);
+    font-weight: 600;
+    background: rgba(6, 182, 212, 0.1);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(6, 182, 212, 0.2);
+}
+
+.version-separator {
+    color: #475569;
+}
+
+.last-update {
+    color: #94a3b8;
+}
+
+#lastUpdate {
+    color: #cbd5e1;
+    font-weight: 500;
+}
+
+/* Footer responsive */
+@media (max-width: 640px) {
+    .cv-footer {
+        padding: var(--space-xs) var(--space-sm);
+    }
+    
+    .version-info {
+        font-size: 0.7rem;
+        gap: 0.25rem;
+    }
+    
+    .version-number {
+        padding: 0.2rem 0.4rem;
+    }
+}
