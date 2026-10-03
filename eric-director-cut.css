@@ -1980,3 +1980,587 @@ body.eric-director-cut.eric-visual-mobile .world-camera {
     min-width: 2px;
     min-height: 2px;
 }
+
+/* ==========================================================
+   ÉRIC — MOBILE EXPERIENCE PASS v2
+   Driven by the visual viewport class, not only media queries.
+   Samsung Internet can keep a desktop layout viewport on a phone.
+   ========================================================== */
+
+html.eric-visual-mobile,
+body.eric-director-cut.eric-visual-mobile {
+    width: var(--eric-visual-width, 100dvw) !important;
+    height: var(--eric-visual-height, 100dvh) !important;
+    max-width: var(--eric-visual-width, 100dvw) !important;
+    max-height: var(--eric-visual-height, 100dvh) !important;
+    overflow: hidden !important;
+    overscroll-behavior: none;
+}
+
+body.eric-director-cut.eric-visual-mobile #gamingDashboard {
+    --eric-mobile-nav: calc(60px + env(safe-area-inset-bottom));
+    position: fixed !important;
+    left: var(--eric-visual-left, 0px) !important;
+    top: var(--eric-visual-top, 0px) !important;
+    width: var(--eric-visual-width) !important;
+    height: var(--eric-visual-height) !important;
+    max-width: var(--eric-visual-width) !important;
+    max-height: var(--eric-visual-height) !important;
+    overflow: hidden !important;
+}
+
+body.eric-director-cut.eric-visual-mobile #gamingDashboard .dashboard-tabs {
+    position: fixed !important;
+    z-index: 10020 !important;
+    left: var(--eric-visual-left, 0px) !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: 0 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    width: var(--eric-visual-width) !important;
+    height: var(--eric-mobile-nav) !important;
+    min-height: var(--eric-mobile-nav) !important;
+    padding: 0 0 env(safe-area-inset-bottom) !important;
+    gap: 0 !important;
+    overflow: hidden !important;
+    border: 0 !important;
+    border-top: 1px solid rgba(226,178,110,.22) !important;
+    background: rgba(7,14,18,.97) !important;
+    backdrop-filter: blur(14px);
+}
+
+body.eric-director-cut.eric-visual-mobile #gamingDashboard .dashboard-tab-btn {
+    flex: 1 1 0 !important;
+    width: auto !important;
+    min-width: 0 !important;
+    min-height: 60px !important;
+    height: 60px !important;
+    padding: 6px 2px 5px !important;
+    border: 0 !important;
+    border-right: 1px solid rgba(226,178,110,.08) !important;
+    font-size: .49rem !important;
+    letter-spacing: .015em !important;
+    white-space: nowrap !important;
+}
+
+body.eric-director-cut.eric-visual-mobile #gamingDashboard .dashboard-tab-btn > div:first-child {
+    font-size: .95rem !important;
+    margin-bottom: 3px !important;
+}
+
+body.eric-director-cut.eric-visual-mobile #gamingDashboard .dashboard-tab-btn::before {
+    left: 20% !important;
+    right: 20% !important;
+    top: auto !important;
+    bottom: 0 !important;
+    width: auto !important;
+    height: 2px !important;
+}
+
+body.eric-director-cut.eric-visual-mobile #gamingDashboard .dashboard-content {
+    position: relative !important;
+    width: var(--eric-visual-width) !important;
+    height: calc(var(--eric-visual-height) - var(--eric-mobile-nav)) !important;
+    max-height: calc(var(--eric-visual-height) - var(--eric-mobile-nav)) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+}
+
+body.eric-director-cut.eric-visual-mobile #gamingDashboard #tab-eric,
+body.eric-director-cut.eric-visual-mobile .director-eric-root {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+}
+
+body.eric-director-cut.eric-visual-mobile #gamingDashboard .dashboard-close-btn {
+    position: fixed !important;
+    z-index: 10030 !important;
+    top: calc(var(--eric-visual-top, 0px) + 8px) !important;
+    right: 8px !important;
+    width: 44px !important;
+    height: 44px !important;
+}
+
+body.eric-director-cut.eric-visual-mobile .director-eric-root .eric-game-container {
+    position: relative !important;
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    grid-template-rows: 86px minmax(0, 1fr) !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    overflow: hidden !important;
+}
+
+body.eric-director-cut.eric-visual-mobile .director-eric-root .game-header {
+    grid-row: 1 !important;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) 92px !important;
+    grid-template-rows: 38px 36px !important;
+    gap: 4px 8px !important;
+    width: 100% !important;
+    height: 86px !important;
+    min-height: 86px !important;
+    padding: 7px 54px 5px 10px !important;
+    overflow: hidden !important;
+    border-bottom: 1px solid rgba(226,178,110,.14) !important;
+    background: rgba(8,17,21,.96) !important;
+}
+
+body.eric-director-cut.eric-visual-mobile .director-eric-root .eric-portrait {
+    display: none !important;
+}
+
+body.eric-director-cut.eric-visual-mobile .director-eric-root .game-identity {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    min-width: 0 !important;
+    align-self: center !important;
+}
+
+body.eric-director-cut.eric-visual-mobile .director-eric-root .game-kicker {
+    font-size: .43rem !important;
+    letter-spacing: .10em !important;
+}
+
+body.eric-director-cut.eric-visual-mobile .director-eric-root .game-identity h2 {
+    margin: .1rem 0 0 !important;
+    font-size: .88rem !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+}
+
+body.eric-director-cut.eric-visual-mobile .director-eric-root .game-identity h2 em {
+    display: none !important;
+}
+
+body.eric-director-cut.eric-visual-mobile .director-eric-root .game-identity p {
+    display: none !important;
+}
+
+body.eric-director-cut.eric-visual-mobile .director-eric-root .currency-display {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 8px !important;
+    width: 92px !important;
+    min-width: 92px !important;
+    height: 36px !important;
+    margin: 0 !important;
+    padding: 4px 6px !important;
+    border: 0 !important;
+    background: transparent !important;
+}
+
+body.eric-director-cut.eric-visual-mobile .director-eric-root .currency-display .bond-count,
+body.eric-director-cut.eric-visual-mobile .director-eric-root .currency-display .xp-track {
+    display: none !important;
+}
+
+body.eric-director-cut.eric-visual-mobile .director-eric-root .currency-display :is(.level-count,.coins-count) {
+    font-size: .56rem !important;
+    white-space: nowrap !important;
+}
+
+body.eric-director-cut.eric-visual-mobile .director-eric-root .stats-panel {
+    grid-column: 1 / -1 !important;
+    grid-row: 2 !important;
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0,1fr)) !important;
+    gap: 4px !important;
+    width: 100% !important;
+    height: 36px !important;
+    padding: 0 !important;
+    background: transparent !important;
+}
+
+body.eric-director-cut.eric-visual-mobile .director-eric-root .stat-bar {
+    position: relative !important;
+    min-width: 0 !important;
+    min-height: 36px !important;
+    height: 36px !important;
+    padding: 5px 5px 4px !important;
+    gap: 4px !important;
+    border: 1px solid rgba(168,199,212,.10) !important;
+    background: rgba(12,25,30,.72) !important;
+}
+
+body.eric-director-cut.eric-visual-mobile .director-eric-root .stat-icon {
+    position: static !important;
+    flex: 0 0 auto !important;
+    font-size: .58rem !important;
+}
+
+body.eric-director-cut.eric-visual-mobile .director-eric-root .stat-info {
+    min-width: 0 !important;
+    gap: 2px !important;
+}
+
+body.eric-director-cut.eric-visual-mobile .director-eric-root .stat-label {
+    font-size: .42rem !important;
+    line-height: 1 !important;
+    letter-spacing: .03em !important;
+}
+
+body.eric-director-cut.eric-visual-mobile .director-eric-root .stat-value {
+    font-size: .48rem !important;
+    line-height: 1 !important;
+}
+
+body.eric-director-cut.eric-visual-mobile .director-eric-root .stat-bar-bg {
+    height: 3px !important;
+}
+
+body.eric-director-cut.eric-visual-mobile .director-eric-root .game-main {
+    grid-row: 2 !important;
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+}
+
+body.eric-director-cut.eric-visual-mobile .director-eric-root .game-environment {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    aspect-ratio: auto !important;
+    border-radius: 0 !important;
+}
+
+body.eric-director-cut.eric-visual-mobile .world-camera {
+    touch-action: none !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    transition-duration: .38s !important;
+}
+
+body.eric-director-cut.eric-visual-mobile .director-eric-root .room-selector {
+    position: absolute !important;
+    z-index: 94 !important;
+    top: auto !important;
+    left: 8px !important;
+    right: 8px !important;
+    bottom: 8px !important;
+    display: flex !important;
+    width: auto !important;
+    min-width: 0 !important;
+    height: 50px !important;
+    transform: none !important;
+    padding: 2px !important;
+    gap: 2px !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(226,178,110,.20) !important;
+    border-radius: 10px !important;
+    background: rgba(7,15,19,.92) !important;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 28px rgba(0,0,0,.30);
+}
+
+body.eric-director-cut.eric-visual-mobile .director-eric-root .room-btn {
+    flex: 1 1 25% !important;
+    width: auto !important;
+    min-width: 0 !important;
+    min-height: 44px !important;
+    height: 44px !important;
+    padding: 3px 4px !important;
+    gap: 2px !important;
+    border-radius: 7px !important;
+}
+
+body.eric-director-cut.eric-visual-mobile .director-eric-root .room-index {
+    font-size: .40rem !important;
+}
+
+body.eric-director-cut.eric-visual-mobile .director-eric-root .room-label {
+    display: block !important;
+    font-size: .56rem !important;
+    line-height: 1 !important;
+}
+
+body.eric-director-cut.eric-visual-mobile .director-eric-root .quick-actions {
+    position: absolute !important;
+    z-index: 93 !important;
+    left: 50% !important;
+    right: auto !important;
+    bottom: 64px !important;
+    display: flex !important;
+    width: auto !important;
+    padding: 2px !important;
+    gap: 2px !important;
+    transform: translateX(-50%) !important;
+    border: 1px solid rgba(226,178,110,.16) !important;
+    border-radius: 10px !important;
+    background: rgba(7,15,19,.88) !important;
+    backdrop-filter: blur(10px);
+}
+
+body.eric-director-cut.eric-visual-mobile .director-eric-root .quick-action-btn {
+    width: 48px !important;
+    min-width: 48px !important;
+    min-height: 46px !important;
+    height: 46px !important;
+    padding: 0 !important;
+    border-radius: 7px !important;
+}
+
+body.eric-director-cut.eric-visual-mobile .director-eric-root .quick-action-btn .action-label {
+    display: none !important;
+}
+
+body.eric-director-cut.eric-visual-mobile .director-eric-root .quick-action-btn .action-icon {
+    font-size: .86rem !important;
+}
+
+body.eric-director-cut.eric-visual-mobile .director-eric-root .eric-status {
+    position: absolute !important;
+    z-index: 96 !important;
+    top: 56px !important;
+    left: 10px !important;
+    right: 54px !important;
+    bottom: auto !important;
+    width: auto !important;
+    min-height: 38px !important;
+    margin: 0 !important;
+    padding: .55rem .68rem !important;
+    border: 1px solid rgba(168,199,212,.18) !important;
+    border-radius: 8px !important;
+    background: rgba(7,15,19,.94) !important;
+    box-shadow: 0 12px 30px rgba(0,0,0,.34);
+    font-size: .68rem !important;
+    line-height: 1.28 !important;
+    opacity: 0;
+    transform: translateY(-5px);
+    pointer-events: none;
+    transition: opacity .16s ease, transform .16s ease;
+}
+
+body.eric-director-cut.eric-visual-mobile .director-eric-root .eric-status.is-toast-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+body.eric-director-cut.eric-visual-mobile .director-eric-root .game-sidebar {
+    position: absolute !important;
+    z-index: 120 !important;
+    top: 94px !important;
+    right: 8px !important;
+    bottom: 8px !important;
+    left: auto !important;
+    width: min(340px, calc(100% - 24px)) !important;
+    max-height: none !important;
+    overflow: auto !important;
+    border: 1px solid rgba(226,178,110,.20) !important;
+    border-radius: 10px !important;
+    background: rgba(8,17,21,.985) !important;
+    transform: translateX(calc(100% + 24px));
+    opacity: 0;
+    pointer-events: none;
+    transition: transform .22s ease, opacity .18s ease;
+    box-shadow: 0 22px 60px rgba(0,0,0,.48);
+}
+
+body.eric-director-cut.eric-visual-mobile .director-eric-root.sidebar-open .game-sidebar {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+body.eric-director-cut.eric-visual-mobile .director-sidebar-toggle {
+    position: absolute !important;
+    z-index: 122 !important;
+    top: 96px !important;
+    right: 10px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 42px !important;
+    height: 42px !important;
+    padding: 0 !important;
+    border-radius: 9px !important;
+    border: 1px solid rgba(226,178,110,.24) !important;
+    background: rgba(8,17,21,.90) !important;
+    color: #d7c19f !important;
+    backdrop-filter: blur(8px);
+}
+
+body.eric-director-cut.eric-visual-mobile .director-sidebar-toggle span {
+    display: none !important;
+}
+
+body.eric-director-cut.eric-visual-mobile .master-room > .sound-toggle {
+    top: 10px !important;
+    right: 60px !important;
+    width: 42px !important;
+    height: 42px !important;
+    padding: 0 !important;
+    justify-content: center !important;
+    border-radius: 9px !important;
+}
+
+body.eric-director-cut.eric-visual-mobile .master-room > .sound-toggle span,
+body.eric-director-cut.eric-visual-mobile .master-room > .scene-caption small {
+    display: none !important;
+}
+
+body.eric-director-cut.eric-visual-mobile .master-room > .scene-caption {
+    top: 10px !important;
+    left: 10px !important;
+    right: auto !important;
+    width: auto !important;
+    max-width: 180px !important;
+    min-height: 42px !important;
+    padding: .48rem .62rem !important;
+    border-radius: 8px !important;
+    background: rgba(7,15,20,.72) !important;
+}
+
+body.eric-director-cut.eric-visual-mobile .master-room > .adventure-card {
+    z-index: 95 !important;
+    left: 8px !important;
+    right: 8px !important;
+    top: auto !important;
+    bottom: 120px !important;
+    width: auto !important;
+    max-width: none !important;
+    max-height: 154px !important;
+    padding: .72rem .78rem !important;
+    border-radius: 10px !important;
+    background: rgba(8,16,19,.94) !important;
+    box-shadow: 0 16px 40px rgba(0,0,0,.34);
+}
+
+body.eric-director-cut.eric-visual-mobile .master-room > .adventure-card p {
+    -webkit-line-clamp: 2 !important;
+    font-size: .70rem !important;
+    line-height: 1.38 !important;
+}
+
+body.eric-director-cut.eric-visual-mobile .world-camera .eric-illustrated-stage {
+    width: 250px !important;
+    height: 268px !important;
+}
+
+body.eric-director-cut.eric-visual-mobile .world-camera .scene-object {
+    width: 52px !important;
+    height: 52px !important;
+}
+
+body.eric-director-cut.eric-visual-mobile .world-camera .scene-object .object-focus {
+    inset: 14px !important;
+}
+
+body.eric-director-cut.eric-visual-mobile .world-camera .scene-object > span:last-child {
+    font-size: .55rem !important;
+}
+
+body.eric-director-cut .eric-move-target {
+    position: absolute;
+    z-index: 78;
+    left: var(--target-x);
+    bottom: var(--target-y);
+    width: 24px;
+    height: 24px;
+    border: 2px solid rgba(242,185,95,.88);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(242,185,95,.20) 0 26%, transparent 29%);
+    box-shadow: 0 0 0 5px rgba(242,185,95,.08), 0 0 18px rgba(242,185,95,.28);
+    transform: translate(-50%, 50%);
+    pointer-events: none;
+    animation: ericMoveTarget .72s ease-out both;
+}
+
+body.eric-director-cut .eric-move-target.is-invalid {
+    border-color: rgba(214,103,86,.92);
+    background: radial-gradient(circle, rgba(214,103,86,.20) 0 26%, transparent 29%);
+    box-shadow: 0 0 0 5px rgba(214,103,86,.08), 0 0 18px rgba(214,103,86,.24);
+    animation-name: ericMoveTargetBlocked;
+}
+
+@keyframes ericMoveTarget {
+    0% { opacity: 0; transform: translate(-50%,50%) scale(.55); }
+    28% { opacity: 1; transform: translate(-50%,50%) scale(1); }
+    100% { opacity: 0; transform: translate(-50%,50%) scale(1.35); }
+}
+
+@keyframes ericMoveTargetBlocked {
+    0% { opacity: 0; transform: translate(-50%,50%) scale(.7); }
+    30% { opacity: 1; transform: translate(-50%,50%) scale(1.05); }
+    55% { transform: translate(calc(-50% - 3px),50%) scale(1); }
+    72% { transform: translate(calc(-50% + 3px),50%) scale(1); }
+    100% { opacity: 0; transform: translate(-50%,50%) scale(.95); }
+}
+
+body.eric-director-cut.eric-visual-landscape .director-eric-root .eric-game-container {
+    grid-template-rows: 54px minmax(0, 1fr) !important;
+}
+
+body.eric-director-cut.eric-visual-landscape .director-eric-root .game-header {
+    grid-template-columns: minmax(0,1fr) 116px !important;
+    grid-template-rows: 1fr !important;
+    height: 54px !important;
+    min-height: 54px !important;
+    padding: 7px 54px 7px 10px !important;
+}
+
+body.eric-director-cut.eric-visual-landscape .director-eric-root .stats-panel {
+    display: none !important;
+}
+
+body.eric-director-cut.eric-visual-landscape .director-eric-root .currency-display {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    width: 116px !important;
+}
+
+body.eric-director-cut.eric-visual-landscape .director-sidebar-toggle {
+    top: 62px !important;
+}
+
+body.eric-director-cut.eric-visual-landscape .director-eric-root .game-sidebar {
+    top: 60px !important;
+    width: min(360px, 46vw) !important;
+}
+
+body.eric-director-cut.eric-visual-landscape .world-camera .eric-illustrated-stage {
+    width: 205px !important;
+    height: 220px !important;
+}
+
+body.eric-director-cut.eric-visual-landscape .master-room > .adventure-card {
+    left: 10px !important;
+    right: auto !important;
+    bottom: 112px !important;
+    width: min(330px, 44vw) !important;
+    max-height: 138px !important;
+}
+
+body.eric-director-cut.eric-visual-landscape .director-eric-root .room-selector {
+    height: 46px !important;
+}
+
+body.eric-director-cut.eric-visual-landscape .director-eric-root .room-btn {
+    min-height: 40px !important;
+    height: 40px !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body.eric-director-cut .eric-move-target {
+        animation-duration: .001ms !important;
+    }
+}

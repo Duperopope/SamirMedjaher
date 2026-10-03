@@ -427,7 +427,7 @@ class EricCompleteGame {
             bedroom: { scale: 1.52, x: 84, y: 47, label: 'Coin repos', note: 'Côté est du refuge.' },
             garden:  { scale: 1.46, x: 82, y: 78, label: 'Terrasse', note: 'Terrasse-jardin, niveau inférieur.' }
         };
-        const view = views[roomId] || views.living;
+        const baseView = views[roomId] || views.living;
         const viewport = camera.parentElement?.getBoundingClientRect();
 
         if (!viewport || viewport.width < 2 || viewport.height < 2) {
@@ -442,8 +442,14 @@ class EricCompleteGame {
 
         {
             // Keep the illustrated level in its native 16:9 geometry on every screen.
-            // The viewport crops the world; it never stretches it.
+            // The viewport crops the world; it never stretches it. Mobile gets a
+            // deliberate close framing instead of a desktop composition shrunk down.
             const worldRatio = 1672 / 941;
+            const visualMobile = document.body.classList.contains('eric-visual-mobile') || viewport.width <= 820;
+            const portrait = viewport.height >= viewport.width;
+            const mobileBoost = visualMobile ? (portrait ? 1.14 : 1.08) : 1;
+            const view = { ...baseView, scale: baseView.scale * mobileBoost };
+
             const baseWidth = Math.max(viewport.width, viewport.height * worldRatio);
             const baseHeight = baseWidth / worldRatio;
             camera.style.width = `${baseWidth}px`;
@@ -457,12 +463,13 @@ class EricCompleteGame {
             const ty = Math.max(minY, Math.min(0, desiredY));
             camera.style.transformOrigin = '0 0';
             camera.style.transform = `translate(${tx}px, ${ty}px) scale(${view.scale})`;
+            camera.dataset.scale = view.scale.toFixed(3);
         }
         camera.dataset.focus = roomId;
         const label = document.getElementById('sceneFocusLabel');
         const note = document.getElementById('sceneFocusNote');
-        if (label) label.textContent = view.label;
-        if (note) note.textContent = view.note;
+        if (label) label.textContent = baseView.label;
+        if (note) note.textContent = baseView.note;
         window.ericAudio?.setRoom?.(roomId);
     }
     

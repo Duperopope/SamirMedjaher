@@ -217,13 +217,67 @@ class EricAdventure {
         this.renderObjects(room);
         if (window.ERIC_DIRECTOR_CUT) this.renderOccluders(room);
         if (new URLSearchParams(window.location.search).has('navdebug')) this.renderNavigationDebug(room);
-        room.addEventListener('click', (event) => {
+
+        // Pointer events give mouse and touch the same coordinate path. A tap moves
+        // Éric; a drag is deliberately ignored so a finger can explore the scene
+        // without accidentally sending him across the room.
+        const beginPointer = (event) => {
+            if (!event.isPrimary || (event.button !== undefined && event.button !== 0)) return;
             if (event.target.closest('button, aside')) return;
-            const rect = room.getBoundingClientRect();
-            const x = ((event.clientX - rect.left) / rect.width) * 100;
-            const y = 100 - ((event.clientY - rect.top) / rect.height) * 100;
-            this.walkTo(x, y);
-        });
+            this._worldPointer = {
+                id: event.pointerId,
+                x: event.clientX,
+                y: event.clientY,
+                moved: false
+            };
+            room.setPointerCapture?.(event.pointerId);
+        };
+
+        const movePointer = (event) => {
+            const pointer = this._worldPointer;
+            if (!pointer || pointer.id !== event.pointerId) return;
+            if (Math.hypot(event.clientX - pointer.x, event.clientY - pointer.y) > 10) pointer.moved = true;
+        };
+
+        const endPointer = (event) => {
+            const pointer = this._worldPointer;
+            if (!pointer || pointer.id !== event.pointerId) return;
+            this._worldPointer = null;
+            try { room.releasePointerCapture?.(event.pointerId); } catch {}
+            if (pointer.moved) return;
+
+            const point = this.screenToWorld(room, event.clientX, event.clientY);
+            if (!point) return;
+            this.walkTo(point.x, point.y, undefined, { feedback: true });
+        };
+
+        room.addEventListener('pointerdown', beginPointer);
+        room.addEventListener('pointermove', movePointer);
+        room.addEventListener('pointerup', endPointer);
+        room.addEventListener('pointercancel', () => { this._worldPointer = null; });
+    }
+
+    screenToWorld(room, clientX, clientY) {
+        const rect = room.getBoundingClientRect();
+        if (!rect.width || !rect.height) return null;
+        return {
+            x: Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100)),
+            y: Math.max(0, Math.min(100, 100 - ((clientY - rect.top) / rect.height) * 100))
+        };
+    }
+
+    showMoveTarget(point, state = 'valid') {
+        const room = this.container.querySelector('.world-camera') || this.container.querySelector('.room-container');
+        if (!room || !point) return;
+        room.querySelector('.eric-move-target')?.remove();
+
+        const marker = document.createElement('span');
+        marker.className = 'eric-move-target is-' + state;
+        marker.setAttribute('aria-hidden', 'true');
+        marker.style.setProperty('--target-x', point.x + '%');
+        marker.style.setProperty('--target-y', point.y + '%');
+        room.appendChild(marker);
+        this._moveTargetTimer = setTimeout(() => marker.remove(), state === 'invalid' ? 900 : 720);
     }
 
     renderNavigationDebug(room) {
@@ -323,22 +377,30 @@ class EricAdventure {
         this.renderStory();
     }
 
-    walkTo(rawX, rawY, onArrival) {
+    walkTo(rawX, rawY, onArrival, options = {}) {
         clearTimeout(this.moveTimer);
         clearTimeout(this.behaviourTimer);
+        clearTimeout(this._moveTargetTimer);
         const world = this.getWorld();
+        const requested = { x: rawX, y: rawY };
         const destination = this.resolveDestination(rawX, rawY, world);
+
         if (!destination) {
-            this.game.setStatus('Éric ne peut pas atteindre cet endroit depuis le sol visible.');
+            if (options.feedback) this.showMoveTarget(requested, 'invalid');
+            this.game.setStatus('Cette zone n’est pas praticable. Choisis une partie visible du sol.');
             this.scheduleBehaviour(2200);
             return false;
         }
+
         const path = this.buildPath(this.position, destination, world);
         if (!path || !path.length) {
+            if (options.feedback) this.showMoveTarget(destination, 'invalid');
             this.game.setStatus('Le passage est bloqué. Éric ne traverse plus les meubles ni les murs.');
             this.scheduleBehaviour(2200);
             return false;
         }
+
+        if (options.feedback) this.showMoveTarget(destination, 'valid');
         const distance = Math.hypot(destination.x - this.position.x, destination.y - this.position.y);
 
         // A tiny anticipation makes movement read as intention rather than a CSS translation.
@@ -474,7 +536,13 @@ class EricAdventure {
     }
 
     resolveDestination(x, y, world) {
-        return this.nearestWalkable(x, y, world, 1.5, 7.5);
+        const exact = { x, y };
+        if (this.isWalkable(exact, world)) return exact;
+
+        // A large invisible snap feels broken on touch screens. Keep correction
+        // local, otherwise reject the tap and show the blocked marker instead.
+        const mobile = document.body.classList.contains('eric-visual-mobile');
+        return this.nearestWalkable(x, y, world, 1.25, mobile ? 4.5 : 6);
     }
 
     isWalkable(point, world) {
