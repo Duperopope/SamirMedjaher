@@ -1942,3 +1942,41 @@ body.eric-director-cut .world-camera .scene-object > span:last-child {
     bottom: calc(100% + 4px) !important;
     font-size: .44rem !important;
 }
+
+/* Real mobile viewport: Samsung/Chrome can expose a desktop-sized layout viewport
+   while the visual viewport is phone-sized. The Director Cut follows the visible
+   screen, not the hidden document width. */
+body.eric-director-cut #gamingDashboard {
+    width: var(--eric-dashboard-width, 100dvw) !important;
+    height: var(--eric-dashboard-height, 100dvh) !important;
+    max-width: var(--eric-dashboard-width, 100dvw) !important;
+    max-height: var(--eric-dashboard-height, 100dvh) !important;
+    right: auto !important;
+    bottom: auto !important;
+    overflow: hidden !important;
+}
+
+body.eric-director-cut.eric-visual-mobile #gamingDashboard .dashboard-content,
+body.eric-director-cut.eric-visual-mobile #gamingDashboard #tab-eric,
+body.eric-director-cut.eric-visual-mobile .director-eric-root,
+body.eric-director-cut.eric-visual-mobile .director-eric-root .eric-game-container {
+    width: var(--eric-visual-width) !important;
+    max-width: var(--eric-visual-width) !important;
+}
+
+body.eric-director-cut.eric-visual-mobile #gamingDashboard .dashboard-content {
+    height: calc(var(--eric-visual-height) - 64px) !important;
+    max-height: calc(var(--eric-visual-height) - 64px) !important;
+    overflow: hidden !important;
+}
+
+body.eric-director-cut.eric-visual-mobile .director-eric-root .eric-game-container {
+    height: calc(var(--eric-visual-height) - 64px) !important;
+    max-height: calc(var(--eric-visual-height) - 64px) !important;
+    min-height: 0 !important;
+}
+
+body.eric-director-cut.eric-visual-mobile .world-camera {
+    min-width: 2px;
+    min-height: 2px;
+}

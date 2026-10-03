@@ -1202,10 +1202,35 @@
         if (id === 'constellations') openConstellations(onComplete);
     }
 
+    function syncVisualViewport() {
+        const viewport = window.visualViewport;
+        const width = Math.max(1, Math.round(viewport?.width || document.documentElement.clientWidth || window.innerWidth));
+        const height = Math.max(1, Math.round(viewport?.height || window.innerHeight));
+        document.documentElement.style.setProperty('--eric-visual-width', width + 'px');
+        document.documentElement.style.setProperty('--eric-visual-height', height + 'px');
+        document.body.classList.toggle('eric-visual-mobile', width <= 820);
+
+        const dashboard = document.getElementById('gamingDashboard');
+        if (dashboard) {
+            dashboard.style.setProperty('--eric-dashboard-width', width + 'px');
+            dashboard.style.setProperty('--eric-dashboard-height', height + 'px');
+        }
+        window.ericGame?.applyDirectorCamera?.(window.ericGame.currentRoom);
+    }
+
     function install() {
         applyChrome();
         patchEricGame();
         patchAdventure();
+        syncVisualViewport();
+
+        if (!window.__ericVisualViewportHooked) {
+            const sync = () => requestAnimationFrame(syncVisualViewport);
+            window.addEventListener('resize', sync, { passive: true });
+            window.visualViewport?.addEventListener('resize', sync, { passive: true });
+            window.visualViewport?.addEventListener('scroll', sync, { passive: true });
+            window.__ericVisualViewportHooked = true;
+        }
 
         if (!window.__ericDirectorRenderHooked && typeof window.renderTabContent === 'function') {
             const legacyRenderTabContent = window.renderTabContent;
