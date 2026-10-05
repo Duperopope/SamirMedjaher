@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# privacy-audit-version: 2
 from __future__ import annotations
 import re
 from pathlib import Path
