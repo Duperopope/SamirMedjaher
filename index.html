@@ -831,17 +831,9 @@ body.hud-preview-active .game-notification {
                 </h3>
                 <div class="space-y-2">
                     <div class="contact-item" onclick="openMail()" data-action="contact-email">
-                        <i class="fas fa-envelope"></i>
-                        <span>s.medjaher@gmail.com</span>
+                        <i class="fas fa-paper-plane"></i>
+                        <span>Contact professionnel</span>
                     </div>
-                    <div class="contact-item" onclick="callPhone()">
-                        <i class="fas fa-phone"></i>
-                        <span>+33.7.43.43.47.67</span>
-                    </div>
-                    <a class="contact-item" href="https://wa.me/33743434767" target="_blank" rel="noopener" style="text-decoration:none;" data-action="contact-whatsapp">
-                        <i class="fab fa-whatsapp"></i>
-                        <span>Me contacter sur WhatsApp</span>
-                    </a>
                     <div class="contact-item" onclick="openMaps()">
                         <i class="fas fa-map-marker-alt"></i>
                         <span>69140 Rillieux-la-Pape, France</span>
@@ -4404,10 +4396,6 @@ body.hud-preview-active .game-notification {
         function openMail() {
             window.open('contact.html', '_self');
             if (gamingMode) triggerAction('contact-email');
-        }
-
-        function callPhone() {
-            window.open('tel:+33743434767');
         }
 
         function openMaps() {
