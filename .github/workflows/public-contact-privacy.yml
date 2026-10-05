@@ -1,0 +1,52 @@
+name: Public Contact Privacy
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "*.pdf"
+      - "*.html"
+      - "*.js"
+      - "*.css"
+      - "*.json"
+      - "scripts/redact_public_contacts.py"
+      - ".github/workflows/public-contact-privacy.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sanitize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install PDF sanitizer
+        run: python -m pip install --disable-pip-version-check pymupdf==1.26.4
+
+      - name: Remove public personal contact details
+        run: python scripts/redact_public_contacts.py
+
+      - name: Commit sanitized PDFs when needed
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet; then
+            echo "No PDF changes required."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- '*.pdf'
+          if git diff --cached --quiet; then
+            echo "No PDF changes to commit."
+            exit 0
+          fi
+          git commit -m "Sanitize public CV contact details"
+          git push
