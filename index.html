@@ -72,6 +72,15 @@ body.hud-preview-active .game-notification {
 
 #floatingGuidePortrait:not([hidden]) { position:fixed;bottom:calc(18px + env(safe-area-inset-bottom));left:16px;width:72px;height:72px;object-fit:cover;border-radius:50%;border:2px solid var(--primary);background:#122238;z-index:10004;box-shadow:0 8px 24px rgba(0,0,0,.4);pointer-events:none; }
 #floatingGuidePortrait[hidden] {display:none!important}
+
+/* Mobile navigation: vertical page scroll remains native; horizontal swipes change projects. */
+@media (max-width: 700px) {
+  html, body { overflow-x: clip; overflow-y: auto; overscroll-behavior-y: auto; }
+  #cfStage, .cf-stage, .cf-item { touch-action: pan-y pinch-zoom; }
+  .cf-arrow { min-width: 46px; min-height: 46px; touch-action: manipulation; }
+  .scroll-indicator { pointer-events: none; }
+  .scroll-indicator > * { pointer-events: none; }
+}
 </style>
     
     <style>
@@ -2365,12 +2374,43 @@ body.hud-preview-active .game-notification {
             }
         }
 
+        // Native vertical scrolling is preserved; swipe horizontally only when the gesture is clear.
+        function mobileHaptic() {
+            if (navigator.vibrate && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                try { navigator.vibrate(8); } catch (_) { /* unsupported */ }
+            }
+        }
+        const carouselTouch = {x:0,y:0,at:0};
+        const carouselStage = document.getElementById('cfStage');
+        carouselStage.addEventListener('touchstart', e => {
+            if (e.touches.length !== 1) return;
+            carouselTouch.x=e.touches[0].clientX;
+            carouselTouch.y=e.touches[0].clientY;
+            carouselTouch.at=Date.now();
+        }, {passive:true});
+        carouselStage.addEventListener('touchend', e => {
+            if (!carouselTouch.at || !e.changedTouches.length) return;
+            const dx=e.changedTouches[0].clientX-carouselTouch.x;
+            const dy=e.changedTouches[0].clientY-carouselTouch.y;
+            carouselTouch.at=0;
+            if (Math.abs(dx)>48 && Math.abs(dx)>Math.abs(dy)*1.4) {
+                cfMove(dx<0?1:-1);
+                // Prevent the synthetic click from opening the newly selected card.
+                carouselTouch.ignoreClickUntil=Date.now()+400;
+            }
+        }, {passive:true});
+        carouselStage.addEventListener('click', e => {
+            if ((carouselTouch.ignoreClickUntil||0)>Date.now()) {
+                e.stopImmediatePropagation(); e.preventDefault();
+            }
+        }, true);
         function cfMove(dir) {
             if (!cfItems.length) return;
             cfActive = (cfActive + dir + cfItems.length) % cfItems.length;
             cfLayout();
+            mobileHaptic();
         }
-        function cfGoTo(i) { cfActive = i; cfLayout(); updateContextualGuide(); }
+        function cfGoTo(i) { cfActive = i; cfLayout(); updateContextualGuide(); mobileHaptic(); }
 
         // Clic sur les tuiles : hit-test géométrique au niveau de la scène,
         // car le hit-testing natif est peu fiable sur des éléments en 3D (preserve-3d + rotateY).
