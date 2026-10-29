@@ -63,7 +63,9 @@ body.hud-preview-active .game-notification {
 /* Mobile: keep both language buttons within the visible viewport. */
 @media (max-width: 600px) {
   .lang-switch { top: max(8px, env(safe-area-inset-top)); right: 8px; left: auto; max-width: calc(100vw - 16px); gap: 2px; padding: 3px; }
-  .lang-switch .lang-btn { padding: 7px 6px; font-size: 12px; gap: 4px; white-space: nowrap; }
+  .lang-switch .lang-btn { padding: 7px 6px; font-size: 0; gap: 0; min-width: 34px; min-height: 32px; justify-content: center; white-space: nowrap; }
+  .lang-switch { width: auto !important; transform: none !important; }
+  .lang-switch .lang-flag { display: inline-block; }
   .lang-switch .lang-flag { width: 18px; height: 13px; }
   .portrait-dialogue { max-width: calc(100vw - 24px); box-sizing: border-box; }
 }
@@ -3955,6 +3957,10 @@ body.hud-preview-active .game-notification {
         function positionPortraitDialogue(dialogue, profileImg) {
             if (!dialogue || !profileImg) return;
             const img = profileImg.getBoundingClientRect();
+            // Never leave a floating dialogue when the portrait has scrolled away.
+            const visible = img.bottom > 0 && img.top < window.innerHeight && img.right > 0 && img.left < window.innerWidth;
+            dialogue.style.visibility = visible ? 'visible' : 'hidden';
+            if (!visible) return;
             const vw = document.documentElement.clientWidth;
             const vh = window.innerHeight;
             const margin = 12;
@@ -3978,6 +3984,21 @@ body.hud-preview-active .game-notification {
             dialogue.style.setProperty('--arrow-offset', Math.max(15, Math.min(width - 15, centerX - left)) + 'px');
             dialogue.dataset.arrowClass = above ? 'arrow-bottom' : 'arrow-top';
         }
+
+        // Keep the dialogue attached when the page scrolls or rotates.
+        let portraitPositionQueued = false;
+        function refreshPortraitAnchor() {
+            if (portraitPositionQueued) return;
+            portraitPositionQueued = true;
+            requestAnimationFrame(() => {
+                portraitPositionQueued = false;
+                const d = document.getElementById('portraitDialogue');
+                const img = document.getElementById('profileImage');
+                if (d && img && d.classList.contains('show')) positionPortraitDialogue(d, img);
+            });
+        }
+        window.addEventListener('scroll', refreshPortraitAnchor, {passive:true});
+        window.addEventListener('resize', refreshPortraitAnchor);
 
         function resetProfile() {
             // Reset game stats
