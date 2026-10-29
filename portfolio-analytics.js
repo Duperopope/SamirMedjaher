@@ -48,3 +48,10 @@
   });
   if(consent){send('page_view','portfolio');check()}
 })();
+
+/* This is an interface fix, not an analytics feature; load independently of consent. */
+if (window.matchMedia('(max-width:700px)').matches) {
+  const mobileGalleryScript = document.createElement('script');
+  mobileGalleryScript.src = 'mobile-gallery.js?v=20261029-1';
+  document.head.appendChild(mobileGalleryScript);
+}
