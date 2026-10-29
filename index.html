@@ -2329,6 +2329,7 @@ body.hud-preview-active .game-notification {
             });
             cfDotsEls.forEach((d, i) => d.classList.toggle('active', i === cfActive));
             cfUpdateCaption();
+            updateContextualGuide();
         }
 
         function cfUpdateCaption() {
@@ -2369,7 +2370,7 @@ body.hud-preview-active .game-notification {
             cfActive = (cfActive + dir + cfItems.length) % cfItems.length;
             cfLayout();
         }
-        function cfGoTo(i) { cfActive = i; cfLayout(); }
+        function cfGoTo(i) { cfActive = i; cfLayout(); updateContextualGuide(); }
 
         // Clic sur les tuiles : hit-test géométrique au niveau de la scène,
         // car le hit-testing natif est peu fiable sur des éléments en 3D (preserve-3d + rotateY).
@@ -4006,37 +4007,73 @@ body.hud-preview-active .game-notification {
         // Contextual guide: the portrait travels with its speech bubble when its original position scrolls out.
         let guideSection = '';
         let guidePauseUntil = 0;
+        const guideLines = {
+            fr: {
+                general: ["Découvrez mon parcours et les outils que je développe.", "Chaque projet part d'un besoin concret et d'une solution vérifiable.", "N'hésitez pas à explorer les sections du CV."],
+                portfolio: ["Voici mon portfolio : chaque carte présente une réalisation différente.", "Vous pouvez faire défiler les projets puis ouvrir leurs détails.", "Du web à l'IA, mes réalisations couvrent plusieurs domaines."],
+                'construction comores': ["Construction Comores : un site client livré, mis en ligne et travaillé pour le référencement.", "Un projet web complet, de la vitrine à la mise en ligne."],
+                'atelier web': ["Atelier Web présente mes prestations de création de sites pour commerces locaux.", "Un exemple de démarche web tournée vers les besoins de petites entreprises."],
+                'fimo check': ["FIMO Check aide à comprendre les règles de conduite et de repos du transport routier.", "Un outil métier concret où la réglementation rencontre le développement web."],
+                'cortex': ["Cortex explore la mémoire et les boucles cognitives d'un assistant IA local.", "Ce prototype expérimente l'interaction entre perception, mémoire et action."],
+                'wakfu assistant': ["Wakfu Assistant explore les données de jeu, les statistiques et l'économie.", "Un exemple d'outil technique conçu pour faciliter l'analyse de données."],
+                'rimwork': ["Rimwork est une exploration de gameplay émergent, du vivant à l'espace.", "Ce projet expérimente les systèmes et la génération de comportements."],
+                'portfolio bilingue': ["Ce portfolio lui-même est un projet : interface interactive, français et anglais.", "Le site que vous parcourez sert aussi de démonstration web."]
+            },
+            en: {
+                general: ["Explore my experience and the tools I build.", "My projects start with practical needs and verifiable solutions."],
+                portfolio: ["Welcome to my portfolio: each card features a different project.", "Browse the projects and open the ones that interest you."],
+                'construction comores': ["Construction Comores is a client website I delivered and deployed."],
+                'atelier web': ["Atelier Web showcases my website services for local businesses."],
+                'fimo check': ["FIMO Check explores driving and rest-time compliance rules."],
+                'cortex': ["Cortex is an experimental local AI memory and cognition prototype."],
+                'wakfu assistant': ["Wakfu Assistant explores game data, statistics and economy."],
+                'rimwork': ["Rimwork experiments with emergent gameplay and procedural systems."],
+                'portfolio bilingue': ["This bilingual interactive portfolio is also a web project."]
+            }
+        };
+        let guideLastMessage = '';
+        let guideLastChange = 0;
         function updateContextualGuide() {
             const original = document.getElementById('profileImage');
             const floating = document.getElementById('floatingGuidePortrait');
             const dialogue = document.getElementById('portraitDialogue');
-            if (!original || !floating || !dialogue) return;
+            const output = document.getElementById('portraitText');
+            if (!original || !floating || !dialogue || !output) return;
             if (!floating.src) floating.src = original.currentSrc || original.src;
             const rect = original.getBoundingClientRect();
             const originalVisible = rect.bottom > 0 && rect.top < innerHeight && rect.left < innerWidth && rect.right > 0;
             floating.hidden = originalVisible;
             if (originalVisible) {
+                guideSection = '';
                 refreshPortraitAnchor();
                 return;
             }
             const portfolio = document.querySelector('.portfolio-section');
             const portfolioVisible = portfolio && portfolio.getBoundingClientRect().top < innerHeight * .75 &&
                 portfolio.getBoundingClientRect().bottom > innerHeight * .2;
-            const section = portfolioVisible ? 'portfolio' : 'general';
-            if (guideSection !== section && Date.now() > guidePauseUntil) {
-                guideSection = section;
+            const activeProject = portfolioVisible && typeof cfItems !== 'undefined' && cfItems[cfActive] ? cfItems[cfActive] : null;
+            const title = activeProject ? activeProject.title.toLocaleLowerCase('fr').trim() : '';
+            const lines = guideLines[currentLang] || guideLines.fr;
+            const key = portfolioVisible ? (lines[title] ? title : 'portfolio') : 'general';
+            const now = Date.now();
+            // React immediately when entering a new section or switching carousel projects.
+            if (guideSection !== key) {
+                guideSection = key;
+                guideLastChange = now;
                 if (typewriterInstances.has('portrait')) {
                     typewriterInstances.get('portrait').stop();
                     typewriterInstances.delete('portrait');
                 }
                 clearTimeout(window.portraitDialogueTimeout);
                 clearTimeout(window.portraitHideTimeout);
-                document.getElementById('portraitText').textContent = section === 'portfolio'
-                    ? (currentLang === 'fr' ? 'Voici mon portfolio : vous pouvez parcourir mes réalisations et ouvrir chaque projet.' : 'Here is my portfolio: explore my work and open each project.')
-                    : (currentLang === 'fr' ? 'Découvrez mon parcours et mes compétences en faisant défiler la page.' : 'Scroll to explore my experience and skills.');
+                const variants = lines[key] || lines.portfolio;
+                const choices = variants.filter(v => v !== guideLastMessage);
+                guideLastMessage = (choices.length ? choices : variants)[Math.floor(Math.random() * (choices.length || variants.length))];
+                output.textContent = guideLastMessage;
                 dialogue.className = 'portrait-dialogue show';
             }
-            if (!dialogue.classList.contains('show')) dialogue.classList.add('show');
+            dialogue.classList.add('show');
+            dialogue.classList.remove('fade');
             positionPortraitDialogue(dialogue, floating);
         }
         const floatingGuide = document.createElement('img');
@@ -4160,6 +4197,8 @@ body.hud-preview-active .game-notification {
             
             // Show welcome dialogue after a short delay
             setTimeout(() => {
+                const floating = document.getElementById('floatingGuidePortrait');
+                if (floating && !floating.hidden) { updateContextualGuide(); return; }
                 const dialogue = document.getElementById('portraitDialogue');
                 const profileImg = document.getElementById('profileImage');
                 
