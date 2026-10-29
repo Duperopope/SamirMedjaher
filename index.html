@@ -69,6 +69,9 @@ body.hud-preview-active .game-notification {
   .lang-switch .lang-flag { width: 18px; height: 13px; }
   .portrait-dialogue { max-width: calc(100vw - 24px); box-sizing: border-box; }
 }
+
+#floatingGuidePortrait:not([hidden]) { position:fixed;bottom:calc(18px + env(safe-area-inset-bottom));left:16px;width:72px;height:72px;object-fit:cover;border-radius:50%;border:2px solid var(--primary);background:#122238;z-index:10004;box-shadow:0 8px 24px rgba(0,0,0,.4);pointer-events:none; }
+#floatingGuidePortrait[hidden] {display:none!important}
 </style>
     
     <style>
@@ -1639,7 +1642,7 @@ body.hud-preview-active .game-notification {
             }
 
             adjustDialoguePosition() {
-                const portrait = document.getElementById('profileImage');
+                const portrait = document.getElementById('floatingGuidePortrait')?.hidden === false ? document.getElementById('floatingGuidePortrait') : document.getElementById('profileImage');
                 if (portrait) positionPortraitDialogue(this.dialogue, portrait);
             }
 
@@ -3993,12 +3996,58 @@ body.hud-preview-active .game-notification {
             requestAnimationFrame(() => {
                 portraitPositionQueued = false;
                 const d = document.getElementById('portraitDialogue');
-                const img = document.getElementById('profileImage');
+                const img = document.getElementById('floatingGuidePortrait')?.hidden === false ? document.getElementById('floatingGuidePortrait') : document.getElementById('profileImage');
                 if (d && img && d.classList.contains('show')) positionPortraitDialogue(d, img);
             });
         }
         window.addEventListener('scroll', refreshPortraitAnchor, {passive:true});
         window.addEventListener('resize', refreshPortraitAnchor);
+
+        // Contextual guide: the portrait travels with its speech bubble when its original position scrolls out.
+        let guideSection = '';
+        let guidePauseUntil = 0;
+        function updateContextualGuide() {
+            const original = document.getElementById('profileImage');
+            const floating = document.getElementById('floatingGuidePortrait');
+            const dialogue = document.getElementById('portraitDialogue');
+            if (!original || !floating || !dialogue) return;
+            if (!floating.src) floating.src = original.currentSrc || original.src;
+            const rect = original.getBoundingClientRect();
+            const originalVisible = rect.bottom > 0 && rect.top < innerHeight && rect.left < innerWidth && rect.right > 0;
+            floating.hidden = originalVisible;
+            if (originalVisible) {
+                refreshPortraitAnchor();
+                return;
+            }
+            const portfolio = document.querySelector('.portfolio-section');
+            const portfolioVisible = portfolio && portfolio.getBoundingClientRect().top < innerHeight * .75 &&
+                portfolio.getBoundingClientRect().bottom > innerHeight * .2;
+            const section = portfolioVisible ? 'portfolio' : 'general';
+            if (guideSection !== section && Date.now() > guidePauseUntil) {
+                guideSection = section;
+                if (typewriterInstances.has('portrait')) {
+                    typewriterInstances.get('portrait').stop();
+                    typewriterInstances.delete('portrait');
+                }
+                clearTimeout(window.portraitDialogueTimeout);
+                clearTimeout(window.portraitHideTimeout);
+                document.getElementById('portraitText').textContent = section === 'portfolio'
+                    ? (currentLang === 'fr' ? 'Voici mon portfolio : vous pouvez parcourir mes réalisations et ouvrir chaque projet.' : 'Here is my portfolio: explore my work and open each project.')
+                    : (currentLang === 'fr' ? 'Découvrez mon parcours et mes compétences en faisant défiler la page.' : 'Scroll to explore my experience and skills.');
+                dialogue.className = 'portrait-dialogue show';
+            }
+            if (!dialogue.classList.contains('show')) dialogue.classList.add('show');
+            positionPortraitDialogue(dialogue, floating);
+        }
+        const floatingGuide = document.createElement('img');
+        floatingGuide.id = 'floatingGuidePortrait';
+        floatingGuide.alt = '';
+        floatingGuide.hidden = true;
+        floatingGuide.setAttribute('aria-hidden','true');
+        document.body.appendChild(floatingGuide);
+        window.addEventListener('scroll', updateContextualGuide, {passive:true});
+        window.addEventListener('resize', updateContextualGuide);
+        window.addEventListener('load', updateContextualGuide);
 
         function resetProfile() {
             // Reset game stats
