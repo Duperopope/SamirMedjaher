@@ -78,8 +78,20 @@ body.hud-preview-active .game-notification {
   html, body { overflow-x: clip; overflow-y: auto; overscroll-behavior-y: auto; }
   #cfStage, .cf-stage, .cf-item { touch-action: pan-y pinch-zoom; }
   .cf-arrow { min-width: 46px; min-height: 46px; touch-action: manipulation; }
-  .scroll-indicator { pointer-events: none; }
-  .scroll-indicator > * { pointer-events: none; }
+  .scroll-indicator { touch-action: manipulation; }
+}
+
+/* Mobile reading: do not let floating controls cover the portfolio text. */
+@media (max-width: 700px) {
+  html, body { overflow-y: auto !important; touch-action: pan-y pinch-zoom; }
+  #cfStage { touch-action: pan-y pinch-zoom !important; }
+  .portfolio-section, .coverflow, .cf-caption, .cf-desc { overflow: visible; touch-action: pan-y pinch-zoom; }
+  .cf-caption { position: relative; min-height: 0; height: auto; padding: 22px 18px 36px; margin: 10px auto 0; max-width: 100%; }
+  .cf-title { overflow-wrap: anywhere; line-height: 1.25; }
+  .cf-desc { white-space: normal; overflow: visible; display: block; height: auto; max-height: none; overflow-wrap: break-word; }
+  .cf-arrow { touch-action: manipulation; }
+  .scroll-indicator { bottom: calc(12px + env(safe-area-inset-bottom)); padding: 10px 14px; }
+  .scroll-indicator.is-past-intro { display: none !important; }
 }
 </style>
     
@@ -4511,8 +4523,24 @@ body.hud-preview-active .game-notification {
         }
 
         function scrollToPortfolio() {
-            document.querySelector('.portfolio-section').scrollIntoView({behavior: 'smooth'});
+            const target = document.querySelector('.portfolio-section');
+            if (!target) return;
+            document.getElementById('scrollIndicator')?.classList.add('is-past-intro');
+            target.scrollIntoView({behavior: 'smooth', block: 'start'});
         }
+        // The intro shortcut must disappear as soon as the user starts reading.
+        function updatePortfolioShortcut() {
+            const indicator=document.getElementById('scrollIndicator');
+            const section=document.querySelector('.portfolio-section');
+            if (!indicator||!section) return;
+            const pastIntro=window.scrollY>100 || section.getBoundingClientRect().top<window.innerHeight*0.7;
+            indicator.classList.toggle('is-past-intro',pastIntro);
+            indicator.style.pointerEvents=pastIntro?'none':'auto';
+        }
+        window.addEventListener('scroll',updatePortfolioShortcut,{passive:true});
+        window.addEventListener('resize',updatePortfolioShortcut);
+        window.addEventListener('load',updatePortfolioShortcut);
+
 
         // ============================================
         // VERSION AUTO-LOADER
