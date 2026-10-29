@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive"><meta name="referrer" content="no-referrer">
+<title>Suivi des candidatures · espace privé</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui,sans-serif;background:#091522;color:#e7eef9}*{box-sizing:border-box}
+body{margin:0;padding:20px}main{max-width:760px;margin:32px auto}
+h1{font-size:clamp(1.7rem,6vw,2.4rem)}.intro{color:#a7bad1;line-height:1.6}
+.card{border:1px solid #35485d;background:#142439;border-radius:16px;padding:18px;margin:12px 0}
+.card h2{font-size:1.1rem;margin:0 0 8px}.card p{margin:0;color:#cbdaea;white-space:pre-wrap;line-height:1.55}
+a{color:#6bd5ff}#loading{font-weight:600}#error{color:#ffcc9a}
+footer{margin-top:30px;color:#91a4bd;font-size:.85rem}
+</style></head><body><main><h1>Suivi des candidatures</h1>
+<p class="intro">Espace personnel partagé. Voici les démarches que Samir a choisi de te montrer. Tu n'as rien à installer.</p>
+<div id="loading" role="status">Ouverture de ton espace…</div><div id="error" role="alert" hidden></div><section id="content" hidden><h2 id="space-title"></h2><p id="subtitle" class="intro"></p><div id="resources"></div></section>
+<footer>Cette synthèse est datée. Un email envoyé ne signifie pas que l'employeur a répondu.</footer></main>
+<script>
+'use strict';
+const endpoint='https://rvhrabwwxpvhupctecfg.supabase.co/functions/v1/career-portal?api=invite-exchange';
+async function boot(){
+const status=document.getElementById('loading'),error=document.getElementById('error');
+const invite=new URLSearchParams(location.hash.slice(1)).get('invite')||'';
+history.replaceState(null,'',location.pathname);
+const cut=invite.indexOf('.');
+if(cut<=0){status.hidden=true;error.hidden=false;error.textContent="Ce lien personnel est incomplet. Demande un nouveau lien à Samir.";return}
+try{
+const response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({id:invite.slice(0,cut),token:invite.slice(cut+1)}),credentials:'omit',cache:'no-store'});
+if(!response.ok)throw new Error('invite_refused');
+const data=await response.json();
+document.getElementById('space-title').textContent=data.space?.display_name||'Espace partagé';
+document.getElementById('subtitle').textContent=data.space?.subtitle||'';
+const list=document.getElementById('resources');
+for(const resource of data.resources||[]){
+const article=document.createElement('article');article.className='card';
+const title=document.createElement('h2');title.textContent=resource.title||'Information';
+const summary=document.createElement('p');summary.textContent=resource.summary||'';
+article.append(title,summary);list.append(article);
+}
+status.hidden=true;document.getElementById('content').hidden=false;
+}catch(e){status.hidden=true;error.hidden=false;error.textContent="L'accès n'a pas pu s'ouvrir. Réponds simplement au mail de Samir pour demander un nouveau lien.";}
+}
+boot();
+</script></body></html>
