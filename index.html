@@ -4054,7 +4054,8 @@ body.hud-preview-active .game-notification {
             const activeProject = portfolioVisible && typeof cfItems !== 'undefined' && cfItems[cfActive] ? cfItems[cfActive] : null;
             const title = activeProject ? activeProject.title.toLocaleLowerCase('fr').trim() : '';
             const lines = guideLines[currentLang] || guideLines.fr;
-            const key = portfolioVisible ? (lines[title] ? title : 'portfolio') : 'general';
+            const namedKey = Object.keys(lines).find(name => name !== 'general' && name !== 'portfolio' && (title.includes(name) || name.includes(title) && title.length > 3));
+            const key = portfolioVisible && activeProject ? 'project:' + cfActive + ':' + currentLang : (portfolioVisible ? 'portfolio:' + currentLang : 'general:' + currentLang);
             const now = Date.now();
             // React immediately when entering a new section or switching carousel projects.
             if (guideSection !== key) {
@@ -4066,7 +4067,13 @@ body.hud-preview-active .game-notification {
                 }
                 clearTimeout(window.portraitDialogueTimeout);
                 clearTimeout(window.portraitHideTimeout);
-                const variants = lines[key] || lines.portfolio;
+                const variants = portfolioVisible && activeProject
+                    ? (namedKey ? lines[namedKey] : [
+                        (currentLang === 'fr' ? 'Voici ' : 'Here is ') + activeProject.title + '. ' + activeProject.desc,
+                        activeProject.desc,
+                        (currentLang === 'fr' ? 'Ce projet : ' : 'This project: ') + activeProject.title + '. ' + activeProject.desc
+                      ])
+                    : (lines[portfolioVisible ? 'portfolio' : 'general'] || lines.general);
                 const choices = variants.filter(v => v !== guideLastMessage);
                 guideLastMessage = (choices.length ? choices : variants)[Math.floor(Math.random() * (choices.length || variants.length))];
                 output.textContent = guideLastMessage;
