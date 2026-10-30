@@ -93,6 +93,15 @@ body.hud-preview-active .game-notification {
   .scroll-indicator { bottom: calc(12px + env(safe-area-inset-bottom)); padding: 10px 14px; }
   .scroll-indicator.is-past-intro { display: none !important; }
 }
+
+/* Mobile recovery: native scrolling and nonblocking 3D carousel. */
+@media (max-width: 700px) {
+ html,body { overflow-x:hidden!important; overflow-y:visible!important; height:auto!important; min-height:100%!important; touch-action:auto!important; }
+ .cf-stage,.cf-item,.cf-card,.cf-cover,.portfolio-section {touch-action:pan-y!important;}
+ .cf-stage {isolation:isolate;}
+ .portrait-dialogue,.portrait-dialogue.show {pointer-events:none!important;}
+ .scroll-indicator.is-past-intro {display:none!important;}
+}
 </style>
     
     <style>
