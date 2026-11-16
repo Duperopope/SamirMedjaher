@@ -52,14 +52,10 @@ input{min-width:min(360px,100%);flex:1}a{color:var(--accent);text-decoration:und
 <div class="stat"><span class="num" id="ndrafts">—</span><span class="stat-label">Brouillons</span></div>
 <div class="stat"><span class="num" id="nfollowups">—</span><span class="stat-label">Événements de relance envoyée</span></div>
 </div>
-<nav aria-label="Sections">
-<button data-tab="applications" aria-selected="true">Candidatures et preuves</button>
-<button data-tab="leads" aria-selected="false">Toutes les offres / pistes</button>
-<button data-tab="tasks" aria-selected="false">Actions restantes</button>
-</nav>
+<p class="muted" id="tabinfo">Un seul suivi chronologique : dossiers, réponses et annonces France Travail. Filtrez au besoin sans changer de tableau de bord.</p>
 <section class="panel" style="margin-top:14px">
-<div id="tabinfo" class="muted">Ouvrez un dossier pour voir le lien de l'annonce, les documents référencés, les envois, les relances et les retours enregistrés.</div>
-<div class="controls"><label for="sort" class="small">Classement :</label><select id="sort" aria-label="Trier les dossiers"><option value="recent">Plus récents en premier</option><option value="oldest">Plus anciens en premier</option><option value="company">Entreprise A–Z</option></select><input id="search" type="search" placeholder="Rechercher entreprise, poste, statut, référence…" aria-label="Rechercher"><select id="filter" aria-label="Filtrer"><option value="all">Tous les dossiers</option><option value="submitted">Avec date de dépôt</option><option value="draft">Brouillons</option><option value="followup">Avec relance enregistrée</option><option value="failed">Échec de livraison ou refus</option></select></div>
+<p class="muted">Cliquez sur une entrée pour consulter les messages complets et les preuves disponibles.</p>
+<div class="controls"><label for="category" class="small">Afficher :</label><select id="category" aria-label="Type de suivi"><option value="all">Tout le suivi</option><option value="applications">Candidatures</option><option value="received">Réponses et confirmations reçues</option><option value="france">Offres France Travail</option><option value="tasks">Actions restantes</option></select><label for="sort" class="small">Classement :</label><select id="sort" aria-label="Trier les dossiers"><option value="recent">Plus récents en premier</option><option value="oldest">Plus anciens en premier</option><option value="company">Entreprise A–Z</option></select><input id="search" type="search" placeholder="Rechercher entreprise, poste, statut, référence…" aria-label="Rechercher"><select id="filter" aria-label="Filtrer"><option value="all">Tous les dossiers</option><option value="submitted">Avec date de dépôt</option><option value="draft">Brouillons</option><option value="followup">Avec relance enregistrée</option><option value="failed">Échec de livraison ou refus</option></select></div>
 <div class="count" id="count"></div><div id="results" class="list"></div>
 </section>
 </div>
@@ -71,7 +67,7 @@ const $=id=>document.getElementById(id);
 const fullInvite=new URLSearchParams(location.hash.slice(1)).get("invite")||"";
 const sep=fullInvite.indexOf(".");
 const credentials=sep>0?{id:fullInvite.slice(0,sep),token:fullInvite.slice(sep+1)}:null;
-let data=null,tab="applications";
+let data=null;
 const date=v=>{if(!v)return "Non renseigné";const d=new Date(v);return Number.isNaN(d.getTime())?"Non renseigné":d.toLocaleString("fr-FR",{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"})};
 const txt=(tag,value,cls)=>{const e=document.createElement(tag);if(cls)e.className=cls;e.textContent=value==null?"":String(value);return e};
 function link(label,href){if(typeof href!=="string")return null;try{const u=new URL(href);if(!["https:","http:"].includes(u.protocol)||u.username||u.password)return null;const a=txt("a",label);a.href=u.href;a.target="_blank";a.rel="noopener noreferrer";return a}catch{return null}}
@@ -96,7 +92,9 @@ function mailCard(m){
  }
  return el
 }
-function appCard(a){const d=document.createElement("details");d.className="item";const s=document.createElement("summary");const left=txt("div");left.append(txt("div",a.company,"name"),txt("div",a.role,"role"));const meta=txt("div","","meta");meta.append(pill(a.status),txt("span",a.submitted_at?"Dépôt daté : "+date(a.submitted_at):"Aucune date de dépôt","small"));meta.append(txt("span","Activité : "+date(a.last_activity_at),"date-mark"));left.append(meta);s.append(left);d.append(s);
+function appCard(a){const d=document.createElement("details");d.className="item";const s=document.createElement("summary");const left=txt("div");left.append(txt("div",a.company,"name"),txt("div",a.role,"role"));const meta=txt("div","","meta");meta.append(pill(a.status),txt("span",a.submitted_at?"Dépôt daté : "+date(a.submitted_at):"Aucune date de dépôt","small"));meta.append(txt("span","Activité : "+date(a.last_activity_at),"date-mark"));
+ const nReceived=(a.mail||[]).filter(m=>m.direction==="received").length;
+ if(nReceived)meta.append(txt("span",nReceived+" réponse(s) reçue(s)","date-mark"));left.append(meta);s.append(left);d.append(s);
  const top=txt("div","","item-toplink");
  const offer=link("Voir l'offre d'emploi",a.offer_url);
  if(offer)top.append(offer);else top.append(txt("span","Lien d'offre absent du registre","small"));
@@ -104,8 +102,8 @@ function appCard(a){const d=document.createElement("details");d.className="item"
  const b=txt("div","","body");const fields=txt("div","","fields");pair(fields,"Canal déclaré",a.channel);pair(fields,"Lieu",a.location);pair(fields,"Dernière mise à jour",date(a.updated_at));b.append(fields);
  const links=txt("div","","links");for(const [label,u] of [["Voir l'annonce",a.offer_url],["Voir le CV référencé",a.cv_url],["Voir la lettre référencée",a.letter_url]]){const el=link(label,u);if(el)links.append(el)}if(links.childNodes.length)b.append(links);else b.append(txt("p","Aucun lien d'annonce ou de document exploitable enregistré.","muted"));
  const messages=a.mail||[];
- b.append(txt("h3","Messages envoyés et réponses ("+messages.length+")","section-label"));
- if(messages.length){for(const m of messages)b.append(mailCard(m))}
+ b.append(txt("h3","Courriels envoyés et reçus ("+messages.length+")","section-label"));
+ if(messages.length){for(const m of [...messages].sort((a,b)=>Date.parse(b.at)-Date.parse(a.at)))b.append(mailCard(m))}
  else b.append(txt("p","Aucune copie intégrale de courriel retrouvée pour ce dossier. Les étapes ci-dessous sont des traces enregistrées, pas le texte d'un message.","muted"));
  b.append(txt("h3","Étapes du recrutement","section-label"));
  timeline(b,a.evidence||[]);d.append(b);return d}
@@ -114,46 +112,72 @@ function leadCard(a){const d=document.createElement("details");d.className="item
  if(offer)top.append(offer);else top.append(txt("span","Pas de lien d'offre","small"));d.append(top);
  const b=txt("div","","body");const fields=txt("div","","fields");pair(fields,"Lieu",a.location);pair(fields,"Référence de l'offre",a.external_reference);pair(fields,"État de la fiche offre",a.offer_status);pair(fields,"Dernière vérification",date(a.verified_at));b.append(fields);const el=link("Ouvrir l'annonce",a.offer_url);if(el){const ls=txt("div","","links");ls.append(el);b.append(ls)}else b.append(txt("p","Aucun lien source exploitable.","muted"));d.append(b);return d}
 function taskCard(t){const d=document.createElement("details");d.className="item";const s=document.createElement("summary");const left=txt("div");left.append(txt("div",t.title,"name"),txt("div",t.company||"Action Career OS","role"));left.append(pill(t.status));s.append(left);d.append(s);const b=txt("div","","body");pair(b,"Échéance",date(t.due_at));const a=link(t.action_label||"Ouvrir l'action",t.action_url);if(a){const ls=txt("div","","links");ls.append(a);b.append(ls)}d.append(b);return d}
-function chooseItems(){return tab==="applications"?data.applications:tab==="leads"?data.leads:data.tasks}
+function receivedCard(m){
+ const el=document.createElement("details");el.className="item";const head=document.createElement("summary");const main=txt("div");
+ main.append(txt("div",m.subject||"Réponse du recruteur","name"));
+ main.append(txt("div",m.from||"Expéditeur non renseigné","role"));
+ const meta=txt("div","","meta");meta.append(pill("Message reçu"),txt("span",date(m.at),"date-mark"));
+ main.append(meta);head.append(main);el.append(head);
+ const body=txt("div","","body");body.append(mailCard(m));el.append(body);return el
+}
+function allEntries(){
+ const cat=$("category").value;
+ const apps=(data.applications||[]).map(a=>({...a,_kind:"application",_when:a.last_activity_at}));
+ const received=(data.mailbox||[]).filter(m=>m.direction==="received")
+  .map(m=>({...m,_kind:"received",_when:m.at}));
+ const orphan=received.filter(m=>!m.linked_application_id);
+ const france=(data.france_travail||[]).map(l=>({...l,_kind:"offer",_when:l.created_at}));
+ const tasks=(data.tasks||[]).map(t=>({...t,_kind:"task",_when:t.due_at}));
+ if(cat==="applications")return apps;
+ if(cat==="received")return received;
+ if(cat==="france")return france;
+ if(cat==="tasks")return tasks;
+ return [...apps,...orphan,...france];
+}
 function renderList(){
  if(!data)return;
  const query=$("search").value.trim().toLocaleLowerCase("fr-FR");const filter=$("filter").value;
- const items=chooseItems().filter(x=>{
- const hay=[x.company,x.role,x.status,x.title,x.external_reference,x.channel,...(x.evidence||[]).map(y=>y.summary)].filter(Boolean).join(" ").toLocaleLowerCase("fr-FR");
+ const all=allEntries();
+ const items=all.filter(x=>{
+ const hay=[x.company,x.role,x.status,x.title,x.external_reference,x.channel,x.subject,x.from,x.body,
+ ...(x.evidence||[]).map(y=>y.summary)].filter(Boolean).join(" ").toLocaleLowerCase("fr-FR");
  if(query&&!hay.includes(query))return false;
- if(tab!=="applications"||filter==="all")return true;
+ if(x._kind!=="application"||filter==="all")return true;
  if(filter==="submitted")return !!x.submitted_at;
  if(filter==="draft")return x.status==="draft";
- if(filter==="followup")return x.evidence.some(e=>e.kind==="followup_sent");
- if(filter==="failed")return /échec|non.distrib|refus|rejet|rejected/i.test(x.status)||x.evidence.some(e=>["application_delivery_failed","delivery_failed","application_rejected"].includes(e.kind));
+ if(filter==="followup")return (x.evidence||[]).some(e=>e.kind==="followup_sent");
+ if(filter==="failed")return /échec|non.distrib|refus|rejet|rejected/i.test(x.status)||(x.evidence||[]).some(e=>["application_delivery_failed","delivery_failed","application_rejected"].includes(e.kind));
  return true;
  });
  const sort=$("sort").value;
  items.sort((a,b)=>{
   if(sort==="company")return String(a.company||a.title||"").localeCompare(String(b.company||b.title||""),"fr");
-  const getTime=x=>Date.parse(x.last_activity_at||x.created_at||x.updated_at||x.due_at||"1970-01-01")||0;
+  const getTime=x=>Date.parse(x._when||x.last_activity_at||x.created_at||x.updated_at||x.due_at||"1970-01-01")||0;
   return sort==="oldest"?getTime(a)-getTime(b):getTime(b)-getTime(a)
  });
- $("count").textContent=items.length+" résultat(s) sur "+chooseItems().length;
- const root=$("results");root.replaceChildren();for(const item of items)root.append(tab==="applications"?appCard(item):tab==="leads"?leadCard(item):taskCard(item));
+ $("count").textContent=items.length+" résultat(s) sur "+all.length;
+ const root=$("results");root.replaceChildren();
+ for(const item of items)root.append(item._kind==="application"?appCard(item):item._kind==="received"?receivedCard(item):item._kind==="offer"?leadCard(item):taskCard(item));
  if(!items.length)root.append(txt("p","Aucun résultat pour ces filtres.","empty"))
 }
-function showTab(next){tab=next;for(const b of document.querySelectorAll("[data-tab]"))b.setAttribute("aria-selected",String(b.dataset.tab===tab));
- $("filter").hidden=tab!=="applications";$("filter").value="all";
- $("tabinfo").textContent=tab==="applications"?"Ouvrez un dossier pour consulter les liens, documents, envois, relances et retours.":tab==="leads"?"Toutes les pistes recensées, avec lien source quand il existe. Leur présence ne prouve pas une candidature.":"Actions actives du registre Career OS, sans lancement automatique.";
- renderList()}
+function changeCategory(){
+ $("filter").hidden=$("category").value!=="applications";
+ $("filter").value="all";
+ renderList()
+}
 async function load(){
  if(!credentials||!/^[0-9a-f-]{36}$/i.test(credentials.id)||credentials.token.length<32){$("notice").className="error";$("notice").textContent="Lien personnel incomplet : ouvrez le lien complet reçu par e-mail, avec la partie #invite=.";return}
  $("refresh").disabled=true;$("notice").className="muted";$("notice").textContent="Lecture du registre Career Core…";
  try{
  const r=await fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(credentials),mode:"cors",cache:"no-store",credentials:"omit"});
  const v=await r.json();if(!r.ok)throw Error(v.error||"Erreur du serveur");
- if(!v.totals||!Array.isArray(v.applications)||!Array.isArray(v.leads)||!Array.isArray(v.tasks))throw Error("Données incomplètes");
+ if(!v.totals||!Array.isArray(v.applications)||!Array.isArray(v.mailbox)||!Array.isArray(v.france_travail)||!Array.isArray(v.tasks))throw Error("Données incomplètes");
  data=v;for(const [id,n] of Object.entries({nleads:v.totals.leads,noffers:v.totals.offers,napps:v.totals.applications,nsent:v.totals.submitted_dated,ndrafts:v.totals.drafts,nfollowups:v.totals.followups}))$(id).textContent=Number(n||0).toLocaleString("fr-FR");
  $("updated").textContent="Actualisé le "+date(v.generated_at);$("dashboard").hidden=false;$("notice").textContent="Données chargées.";renderList();
  }catch(err){$("notice").className="error";$("notice").textContent="Impossible de charger le suivi : "+String(err.message||err)}
  finally{$("refresh").disabled=false}
 }
-for(const b of document.querySelectorAll("[data-tab]"))b.addEventListener("click",()=>showTab(b.dataset.tab));
+$("category").addEventListener("change",changeCategory);
+$("filter").hidden=true;
 $("search").addEventListener("input",renderList);$("filter").addEventListener("change",renderList);$("sort").addEventListener("change",renderList);$("refresh").addEventListener("click",load);load();
 </script></body></html>
