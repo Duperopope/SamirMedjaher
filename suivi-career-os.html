@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="fr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'nonce-career-viewer-2026'; style-src 'nonce-career-viewer-2026'; connect-src https://rvhrabwwxpvhupctecfg.supabase.co; img-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'">
+<title>Suivi Career OS — accès privé</title>
+<style nonce="career-viewer-2026">
+:root{color-scheme:dark;--bg:#081321;--panel:#121f31;--panel2:#192941;--text:#f1f6fc;--muted:#b2c1d4;--line:#33445b;--accent:#58c4f3;--good:#7bdfb9;--warm:#f6c679}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 85% 0%,#17334b 0,transparent 38%),var(--bg);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--text)}
+main{max-width:1120px;margin:auto;padding:32px 20px 72px}header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;border-bottom:1px solid var(--line);padding-bottom:22px}
+.brand{font-size:13px;font-weight:750;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}h1{font-size:clamp(28px,4vw,44px);margin:10px 0 8px;letter-spacing:-.03em}h2{font-size:19px;margin:0 0 14px}
+.sub{color:var(--muted);margin:0;max-width:740px}.muted{color:var(--muted)}.badge{border:1px solid var(--line);padding:7px 11px;border-radius:999px;font-size:12px;color:var(--good)}
+#status{margin:20px 0 0;min-height:30px}.error{border:1px solid #aa6673;background:#442732;padding:20px;border-radius:12px;color:#fff}
+.actions{display:flex;align-items:center;gap:12px;margin:23px 0;flex-wrap:wrap}
+button{background:var(--accent);color:#071321;border:0;border-radius:9px;padding:11px 18px;font:inherit;font-weight:700;cursor:pointer}button:disabled{opacity:.5;cursor:progress}
+.panel{padding:22px;background:var(--panel);border:1px solid var(--line);border-radius:16px;margin-top:19px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px}
+.stat{background:var(--panel2);padding:18px;border-radius:12px;border:1px solid var(--line)}.number{display:block;font-size:32px;font-weight:760;letter-spacing:-.035em}.label{font-size:13px;color:var(--muted)}
+table{width:100%;border-collapse:collapse;text-align:left}th,td{padding:12px 10px;border-bottom:1px solid var(--line);vertical-align:top}th{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+td small{display:block;color:var(--muted)}.tableWrap{overflow-x:auto}.statuspill{display:inline-block;padding:3px 9px;border-radius:9px;background:#263b51;color:#e0f1ff;font-size:12px;max-width:400px}
+.empty{padding:20px;color:var(--muted)}.hint{font-size:13px;color:var(--muted);padding:16px 0}a{color:var(--accent)}[hidden]{display:none!important}
+@media(max-width:630px){main{padding:18px 14px 44px}.panel{padding:13px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}table{font-size:13px}th,td{padding:10px 6px}}
+</style></head>
+<body><main>
+<header><div class="brand">Career OS / Espace partagé</div><div class="badge">Accès privé en lecture seule</div></header>
+<h1>Suivi des candidatures</h1><p class="sub">Vue destinée à Anaëlle — état issu de Career Core, mis à jour à la demande. Une offre repérée n'est pas une candidature envoyée.</p>
+<div class="actions"><button id="refresh" type="button">Actualiser le suivi</button><span id="updated" class="muted"></span></div>
+<div id="status" aria-live="polite">Chargement du suivi…</div>
+<div id="dashboard" hidden>
+<section class="stats" aria-label="Indicateurs">
+ <div class="stat"><span class="number" id="nleads">—</span><span class="label">Pistes / dossiers recensés</span></div>
+ <div class="stat"><span class="number" id="noffers">—</span><span class="label">Fiches d'offres enregistrées</span></div>
+ <div class="stat"><span class="number" id="napps">—</span><span class="label">Dossiers de candidature</span></div>
+ <div class="stat"><span class="number" id="nsent">—</span><span class="label">Avec date de dépôt déclarée</span></div>
+ <div class="stat"><span class="number" id="ndrafts">—</span><span class="label">Brouillons</span></div>
+</section>
+<section class="panel"><h2>Candidatures récemment mises à jour</h2><p class="muted">Le statut est repris du registre. Une date enregistrée ne constitue pas, à elle seule, une preuve de réception par l'employeur.</p><div class="tableWrap"><table><thead><tr><th>Entreprise / poste</th><th>État</th><th>Dépôt</th></tr></thead><tbody id="applications"></tbody></table></div></section>
+<section class="panel"><h2>Dernières pistes enregistrées</h2><p class="muted">Ces pistes peuvent être à qualifier, inactives ou déjà connues. Elles ne sont pas comptées comme des candidatures envoyées.</p><div class="tableWrap"><table><thead><tr><th>Entreprise / poste</th><th>État dans Core</th><th>Ajout</th></tr></thead><tbody id="leads"></tbody></table></div></section>
+</div>
+<p class="hint">Cette page ne publie aucune donnée sans invitation valide. Elle n'autorise ni l'envoi de candidatures, ni les relances, ni la modification des dossiers.</p>
+</main>
+<script nonce="career-viewer-2026">
+"use strict";
+const api="https://rvhrabwwxpvhupctecfg.supabase.co/functions/v1/career-portal?api=guest-dashboard";
+const $=id=>document.getElementById(id);
+const invite=new URLSearchParams(location.hash.slice(1)).get("invite")||"";
+const dot=invite.indexOf(".");
+const creds=dot>0?{id:invite.slice(0,dot),token:invite.slice(dot+1)}:null;
+const dateText=v=>{if(!v)return "Non renseignée";const d=new Date(v);return Number.isNaN(d.getTime())?"Non renseignée":d.toLocaleDateString("fr-FR",{day:"2-digit",month:"short",year:"numeric"})};
+function cell(tr,value,small){const td=document.createElement("td");td.textContent=value??"";if(small){const e=document.createElement("small");e.textContent=small;td.append(e)}tr.append(td);return td}
+function populate(id,items,kind){const body=$(id);body.replaceChildren();for(const item of items){const tr=document.createElement("tr");cell(tr,item.company||"Entreprise non renseignée",item.role||"");const td=cell(tr,"");const p=document.createElement("span");p.className="statuspill";p.textContent=item.status||"Sans statut";td.append(p);cell(tr,kind==="apps"?dateText(item.submitted_at):dateText(item.created_at));body.append(tr)}if(!items.length){const tr=document.createElement("tr");const td=document.createElement("td");td.colSpan=3;td.className="empty";td.textContent="Aucune entrée à afficher";tr.append(td);body.append(tr)}}
+async function load(){
+ if(!creds||!/^[a-f0-9-]{36}$/i.test(creds.id)||creds.token.length<32){$("status").className="error";$("status").textContent="Invitation absente ou incomplète. Ouvrez le lien personnel reçu par courriel, sans supprimer la partie #invite=.";return}
+ $("refresh").disabled=true;$("status").className="muted";$("status").textContent="Actualisation des données…";
+ try{
+ const resp=await fetch(api,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(creds),cache:"no-store",mode:"cors",credentials:"omit"});
+ const d=await resp.json();if(!resp.ok)throw Error(d.error||"Erreur du serveur");
+ if(!d.totals||!Array.isArray(d.latest_leads)||!Array.isArray(d.recent_applications))throw Error("Réponse incomplète");
+ for(const [key,value] of Object.entries({nleads:d.totals.leads,noffers:d.totals.offers,napps:d.totals.applications,nsent:d.totals.submitted_dated,ndrafts:d.totals.drafts}))$(key).textContent=Number(value||0).toLocaleString("fr-FR");
+ populate("applications",d.recent_applications,"apps");populate("leads",d.latest_leads,"leads");
+ $("updated").textContent="Mise à jour : "+new Date(d.generated_at).toLocaleString("fr-FR");
+ $("status").textContent="Données chargées depuis Career Core.";$("dashboard").hidden=false;
+ }catch(e){$("status").className="error";$("status").textContent=e.message==="invalid_or_expired_invite"?"Invitation non valide ou révoquée. Demandez un nouvel accès.":"Échec du chargement : "+String(e.message||e)}
+ finally{$("refresh").disabled=false}
+}
+$("refresh").addEventListener("click",load);load();
+</script></body></html>
