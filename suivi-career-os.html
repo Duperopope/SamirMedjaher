@@ -3,65 +3,117 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow,noarchive"><meta name="referrer" content="no-referrer">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'nonce-career-viewer-2026'; style-src 'nonce-career-viewer-2026'; connect-src https://rvhrabwwxpvhupctecfg.supabase.co; img-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'">
-<title>Suivi Career OS — accès privé</title>
+<title>Career OS — suivi partagé</title>
 <style nonce="career-viewer-2026">
-:root{color-scheme:dark;--bg:#081321;--panel:#121f31;--panel2:#192941;--text:#f1f6fc;--muted:#b2c1d4;--line:#33445b;--accent:#58c4f3;--good:#7bdfb9;--warm:#f6c679}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 85% 0%,#17334b 0,transparent 38%),var(--bg);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--text)}
-main{max-width:1120px;margin:auto;padding:32px 20px 72px}header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;border-bottom:1px solid var(--line);padding-bottom:22px}
-.brand{font-size:13px;font-weight:750;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}h1{font-size:clamp(28px,4vw,44px);margin:10px 0 8px;letter-spacing:-.03em}h2{font-size:19px;margin:0 0 14px}
-.sub{color:var(--muted);margin:0;max-width:740px}.muted{color:var(--muted)}.badge{border:1px solid var(--line);padding:7px 11px;border-radius:999px;font-size:12px;color:var(--good)}
-#status{margin:20px 0 0;min-height:30px}.error{border:1px solid #aa6673;background:#442732;padding:20px;border-radius:12px;color:#fff}
-.actions{display:flex;align-items:center;gap:12px;margin:23px 0;flex-wrap:wrap}
-button{background:var(--accent);color:#071321;border:0;border-radius:9px;padding:11px 18px;font:inherit;font-weight:700;cursor:pointer}button:disabled{opacity:.5;cursor:progress}
-.panel{padding:22px;background:var(--panel);border:1px solid var(--line);border-radius:16px;margin-top:19px}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px}
-.stat{background:var(--panel2);padding:18px;border-radius:12px;border:1px solid var(--line)}.number{display:block;font-size:32px;font-weight:760;letter-spacing:-.035em}.label{font-size:13px;color:var(--muted)}
-table{width:100%;border-collapse:collapse;text-align:left}th,td{padding:12px 10px;border-bottom:1px solid var(--line);vertical-align:top}th{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
-td small{display:block;color:var(--muted)}.tableWrap{overflow-x:auto}.statuspill{display:inline-block;padding:3px 9px;border-radius:9px;background:#263b51;color:#e0f1ff;font-size:12px;max-width:400px}
-.empty{padding:20px;color:var(--muted)}.hint{font-size:13px;color:var(--muted);padding:16px 0}a{color:var(--accent)}[hidden]{display:none!important}
-@media(max-width:630px){main{padding:18px 14px 44px}.panel{padding:13px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}table{font-size:13px}th,td{padding:10px 6px}}
-</style></head>
-<body><main>
-<header><div class="brand">Career OS / Espace partagé</div><div class="badge">Accès privé en lecture seule</div></header>
-<h1>Suivi des candidatures</h1><p class="sub">Vue destinée à Anaëlle — état issu de Career Core, mis à jour à la demande. Une offre repérée n'est pas une candidature envoyée.</p>
-<div class="actions"><button id="refresh" type="button">Actualiser le suivi</button><span id="updated" class="muted"></span></div>
-<div id="status" aria-live="polite">Chargement du suivi…</div>
+:root{color-scheme:dark;--bg:#07111d;--surface:#101d2d;--surface2:#192b3c;--border:#304458;--ink:#eff6fd;--muted:#b6c6d6;--accent:#5ed1fa;--green:#73dfbd;--amber:#f5c47a;--red:#fd8992}
+*{box-sizing:border-box}body{font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;background:radial-gradient(ellipse at top right,#193a54 0,transparent 37%),var(--bg);color:var(--ink);margin:0}
+main{max-width:1240px;margin:0 auto;padding:28px 20px 70px}header{display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid var(--border);padding-bottom:20px}
+.brand{color:var(--accent);font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:800}.private{font-size:12px;padding:5px 11px;border:1px solid var(--border);border-radius:100px;color:var(--green)}
+h1{font-size:clamp(28px,4vw,43px);margin:20px 0 8px;line-height:1.1;letter-spacing:-.04em}h2{font-size:19px;letter-spacing:-.015em;margin:0 0 8px}
+p{margin:6px 0}.muted{color:var(--muted)}.lede{max-width:900px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:11px;margin:22px 0}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:16px}.num{display:block;font-size:28px;font-weight:760;letter-spacing:-.035em}.stat-label{color:var(--muted);font-size:12px}
+nav{display:flex;gap:8px;margin:22px 0 0;flex-wrap:wrap}button{cursor:pointer;background:var(--surface2);color:var(--ink);font:inherit;border:1px solid var(--border);padding:10px 13px;border-radius:9px}button:hover{border-color:var(--accent)}button[aria-selected=true],button.primary{background:var(--accent);color:#07121e;border-color:var(--accent);font-weight:700}
+button:disabled{opacity:.5;cursor:progress}.controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:18px 0}
+input,select{background:var(--surface);border:1px solid var(--border);color:var(--ink);font:inherit;padding:12px;border-radius:10px;max-width:100%}
+input{min-width:min(360px,100%);flex:1}a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}a:hover{color:#b7eeff}
+#notice{padding:12px 0;min-height:40px}.error{padding:16px!important;color:#fff;background:#5d2731;border-radius:10px;border:1px solid var(--red)}
+.panel{background:var(--surface);border:1px solid var(--border);padding:18px;border-radius:15px}.count{color:var(--muted);font-size:13px}.list{display:grid;gap:10px;margin:16px 0}
+.item{border:1px solid var(--border);background:var(--surface);border-radius:12px;overflow:hidden}.item summary{padding:15px;cursor:pointer;list-style:none;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center}.item summary::-webkit-details-marker{display:none}.item summary:after{content:"Ouvrir";font-size:12px;color:var(--accent)}.item[open] summary:after{content:"Fermer"}
+.item summary:hover{background:#182a3d}.item .body{border-top:1px solid var(--border);padding:15px 17px}.name{font-size:17px;font-weight:750;line-height:1.3}.role{color:var(--muted);font-size:13px;margin-top:2px}
+.pill{font-size:12px;display:inline-block;max-width:100%;padding:3px 9px;background:#273d51;border:1px solid #3d5970;border-radius:999px;overflow-wrap:anywhere}.meta{display:flex;gap:8px 14px;align-items:center;flex-wrap:wrap;margin-top:8px}.small{font-size:12px;color:var(--muted)}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:14px 0}.field{background:#17283a;border-radius:9px;padding:10px}.field b{display:block;font-size:12px;color:var(--muted);font-weight:600;margin-bottom:5px}.field span{overflow-wrap:anywhere}
+.links{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}.links a{padding:7px 10px;border:1px solid var(--border);border-radius:7px;text-decoration:none;font-size:13px}
+.timeline{border-left:2px solid var(--border);padding-left:15px;margin:14px 0}.event{position:relative;margin:15px 0}.event:before{content:"";position:absolute;left:-22px;top:7px;width:10px;height:10px;border-radius:50%;background:var(--accent)}.event .kind{font-weight:700}.event .desc{white-space:pre-wrap;overflow-wrap:anywhere}.event .reference{font-size:12px;color:var(--muted);overflow-wrap:anywhere}
+.empty{padding:24px;color:var(--muted);border:1px dashed var(--border);border-radius:10px}.footnote{color:var(--muted);font-size:12px;line-height:1.5;margin:22px 0}
+@media(max-width:700px){main{padding:16px 12px 42px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.item summary{padding:12px}.name{font-size:15px}.panel{padding:12px}}
+</style></head><body><main>
+<header><div class="brand">Career OS / Suivi partagé</div><div class="private">Accès privé • lecture seule</div></header>
+<h1>Suivi des candidatures</h1>
+<p class="lede muted">Pour Anaëlle. Les offres, dossiers, tentatives d'envoi et relances sont séparés. La présence d'un dossier ne signifie pas qu'une candidature a été envoyée.</p>
+<div class="controls"><button id="refresh" class="primary" type="button">Actualiser les données</button><span class="small" id="updated"></span></div>
+<div id="notice" role="status" aria-live="polite">Chargement…</div>
 <div id="dashboard" hidden>
-<section class="stats" aria-label="Indicateurs">
- <div class="stat"><span class="number" id="nleads">—</span><span class="label">Pistes / dossiers recensés</span></div>
- <div class="stat"><span class="number" id="noffers">—</span><span class="label">Fiches d'offres enregistrées</span></div>
- <div class="stat"><span class="number" id="napps">—</span><span class="label">Dossiers de candidature</span></div>
- <div class="stat"><span class="number" id="nsent">—</span><span class="label">Avec date de dépôt déclarée</span></div>
- <div class="stat"><span class="number" id="ndrafts">—</span><span class="label">Brouillons</span></div>
-</section>
-<section class="panel"><h2>Candidatures récemment mises à jour</h2><p class="muted">Le statut est repris du registre. Une date enregistrée ne constitue pas, à elle seule, une preuve de réception par l'employeur.</p><div class="tableWrap"><table><thead><tr><th>Entreprise / poste</th><th>État</th><th>Dépôt</th></tr></thead><tbody id="applications"></tbody></table></div></section>
-<section class="panel"><h2>Dernières pistes enregistrées</h2><p class="muted">Ces pistes peuvent être à qualifier, inactives ou déjà connues. Elles ne sont pas comptées comme des candidatures envoyées.</p><div class="tableWrap"><table><thead><tr><th>Entreprise / poste</th><th>État dans Core</th><th>Ajout</th></tr></thead><tbody id="leads"></tbody></table></div></section>
+<div class="stats">
+<div class="stat"><span class="num" id="nleads">—</span><span class="stat-label">Pistes recensées</span></div>
+<div class="stat"><span class="num" id="noffers">—</span><span class="stat-label">Offres enregistrées</span></div>
+<div class="stat"><span class="num" id="napps">—</span><span class="stat-label">Dossiers de candidature</span></div>
+<div class="stat"><span class="num" id="nsent">—</span><span class="stat-label">Dossiers datés, pas forcément reçus</span></div>
+<div class="stat"><span class="num" id="ndrafts">—</span><span class="stat-label">Brouillons</span></div>
+<div class="stat"><span class="num" id="nfollowups">—</span><span class="stat-label">Événements de relance envoyée</span></div>
 </div>
-<p class="hint">Cette page ne publie aucune donnée sans invitation valide. Elle n'autorise ni l'envoi de candidatures, ni les relances, ni la modification des dossiers.</p>
-</main>
-<script nonce="career-viewer-2026">
+<nav aria-label="Sections">
+<button data-tab="applications" aria-selected="true">Candidatures et preuves</button>
+<button data-tab="leads" aria-selected="false">Toutes les offres / pistes</button>
+<button data-tab="tasks" aria-selected="false">Actions restantes</button>
+</nav>
+<section class="panel" style="margin-top:14px">
+<div id="tabinfo" class="muted">Ouvrez un dossier pour voir le lien de l'annonce, les documents référencés, les envois, les relances et les retours enregistrés.</div>
+<div class="controls"><input id="search" type="search" placeholder="Rechercher entreprise, poste, statut, référence…" aria-label="Rechercher"><select id="filter" aria-label="Filtrer"><option value="all">Tous les dossiers</option><option value="submitted">Avec date de dépôt</option><option value="draft">Brouillons</option><option value="followup">Avec relance enregistrée</option><option value="failed">Échec de livraison ou refus</option></select></div>
+<div class="count" id="count"></div><div id="results" class="list"></div>
+</section>
+</div>
+<p class="footnote">Source : Career Core Supabase. Les références Gmail sont des traces d'événements et non des liens d'accès à la boîte privée. Un envoi daté n'atteste pas à lui seul de la réception. Aucune modification ni relance n'est possible depuis cette vue.</p>
+</main><script nonce="career-viewer-2026">
 "use strict";
-const api="https://rvhrabwwxpvhupctecfg.supabase.co/functions/v1/career-portal?api=guest-dashboard";
+const API="https://rvhrabwwxpvhupctecfg.supabase.co/functions/v1/career-portal?api=guest-dashboard";
 const $=id=>document.getElementById(id);
-const invite=new URLSearchParams(location.hash.slice(1)).get("invite")||"";
-const dot=invite.indexOf(".");
-const creds=dot>0?{id:invite.slice(0,dot),token:invite.slice(dot+1)}:null;
-const dateText=v=>{if(!v)return "Non renseignée";const d=new Date(v);return Number.isNaN(d.getTime())?"Non renseignée":d.toLocaleDateString("fr-FR",{day:"2-digit",month:"short",year:"numeric"})};
-function cell(tr,value,small){const td=document.createElement("td");td.textContent=value??"";if(small){const e=document.createElement("small");e.textContent=small;td.append(e)}tr.append(td);return td}
-function populate(id,items,kind){const body=$(id);body.replaceChildren();for(const item of items){const tr=document.createElement("tr");cell(tr,item.company||"Entreprise non renseignée",item.role||"");const td=cell(tr,"");const p=document.createElement("span");p.className="statuspill";p.textContent=item.status||"Sans statut";td.append(p);cell(tr,kind==="apps"?dateText(item.submitted_at):dateText(item.created_at));body.append(tr)}if(!items.length){const tr=document.createElement("tr");const td=document.createElement("td");td.colSpan=3;td.className="empty";td.textContent="Aucune entrée à afficher";tr.append(td);body.append(tr)}}
+const fullInvite=new URLSearchParams(location.hash.slice(1)).get("invite")||"";
+const sep=fullInvite.indexOf(".");
+const credentials=sep>0?{id:fullInvite.slice(0,sep),token:fullInvite.slice(sep+1)}:null;
+let data=null,tab="applications";
+const date=v=>{if(!v)return "Non renseigné";const d=new Date(v);return Number.isNaN(d.getTime())?"Non renseigné":d.toLocaleString("fr-FR",{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"})};
+const txt=(tag,value,cls)=>{const e=document.createElement(tag);if(cls)e.className=cls;e.textContent=value==null?"":String(value);return e};
+function link(label,href){if(typeof href!=="string")return null;try{const u=new URL(href);if(!["https:","http:"].includes(u.protocol)||u.username||u.password)return null;const a=txt("a",label);a.href=u.href;a.target="_blank";a.rel="noopener noreferrer";return a}catch{return null}}
+function pair(parent,label,value){const p=txt("div","","field");p.append(txt("b",label),txt("span",value||"Non renseigné"));parent.append(p)}
+function pill(value){return txt("span",value||"À qualifier","pill")}
+function eventKind(kind){const map={application_submitted:"Candidature envoyée (registre)",application_sent:"Envoi de candidature",application_received:"Accusé de réception",application_forwarded:"Candidature transmise",application_rejected:"Refus",application_delivery_failed:"Échec de livraison",delivery_failed:"Non-distribution",followup_sent:"Relance envoyée",followup_blocked:"Relance bloquée",email_confirmation_requested:"Confirmation de courriel demandée",application_status_update:"Mise à jour du dossier",application_contact_sent:"Contact envoyé"};return map[kind]||kind.replaceAll("_"," ")}
+function timeline(parent,events){parent.append(txt("h3","Historique et preuves ("+events.length+")"));if(!events.length){parent.append(txt("p","Aucun événement lié à ce dossier n'est enregistré dans la sélection de preuves.","muted"));return}
+ const wrap=txt("div","","timeline");
+ for(const ev of events){const section=txt("div","","event");section.append(txt("div",eventKind(ev.kind)+" · "+date(ev.at),"kind"));if(ev.summary)section.append(txt("div",ev.summary,"desc"));section.append(txt("div",[ev.source,ev.reference].filter(Boolean).join(" • "),"reference"));wrap.append(section)}
+ parent.append(wrap)
+}
+function appCard(a){const d=document.createElement("details");d.className="item";const s=document.createElement("summary");const left=txt("div");left.append(txt("div",a.company,"name"),txt("div",a.role,"role"));const meta=txt("div","","meta");meta.append(pill(a.status),txt("span",a.submitted_at?"Dépôt daté : "+date(a.submitted_at):"Aucune date de dépôt","small"));left.append(meta);s.append(left);d.append(s);
+ const b=txt("div","","body");const fields=txt("div","","fields");pair(fields,"Canal déclaré",a.channel);pair(fields,"Lieu",a.location);pair(fields,"Dernière mise à jour",date(a.updated_at));b.append(fields);
+ const links=txt("div","","links");for(const [label,u] of [["Voir l'annonce",a.offer_url],["Voir le CV référencé",a.cv_url],["Voir la lettre référencée",a.letter_url]]){const el=link(label,u);if(el)links.append(el)}if(links.childNodes.length)b.append(links);else b.append(txt("p","Aucun lien d'annonce ou de document exploitable enregistré.","muted"));
+ timeline(b,a.evidence||[]);d.append(b);return d}
+function leadCard(a){const d=document.createElement("details");d.className="item";const s=document.createElement("summary");const left=txt("div");left.append(txt("div",a.company,"name"),txt("div",a.role,"role"));const m=txt("div","","meta");m.append(pill(a.status),txt("span",date(a.created_at),"small"));left.append(m);s.append(left);d.append(s);
+ const b=txt("div","","body");const fields=txt("div","","fields");pair(fields,"Lieu",a.location);pair(fields,"Référence de l'offre",a.external_reference);pair(fields,"État de la fiche offre",a.offer_status);pair(fields,"Dernière vérification",date(a.verified_at));b.append(fields);const el=link("Ouvrir l'annonce",a.offer_url);if(el){const ls=txt("div","","links");ls.append(el);b.append(ls)}else b.append(txt("p","Aucun lien source exploitable.","muted"));d.append(b);return d}
+function taskCard(t){const d=document.createElement("details");d.className="item";const s=document.createElement("summary");const left=txt("div");left.append(txt("div",t.title,"name"),txt("div",t.company||"Action Career OS","role"));left.append(pill(t.status));s.append(left);d.append(s);const b=txt("div","","body");pair(b,"Échéance",date(t.due_at));const a=link(t.action_label||"Ouvrir l'action",t.action_url);if(a){const ls=txt("div","","links");ls.append(a);b.append(ls)}d.append(b);return d}
+function chooseItems(){return tab==="applications"?data.applications:tab==="leads"?data.leads:data.tasks}
+function renderList(){
+ if(!data)return;
+ const query=$("search").value.trim().toLocaleLowerCase("fr-FR");const filter=$("filter").value;
+ const items=chooseItems().filter(x=>{
+ const hay=[x.company,x.role,x.status,x.title,x.external_reference,x.channel,...(x.evidence||[]).map(y=>y.summary)].filter(Boolean).join(" ").toLocaleLowerCase("fr-FR");
+ if(query&&!hay.includes(query))return false;
+ if(tab!=="applications"||filter==="all")return true;
+ if(filter==="submitted")return !!x.submitted_at;
+ if(filter==="draft")return x.status==="draft";
+ if(filter==="followup")return x.evidence.some(e=>e.kind==="followup_sent");
+ if(filter==="failed")return /échec|non.distrib|refus|rejet|rejected/i.test(x.status)||x.evidence.some(e=>["application_delivery_failed","delivery_failed","application_rejected"].includes(e.kind));
+ return true;
+ });
+ $("count").textContent=items.length+" résultat(s) sur "+chooseItems().length;
+ const root=$("results");root.replaceChildren();for(const item of items)root.append(tab==="applications"?appCard(item):tab==="leads"?leadCard(item):taskCard(item));
+ if(!items.length)root.append(txt("p","Aucun résultat pour ces filtres.","empty"))
+}
+function showTab(next){tab=next;for(const b of document.querySelectorAll("[data-tab]"))b.setAttribute("aria-selected",String(b.dataset.tab===tab));
+ $("filter").hidden=tab!=="applications";$("filter").value="all";
+ $("tabinfo").textContent=tab==="applications"?"Ouvrez un dossier pour consulter les liens, documents, envois, relances et retours.":tab==="leads"?"Toutes les pistes recensées, avec lien source quand il existe. Leur présence ne prouve pas une candidature.":"Actions actives du registre Career OS, sans lancement automatique.";
+ renderList()}
 async function load(){
- if(!creds||!/^[a-f0-9-]{36}$/i.test(creds.id)||creds.token.length<32){$("status").className="error";$("status").textContent="Invitation absente ou incomplète. Ouvrez le lien personnel reçu par courriel, sans supprimer la partie #invite=.";return}
- $("refresh").disabled=true;$("status").className="muted";$("status").textContent="Actualisation des données…";
+ if(!credentials||!/^[0-9a-f-]{36}$/i.test(credentials.id)||credentials.token.length<32){$("notice").className="error";$("notice").textContent="Lien personnel incomplet : ouvrez le lien complet reçu par e-mail, avec la partie #invite=.";return}
+ $("refresh").disabled=true;$("notice").className="muted";$("notice").textContent="Lecture du registre Career Core…";
  try{
- const resp=await fetch(api,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(creds),cache:"no-store",mode:"cors",credentials:"omit"});
- const d=await resp.json();if(!resp.ok)throw Error(d.error||"Erreur du serveur");
- if(!d.totals||!Array.isArray(d.latest_leads)||!Array.isArray(d.recent_applications))throw Error("Réponse incomplète");
- for(const [key,value] of Object.entries({nleads:d.totals.leads,noffers:d.totals.offers,napps:d.totals.applications,nsent:d.totals.submitted_dated,ndrafts:d.totals.drafts}))$(key).textContent=Number(value||0).toLocaleString("fr-FR");
- populate("applications",d.recent_applications,"apps");populate("leads",d.latest_leads,"leads");
- $("updated").textContent="Mise à jour : "+new Date(d.generated_at).toLocaleString("fr-FR");
- $("status").textContent="Données chargées depuis Career Core.";$("dashboard").hidden=false;
- }catch(e){$("status").className="error";$("status").textContent=e.message==="invalid_or_expired_invite"?"Invitation non valide ou révoquée. Demandez un nouvel accès.":"Échec du chargement : "+String(e.message||e)}
+ const r=await fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(credentials),mode:"cors",cache:"no-store",credentials:"omit"});
+ const v=await r.json();if(!r.ok)throw Error(v.error||"Erreur du serveur");
+ if(!v.totals||!Array.isArray(v.applications)||!Array.isArray(v.leads)||!Array.isArray(v.tasks))throw Error("Données incomplètes");
+ data=v;for(const [id,n] of Object.entries({nleads:v.totals.leads,noffers:v.totals.offers,napps:v.totals.applications,nsent:v.totals.submitted_dated,ndrafts:v.totals.drafts,nfollowups:v.totals.followups}))$(id).textContent=Number(n||0).toLocaleString("fr-FR");
+ $("updated").textContent="Actualisé le "+date(v.generated_at);$("dashboard").hidden=false;$("notice").textContent="Données chargées.";renderList();
+ }catch(err){$("notice").className="error";$("notice").textContent="Impossible de charger le suivi : "+String(err.message||err)}
  finally{$("refresh").disabled=false}
 }
-$("refresh").addEventListener("click",load);load();
+for(const b of document.querySelectorAll("[data-tab]"))b.addEventListener("click",()=>showTab(b.dataset.tab));
+$("search").addEventListener("input",renderList);$("filter").addEventListener("change",renderList);$("refresh").addEventListener("click",load);load();
 </script></body></html>
