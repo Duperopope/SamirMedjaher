@@ -25,6 +25,16 @@ input{min-width:min(360px,100%);flex:1}a{color:var(--accent);text-decoration:und
 .fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:14px 0}.field{background:#17283a;border-radius:9px;padding:10px}.field b{display:block;font-size:12px;color:var(--muted);font-weight:600;margin-bottom:5px}.field span{overflow-wrap:anywhere}
 .links{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}.links a{padding:7px 10px;border:1px solid var(--border);border-radius:7px;text-decoration:none;font-size:13px}
 .timeline{border-left:2px solid var(--border);padding-left:15px;margin:14px 0}.event{position:relative;margin:15px 0}.event:before{content:"";position:absolute;left:-22px;top:7px;width:10px;height:10px;border-radius:50%;background:var(--accent)}.event .kind{font-weight:700}.event .desc{white-space:pre-wrap;overflow-wrap:anywhere}.event .reference{font-size:12px;color:var(--muted);overflow-wrap:anywhere}
+.mail{background:#e8eff7;color:#172b3d;border-radius:13px;border:1px solid #bfd1df;margin:16px 0;overflow:hidden}
+.mail-head{background:#d9e6f1;padding:15px 18px;border-bottom:1px solid #bdcfde}
+.mail-head strong{display:block;font-size:16px;color:#16344b}
+.mail-head p{font-size:13px;color:#3c5165;margin:4px 0}
+.mail-body{white-space:pre-wrap;overflow-wrap:anywhere;font:14px/1.65 system-ui,sans-serif;padding:18px 20px;max-height:900px;overflow-y:auto}
+.mail .attachments{margin:0;padding:12px 18px 17px;font-size:13px;color:#4b5a68}
+.item-toplink{margin:0 15px 14px;display:flex;gap:8px;align-items:center;justify-content:flex-start;flex-wrap:wrap}
+.item-toplink a{background:#1b4258;color:#fff;text-decoration:none;padding:8px 12px;font-weight:700;border-radius:8px;font-size:13px}
+.date-mark{color:var(--green);font-size:12px}
+.section-label{color:var(--accent);font-size:13px;font-weight:700;letter-spacing:.03em;margin-top:14px}
 .empty{padding:24px;color:var(--muted);border:1px dashed var(--border);border-radius:10px}.footnote{color:var(--muted);font-size:12px;line-height:1.5;margin:22px 0}
 @media(max-width:700px){main{padding:16px 12px 42px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.item summary{padding:12px}.name{font-size:15px}.panel{padding:12px}}
 </style></head><body><main>
@@ -49,7 +59,7 @@ input{min-width:min(360px,100%);flex:1}a{color:var(--accent);text-decoration:und
 </nav>
 <section class="panel" style="margin-top:14px">
 <div id="tabinfo" class="muted">Ouvrez un dossier pour voir le lien de l'annonce, les documents référencés, les envois, les relances et les retours enregistrés.</div>
-<div class="controls"><input id="search" type="search" placeholder="Rechercher entreprise, poste, statut, référence…" aria-label="Rechercher"><select id="filter" aria-label="Filtrer"><option value="all">Tous les dossiers</option><option value="submitted">Avec date de dépôt</option><option value="draft">Brouillons</option><option value="followup">Avec relance enregistrée</option><option value="failed">Échec de livraison ou refus</option></select></div>
+<div class="controls"><label for="sort" class="small">Classement :</label><select id="sort" aria-label="Trier les dossiers"><option value="recent">Plus récents en premier</option><option value="oldest">Plus anciens en premier</option><option value="company">Entreprise A–Z</option></select><input id="search" type="search" placeholder="Rechercher entreprise, poste, statut, référence…" aria-label="Rechercher"><select id="filter" aria-label="Filtrer"><option value="all">Tous les dossiers</option><option value="submitted">Avec date de dépôt</option><option value="draft">Brouillons</option><option value="followup">Avec relance enregistrée</option><option value="failed">Échec de livraison ou refus</option></select></div>
 <div class="count" id="count"></div><div id="results" class="list"></div>
 </section>
 </div>
@@ -73,11 +83,35 @@ function timeline(parent,events){parent.append(txt("h3","Historique et preuves (
  for(const ev of events){const section=txt("div","","event");section.append(txt("div",eventKind(ev.kind)+" · "+date(ev.at),"kind"));if(ev.summary)section.append(txt("div",ev.summary,"desc"));section.append(txt("div",[ev.source,ev.reference].filter(Boolean).join(" • "),"reference"));wrap.append(section)}
  parent.append(wrap)
 }
-function appCard(a){const d=document.createElement("details");d.className="item";const s=document.createElement("summary");const left=txt("div");left.append(txt("div",a.company,"name"),txt("div",a.role,"role"));const meta=txt("div","","meta");meta.append(pill(a.status),txt("span",a.submitted_at?"Dépôt daté : "+date(a.submitted_at):"Aucune date de dépôt","small"));left.append(meta);s.append(left);d.append(s);
+function mailCard(m){
+ const el=txt("article","","mail");
+ const head=txt("div","","mail-head");
+ head.append(txt("strong",m.subject||"Message sans objet"));
+ head.append(txt("p",(m.direction==="sent"?"Envoyé":"Reçu")+" le "+date(m.at)));
+ head.append(txt("p","De : "+(m.from||"Non renseigné")));
+ head.append(txt("p","À : "+((m.to||[]).join(", ")||"Non renseigné")));
+ el.append(head,txt("div",m.body||"Texte non disponible","mail-body"));
+ if((m.attachments||[]).length){
+  const a=txt("p","Pièces jointes : "+m.attachments.map(x=>x.name).join(", "),"attachments");el.append(a)
+ }
+ return el
+}
+function appCard(a){const d=document.createElement("details");d.className="item";const s=document.createElement("summary");const left=txt("div");left.append(txt("div",a.company,"name"),txt("div",a.role,"role"));const meta=txt("div","","meta");meta.append(pill(a.status),txt("span",a.submitted_at?"Dépôt daté : "+date(a.submitted_at):"Aucune date de dépôt","small"));meta.append(txt("span","Activité : "+date(a.last_activity_at),"date-mark"));left.append(meta);s.append(left);d.append(s);
+ const top=txt("div","","item-toplink");
+ const offer=link("Voir l'offre d'emploi",a.offer_url);
+ if(offer)top.append(offer);else top.append(txt("span","Lien d'offre absent du registre","small"));
+ d.append(top);
  const b=txt("div","","body");const fields=txt("div","","fields");pair(fields,"Canal déclaré",a.channel);pair(fields,"Lieu",a.location);pair(fields,"Dernière mise à jour",date(a.updated_at));b.append(fields);
  const links=txt("div","","links");for(const [label,u] of [["Voir l'annonce",a.offer_url],["Voir le CV référencé",a.cv_url],["Voir la lettre référencée",a.letter_url]]){const el=link(label,u);if(el)links.append(el)}if(links.childNodes.length)b.append(links);else b.append(txt("p","Aucun lien d'annonce ou de document exploitable enregistré.","muted"));
+ const messages=a.mail||[];
+ b.append(txt("h3","Messages envoyés et réponses ("+messages.length+")","section-label"));
+ if(messages.length){for(const m of messages)b.append(mailCard(m))}
+ else b.append(txt("p","Aucune copie intégrale de courriel retrouvée pour ce dossier. Les étapes ci-dessous sont des traces enregistrées, pas le texte d'un message.","muted"));
+ b.append(txt("h3","Étapes du recrutement","section-label"));
  timeline(b,a.evidence||[]);d.append(b);return d}
 function leadCard(a){const d=document.createElement("details");d.className="item";const s=document.createElement("summary");const left=txt("div");left.append(txt("div",a.company,"name"),txt("div",a.role,"role"));const m=txt("div","","meta");m.append(pill(a.status),txt("span",date(a.created_at),"small"));left.append(m);s.append(left);d.append(s);
+ const top=txt("div","","item-toplink");const offer=link("Voir l'offre d'emploi",a.offer_url);
+ if(offer)top.append(offer);else top.append(txt("span","Pas de lien d'offre","small"));d.append(top);
  const b=txt("div","","body");const fields=txt("div","","fields");pair(fields,"Lieu",a.location);pair(fields,"Référence de l'offre",a.external_reference);pair(fields,"État de la fiche offre",a.offer_status);pair(fields,"Dernière vérification",date(a.verified_at));b.append(fields);const el=link("Ouvrir l'annonce",a.offer_url);if(el){const ls=txt("div","","links");ls.append(el);b.append(ls)}else b.append(txt("p","Aucun lien source exploitable.","muted"));d.append(b);return d}
 function taskCard(t){const d=document.createElement("details");d.className="item";const s=document.createElement("summary");const left=txt("div");left.append(txt("div",t.title,"name"),txt("div",t.company||"Action Career OS","role"));left.append(pill(t.status));s.append(left);d.append(s);const b=txt("div","","body");pair(b,"Échéance",date(t.due_at));const a=link(t.action_label||"Ouvrir l'action",t.action_url);if(a){const ls=txt("div","","links");ls.append(a);b.append(ls)}d.append(b);return d}
 function chooseItems(){return tab==="applications"?data.applications:tab==="leads"?data.leads:data.tasks}
@@ -93,6 +127,12 @@ function renderList(){
  if(filter==="followup")return x.evidence.some(e=>e.kind==="followup_sent");
  if(filter==="failed")return /échec|non.distrib|refus|rejet|rejected/i.test(x.status)||x.evidence.some(e=>["application_delivery_failed","delivery_failed","application_rejected"].includes(e.kind));
  return true;
+ });
+ const sort=$("sort").value;
+ items.sort((a,b)=>{
+  if(sort==="company")return String(a.company||a.title||"").localeCompare(String(b.company||b.title||""),"fr");
+  const getTime=x=>Date.parse(x.last_activity_at||x.created_at||x.updated_at||x.due_at||"1970-01-01")||0;
+  return sort==="oldest"?getTime(a)-getTime(b):getTime(b)-getTime(a)
  });
  $("count").textContent=items.length+" résultat(s) sur "+chooseItems().length;
  const root=$("results");root.replaceChildren();for(const item of items)root.append(tab==="applications"?appCard(item):tab==="leads"?leadCard(item):taskCard(item));
@@ -115,5 +155,5 @@ async function load(){
  finally{$("refresh").disabled=false}
 }
 for(const b of document.querySelectorAll("[data-tab]"))b.addEventListener("click",()=>showTab(b.dataset.tab));
-$("search").addEventListener("input",renderList);$("filter").addEventListener("change",renderList);$("refresh").addEventListener("click",load);load();
+$("search").addEventListener("input",renderList);$("filter").addEventListener("change",renderList);$("sort").addEventListener("change",renderList);$("refresh").addEventListener("click",load);load();
 </script></body></html>
